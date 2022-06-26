@@ -1,0 +1,255 @@
+### GITHRD Project 요청 설계 ###
+
+
+# main 페이지 보기 요청
+요청내용	:	/www/ , /www/main.blp
+파라미터	:	무
+컨트롤러	:	com.githrd.www.controller.MainController
+처리함수	:	getMain()
+뷰			:	/WEB-INF/views/main.jsp
+
+--------------------------------------------------------------------------------
+### 회원관련 요청 설계
+# 로그인 폼 보기 요청
+요청내용	:	/www/member/login.blp
+파라미터	:	무 [ vw, nowPage ]
+컨트롤러	:	com.githrd.www.controller.Member
+처리함수	:	loginForm()
+뷰			:	/WEB-INF/views/member/login.jsp
+--------------------------------------------------------------------------------
+# 로그인 처리 요청
+요청내용	:	/www/member/loginProc.blp
+파라미터	:	id, pw
+컨트롤러	:	com.githrd.www.controller.Member
+처리함수	:	loginProc()
+뷰			:	redirect ]
+					성공 : /www/
+					실패 : /www/member/login.blp
+--------------------------------------------------------------------------------
+# 로그아웃 처리 요청
+요청내용	:	/www/member/logout.blp
+파라미터	:	무
+컨트롤러	:	com.githrd.www.controller.Member
+처리함수	:	logout()
+뷰			:	redirect ]	/www/
+--------------------------------------------------------------------------------
+# 회원가입 폼 보기 요청
+요청내용	:	/www/member/join.blp
+파라미터	:	무
+컨트롤러	:	com.githrd.www.controller.Member
+처리함수	:	joinForm()
+뷰			:	/WEB-INF/views/member/join.jsp
+--------------------------------------------------------------------------------
+# 아이디 체크 요청
+요청내용	:	/www/member/idCheck.blp
+파라미터	:	id
+컨트롤러	:	com.githrd.www.controller.Member
+처리함수	:	idCheck()
+뷰			:	json
+--------------------------------------------------------------------------------
+# 회원가입 처리 요청
+요청내용	:	/www/member/joinProc.blp
+파라미터	:	name, id, pw, mail, tel, ano, gen
+컨트롤러	:	com.githrd.www.controller.Member
+처리함수	:	joinProc()
+뷰			:	redirect ]
+					성공 : /www/
+					실패 : /www/member/join.blp
+--------------------------------------------------------------------------------
+# 회원 탈퇴 처리 요청
+요청내용	:	/www/member/delMember.blp
+파라미터	:	id
+컨트롤러	:	com.githrd.www.controller.Member
+처리함수	:	delMember()
+뷰			:	redirect ]
+					성공 : /www/
+					실패 : /www/member/myInfo.blp
+--------------------------------------------------------------------------------
+# 내 정보보기 요청
+요청내용	:	/www/member/myInfo.blp
+파라미터	:	id
+컨트롤러	:	com.githrd.www.controller.Member
+처리함수	:	myInfo()
+뷰			:	/WEB-INF/views/member/memberInfo.jsp
+--------------------------------------------------------------------------------
+# 내 정보 수정 폼보기 요청
+요청내용	:	/www/member/myInfoEdit.blp
+파라미터	:	id
+컨트롤러	:	com.githrd.www.controller.Member
+처리함수	:	myInfoEdit()
+뷰			:	/WEB-INF/views/member/editInfo.jsp
+--------------------------------------------------------------------------------
+# 내 정보 수정 처리 요청
+요청내용	:	/www/member/infoEditProc.blp
+파라미터	:	mno, pw, mail, tel, ano
+컨트롤러	:	com.githrd.www.controller.Member
+처리함수	:	infoEditProc()
+뷰			:	/WEB-INF/views/member/editInfo.jsp
+--------------------------------------------------------------------------------
+# 회원 정보보기 요청
+요청내용	:	/www/member/memberInfo.blp
+파라미터	:	mno
+컨트롤러	:	com.githrd.www.controller.Member
+처리함수	:	memberInfo()
+뷰			:	/WEB-INF/views/member/memberInfo.jsp
+--------------------------------------------------------------------------------
+# 회원 리스트 보기 요청
+요청내용	:	/www/member/memberList.blp
+파라미터	:	무
+컨트롤러	:	com.githrd.www.controller.Member
+처리함수	:	memberList()
+뷰			:	/WEB-INF/views/member/memberList.jsp
+--------------------------------------------------------------------------------
+
+================================================================================
+################ 방명록 관련 요청 설계 #########################################
+================================================================================
+# 방명록 리스트 보기 요청
+요청내용	:	/www/gBoard/gBoardList.blp
+파라미터	:	[nowPage]
+컨트롤러	:	com.githrd.www.controller.GuestBoard
+처리함수	:	gBoardList()
+뷰			:	/WEB-INF/views/gBoard/gBoardList.jsp
+--------------------------------------------------------------------------------
+# 방명록 글쓰기 폼 보기 요청
+요청내용	:	/www/gBoard/gBoardWrite.blp
+파라미터	:	nowPage
+컨트롤러	:	com.githrd.www.controller.GuestBoard
+처리함수	:	gBoardWrite()
+뷰			:	/WEB-INF/views/gBoard/gBoardWrite.jsp
+--------------------------------------------------------------------------------
+# 방명록 등록 처리 요청
+요청내용	:	/www/gBoard/gBoardWriteProc.blp
+파라미터	:	nowPage, mno, body
+컨트롤러	:	com.githrd.www.controller.GuestBoard
+처리함수	:	gBoardWriteProc()
+뷰			:	/WEB-INF/views/gBoard/redirect.jsp
+--------------------------------------------------------------------------------
+
+================================================================================
+################ 댓글 게시판 요청 설계 #########################################
+================================================================================
+# 댓글 게시판 리스트 보기 요청
+요청내용	:	/www/reBoard/reBoardList.blp
+파라미터	:	[nowPage]
+컨트롤러	:	com.githrd.www.controller.ReBoard
+처리함수	:	reBoardList()
+뷰			:	/WEB-INF/views/reBoard/reBoardList.jsp
+--------------------------------------------------------------------------------
+# 댓글 게시판 글 작성 폼 보기 요청
+요청내용	:	/www/reBoard/reBoardWrite.blp
+파라미터	:	nowPage, id
+컨트롤러	:	com.githrd.www.controller.ReBoard
+처리함수	:	reBoardWrite()
+뷰			:	/WEB-INF/views/reBoard/reBoardWrite.jsp
+--------------------------------------------------------------------------------
+# 댓글 게시판 글 등록 처리 요청
+요청내용	:	/www/reBoard/writeProc.blp
+파라미터	:	nowPage, mno, body
+컨트롤러	:	com.githrd.www.controller.ReBoard
+처리함수	:	writeProc()
+뷰			:	/WEB-INF/views/reBoard/redirect.jsp
+--------------------------------------------------------------------------------
+# 댓글 게시판 댓글 작성 폼 보기 요청
+요청내용	:	/www/reBoard/commentWrite.blp
+파라미터	:	nowPage, id, bno, vw
+컨트롤러	:	com.githrd.www.controller.ReBoard
+처리함수	:	commentWrite()
+뷰			:	/WEB-INF/views/reBoard/reBoardComment.jsp
+--------------------------------------------------------------------------------
+# 댓글 게시판 댓글 등록 처리 요청
+요청내용	:	/www/reBoard/commentProc.blp
+파라미터	:	nowPage, vw, id, mno, upno, body
+컨트롤러	:	com.githrd.www.controller.ReBoard
+처리함수	:	writeProc()
+뷰			:	/WEB-INF/views/reBoard/redirect.jsp
+--------------------------------------------------------------------------------
+# 댓글 게시판 글 수정 폼 보기 요청
+요청내용	:	/www/reBoard/reBoardEdit.blp
+파라미터	:	nowPage, vw, bno
+컨트롤러	:	com.githrd.www.controller.ReBoard
+처리함수	:	reBoardEdit()
+뷰			:	/WEB-INF/views/reBoard/reBoardEdit.jsp
+--------------------------------------------------------------------------------
+# 댓글 게시판 글 수정 처리 요청
+요청내용	:	/www/reBoard/editProc.blp
+파라미터	:	nowPage, vw, bno, body
+컨트롤러	:	com.githrd.www.controller.ReBoard
+처리함수	:	editProc()
+뷰			:	/WEB-INF/views/reBoard/redirect.jsp
+--------------------------------------------------------------------------------
+# 댓글 게시판 글 삭제 처리 요청
+요청내용	:	/www/reBoard/delReBoard.blp
+파라미터	:	nowPage, vw, bno
+컨트롤러	:	com.githrd.www.controller.ReBoard
+처리함수	:	delReBoard()
+뷰			:	/WEB-INF/views/reBoard/redirect.jsp
+--------------------------------------------------------------------------------
+
+================================================================================
+################ 설문 조사 요청 설계 #########################################
+================================================================================
+# 설문정보 폼 보기 요청
+요청내용	:	/www/survey/surveyInfo.blp
+파라미터	:	id
+컨트롤러	:	com.githrd.www.controller.Survey
+처리함수	:	surveyInfo()
+뷰			:	/WEB-INF/views/survey/surveyInfo.jsp
+--------------------------------------------------------------------------------
+# 설문조사 폼 보기 요청
+요청내용	:	/www/survey/survey.blp
+파라미터	:	id, sino, title
+컨트롤러	:	com.githrd.www.controller.Survey
+처리함수	:	survey()
+뷰			:	/WEB-INF/views/survey/survey.jsp
+--------------------------------------------------------------------------------
+# 설문조사 입력 처리 요청
+요청내용	:	/www/survey/surveyProc.blp
+파라미터	:	id, sino, title, dap[]
+컨트롤러	:	com.githrd.www.controller.Survey
+처리함수	:	surveyProc()
+뷰			:	/WEB-INF/views/survey/survey.jsp
+--------------------------------------------------------------------------------
+# 설문조사 결과 폼 보기 요청
+요청내용	:	/www/survey/surveyResult.blp
+파라미터	:	id, sino, title
+컨트롤러	:	com.githrd.www.controller.Survey
+처리함수	:	surveyResult()
+뷰			:	/WEB-INF/views/survey/surveyResult.jsp
+--------------------------------------------------------------------------------
+
+================================================================================
+################ 파일 게시판 요청 설계 #########################################
+================================================================================
+# 게시판 리스트 폼 보기 요청
+요청내용	:	/www/board/boardList.blp
+파라미터	:	[nowPage]
+컨트롤러	:	com.githrd.www.controller.Board
+처리함수	:	boardList()
+뷰			:	/WEB-INF/views/board/boardList.jsp
+--------------------------------------------------------------------------------
+# 게시판 게시글 상세 보기 요청
+요청내용	:	/www/board/boardDetail.blp
+파라미터	:	nowPage, bno
+컨트롤러	:	com.githrd.www.controller.Board
+처리함수	:	boardDetail()
+뷰			:	/WEB-INF/views/board/boardDetail.jsp
+--------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
