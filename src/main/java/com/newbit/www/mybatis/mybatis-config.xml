@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+			"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="false" />
+		<setting name="useGeneratedKeys" value="true" />
+		<setting name="defaultExecutorType" value="REUSE" />
+	</settings>
+	
+	<typeAliases>
+		<typeAlias alias="mVO" type="com.newbit.www.vo.MemberVO" />
+		<typeAlias alias="bVO" type="com.newbit.www.vo.BoardVO" />
+		<typeAlias alias="fVO" type="com.newbit.www.vo.FileVO" />
+		<typeAlias alias="sVO" type="com.newbit.www.vo.SurveyVO" />
+		<typeAlias alias="page" type="com.newbit.www.util.PageUtil" />
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="com/newbit/www/sql/MemberSQL.xml" />
+		<mapper resource="com/newbit/www/sql/GBoardSQL.xml" />
+		<mapper resource="com/newbit/www/sql/ReBoardSQL.xml" />
+		<mapper resource="com/newbit/www/sql/SurveySQL.xml" />
+		<mapper resource="com/newbit/www/sql/BoardSQL.xml" />
+	</mappers>
+</configuration>

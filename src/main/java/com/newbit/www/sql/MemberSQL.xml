@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mSQL">
+<!-- 
+	namespace 란?
+		이 파일과 같은 xml 파일이 여러개 존재하는 경우
+		이것을 구분해 줘야 한다.
+		이처럼 SQL 파일을 구분할 목적으로 해당 파일에 별칭을 붙이는 방법
+		namespace 속성이다.
+		
+		***
+		각각의 SQL xml 파일 마다 namespace 값은 반드시 유일해야 한다.
+		
+		지정하는 방법
+			1. 일반 문자 지정방법
+				==> mSQL
+			2. 패키지 형태로 지정하는 방법
+				==> com.githrd.www.member.???
+				
+=================================================================================
+	
+	이 파일은 데이터베이스에 보낼 질의 명령을 저장할 파일이다.
+	따라서 
+	이 안에다 SQL 문을 하나씩 작성해 나가면 된다.
+	
+	문제는 지금 사용하는 문서는 xml 문서다.
+	그래서 반드시 하위 태그가 존재한다.
+	
+	질의명령에 따라 사용되는 태그
+	
+		<select>, <insert>, <update>, <delete>, <sql>
+		
+=================================================================================
+	
+	각각의 질의 명령 태그에는 필수 속성이 있다.
+		***
+		id="???"
+		==> 이 파일에는 여러개의 질의명령을 작성할 예정이다.
+			이때 각각의 질의명령을 구분할 수 있어야 한다.
+			JSP 프로젝트에서 질의명령을 구분할 때 상수로 구분했던것과 동일한 이유이다.
+			각각의 질의 명령을 구분할 목적으로 사용하는 속성이
+				id="???" 
+			이다. 
+		
+		보조속성(선택 속성)
+			1. resultType
+				==> 질의명령의 결과가 어떤 데이터 형태로 나올지 지정하는 속성
+					
+					주의사항 ]
+						질의명령의 결과가 여러줄(다중행)로 나오더라도 한 행만 생각하고
+						그것을 어떤 데이터 형태로 받을지 지정하는 것.
+						
+						
+				예 ]
+					SELECT
+						mno
+					FROM
+						member
+					==> 이 경우 데이터가 저장되어있는 만큼 여러줄의 데이터가 조회될 것이다.
+						이때 한행의 결과는 회원번호 하나이므로
+							resultType 은 int 가 된다.
+							
+			2. parameterType
+			==> 질의명령에 ? 가 존재할 경우 ?를 채울 데이터 형태를 지정하는 것
+				
+				문제는 
+					? 가 여러개 존재하더라도 parameterType은 하나만 지정할 수 있다.
+				따라서 ? 가 여러개 존재한다면 그 여러개 모두를 기억할 수 있는 데이터 타입을 지정해야 한다.
+				
+				정리 ]
+					?가 두개 이상 존재할 경우에는
+					VO(Value Object)클래스 를 이용해서 데이터를 채우도록 하면 편리할 것이다.
+					
+		참고 ]
+			resultType, parameterType을 지정하는 경우에는
+			풀 패키지 경로를 사용하는 것이 원칙이다.
+			예 ]
+				MemberVO 를 사용할 경우
+				==> com.githrd.www.vo.MemberVO
+				로 사용하는 것이 원칙이지만 이렇게 사용하면 코드가 길어져서 불편할 것이다.
+				
+				해결방법 ]
+					1. myBatis 에서 줄여준 것(주로 많이 사용하는 데이터 형태)
+						을 사용하면 된다.
+						
+					2. 사용자가 직접 별칭을 부여해서 사용하는 방법
+						myBatis 환경설정파일(mybatis-config.xml)에서
+						<typeAlias>를 지정해서 사용하면 된다.
+						
+=======================================================================================
+	myBatis에서는 채울 데이터는(매개변수) ? 로 처리하지 않는다.
+	
+	형식 ]
+		#{변수이름}
+		
+		이때 변수이름의 규칙
+		1.  VO를 이용하는 경우 getXXX()의 XXX 이름으로 지정하면 된다.
+			(첫글자는 소문자로 강제 지정한다.)
+			예를 들어 VO 에 id를 제공하는 함수가
+			 	getId()로 만들어져 있다면
+			 	#{id}
+			 	getPw() 라면
+			 	#{pw}
+			 	
+			 	
+		장점 ]
+			순서에 관계없이 자신이 알아서  get함수를 이용해서
+			필요한 데이터를 꺼내서 셋팅해주게 된다.
+				
+ -->
+	
+	<!-- 
+		질의명령을 작성하다보면 중복되는 질의명령이 생겨나게 된다.
+		이때 중복되는 질의명령을 한번만 작성하고
+		작성된 질의명령을 가져다 사용하는 방법을 mybatis에서 제공하고 있다.
+		
+		형식 ]
+			
+			중복되는 질의명령 부분
+				
+				<sql id="?????">
+					중복되는 질의명령
+				</sql>
+				
+			사용하는 부분
+				<include refid="???" />
+	 -->
+	 
+	<!--  자주 사용하는 내용은 한번만 만들어서 재사용하자. -->
+	<sql id="selCnt">
+		SELECT
+			COUNT(*)
+		FROM
+			member
+		WHERE
+			id = 
+	</sql>
+	
+	<select id="login" resultType="int" parameterType="mVO">
+		<include refid="selCnt" />#{id}
+			AND isshow = 'Y'
+			AND pw = #{pw}
+	</select>
+	
+	<select id="idCnt" resultType="int" parameterType="string">
+		<include refid="selCnt" />#{id}
+	</select>
+	
+	<select id="avtList" resultType="mVO">
+		SELECT
+		    ano, savename, gen
+		FROM
+		    avatar
+		WHERE
+		    gen IN ('M', 'F')
+		    AND isshow = 'Y'
+	</select>
+	
+	<select id="genAvtList" resultType="mVO" parameterType="string">
+		SELECT
+		    ano, savename
+		FROM
+		    avatar
+		WHERE
+		    gen = (
+		    	SELECT
+		    		gen
+		    	FROM
+		    		member
+		    	WHERE
+		    		id = #{id}
+		    )
+		    AND isshow = 'Y'
+	</select>
+	
+	<!-- 정보조회 중복 질의명령 부분 -->
+	<sql id="selInfo">
+		SELECT
+			mno, name, id, mail, tel, m.gen, joindate jdate, ano, savename
+		FROM
+			member m, avatar a
+		WHERE
+			avt = ano
+	</sql>
+	
+	<!-- 회원 정보조회 질의명령 -->
+	<select id="getIdInfo" resultType="mVO" parameterType="string">
+		<include refid="selInfo" />
+			AND id = #{id}
+	</select>
+	
+	<select id="getMnoInfo" resultType="mVO" parameterType="int">
+		<include refid="selInfo" />
+			AND mno = #{mno}
+	</select>
+	
+	<update id="delMember" parameterType="string">
+		UPDATE
+			member
+		SET
+			isshow = 'N'
+		WHERE
+			id = #{id}
+	</update>
+	
+	<!-- 회원 리스트 조회 질의명령 -->
+	<select id="memberList" resultType="mVO">
+		SELECT
+			mno, name
+		FROM
+			member
+		WHERE
+			isshow = 'Y'
+	</select>
+	
+	<insert id="addMember" parameterType="mVO">
+		<selectKey keyProperty="mno" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(mno) + 1, 1001) FROM member
+		</selectKey>
+		INSERT INTO
+		    member(mno, name, id, pw, mail, tel, gen, avt)
+		VALUES(
+		    #{mno}, #{name}, #{id}, #{pw}, #{mail}, #{tel}, #{gen}, #{ano}
+		)
+	</insert>
+	
+	<update id="editInfo" parameterType="mVO">
+		UPDATE
+			member
+		<set>
+			<if test="pw neq null">
+				pw = #{pw},
+			</if>
+			<if test="mail neq null">
+				mail = #{mail},
+			</if>
+			<if test="tel neq null">
+				tel = #{tel},
+			</if>
+			<if test="ano neq 0">
+				avt = #{ano},
+			</if>
+		</set>
+<!--  
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="pw neq null">
+				pw = #{pw},
+			</if>
+			<if test="mail neq null">
+				mail = #{mail},
+			</if>
+			<if test="tel neq null">
+				tel = #{tel},
+			</if>
+			<if test="ano neq 0">
+				avt = #{ano},
+			</if>
+		</trim>
+-->
+		WHERE
+			mno = #{mno}
+	</update>
+	
+</mapper>

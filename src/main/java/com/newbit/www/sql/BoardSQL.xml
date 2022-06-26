@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bSQL">
+	<select id="getTotal" resultType="int">
+		SELECT
+		    COUNT(*)
+		FROM
+		    board
+		WHERE
+		    isshow = 'Y'
+	</select>
+	
+	<select id="getList" resultType="bVO" parameterType="page">
+		SELECT
+		    bno, id, title, sdate, click, cnt
+		FROM
+		    (
+		        SELECT
+		            ROWNUM rno, bno, id, title, sdate, click, cnt
+		        FROM
+		            (
+		                SELECT
+		                    bno, id, title, TO_CHAR(wdate, 'yyyy/MM/dd') sdate, click, cnt
+		                FROM
+		                    board, member,
+		                    (
+		                        SELECT
+		                            bno fbno, NVL(COUNT(fno), 0) cnt
+		                        FROM
+		                            board, fileInfo
+		                        WHERE
+		                            bno = fbno(+)
+		                        GROUP BY
+		                            bno
+		                    )
+		                WHERE
+		                    bno = fbno
+		                    AND bmno = mno
+		                    AND board.isshow = 'Y'
+		                ORDER BY
+		                    bno DESC
+		            )
+		    )
+		WHERE
+		    rno BETWEEN #{startCont} AND #{endCont}
+	</select>
+	
+	<!-- 글번호로 게시글 내용 조회 질의명령 -->
+	<select id="boardDetail" resultType="bVO" parameterType="int">
+		SELECT
+		    bno, id, title, body, wdate
+		FROM
+		    board b, member m
+		WHERE
+		    bmno = mno
+		    AND b.isshow = 'Y'
+		    AND bno = #{bno}
+	</select>
+	
+	<!-- 글번호로 첨부파일 리스트 조회 질의명령 -->
+	<select id="fileList" resultType="fVO" parameterType="int">
+		SELECT
+		    savename, dir
+		FROM
+		    fileinfo
+		WHERE
+		    isshow = 'Y'
+		    AND fbno = #{bno}
+	</select>
+</mapper>
