@@ -34,11 +34,16 @@ $(document).ready(function(){
 			}
 		});
 	});
-	
 
-	
+	// 로그인
 	$('#lbtn').click(function(){
 		$(location).attr('href', '/www/account/login.nbs');
 	});
+
+	// 로그아웃
+	$('#obtn').click(function(){
+		$(location).attr('href', '/www/account/logout.nbs');
+	});
+	
 	
 });

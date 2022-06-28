@@ -19,16 +19,16 @@
 		</layout>
 	</appender>
 	
-	<!-- Member Appender -->
-	<appender name="memberAppender" class="org.apache.log4j.FileAppender">
-		<param name="File" value="${catalina.base}/src/main/resources/log/member.log" />
+	<!-- account Appender -->
+	<appender name="accountAppender" class="org.apache.log4j.FileAppender">
+		<param name="File" value="${catalina.base}/src/main/resources/log/account.log" />
 		<param name="Append" value="true" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%-5p - %d{yyyy/MM/dd} : %m%n" />
 		</layout>
 	</appender>
-	
-	<!-- 설문조사 로그 어팬더 -->
+	<!-- 
+	 설문조사 로그 어팬더 
 	<appender name="surveyLog" class="org.apache.log4j.FileAppender">
 		<param name="File" value="${catalina.base}/src/main/resources/log/survey.log" />
 		<param name="Append" value="true" />
@@ -36,21 +36,21 @@
 			<param name="ConversionPattern" value="%-5p - %d{yyyy/MM/dd} : %m%n" />
 		</layout>
 	</appender>
-	
+	 -->
 	<!-- Application Loggers -->
-	<logger name="com.githrd.www">
+	<logger name="com.newbit.www">
 		<level value="info" />
 		<appender-ref ref="file" /> <!-- 3. -->
 	</logger>
-	
+	<!-- 
 	<logger name="surveyLog">
 		<level value="info" />
-		<appender-ref ref="surveyLog" /> <!-- 3. -->
+		<appender-ref ref="surveyLog" /> 3.
 	</logger>
-	
-	<logger name="memberLog">
+	 -->
+	<logger name="accountLog">
 		<level value="info" />
-		<appender-ref ref="memberAppender" /> <!-- 3. -->
+		<appender-ref ref="accountAppender" /> <!-- 3. -->
 	</logger>
 	
 	<!-- 3rdparty Loggers -->

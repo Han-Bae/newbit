@@ -15,7 +15,7 @@
 $(document).ready(function(){
 	// 회원가입 이동
 	$("#join").click(function(){
-		$(location).attr('href','/viseo/member/joinForm.blp');
+		$(location).attr('href','/viseo/member/joinForm.nbs');
 	});
 	
 	// 쿠키값이 있으면 받아와서 id값으로 설정하고 

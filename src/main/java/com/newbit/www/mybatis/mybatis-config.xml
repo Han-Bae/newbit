@@ -10,18 +10,11 @@
 	</settings>
 	
 	<typeAliases>
-		<typeAlias alias="mVO" type="com.newbit.www.vo.MemberVO" />
-		<typeAlias alias="bVO" type="com.newbit.www.vo.BoardVO" />
-		<typeAlias alias="fVO" type="com.newbit.www.vo.FileVO" />
-		<typeAlias alias="sVO" type="com.newbit.www.vo.SurveyVO" />
+		<typeAlias alias="aVO" type="com.newbit.www.vo.AccountVO" />
 		<typeAlias alias="page" type="com.newbit.www.util.PageUtil" />
 	</typeAliases>
 	
 	<mappers>
-		<mapper resource="com/newbit/www/sql/MemberSQL.xml" />
-		<mapper resource="com/newbit/www/sql/GBoardSQL.xml" />
-		<mapper resource="com/newbit/www/sql/ReBoardSQL.xml" />
-		<mapper resource="com/newbit/www/sql/SurveySQL.xml" />
-		<mapper resource="com/newbit/www/sql/BoardSQL.xml" />
+		<mapper resource="com/newbit/www/sql/AccountSQL.xml" />
 	</mappers>
 </configuration>

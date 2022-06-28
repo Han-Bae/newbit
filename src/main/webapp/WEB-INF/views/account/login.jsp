@@ -19,7 +19,7 @@
     <meta name="generator" content="Hugo 0.84.0">
 	<title>NewBit Login</title>
 
-
+	<link rel="icon" type="image/png" sizes="32x32" href="/www/img/favicon/favicon.ico">
 	<link rel="stylesheet" type="text/css" href="/www/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="/www/css/signin.css">
 	<script type="text/javascript" src="/www/js/jquery-3.6.0.min.js"></script>
@@ -78,20 +78,12 @@
     .sub{
     	font-size: 0.8rem;		
       }
-    .logoBtn{
-    	  float: left; 
-    	  width: 80px;
-    	  height:40px;
-    	  background-image: url(/www/img/logo.png);
-    	  background-size: cover;
-    	  border: 0px;
-    	  margin-left: 5px;
-    	  margin-top: 5px;
-    }
     #rpwmsg{
     	margin-top: 10px;
     	text-align: right;
     	font-size: 10pt;
+    }
+    .modal-title{
     }
     </style>
 
@@ -101,7 +93,7 @@
     <body class="text-center">
     	<%-- 로그인화면  --%>
 		<main class="form-signin">
-			  <form method="post" id="loginFrm" action="/viseo/member/loginProc.blp" class="frm">
+			  <form method="post" id="loginFrm" action="/www/account/loginProc.nbs" class="frm">
 			    <img class="mb-4" src="/www/img/logo.png" alt="" style="height:80px; width:auto;">
 			    <div class="form-floating">
 			      <input type="text" name="id" class="form-control" id="id" title="숫자, 대소문자 4~10글자로 입력해주세요."
@@ -110,7 +102,7 @@
 			    </div>
 			    <div class="form-floating">
 			      <input type="password" name="pw" class="form-control" id="pw" title="숫자, 대소문자, 특문을 포함한 6~15자로 입력해주세요."
-			      	pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,15}$" placeholder="비밀번호를 입력하세요" required>
+			      	pattern="^(?=.*[a-zA-Z])(?=.*[0-9]).{6,15}$" placeholder="비밀번호를 입력하세요" required>
 			      <label for="pw">Password</label>
 			    </div>			
 			    <div class="checkbox mb-3">
@@ -132,8 +124,7 @@
 		</main>
 			  <footer>
 			  	<div>
-					<a href="https://pixabay.com/ko/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=428293">&copy; Pixabay</a>로부터 입수된 <a href=
-					"https://pixabay.com/ko/users/jarmoluk-143740/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=428293">Michal Jarmoluk</a>님의 이미지 입니다.
+					
 			  	</div>
 			  </footer>
 	<c:if test="${not empty status}">
@@ -143,14 +134,16 @@
 	<div class="modal" id="fid">		  
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
-	      <button type="button" data-dismiss="modal" class="logoBtn"></button>
 	      <div class="modal-header">
+			<pre>
+			
+			</pre>
 	        <div class="modal-title">아이디 찾기</div>
 	        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true"></span>
 	        </button>
 	      </div>
-     	<form method="post" id="fidFrm" action="/viseo/member/findID.blp" class="frm">
+     	<form method="post" id="fidFrm" action="/www/account/findID.blp" class="frm">
 	      <div class="modal-body">
 			    <div class="form-floating" style="margin-bottom: 10px">
 			      <input type="text" name="fidName" class="form-control" id="fidName" placeholder="이름을 입력하세요." required autofocus>
@@ -174,14 +167,13 @@
 	<div class="modal" id="fpw">		  
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
-	      <button type="button" data-dismiss="modal" class="logoBtn"></button>
 	      <div class="modal-header">
 	        <div class="modal-title">비밀번호 찾기</div>
 	        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true"></span>
 	        </button>
 	      </div>
-      	<form method="post" id="fpwFrm" action="/viseo/member/findPW.blp"  class="frm">
+      	<form method="post" id="fpwFrm" action="/www/account/findPW.blp"  class="frm">
 	      <div class="modal-body">
 			    <div class="form-floating" style="margin-bottom: 10px">
 			      <input type="text" name="fpwId" class="form-control" id="fpwId" title="숫자, 대소문자 4~10글자로 입력해주세요."
@@ -206,14 +198,13 @@
 	<div class="modal" id="rpwmd">		  
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
-	      <button type="button" data-dismiss="modal" class="logoBtn"></button>
 	      <div class="modal-header">
 	        <div class="modal-title">비밀번호 재설정</div>
 	        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true"></span>
 	        </button>
 	      </div>
-     	<form id="rpwFrm" class="frm" action="/viseo/member/rePW.blp">
+     	<form id="rpwFrm" class="frm" action="/www/account/rePW.blp">
 	      <div class="modal-body">
 			    <div class="form-floating" style="margin-bottom: 10px">
 			      <input type="password" name="rpw" class="form-control" id="rpw" title="숫자, 대소문자, 특문을 포함한 6~15자로 입력해주세요."
