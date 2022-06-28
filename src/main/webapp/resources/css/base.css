@@ -154,7 +154,7 @@
 	    left: 0;
 	    right: 0;
 	    bottom: 0;
-	    background-image: url(../resource/icon/calendar.jpg);
+	    background-image: url(/www/img/back.jpg);
 	    background-size: cover;
 	    -webkit-filter: blur(3px); 
 	    -moz-filter: blur(3px); 
