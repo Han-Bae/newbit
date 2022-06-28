@@ -20,11 +20,11 @@
 	<title>NewBit Login</title>
 
 
-	<link rel="stylesheet" type="text/css" href="/viseo/resource/css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="/viseo/resource/css/signin.css">
-	<script type="text/javascript" src="/viseo/resource/js/jquery-3.6.0.min.js"></script>
-	<script type="text/javascript" src="/viseo/resource/js/bootstrap.js"></script>
-	<script type="text/javascript" src="/viseo/resource/js/login.js"></script>
+	<link rel="stylesheet" type="text/css" href="/www/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="/www/css/signin.css">
+	<script type="text/javascript" src="/www/js/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript" src="/www/js/bootstrap.js"></script>
+	<script type="text/javascript" src="/www/js/login.js"></script>
     <!-- Bootstrap core CSS -->
 
 
@@ -50,7 +50,7 @@
 	    left: 0;
 	    right: 0;
 	    bottom: 0;
-	    background-image: url(../resource/icon/calendar.jpg);
+	    background-image: url(/www/img/back.jpg);
 	    background-size: cover;
 	    -webkit-filter: blur(3px); 
 	    -moz-filter: blur(3px); 
@@ -82,7 +82,7 @@
     	  float: left; 
     	  width: 80px;
     	  height:40px;
-    	  background-image: url(../resource/icon/logo.png);
+    	  background-image: url(/www/img/logo.png);
     	  background-size: cover;
     	  border: 0px;
     	  margin-left: 5px;
@@ -102,7 +102,7 @@
     	<%-- 로그인화면  --%>
 		<main class="form-signin">
 			  <form method="post" id="loginFrm" action="/viseo/member/loginProc.blp" class="frm">
-			    <img class="mb-4" src="../resource/icon/logo.png" alt="" style="height:80px; width:auto;">
+			    <img class="mb-4" src="/www/img/logo.png" alt="" style="height:80px; width:auto;">
 			    <div class="form-floating">
 			      <input type="text" name="id" class="form-control" id="id" title="숫자, 대소문자 4~10글자로 입력해주세요."
 			      	pattern="^([A-Za-z0-9]){4,10}$" placeholder="아이디를 입력하세요" required autofocus>

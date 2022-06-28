@@ -31,7 +31,7 @@
 	margin-left: 10px;
 }
 
-/* 너비 */
+/* �꼫鍮� */
 .p50 {
 	width: 50%;
 }
@@ -46,27 +46,10 @@
 .ml10 {
 	margin-left: 10px;
 }
-.mb0 {
-	margin-bottom: 0px;
-}
 .mb5 {
 	margin-bottom: 5px;
 }
-
-.mgv0 {
-	margin-top: 0px;
-	margin-bottom: 0px;
-}
 /* padding */
-.pdh20 {
-	padding-left: 20px;
-	padding-right: 20px;
-}
-.pdh2780 {
-	padding-left: 27px;
-	padding-right: 80px;
-}
-
 .pd10 {
 	padding: 10px;
 }
@@ -77,53 +60,44 @@
 .pdl10  {
 	padding-left: 10px;
 }
-.pdl20  {
-	padding-left: 20px;
-}
-.pdl25  {
-	padding-left: 25px;
-}
-.pdl30  {
-	padding-left: 30px;
-}
 .pdr10  {
 	padding-right: 10px;
 }
 
-/* 칼라 */
+/* 移쇰씪 */
 .blue {
 	background-color: #2196F3;
 	/*
-		16진수 칼라표기법
+		16吏꾩닔 移쇰씪�몴湲곕쾿
 		
-		16진수 코드를 여섯개를 나열해서 표현하는 방법
+		16吏꾩닔 肄붾뱶瑜� �뿬�꽢媛쒕�� �굹�뿴�빐�꽌 �몴�쁽�븯�뒗 諛⑸쾿
 			
-			앞 두자리 : 빨강
-			중간 두자리 : 초록
-			뒤 두자리 : 파랑
+			�븵 �몢�옄由� : 鍮④컯
+			以묎컙 �몢�옄由� : 珥덈줉
+			�뮘 �몢�옄由� : �뙆�옉
 			
 			0 ~ 9
 			10 ~ 15 :  a,  b,  c,  d,  e,  f
 					  10, 11, 12, 13, 14, 15
-			로 표현한다.
+			濡� �몴�쁽�븳�떎.
 			
-			예 ]
+			�삁 ]
 				red : #ff0000
 				blue : #0000ff
-				==> 이때 대소문자는 구분하지 않는다.
+				==> �씠�븣 ���냼臾몄옄�뒗 援щ텇�븯吏� �븡�뒗�떎.
 			
 			
-		rgb[a] 숫자로 표현
+		rgb[a] �닽�옄濡� �몴�쁽
 			
-			==> 0 ~ 255 사이의 숫자를 세개를 나열해서 표현하는 방식
-				맨 뒤의 알파값은 생략할 수도 있는데
-				생략하면 투명도가 불투명하게 된다.
-				사용하는 값은 0 ~ 1 사이의 실수로 표현한다.
-				1로 갈수록 불투명해진다.
+			==> 0 ~ 255 �궗�씠�쓽 �닽�옄瑜� �꽭媛쒕�� �굹�뿴�빐�꽌 �몴�쁽�븯�뒗 諛⑹떇
+				留� �뮘�쓽 �븣�뙆媛믪� �깮�왂�븷 �닔�룄 �엳�뒗�뜲
+				�깮�왂�븯硫� �닾紐낅룄媛� 遺덊닾紐낇븯寃� �맂�떎.
+				�궗�슜�븯�뒗 媛믪� 0 ~ 1 �궗�씠�쓽 �떎�닔濡� �몴�쁽�븳�떎.
+				1濡� 媛덉닔濡� 遺덊닾紐낇빐吏꾨떎.
 				
-				예 ]
+				�삁 ]
 					red : rgb(255, 0, 0)
-					투명도가 반쯤 있는 빨강의 경우는
+					�닾紐낅룄媛� 諛섏�� �엳�뒗 鍮④컯�쓽 寃쎌슦�뒗
 						 rgba(255, 0, 0, 0.5)
 				
 	*/
@@ -140,12 +114,9 @@
 .indigo {
 	background-color: #3f51b5;
 }
-/* 가로사이즈 */
+/* 媛�濡쒖궗�씠利� */
 .w50 {
 	width: 50px;
-}
-.w70 {
-	width: 70px;
 }
 .w100 {
 	width: 100px;
@@ -163,7 +134,7 @@
 	width: 200px;
 }
 
-/* 아바타 관련 클래스 */
+/* �븘諛뷀� 愿��젴 �겢�옒�뒪 */
 .avtbox {
 	width: 148px;
 	height: 148px;
@@ -175,16 +146,25 @@
 	height: auto;
 }
 
-/* 텍스트 위치 */
-.posRtvBt2 {
-	position: relative;
-	bottom: 2px;
-}
-.posRtvBt10 {
-	position: relative;
-	bottom: 10px;
-}
 
+	body	{ overflow: auto;}
+	body::before {
+	    position: fixed;
+	    top: 0;
+	    left: 0;
+	    right: 0;
+	    bottom: 0;
+	    background-image: url(../resource/icon/calendar.jpg);
+	    background-size: cover;
+	    -webkit-filter: blur(3px); 
+	    -moz-filter: blur(3px); 
+	    -o-filter: blur(3px); 
+	    -ms-filter: blur(3px); 
+	    filter: blur(5px);
+	    transform: scale(1.02);
+	    z-index: -1; 
+	    content: "";
+	}
 
 
 
