@@ -10,14 +10,6 @@
 		</layout>
 	</appender>
 	
-	<!-- 2. file appender -->
-	<appender name="file" class="org.apache.log4j.FileAppender">
-		<param name="File" value="${catalina.base}/src/main/resources/log/log.log" />
-		<param name="Append" value="true" />
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%-5p [ %d ]: %c - %m%n" />
-		</layout>
-	</appender>
 	
 	<!-- account Appender -->
 	<appender name="accountAppender" class="org.apache.log4j.FileAppender">

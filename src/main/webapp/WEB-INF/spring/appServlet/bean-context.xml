@@ -14,6 +14,6 @@
 	<bean id="aDao" class="com.newbit.www.dao.AccountDao" />
 	
 	<!-- 서비스 클래스 빈처리 -->
-	<bean id="sSrvc" class="com.newbit.www.service.SurveyService" />
+	<bean id="lSrc" class="com.easy.web.service.LogService" />
 	
 </beans>

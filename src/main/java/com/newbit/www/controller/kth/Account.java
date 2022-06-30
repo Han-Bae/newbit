@@ -4,12 +4,10 @@ import java.util.*;
 
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
-import org.springframework.web.servlet.view.*;
 
 import com.newbit.www.dao.*;
 import com.newbit.www.vo.AccountVO;
@@ -17,7 +15,6 @@ import com.newbit.www.vo.AccountVO;
 @Controller
 @RequestMapping("/account")
 public class Account {
-	private static final Logger accountLog = LoggerFactory.getLogger("accountLog");
 	
 	@Autowired
 	AccountDao aDao;
@@ -40,7 +37,6 @@ public class Account {
 				// 아이디와 비밀번호가 일치하는
 				// 회원이 있는 경우 -> 로그인 처리
 				session.setAttribute("SID", aVO.getId());
-				//accountLog.info(aVO.getId() + "님이 로그인했습니다.");
 				mv.addObject("icon", "success");
 				mv.addObject("title", "로그인 성공!");
 				mv.addObject("msg", aVO.getId()+"님 어서오세요.");
