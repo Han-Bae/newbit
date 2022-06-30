@@ -19,7 +19,10 @@
 	
 <style>
 	
-	body{ overflow: auto;}
+	body{
+		overflow: auto;
+		font-family: 'necleo';
+		}
 	body::before {
 	    position: fixed;
 	    top: 0;

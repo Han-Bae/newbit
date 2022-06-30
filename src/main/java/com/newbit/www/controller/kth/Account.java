@@ -62,4 +62,9 @@ public class Account {
 		mv.setViewName("main");
 		return mv;
 	}
+	
+	@RequestMapping("/findID.nbs")
+	public ModelAndView findID(ModelAndView mv) {
+		return mv;
+	}
 }

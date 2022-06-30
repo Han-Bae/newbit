@@ -45,6 +45,7 @@
 
 	body	{
 		overflow: auto;
+		font-family: 'necloe';
 	}
 	body::before {
 	    position: fixed;
