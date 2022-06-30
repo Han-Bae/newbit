@@ -44,18 +44,23 @@
 </head>
 <script>
 $(document).ready(function(){
-	//	받아온 url값, 오류멘트, 상태 조회 및 전송
-    swal('${title}','${msg}','${icon}')
-	.then(function(){
-		if('${empty stat}'){
-			$(location).attr('href', '${url}');
-		}
-		// 인증된 이메일과 현재 상태가 일치하면
-		if('${mailCheck}' == 'pass'){
-			window.close();
-		}
+	//	받아온 url값, 오류멘트, 상태 조회 및 전송\
+	if('${title}' != ''){
+	    swal('${title}','${msg}','${icon}')
+		.then(function(){
+			if(${empty stat}){
+				$(location).attr('href', '${url}');
+				return;
+			}
+			// 인증된 이메일과 현재 상태가 일치하면
+			if('${mailCheck}' == 'pass'){
+				window.close();
+			}
+			$('#frm').submit();
+		});
+	}else{
 		$('#frm').submit();
-	});
+	}
 });
 </script>
 <body>

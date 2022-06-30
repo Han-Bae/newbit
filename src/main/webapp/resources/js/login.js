@@ -9,13 +9,13 @@
  * 								내	용 : js 제작
  				2022.05.26 	-	담당자 : 김태현
  								내  용 : 아이디 저장 구현(쿠키 사용)
- 										, status에 따른 모달 창 처리작업
+ 										, sta에 따른 모달 창 처리작업
  */
  
 $(document).ready(function(){
 	// 회원가입 이동
 	$("#join").click(function(){
-		$(location).attr('href','/viseo/member/joinForm.nbs');
+		$(location).attr('href','/www/account/join.nbs');
 	});
 	
 	// 쿠키값이 있으면 받아와서 id값으로 설정하고 
@@ -59,8 +59,8 @@ $(document).ready(function(){
 	});
 	
 	// 실패시 상태에 따른 모달창 띄우기
-	var status = $("#status").val();
-	switch (status){
+	var stat = $("#stat").val();
+	switch (stat){
 		case 'refindId':
 			// 아이디찾기 인증 실패시
 			$('#fid').modal();

@@ -15,5 +15,6 @@
 	
 	<!-- 서비스 클래스 빈처리 -->
 	<bean id="lSrc" class="com.newbit.www.service.LogService" />
+	<bean id="aSrc" class="com.newbit.www.service.AccountService" />
 	
 </beans>

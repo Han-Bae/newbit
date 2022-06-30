@@ -8,9 +8,16 @@ public class AccountVO {
 	private String id, pw, nickname, email, istype, isshow, isnewbit,
 		sdate, savename,
 		icon, title, msg, stat, url;	// SwalAlert용
+	private char[] convert_id;
 	private Date joindate;
 	
 	
+	public char[] getConvert_id() {
+		return convert_id;
+	}
+	public void setConvert_id(char[] convert_id) {
+		this.convert_id = convert_id;
+	}
 	public String getStat() {
 		return stat;
 	}

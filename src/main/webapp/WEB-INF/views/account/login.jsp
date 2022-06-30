@@ -45,7 +45,7 @@
 
 	body	{
 		overflow: auto;
-		font-family: 'necloe';
+		font-family: 'necleo';
 	}
 	body::before {
 	    position: fixed;
@@ -104,7 +104,7 @@
 			      <label for="id">ID</label>
 			    </div>
 			    <div class="form-floating">
-			      <input type="password" name="pw" class="form-control" id="pw" title="숫자, 대소문자, 특문을 포함한 6~15자로 입력해주세요."
+			      <input type="password" name="pw" class="form-control" id="pw" title="숫자, 영어를 포함한 6~15자로 입력해주세요."
 			      	pattern="^(?=.*[a-zA-Z])(?=.*[0-9]).{6,15}$" placeholder="비밀번호를 입력하세요" required>
 			      <label for="pw">Password</label>
 			    </div>			
@@ -130,8 +130,8 @@
 					
 			  	</div>
 			  </footer>
-	<c:if test="${not empty status}">
-		<input type="hidden" id=status value="${status}">
+	<c:if test="${not empty param.stat}">
+		<input type="hidden" id=stat value="${param.stat}">
 	</c:if>	  
 	<%-- 아이디찾기 모달  --%>
 	<div class="modal" id="fid">		  
@@ -146,11 +146,11 @@
 	          <span aria-hidden="true"></span>
 	        </button>
 	      </div>
-     	<form method="post" id="fidFrm" action="/www/account/findID.blp" class="frm">
+     	<form method="post" id="fidFrm" action="/www/account/findID.nbs" class="frm">
 	      <div class="modal-body">
 			    <div class="form-floating" style="margin-bottom: 10px">
-			      <input type="text" name="fidName" class="form-control" id="fidName" placeholder="이름을 입력하세요." required autofocus>
-			      <label for="fidName">이름</label>
+			      <input type="text" name="fidName" class="form-control" id="fidName" placeholder="닉네임을 입력하세요." required autofocus>
+			      <label for="fidName">닉네임</label>
 			    </div>
 			    <div class="form-floating">
 			      <input type="email" name="fidMail" class="form-control" id="fidMail" title="ex)asdf@asd.qwe"
@@ -171,15 +171,18 @@
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
+	      	<pre>
+			
+			</pre>
 	        <div class="modal-title">비밀번호 찾기</div>
 	        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true"></span>
 	        </button>
 	      </div>
-      	<form method="post" id="fpwFrm" action="/www/account/findPW.blp"  class="frm">
+      	<form method="post" id="fpwFrm" action="/www/account/findPW.nbs"  class="frm">
 	      <div class="modal-body">
 			    <div class="form-floating" style="margin-bottom: 10px">
-			      <input type="text" name="fpwId" class="form-control" id="fpwId" title="숫자, 대소문자 4~10글자로 입력해주세요."
+			      <input type="text" name="fpwId" class="form-control" id="fpwId" title="숫자, 영어 4~10글자로 입력해주세요."
 			      	pattern="^([A-Za-z0-9]){4,10}$" placeholder="아이디를 입력하세요." required autofocus>
 			      <label for="fpwId">아이디</label>
 			    </div>
@@ -202,16 +205,19 @@
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
+	      	<pre>
+			
+			</pre>
 	        <div class="modal-title">비밀번호 재설정</div>
 	        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true"></span>
 	        </button>
 	      </div>
-     	<form id="rpwFrm" class="frm" action="/www/account/rePW.blp">
+     	<form method="post" id="rpwFrm" class="frm" action="/www/account/rePW.nbs">
 	      <div class="modal-body">
 			    <div class="form-floating" style="margin-bottom: 10px">
-			      <input type="password" name="rpw" class="form-control" id="rpw" title="숫자, 대소문자, 특문을 포함한 6~15자로 입력해주세요."
-			      	pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,15}$" placeholder="변경할 비밀번호를 입력해주세요." required autofocus>
+			      <input type="password" name="rpw" class="form-control" id="rpw" title="숫자, 영어를 포함한 6~15자로 입력해주세요."
+			      	pattern="^(?=.*[a-zA-Z])(?=.*[0-9]).{6,15}$" placeholder="변경할 비밀번호를 입력해주세요." required autofocus>
 			      <label for="rpw">변경할 비밀번호</label>
 			    </div>
 			    <div class="form-floating">
