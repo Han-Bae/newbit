@@ -43,7 +43,9 @@
         }
       }
 
-	body	{ overflow: auto;}
+	body	{
+		overflow: auto;
+	}
 	body::before {
 	    position: fixed;
 	    top: 0;

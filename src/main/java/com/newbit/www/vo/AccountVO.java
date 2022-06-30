@@ -5,8 +5,42 @@ import java.util.Date;
 
 public class AccountVO {
 	private int no, game_number, tag_number, friend_number, cnt;
-	private String id, pw, nickname, email, istype, isshow, isnewbit, sdate, savename;
+	private String id, pw, nickname, email, istype, isshow, isnewbit,
+		sdate, savename,
+		icon, title, msg, stat, url;	// SwalAlert용
 	private Date joindate;
+	
+	
+	public String getStat() {
+		return stat;
+	}
+	public void setStat(String stat) {
+		this.stat = stat;
+	}
+	public String getIcon() {
+		return icon;
+	}
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getMsg() {
+		return msg;
+	}
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	public int getNo() {
 		return no;
 	}

@@ -1,6 +1,12 @@
+@font-face {
+    font-family: 'necleo';
+    src: url('/www/font/nucleo.ttf') format('truetype');
+}
+
 html,
 body {
   height: 100%;
+	font-family: 'necloe';
 }
 
 body {

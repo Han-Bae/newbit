@@ -1,17 +1,13 @@
 package com.newbit.www.service;
 
-import java.util.*;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.*;
-import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.newbit.www.dao.*;
 import com.newbit.www.vo.*;
 
 /**
@@ -37,7 +33,7 @@ public class LogService {
 	
 	@After("recordLogin()")
 	public boolean rec(JoinPoint join) {
-		AccountVO aVO = (AccountVO) join.getArgs()[0];
+		AccountVO aVO = (AccountVO) join.getArgs()[1];
 		
 		if(aVO.getCnt() == 1) {
 			accountLog.info(aVO.getId() + " 님 로그인");
