@@ -44,7 +44,7 @@ public class Account {
 				mv.addObject("icon", "success");
 				mv.addObject("title", "로그인 성공!");
 				mv.addObject("msg", aVO.getId()+"님 어서오세요.");
-				mv.addObject("url", "/www/account/main.nbs");
+				mv.addObject("url", "/www/main.nbs");
 			}else {
 				// 로그인 처리하면 안된다.
 				// 정보가 정확하지 않거나 없는 회원이다.
