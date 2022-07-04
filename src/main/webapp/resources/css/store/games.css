@@ -1,0 +1,116 @@
+/* 메인 상점 페이지 게임 목록 */
+.store-games {
+	margin: 0px 200px;
+	display: flex;
+	flex-direction: column;
+}
+.games-sort {
+	display: flex;
+	justify-content: end;
+	align-items: center;
+	margin-bottom: 10px;
+}
+.games-sort label {
+	margin-right: 10px;
+}
+.games-sort .form-control.store-select {
+	width: 130px;
+	height: 35px;
+}
+.store-select option {
+	color: #6c757d;
+}
+
+/* 게임 목록 */
+.store-games--games {
+	display: flex;
+	justify-content: space-around;
+}
+/* 게임 목록의 게임 타이틀 */
+.store-games--games .games {
+	display: flex;
+	flex-direction: column;
+}
+.store-games--games .games .card {
+	padding: 5px;
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 10px;
+}
+.store-games--games .games img {
+	border: 1px solid #525f7f;
+	margin-right: 10px;
+}
+.store-games--games .games .card > div {
+	padding-top: 5px;
+	display: flex;
+}
+.store-games--games .games .card h4 {
+	width: 350px;
+}
+.store-games--games .game-title-info {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 150px;
+}
+.store-games--games .game-title-info i,
+.store-games--games .game-title-info .howSale {
+	color: white;
+	padding: 2px;
+	border-radius: 10%;
+}
+.store-games--games .game-title-info i {
+	background-color: #17a2b8;
+}
+.store-games--games .game-title-info .howSale {
+	background-color: #28a745;
+}
+.store-games--games .gamePrice {
+	width: 120px;
+	display: flex;
+	flex-direction: column;
+	align-items: end;
+	padding-right: 20px;
+}
+.store-games--games .salePrice {
+	color: white;
+}
+/* 게임 필터 */
+.games-filter {
+	width: 320px;
+}
+/* 가격 필터 */
+.priceFilter {
+	height: 180px;
+}
+.priceFilter .card-body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.priceFilter input[type="range"] {
+	width: 250px;
+	height: 5px;
+}
+.games-filter--range {
+	margin: 10px 0px;
+}
+.boundary {
+	width: 100%;
+	height: 1px;
+	border-radius: 10%;
+	background-color: #ba54f5;
+}
+/* 태그 필터 */
+.tagFilter {
+	height: 180px;
+	padding-left: 30px;
+}
+.tagFilter .form-check {
+	display: flex;
+	flex-direction: column;
+}
+.tagFilter label {
+	margin-bottom: 200px;
+}

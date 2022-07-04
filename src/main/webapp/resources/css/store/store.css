@@ -1,0 +1,29 @@
+@import "games.css";
+@import "categories.css";
+
+/* 상점 페이지 변경 관련 */
+.store-top {
+	display: flex;
+	margin: 20px 300px;
+	align-items: center;
+}
+.store-top button {
+	height: calc(2.25rem + 2px);
+}
+.store-top > button {
+	margin-right: 30px;
+}
+.store-search {
+	display: flex;
+	margin-left: 100px;
+	margin-bottom: 0;
+	align-items: center;
+}
+.store-search button {
+	width: 50px;
+	padding: 11px 15px;
+}
+.store-search .form-control.store-input {
+	width: 250px;
+}
+
