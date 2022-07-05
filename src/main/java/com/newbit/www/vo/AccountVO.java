@@ -1,17 +1,24 @@
 package com.newbit.www.vo;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 // 회원 계정(+즐겨찾기) + 장바구니 + 찜목록 + 아바타 정보 + 친구 수록한 VO
 import java.util.Date;
 
 public class AccountVO {
-	private int no, game_number, tag_number, friend_number, cnt;
+	private int no, game_number, tag_number, friend_number, cnt, ck_mail;
 	private String id, pw, nickname, email, istype, isshow, isnewbit,
-		sdate, savename,
+		sdate, savename, isokay,
 		icon, title, msg, stat, url;	// SwalAlert용
 	private char[] convert_id;
 	private Date joindate;
 	
 	
+	public String getIsokay() {
+		return isokay;
+	}
+	public void setIsokay(String isokay) {
+		this.isokay = isokay;
+	}
 	public char[] getConvert_id() {
 		return convert_id;
 	}
@@ -144,12 +151,21 @@ public class AccountVO {
 	public void setCnt(int cnt) {
 		this.cnt = cnt;
 	}
+	
+	public int getCk_mail() {
+		return ck_mail;
+	}
+	public void setCk_mail(int ck_mail) {
+		this.ck_mail = ck_mail;
+	}
 	@Override
 	public String toString() {
 		return "AccountVO [no=" + no + ", game_number=" + game_number + ", tag_number=" + tag_number
-				+ ", friend_number=" + friend_number + ", id=" + id + ", pw=" + pw + ", nickname=" + nickname
-				+ ", email=" + email + ", istype=" + istype + ", isshow=" + isshow + ", isnewbit=" + isnewbit
-				+ ", sdate=" + sdate + ", savename=" + savename + ", joindate=" + joindate + "]";
+				+ ", friend_number=" + friend_number + ", cnt=" + cnt + ", ck_mail=" + ck_mail + ", id=" + id + ", pw="
+				+ pw + ", nickname=" + nickname + ", email=" + email + ", istype=" + istype + ", isshow=" + isshow
+				+ ", isnewbit=" + isnewbit + ", sdate=" + sdate + ", savename=" + savename + ", isokay=" + isokay
+				+ ", icon=" + icon + ", title=" + title + ", msg=" + msg + ", stat=" + stat + ", url=" + url
+				+ ", convert_id=" + Arrays.toString(convert_id) + ", joindate=" + joindate + "]";
 	}
 	
 }

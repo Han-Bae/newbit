@@ -22,6 +22,7 @@
 	<link rel="icon" type="image/png" sizes="32x32" href="/www/img/favicon/favicon.ico">
 	<link rel="stylesheet" type="text/css" href="/www/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="/www/css/signin.css">
+	<link rel="stylesheet" type="text/css" href="/www/css/radio.css">
 	<script type="text/javascript" src="/www/js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="/www/js/bootstrap.js"></script>
 	<script type="text/javascript" src="/www/js/login.js"></script>
@@ -46,6 +47,7 @@
 	body	{
 		overflow: auto;
 		font-family: 'necleo';
+		color: #fff;
 	}
 	body::before {
 	    position: fixed;
@@ -64,30 +66,47 @@
 	    z-index: -1; 
 	    content: "";
 	}
-    .form-signin {
-      background-color: #ffffff;
-      opacity: initial;
-    }
-    
-    .ipj {
-		display:flex;
-    	justify-content: space-around;
-    	margin-bottom: 10px;
-    }
-    .subbtn{
-    	border: 0px;
-    	background-color: #ffffff;    
-    }
+	
+.ckdiv{
+		text-align:right;
+		margin-top: 3px;
+		justify-content: center;
+		align-items: center;
+		border-top: 1px solid #8109b0;
+	}
+	.cksub{
+	    flex-direction: row;
+	    justify-content: end;
+		}
+		
+	.ckbtn{
+		 	font-size: 0.8rem;
+		 	width:calc(100% - 100px);
+		 	height: calc(2rem + 2px);
+		 	line-height: 1.25;
+		 }
+	   
     .sub{
-    	font-size: 0.8rem;		
+		 	width:calc(1.5rem + 80px);
       }
+
     #rpwmsg{
     	margin-top: 10px;
     	text-align: right;
     	font-size: 10pt;
     }
-    .modal-title{
-    }
+    
+	.form-Style{
+	  	width: 300px;
+  	}
+  	.form-control{
+  		width: 300px;
+  	}
+  	.modal-body .form-Style,
+  	.modal-body .form-control{
+  		max-width: 260px;
+  		font-size: 0.8rem;
+  	}
     </style>
 
     
@@ -98,29 +117,37 @@
 		<main class="form-signin">
 			  <form method="post" id="loginFrm" action="/www/account/loginProc.nbs" class="frm">
 			    <img class="mb-4" src="/www/img/logo.png" alt="" style="height:80px; width:auto;">
+			<div class="form-Style">
+			<div class="form-Css">
 			    <div class="form-floating">
 			      <input type="text" name="id" class="form-control" id="id" title="숫자, 대소문자 4~10글자로 입력해주세요."
-			      	pattern="^([A-Za-z0-9]){4,10}$" placeholder="아이디를 입력하세요" required autofocus>
+			      	pattern="^([A-Za-z0-9]){4,10}$" placeholder=" " required>
 			      <label for="id">ID</label>
 			    </div>
+	    	</div>
+	    	</div>
+	    	<div class="form-Style">
+			<div class="form-Css">
 			    <div class="form-floating">
 			      <input type="password" name="pw" class="form-control" id="pw" title="숫자, 영어를 포함한 6~15자로 입력해주세요."
-			      	pattern="^(?=.*[a-zA-Z])(?=.*[0-9]).{6,15}$" placeholder="비밀번호를 입력하세요" required>
+			      	pattern="^(?=.*[a-zA-Z])(?=.*[0-9]).{6,15}$" placeholder=" " required>
 			      <label for="pw">Password</label>
-			    </div>			
+			    </div>
+			</div>
+			</div>			
 			    <div class="checkbox mb-3">
 			      <label>
 			        <input type="checkbox" name="remember" value="remember-me"> Remember me
 			      </label>
 			    </div>
-			    <div class="ipj">
-			    	<button type="button" class="subbtn sub" data-target="#fid" data-toggle="modal">아이디찾기</button>
-			    	<div class="sub">│</div>
-			    	<button type="button" class="subbtn sub" data-target="#fpw" data-toggle="modal">비밀번호찾기</button>
-			    	<div class="sub">│</div>
-			    	<button type="button" class="subbtn sub" id="join">회원가입</button>
+			    <div class="ckdiv cksub"><a>
+			    	<button type="button" class="ckbtn sub" data-target="#fid" data-toggle="modal">Find ID</button></a><a>
+			    	<button type="button" class="ckbtn sub" data-target="#fpw" data-toggle="modal">Find PW</button></a><a>
+			    	<button type="button" class="ckbtn sub" id="join">Regist</button></a>
 			    </div>
-			    <button class="w-100 btn btn-lg btn-primary" id="signIn" type="submit">Sign in</button>
+			    <div class="ckdiv"><a>
+			    <button class="  ckbtn btn-lg btn-primary" id="signIn" type="submit">Sign In</button>
+			    </a></div>
 			    <!-- <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p> -->
 			  </form>
 			  
@@ -135,7 +162,7 @@
 	</c:if>	  
 	<%-- 아이디찾기 모달  --%>
 	<div class="modal" id="fid">		  
-	  <div class="modal-dialog" role="document">
+	  <div class="modal-dialog modal-sm" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
 			<pre>
@@ -148,18 +175,28 @@
 	      </div>
      	<form method="post" id="fidFrm" action="/www/account/findID.nbs" class="frm">
 	      <div class="modal-body">
+	      	<div class="form-Style">
+			<div class="form-Css">
 			    <div class="form-floating" style="margin-bottom: 10px">
 			      <input type="text" name="fidName" class="form-control" id="fidName" placeholder="닉네임을 입력하세요." required autofocus>
-			      <label for="fidName">닉네임</label>
+			      <label for="fidName">NickName</label>
 			    </div>
+			</div>
+			</div>
+			<div class="form-Style">
+			<div class="form-Css">
 			    <div class="form-floating">
 			      <input type="email" name="fidMail" class="form-control" id="fidMail" title="ex)asdf@asd.qwe"
 			      	pattern="^([a-zA-Z0-9]){4,10}@([a-zA-Z]){2,10}.([a-zA-Z]){2,3}$" placeholder="이메일을 입력하세요." required>
-			      <label for="fidMail">이메일</label>
+			      <label for="fidMail">Email</label>
 			    </div>
+			</div>
+			</div>
 	      </div>
-	      <div class="modal-footer">
-			<button class="w-100 btn btn-lg btn-primary" id="fidbtn" type="submit">메일에서 확인하기</button>
+	      <div class="modal-footer ckdiv">
+	      	<a>
+			<button class=" ckbtn btn-lg btn-primary" id="fidbtn" type="submit">Mail Send</button>
+	      	</a>
 	      </div>
       	</form>
 	    </div>
@@ -168,7 +205,7 @@
 	
 	<%-- 비밀번호 찾기 모달  --%>
 	<div class="modal" id="fpw">		  
-	  <div class="modal-dialog" role="document">
+	  <div class="modal-dialog modal-sm" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
 	      	<pre>
@@ -181,19 +218,29 @@
 	      </div>
       	<form method="post" id="fpwFrm" action="/www/account/findPW.nbs"  class="frm">
 	      <div class="modal-body">
+	      	<div class="form-Style">
+			<div class="form-Css">
 			    <div class="form-floating" style="margin-bottom: 10px">
 			      <input type="text" name="fpwId" class="form-control" id="fpwId" title="숫자, 영어 4~10글자로 입력해주세요."
 			      	pattern="^([A-Za-z0-9]){4,10}$" placeholder="아이디를 입력하세요." required autofocus>
-			      <label for="fpwId">아이디</label>
+			      <label for="fpwId">ID</label>
 			    </div>
+		    </div>
+		    </div>
+	      	<div class="form-Style">
+			<div class="form-Css">
 			    <div class="form-floating">
 			      <input type="email" name="fpwMail" class="form-control" id="fpwMail" title="ex)asdf@asd.qwe(4글자/2글자/2글자 이상)"
 			      	pattern="^([a-zA-Z0-9]){4,10}@([a-zA-Z]){2,10}.([a-zA-Z]){2,3}$" placeholder="이메일을 입력하세요." required>
-			      <label for="fpwMail">이메일</label>
-			    </div>			
+			      <label for="fpwMail">Email</label>
+			    </div>
+		    </div>
+		    </div>			
 	      </div>
-	      <div class="modal-footer">
-	        <button type="submit" class="btn btn-primary" id="fpwbtn" data-toggle="modal">다음</button>
+	      <div class="modal-footer ckdiv">
+	      	<a>
+	        <button type="submit" class="ckbtn btn-lg btn-primary" id="fpwbtn" data-toggle="modal">Next</button>
+	      	</a>
 	      </div>
       	</form>
 	    </div>
@@ -202,7 +249,7 @@
 	
 	<!-- 비밀번호 찾기 다음 모달 -->
 	<div class="modal" id="rpwmd">		  
-	  <div class="modal-dialog" role="document">
+	  <div class="modal-dialog modal-sm" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
 	      	<pre>
@@ -215,19 +262,29 @@
 	      </div>
      	<form method="post" id="rpwFrm" class="frm" action="/www/account/rePW.nbs">
 	      <div class="modal-body">
+	      	<div class="form-Style">
+			<div class="form-Css">
 			    <div class="form-floating" style="margin-bottom: 10px">
 			      <input type="password" name="rpw" class="form-control" id="rpw" title="숫자, 영어를 포함한 6~15자로 입력해주세요."
 			      	pattern="^(?=.*[a-zA-Z])(?=.*[0-9]).{6,15}$" placeholder="변경할 비밀번호를 입력해주세요." required autofocus>
 			      <label for="rpw">변경할 비밀번호</label>
 			    </div>
+		    </div>
+		    </div>
+	      	<div class="form-Style">
+			<div class="form-Css">
 			    <div class="form-floating">
 			      <input type="password" name="rpwck" class="form-control" id="rpwck" placeholder="비밀번호를 다시 입력해주세요." required>
 			      <label for="rpwck">비밀번호 확인</label>
 				      <h4 id="rpwmsg"></h4>
-				</div>			
+				</div>
+			</div>
+			</div>			
 	      </div>
-	      <div class="modal-footer">
-	        <button type="submit" class="btn btn-primary" id="rpwbtn">비밀번호 재설정</button>
+	      <div class="modal-footer ckdiv">
+	      	<a>
+	        <button type="submit" class="ckbtn btn-lg btn-primary" id="rpwbtn">PW reset</button>
+	      	</a>
 	      </div>
       	</form>
 	    </div>

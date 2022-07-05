@@ -35,6 +35,7 @@
 body	{
 		overflow: auto;
 		font-family: 'necleo';
+		color: #fff;
 		}
 body::before {
 	    position: fixed;
@@ -55,10 +56,11 @@ body::before {
 		}
 h4{
 	font-size: 10pt;
+	margin-top: 5px;
 }
 .form-signin {
-      background-color: #ffffff;
-      opacity: initial;
+    width:450px;
+    max-width:650px;
     }
 	 
 .ckdiv{
@@ -71,112 +73,128 @@ h4{
 	 	height: calc(2rem + 2px);
 	 	line-height: 1.25;
 	 }
+	 
 </style>
 <script type="text/javascript">
 </script>
 </head>
 <body class="text-center">
 	<!-- 가운데 정렬 -->
-    <main class="form-signin" style="max-width:650px;">
+    <main class="form-signin">
 		<form method="POST" action="/www/account/joinProc.nbs"
 			  name="frm" id="frm" class="frm">
 		<!-- 메인 로고 가운데 정렬 -->
 			<img src="/www/img/logo.png" alt="" style="height:80px; width:auto; text-align: left;">
 		<!-- 타이틀 -->
-			<h2 style="margin-bottom: 10px;" class="text-primary margin-top content"><strong>회원가입</strong></h2>
+			<h2 style="margin-bottom: 10px;" class="text-primary margin-top content"><strong>New Account</strong></h2>
 				<!-- 회원 아이디, 아이디 체크박스 --> 
-			<div class="form-floating" style="margin-bottom: 5px;">
+		<div class="form-Style">
+		<div class="form-Css">
+			<div class="form-floating">
 			      <input type="text" name="id" class="form-control" id="id" title="숫자, 대소문자 4~10글자로 입력해주세요."
-			      	pattern="^([A-Za-z0-9]){4,10}$" placeholder="아이디를 입력하세요" required autofocus>
+			      	style="margin-bottom: 10px;" pattern="^([A-Za-z0-9]){4,10}$" placeholder=" " required
+			      	>
 			      <label for="id">ID</label>
-			      <div class="ckdiv" style="text-align: right; margin-top: 1.5px;">
-				      <h4 id="idmsg"></h4>
-					  <button class="btn btn-primary ckbtn" type="button" id="idck">확인</button>
-			      </div>
+			      <span class="indicator idCk"></span>
 			</div>
+		</div>
+		</div>
+			      <div class="ckdiv" style="text-align: right; margin-top: 1.5px; padding-left: 15px;">
+				      <h4 id="idmsg"></h4>
+				      <a>
+					  <button class="ckbtn" type="button" id="idck">Check</button>
+				      </a>
+			      </div>
  				
 				<!-- 비밀번호 -->
-			<div class="form-floating" style="margin-bottom: 5px;">
-				<input type="password" name="pw" class="form-control" id="pw" title="숫자, 영어를 포함한 6~15자로 입력해주세요."
-		      		pattern="^(?=.*[a-zA-Z])(?=.*[0-9]).{6,15}$" placeholder="비밀번호를 입력하세요" required>
-		      	<label for="pw">Password</label>
-		      	<div class="ckdiv" style="text-align: right; margin-top: 1.5px;">
-					<h4 id="pwmsg"></h4>
-				</div>
-			</div>
-				
-			<!-- 비밀번호 체크  -->
+		<div class="form-Style">
+		<div class="form-Css">
 			<div class="form-floating">
-		      	<input type="password" name="repw" class="form-control" id="repw" placeholder="비밀번호를 다시 입력해주세요." required>
-		      	<label for="repw">비밀번호 확인</label>
-		      	<div class="ckdiv" style="text-align: right; margin-top: 1.5px;">
-				    <h4 id="repwmsg"></h4>
-				</div>
+				<input type="password" name="pw" class="form-control" id="pw" title="숫자, 영어를 포함한 6~15자로 입력해주세요."
+		      		pattern="^(?=.*[a-zA-Z])(?=.*[0-9]).{6,15}$" placeholder=" " required>
+		      	<label for="pw">Password</label>
+			    <span class="indicator"></span>
 			</div>
-			
-			<!-- 계정 설정 -->
-<!-- 	        <div class="wrapper">
-				<div class="title">Select your type</div>
-					<div class="box">
-				    <input type="radio" name="type" id="utype">
-				    <input type="radio" name="type" id="dtype">
-			      	<label for="utype" class="option-1">
-				        <div class="dot"></div>
-				        <div class="text">Gamer</div>
-			      	</label>
-			      	<label for="dtype" class="option-2">
-				        <div class="dot"></div>
-				        <div class="text">Devloper</div>
-				    </label>
-				</div>
-			</div> -->
-			
-			  <div class="wrapper">
-    <div class="title">Select your option</div>
-    <div class="box">
-      <input type="radio" name="select" id="option-1">
-      <input type="radio" name="select" id="option-2">
-      <label for="option-1" class="option-1">
-        <div class="dot"></div>
-        <div class="text">Gamer</div>
-      </label>
-      <label for="option-2" class="option-2">
-        <div class="dot"></div>
-        <div class="text">Developer</div>
-      </label>
-    </div>
-  </div>
-			
-			
+		</div>
+		</div>
+			<!-- 비밀번호 체크  -->
+		<div class="form-Style">		
+		<div class="form-Css">
+			<div class="form-floating">
+		      	<input type="password" name="repw" class="form-control" id="repw" placeholder=" " required>
+		      	<label for="repw">Password Check</label>
+			    <span class="indicator"></span>
+			</div>
+		</div>
+		</div>
+				
 			<!-- 닉네임 -->
-			<div class="form-floating" style="margin-bottom: 5px;">
-			    <input type="text" name="nickname" class="form-control" id="nickname"
-			      	placeholder="닉네임을 입력하세요" required>
+		<div class="form-Style">
+		<div class="form-Css">
+			<div class="form-floating">
+			    <input type="text" name="nickname" class="form-control"  id="nickname"
+			      	placeholder=" " pattern="^([A-Za-z0-9]){1,15}$" required>
 			    <label for="nickname">NickName</label>
-			    <div class="ckdiv"  style="text-align: right; margin-top: 1.5px;">
-			    	<h4 id="nicknamemsg"></h4>
-					<button class="ckbtn btn btn-primary" type="button" id="nicknameck">확인</button>
-				</div>
+			    <span class="indicator"></span>
 			</div>     
+		</div>
+		</div>
+			    <div class="ckdiv" id="niCk" style="text-align: right; padding-left: 15px;">
+			 		<h4 id="nicknamemsg" style="text-algin: right;"></h4>
+			    	<a>
+					<button class="ckbtn" type="button" id="nicknameck">Check</button>
+			    	</a>
+				</div>
 				<!-- 이메일 -->
-			<div class="form-floating" style="margin-bottom: 5px;">
-			    <input type="text" name="mail" class="form-control" id="mail" title="ex)asdf@asd.qwe"
-			      	pattern="^([a-zA-Z0-9]){4,10}@([a-zA-Z]){2,10}.([a-zA-Z]){2,3}$"
-			      	placeholder="이메일을 입력하세요." required>
-			    <label for="mail">Mail</label>
-			    <div class="ckdiv"  style="text-align: right; margin-top: 1.5px;">
-			      	<button class="ckbtn btn btn-primary" type="button" id="mailck">확인</button>
-					<button type="button" class="ckbtn btn btn-primary" id="mbtn">인증</button>
-			    </div>
-				<span id="mailckmsg" class="form-text text-muted"></span>
+			<div id="mailStyle">
+				<div id="mailCss">
+					<div class="inputBox">
+						<input type="text" name="email" id="email" placeholder="Enter Email Address" required
+							pattern="^[^ ]+@[^ ]+\.[a-z]{2,3}$">
+						<span class="indicator"></span>
+					</div>
+				</div>					
 			</div>
+				 		<h4 id="emailmsg" style="text-align:right;"></h4>
+				    <div class="ckdiv" id="maildiv" style="text-align: right; margin-top: 1.5px;">
+				    	<a>
+				      	<button class="ckbtn" type="button" id="mailck">Check</button>
+				    	</a>
+				    	<a>
+						<button type="button" class="ckbtn" id="mbtn">Certification</button>
+				    	</a>
+				    </div>
+					<span id="mailckmsg" class="form-text text-muted"></span>
 						 
+
 					<!-- 인증 버튼 이벤트 -->
 				
 
+			<!-- 계정타입 -->
+			<div class="wrapCss">
+			  <div class="wrapper">
+			    <div class="title">Select Account Type</div>
+				    <div class="box">
+				      <input type="hidden" name="istype" id="istype">
+				      <input type="radio" name="select" id="option-1">
+				      <input type="radio" name="select" id="option-2">
+				      <label for="option-1" class="option-1">
+				        <div class="dot"></div>
+				        <div class="text">Gamer</div>
+				      </label>
+				      <label for="option-2" class="option-2">
+				        <div class="dot"></div>
+				        <div class="text">Developer</div>
+				      </label>
+				    </div>
+				</div>
+			</div>			
+			
 				<!-- 버튼 이벤트 -->
-				<div class="content">
-					<button style="margin-top:8px;" type="button" class="btn btn-primary btn-lg" id="jbtn">가입하기</button>
+				<div class="ckdiv content">
+					<a>
+					<button type="button" class="btn-lg" id="jbtn">Regist</button>
+					</a>
 				</div>
 			</form>			
 	<!-- 가운데정렬 태그 끝 -->

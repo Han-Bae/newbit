@@ -2168,9 +2168,9 @@ progress {
 .form-control:focus {
   color: #373a3c;
   background-color: #fff;
-  border-color: #93c0f1;
+  border-color: #bf93f1;
   outline: 0;
-  box-shadow: 0 0 0 0.25rem rgba(39, 128, 227, 0.25);
+  box-shadow: 0 0 0 0.25rem rgba(144, 58, 194, 0.25);
 }
 
 .form-control::-webkit-date-and-time-value {
@@ -3046,8 +3046,8 @@ fieldset:disabled .btn {
 
 .btn-primary {
   color: #fff;
-  background-color: #2780e3;
-  border-color: #2780e3;
+  background-color: #ba54f5;
+  border-color: #ba54f5;
 }
 
 .btn-primary:hover {
@@ -3628,7 +3628,7 @@ fieldset:disabled .btn {
 
 .btn-lg, .btn-group-lg > .btn {
   padding: 0.5rem 1rem;
-  font-size: 1.25rem;
+  font-size: 1rem;
   border-radius: 0;
 }
 
@@ -5613,14 +5613,14 @@ fieldset:disabled .btn {
   width: 1em;
   height: 1em;
   padding: 0.25em 0.25em;
-  color: #000;
+  color: #fff;
   background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
   border: 0;
   opacity: 0.5;
 }
 
 .btn-close:hover {
-  color: #000;
+  color: #7d05a8;
   text-decoration: none;
   opacity: 0.75;
 }
@@ -5771,7 +5771,7 @@ fieldset:disabled .btn {
   flex-direction: column;
   width: 100%;
   pointer-events: auto;
-  background-color: #fff;
+  background: linear-gradient(#1e2024, #18181c);
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.2);
   outline: 0;
@@ -5805,7 +5805,7 @@ fieldset:disabled .btn {
   -ms-flex-pack: justify;
   justify-content: space-between;
   padding: 1rem 1rem;
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid #8109b0;
 }
 
 .modal-header .btn-close {
@@ -5816,7 +5816,7 @@ fieldset:disabled .btn {
 .modal-title {
   position: absolute;
   left: 40%;
-  transform: translate(0, -50%);
+  transform: translate(-30%, 0);
   margin-bottom: 0;
   line-height: 1.5;
 }
@@ -5840,7 +5840,7 @@ fieldset:disabled .btn {
   -ms-flex-pack: end;
   justify-content: flex-end;
   padding: 0.75rem;
-  border-top: 1px solid #dee2e6;
+  border-top: 1px solid #8109b0;
 }
 
 .modal-footer > * {
@@ -8077,8 +8077,9 @@ fieldset:disabled .btn {
 /* rtl:end:remove */
 .text-primary {
   --bs-text-opacity: 1;
-  color: rgba(var(--bs-primary-rgb), var(--bs-text-opacity)) !important;
+  color: #ba54f5;
 }
+/* color: rgba(var(--bs-primary-rgb), var(--bs-text-opacity)) !important; */
 
 .text-secondary {
   --bs-text-opacity: 1;

@@ -79,6 +79,15 @@ $(document).ready(function(){
 			break;
 	};
 
+	// 포커스시 흰색으로 바뀌는 것 변경
+	$('input[class="form-control"]').focus(function(){
+		$(this).css("color","#fff");
+		$(this).css("background-color","#212529");
+	});
+	$('input[class="form-control"]').blur(function(){
+		$(this).css("color","");
+		$(this).css("background-color","");
+	});
 });
 
 // 쿠키 사용 함수

@@ -48,13 +48,13 @@ $(document).ready(function(){
 	if('${title}' != ''){
 	    swal('${title}','${msg}','${icon}')
 		.then(function(){
-			if(${empty stat}){
-				$(location).attr('href', '${url}');
-				return;
-			}
 			// 인증된 이메일과 현재 상태가 일치하면
 			if('${mailCheck}' == 'pass'){
 				window.close();
+			}
+			if(${empty stat}){
+				$(location).attr('href', '${url}');
+				return;
 			}
 			$('#frm').submit();
 		});

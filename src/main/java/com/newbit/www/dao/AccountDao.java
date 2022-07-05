@@ -42,4 +42,44 @@ public class AccountDao {
 	public int editPW(AccountVO aVO) {
 		return sqlSession.update("aSQL.editPW", aVO);
 	}
+	
+// 닉네임 중복 체크
+	public int getNickCnt(String nickname) {
+		return sqlSession.selectOne("aSQL.nickCnt", nickname);
+	}
+// 이메일 관련
+	// 이메일 중복 체크
+	public int getEmailCnt(String email) {
+		return sqlSession.selectOne("aSQL.emailCnt", email);
+	}
+	// 등록 전 확인
+	public int registCk(AccountVO aVO) {
+		return sqlSession.selectOne("aSQL.registCk", aVO);
+	}
+	// 이메일 등록
+	public int insertMail(AccountVO aVO) {
+		return sqlSession.insert("aSQL.insertMail", aVO);
+	}
+	// 이메일 인증 체크
+	public int selCkMail(AccountVO aVO) {
+		return sqlSession.selectOne("aSQL.selCkMail", aVO);
+	}
+	// 체크 이후 이메일 받기
+	public String getEmail(AccountVO aVO) {
+		return sqlSession.selectOne("aSQL.getEmail", aVO);
+	}
+	
+	// 이메일 가입 허가
+	public int editOkMail(AccountVO aVO) {
+		return sqlSession.update("aSQL.editOkMail", aVO);
+	}
+	// 회원가입 실패시 되돌리기
+	public int editNoMail(AccountVO aVO) {
+		return sqlSession.update("aSQL.editNoMail", aVO);
+	}
+	
+// 회원가입
+	public int insertJoin(AccountVO aVO) {
+		return sqlSession.insert("aSQL.insertJoin", aVO);
+	}
 }
