@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class Store {
 	
 	
-	@RequestMapping("/games.nbs")
+	@RequestMapping({"/", "/games.nbs"})
 	public ModelAndView GameForm(ModelAndView mv) {
 		mv.setViewName("/store/games");
 		return mv;
