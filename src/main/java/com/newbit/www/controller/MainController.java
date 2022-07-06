@@ -14,14 +14,10 @@ import com.newbit.www.vo.*;
 
 @Controller
 public class MainController {
-	
-	@RequestMapping({"/", "/main.nbs"})
-	public ModelAndView getMain(ModelAndView mv, HttpSession session) {
-		String sid =(String) session.getAttribute("SID");
-		
-		mv.setViewName("main");
+
+	@RequestMapping("/")
+	public ModelAndView GameForm(ModelAndView mv) {
+		mv.setViewName("/store/games");
 		return mv;
 	}
-	
-
 }

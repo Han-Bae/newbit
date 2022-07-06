@@ -46,7 +46,7 @@ public class Account {
 				mv.addObject("icon", "success");
 				mv.addObject("title", "로그인 성공!");
 				mv.addObject("msg", aVO.getId()+"님 어서오세요.");
-				mv.addObject("url", "/www/main.nbs");
+				mv.addObject("url", "/www/store/games.nbs");
 			}else {
 				// 로그인 처리하면 안된다.
 				// 정보가 정확하지 않거나 없는 회원이다.
@@ -66,7 +66,7 @@ public class Account {
 	public ModelAndView logout(ModelAndView mv, HttpSession session) {
 		//accountLog.info((String) session.getAttribute("SID") + "님이 로그아웃하였습니다.");
 		session.removeAttribute("SID");
-		mv.setViewName("main");
+		mv.setViewName("store/games");
 		return mv;
 	}
 	

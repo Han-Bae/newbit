@@ -1,10 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-
-
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>Newbit Game</title>
+<meta charset="UTF-8">
+<title>결제 시작</title>
 	<link rel="icon" type="image/png" sizes="32x32" href="/www/img/favicon/favicon.ico">
 <!-- head에서 꼭 넣어야 하는것 아래부터 -->
 	<link rel="stylesheet" type="text/css" href="/www/css/theme/black-dashboard.css">
@@ -76,6 +76,5 @@
 		</div>
 	</header>
 	<!-- 여기까지 -->
-	
 </body>
 </html>

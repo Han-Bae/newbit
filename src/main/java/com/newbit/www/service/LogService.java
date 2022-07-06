@@ -1,9 +1,11 @@
 package com.newbit.www.service;
 
 
+
+import javax.servlet.http.HttpSession;
+
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.*;
 import org.springframework.stereotype.Service;
@@ -41,4 +43,24 @@ public class LogService {
 		
 		return true;
 	}
+
+
+	@Before("execution(* com.newbit.www.controller.kth.Account.logout(..))")
+	public void logoutSetData(JoinPoint join) {
+		HttpSession session = (HttpSession) join.getArgs()[1];
+		AccountVO aVO = (AccountVO) join.getArgs()[2];
+		aVO.setId((String) session.getAttribute("SID"));
+	}
+	
+	@After("execution(* com.newbit.www.controller.kth.Account.logout(..))")
+	public void logoutRecord(JoinPoint join) {
+		AccountVO aVO = (AccountVO) join.getArgs()[2];
+		String id = aVO.getId();
+		String result = aVO.getResult();
+		
+		if(result != null && result.equals("OK")) {
+			accountLog.info(id + " 님 로그아웃");
+		}
+	}
+	
 }

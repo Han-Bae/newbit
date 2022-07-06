@@ -7,12 +7,18 @@ import java.util.Date;
 public class AccountVO {
 	private int no, game_number, tag_number, friend_number, cnt, ck_mail;
 	private String id, pw, nickname, email, istype, isshow, isnewbit,
-		sdate, savename, isokay,
+		sdate, savename, isokay, result,
 		icon, title, msg, stat, url;	// SwalAlert용
 	private char[] convert_id;
 	private Date joindate;
 	
 	
+	public String getResult() {
+		return result;
+	}
+	public void setResult(String result) {
+		this.result = result;
+	}
 	public String getIsokay() {
 		return isokay;
 	}

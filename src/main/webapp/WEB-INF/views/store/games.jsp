@@ -62,10 +62,10 @@
 		
 		<div class="user-nav">
 <c:if test="${empty SID}">
-			<a href="#">Log In</a>
+			<a href="/www/account/login.nbs">Log In</a>
 </c:if>
 <c:if test="${not empty SID}">
-			<a href="#">Log Out</a>
+			<a href="/www/account/logout.nbs">Log Out</a>
 			<a href="#"><i class="tim-icons icon-single-02"></i></a>
 </c:if>
 			<a href="#"><i class="tim-icons icon-basket-simple"></i></a>
