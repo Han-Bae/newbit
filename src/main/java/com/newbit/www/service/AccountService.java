@@ -21,7 +21,6 @@ import com.newbit.www.vo.AccountVO;
  * @version v.1.0
  * 
  *          작업이력 ] 2022.06.30 - 담당자 : 김태현 클래스제작
- *
  */
 public class AccountService {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -51,7 +50,7 @@ public class AccountService {
 		Session session = Session.getInstance(props, new Authenticator() {
 			@Override
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("taehk1011@gmail.com", "mgphcsbdzbpnvgag");
+				 return new PasswordAuthentication("taehk1011@gmail.com", "mgphcsbdzbpnvgag");
 			}
 		});
 		setMyIP();	// IP주소 받기
@@ -128,7 +127,7 @@ public class AccountService {
 				+ "</div>";
 		Message message = new MimeMessage(session);
 		try {
-			message.setFrom(new InternetAddress("taehk1011@gmail.com", "관리자", "utf-8"));
+			message.setFrom(new InternetAddress("taehk1011@gmail.com", "NewBit Store", "utf-8"));
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(receiver));
 			message.setSubject(title);
 			message.setContent(content, "text/html; charset=utf-8");
@@ -167,5 +166,4 @@ public class AccountService {
 		}
 		this.myIP = test;
 	}
-	
 }

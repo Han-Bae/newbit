@@ -1,8 +1,8 @@
 package com.newbit.www.vo;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
+import java.util.*;
+
 // 회원 계정(+즐겨찾기) + 장바구니 + 찜목록 + 아바타 정보 + 친구 수록한 VO
-import java.util.Date;
 
 public class AccountVO {
 	private int no, game_number, tag_number, friend_number, cnt, ck_mail;
@@ -11,8 +11,15 @@ public class AccountVO {
 		icon, title, msg, stat, url;	// SwalAlert용
 	private char[] convert_id;
 	private Date joindate;
+	private ArrayList nameList;
 	
 	
+	public ArrayList getNameList() {
+		return nameList;
+	}
+	public void setNameList(ArrayList nameList) {
+		this.nameList = nameList;
+	}
 	public String getResult() {
 		return result;
 	}

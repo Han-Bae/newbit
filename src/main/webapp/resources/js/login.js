@@ -55,7 +55,7 @@ $(document).ready(function(){
 		$('#rpwbtn').prop('disabled', false);
 		$('form').each(function(){
 			this.reset();
-		})
+		});
 	});
 	
 	// 실패시 상태에 따른 모달창 띄우기
