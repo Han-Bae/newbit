@@ -7,7 +7,7 @@ import java.util.*;
 public class AccountVO {
 	private int no, game_number, tag_number, friend_number, cnt, ck_mail;
 	private String id, pw, nickname, email, istype, isshow, isnewbit,
-		sdate, savename, isokay, result,
+		sdate, savename, isokay, result, presentMsg,
 		icon, title, msg, stat, url;	// SwalAlert용
 	private char[] convert_id;
 	private Date joindate;
@@ -171,14 +171,23 @@ public class AccountVO {
 	public void setCk_mail(int ck_mail) {
 		this.ck_mail = ck_mail;
 	}
+	
+	public String getPresentMsg() {
+		return presentMsg;
+	}
+	public void setPresentMsg(String presentMsg) {
+		this.presentMsg = presentMsg;
+	}
+	
 	@Override
 	public String toString() {
 		return "AccountVO [no=" + no + ", game_number=" + game_number + ", tag_number=" + tag_number
 				+ ", friend_number=" + friend_number + ", cnt=" + cnt + ", ck_mail=" + ck_mail + ", id=" + id + ", pw="
 				+ pw + ", nickname=" + nickname + ", email=" + email + ", istype=" + istype + ", isshow=" + isshow
 				+ ", isnewbit=" + isnewbit + ", sdate=" + sdate + ", savename=" + savename + ", isokay=" + isokay
-				+ ", icon=" + icon + ", title=" + title + ", msg=" + msg + ", stat=" + stat + ", url=" + url
-				+ ", convert_id=" + Arrays.toString(convert_id) + ", joindate=" + joindate + "]";
+				+ ", result=" + result + ", presentMsg=" + presentMsg + ", icon=" + icon + ", title=" + title + ", msg="
+				+ msg + ", stat=" + stat + ", url=" + url + ", convert_id=" + Arrays.toString(convert_id)
+				+ ", joindate=" + joindate + ", nameList=" + nameList + "]";
 	}
 	
 }

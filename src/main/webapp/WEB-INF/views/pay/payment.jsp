@@ -22,7 +22,7 @@
 <!-- 위까지 -->
 	<script type="text/javascript" src="/www/js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="/www/js/bootstrap.js"></script>
-		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script type="text/javascript" src="/www/js/components/header.js"></script>
 	<script type="text/javascript" src="/www/js/pay/payment.js"></script>
 </head>

@@ -49,9 +49,40 @@ $(document).ready(function(){
 
 	////////////////////////// Memo - 2단계
 	// 친구 리스트 넣기
+	var list = '';
 	$('input[name="name"]').each(function(){
-		$('#friendList').append($(this).val()+', ');
+		list +=  $(this).val()+', ';
 	});
-	var list = $('#friendList').html();
-	$('#friendList').html(list.substring(0, list.length - 2));
+	$('#friendList').css('color', '#fff');
+	$('#friendList').val(list.substring(0, list.length - 2));
+
+	// 메세지 남은 글자수 알려주기
+	$('#friendBody').on('keyup', function(){
+		$('#restText').html(160 - $(this).val().length);
+	});
+
 });
+
+function next2(){
+	var nameList = new Array();
+	$('input[name="name"]').each(function(index, item){
+		nameList.push($(item).val());
+	});
+	$('input[name="nameList"]').val(nameList);
+	$('input[name="presentTitle"]').val($('#friend-title').val());
+	$('input[name="presentMsg"]').val($('textarea').val());
+
+	if($('input[name="nameList"]').val() == ''){
+		swal('선물을 보낼 친구 정보를 소실했습니다.','결제를 처음부터 진행해주세요.', 'error');
+		$(location).attr('href', '/www/payment/payForm.nbs');
+	}
+	if($('input[name="presentTitle"]').val() == ''){
+		swal('선물 제목이 없습니다.','내용을 입력해주세요.', 'error');
+		return;
+	}
+	if($('input[name="presentMsg"]').val() == ''){
+		swal('선물 메세지 내용이 없습니다.','내용을 입력해주세요.', 'error');
+		return;
+	}
+	$('#frm_memo').submit();
+}
