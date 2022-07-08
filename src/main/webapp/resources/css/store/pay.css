@@ -1,5 +1,5 @@
 @import "store.css";
-/* 보라색 #e14eca */
+/* 보라색 #ba54f5 */
 div{
 	color: #fff;
 }
@@ -128,6 +128,8 @@ input[type="checkbox"] + label span {
 input[type="checkbox"]:checked + label span {
     background:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/check_radio_sheet.png) -57px top no-repeat;
 }
+
+/* 선물 메세지 */
 textarea{
 	resize: none;
 	padding: 8px;
@@ -135,7 +137,6 @@ textarea{
 	margin-left: 40px;
 	outline: none;
 }
-/* 선물 메세지 */
 .textarea{
 	color: #fff;
 	border: 1px solid #2b3553;
@@ -169,3 +170,50 @@ textarea::-webkit-scrollbar-thumb{
 	background-color: #e14eca;
     border-radius: 10px;
 }
+
+/* 결제수단 선택 */
+.selectPay{
+	margin-left: 40px;
+   position: relative;
+   display: flex;
+   width: 20em;
+   height: 3em;
+   line-height: 3;
+   background: linear-gradient(#1e2024, #212529);
+   overflow: hidden;
+   border-radius: .25em;
+}
+select{
+   -webkit-appearance:none;
+   -moz-appearance:none;
+   -ms-appearance:none;
+   appearance:none;
+   outline:0;
+   box-shadow:none;
+   border:1px solid #ba54f5;
+   background: linear-gradient(#1e2024, #212529);
+   background-image: none;
+   flex: 1;
+   padding: 0 .5em;
+   color:#fff;
+   cursor:pointer;
+   font-size: 1em;
+}
+select::-ms-expand{
+	display: none;
+}
+.selectPay::after{
+   content: '\25BC';
+   position: absolute;
+   top: 0;
+   right: 0;
+   padding: 0 1em;
+   background: #ba54f5;
+   cursor:pointer;
+   pointer-events:none;
+   transition:.25s all ease;
+}
+.selectPay:hover::after{
+   color: #1e2024;
+}
+/*<button id="payBtn" type="button">결제테스트</button> */

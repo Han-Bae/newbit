@@ -18,6 +18,7 @@ import com.newbit.www.vo.AccountVO;
 @RequestMapping("/payment")
 public class Payment {
 	
+	// 선물하기 결제 1단계
 	@RequestMapping("/payForm.nbs")
 	public ModelAndView payForm(ModelAndView mv) {
 		mv.addObject("stat", "first");
@@ -25,6 +26,7 @@ public class Payment {
 		return mv;
 	}
 	
+	// 선물하기 결제 단계
 	@RequestMapping("/payFormMemo.nbs")
 	public ModelAndView payFormMemo(ModelAndView mv, AccountVO aVO) {
 		mv.addObject("stat", "second");
@@ -33,6 +35,7 @@ public class Payment {
 		return mv;
 	}
 	
+	// 선물하기 결제 3단계
 	@RequestMapping("/payFormInfo.nbs")
 	public ModelAndView payFormInfo(ModelAndView mv) {
 		mv.addObject("stat", "third");
@@ -40,6 +43,7 @@ public class Payment {
 		return mv;
 	}
 	
+	// 선물하기 결제 4단계
 	@RequestMapping("/payFormCheck.nbs")
 	public ModelAndView payFormCheck(ModelAndView mv) {
 		mv.addObject("stat", "fourth");

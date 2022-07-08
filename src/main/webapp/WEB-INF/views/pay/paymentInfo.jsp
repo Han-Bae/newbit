@@ -5,7 +5,7 @@
 		메인
 		
 		제작자 : 김태현
-		since : 2022.07.06
+		since : 2022.07.08
 		version : v.1.0
 	-->
 <html>
@@ -23,6 +23,8 @@
 	<script type="text/javascript" src="/www/js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="/www/js/bootstrap.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<!-- iamport.payment.js -->
+  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 	<script type="text/javascript" src="/www/js/components/header.js"></script>
 	<script type="text/javascript" src="/www/js/pay/payment.js"></script>
 </head>
@@ -91,15 +93,12 @@
 		<div class="store-top pay-top">
 <c:if test="${not empty stat}">
 		<input type="hidden" id=stat value="${stat}"></c:if>
-<form method="POST" action="/www/payment/payFormInfo.nbs"
-		name="frm_meno" id="frm_memo" class="frm">
-<c:forEach var="name" items="${nameList}" varStatus="status">
-			<!-- 전송용 -->
-    	<input type="hidden" name="name" value="${name}">
-</c:forEach>
-		<input type="hidden" name="nameList">
-		<input type="hidden" name="presentTitle">
-		<input type="hidden" name="presentMsg">
+<form method="POST" action="/www/payment/payFormCheck.nbs"
+		name="frm_info" id="frm_info" class="frm">
+		<input type="hidden" name="nameList" value='${nameList}'>
+		<input type="hidden" name="presentTitle" value='${presentTitle}'>
+		<input type="hidden" name="presentMsg" value='${presentMsg}'>
+		<input type="hidden" name="paySel">
 
 </form>
 			<h4>선물 보내기</h4><h5>▶</h5>
@@ -110,22 +109,26 @@
 		<hr class="payStat">
 		<div class="payMain">
 			<div class="row">
-				<div style="padding-top: 20px; margin-bottom:40px;"><h2 style="margin-left: 20px; margin-bottom: 10px;">친구에게 마음을 전달하세요.</h2>
-					<input type="text" class="form-control" readonly
-			  			name="friendList" style="margin-left: 40px; max-width:350px;" id="friendList"></input>
-			  		<p style="margin-left: 40px;" id="friendList"></p>
-			  		<input type="text" class="form-control" placeholder="메세지 제목"
-			  			name="friend-title" style="margin-left: 40px; max-width:350px;" id="friend-title"></input>
+				<div style="padding-top: 20px; margin-bottom:40px;"><h2 style="margin-left: 20px; margin-bottom: 10px;">결제 수단 선택</h2>
+					<div class="selectPay" >
+						<select class="form-select" id="selPay" name="selPay">
+							<option selected disabled>결제수단을 선택해주세요.</option>
+							<option value="kakao">카카오페이</option>
+							<option value="naver">네이버페이</option>
+							<option value="toss">토스 간편결제</option>
+						</select>
+					</div>
 			  	</div>
 				<!-- 선물내용 -->
-				<div class="friend-main">
-					<label style="margin-left: 30px;">선물 메세지 (160자 제한), 현재 <span id="restText">160</span>자 남음</label><br>
-					<textarea class="textarea" id="friendBody" name="friendBody" rows="10" cols="60" 
-						placeholder="메세지를 입력해주세요." required maxlength="160">게임 재미있게 즐기세요!</textarea>
+				<div class="payInfo" style="display:none;">
+					<h4 style="margin-left: 40px">제공되는 결제 수단은 아래와 같습니다.</h4>
+					<div class="payMain">
+						<img id="howPay" style="width:20%; height:100%; margin-bottom: 50px;">
+					</div>
 				</div>
 			</div> 
 				<div class="conti">
-					<button type="button" id="cbtn2" onclick='next2()' class="btn btn-success">Continue</button>
+					<button type="button" id="cbtn3" onclick='next3()' class="btn btn-success">Continue</button>
 				</div>
 		</div>
 	</main>
