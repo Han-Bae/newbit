@@ -1,3 +1,6 @@
+body {
+	overflow-x: hidden;
+}
 /* 메인 상점 페이지 게임 목록 */
 .store-games {
 	margin: 0px 200px;
@@ -24,7 +27,7 @@
 /* 게임 목록 */
 .store-games--games {
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
 }
 /* 게임 목록의 게임 타이틀 */
 .store-games--games .games {
@@ -36,6 +39,7 @@
 	display: flex;
 	flex-direction: row;
 	margin-bottom: 10px;
+	cursor: pointer;
 }
 .store-games--games .games img {
 	border: 1px solid #525f7f;
@@ -46,32 +50,47 @@
 	display: flex;
 }
 .store-games--games .games .card h4 {
-	width: 350px;
+	font-size: 15px;
+	margin: 0;
+	width: 320px;
 }
 .store-games--games .game-title-info {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	width: 150px;
+	width: 120px;
 }
 .store-games--games .game-title-info i,
-.store-games--games .game-title-info .howSale {
+.store-games--games .gameDiscount .howSale {
 	color: white;
 	padding: 2px;
 	border-radius: 10%;
 }
-.store-games--games .game-title-info i {
+.store-games--games .game-title-info i.positive {
 	background-color: #17a2b8;
 }
-.store-games--games .game-title-info .howSale {
+.store-games--games .game-title-info i.mixed {
+	background-color: #ffc107;
+}
+.store-games--games .game-title-info i.negative {
+	background-color: #fd5d93;
+}
+.store-games--games .gameDiscount .howSale {
 	background-color: #28a745;
+	margin-right: 15px;
+}
+.store-games--games .gameDiscount {
+	width: 180px;
+	display: flex;
+	justify-content: end;
+	align-items: center;
+	padding: 0px 20px;
 }
 .store-games--games .gamePrice {
-	width: 120px;
 	display: flex;
 	flex-direction: column;
+	justify-content: end;
 	align-items: end;
-	padding-right: 20px;
 }
 .store-games--games .salePrice {
 	color: white;

@@ -14,7 +14,7 @@
 	<script type="text/javascript" src="/www/js/components/header.js"></script>
 	<script type="text/javascript" src="/www/js/store/store.js"></script>
 </head>
-<body>
+<body class="store-main-body">
 	
 	<!-- 
 		제작자 : 전다빈
@@ -99,12 +99,56 @@
 				<div class="games-sort">
 					<label for="gameSort">정렬기준</label>
 					<select name="gamesSort" class="form-control store-select" id="gameSort">
+<c:choose>
+	<c:when test="${empty sortBy}">
+						<option value="" selected>연관성</option>
+						<option value="releasedDESC">출시일</option>
+						<option value="nameASC">이름</option>
+						<option value="priceASC">낮은 가격</option>
+						<option value="priceDESC">높은 가격</option>
+						<option value="reviewsDESC">사용자 평가</option>
+	</c:when>
+	<c:when test="${sortBy eq 'releasedDESC'}">
 						<option value="">연관성</option>
-						<option value="">출시일</option>
-						<option value="">이름</option>
-						<option value="">낮은 가격</option>
-						<option value="">높은 가격</option>
-						<option value="">사용자 평가</option>
+						<option value="releasedDESC" selected>출시일</option>
+						<option value="nameASC">이름</option>
+						<option value="priceASC">낮은 가격</option>
+						<option value="priceDESC">높은 가격</option>
+						<option value="reviewsDESC">사용자 평가</option>
+	</c:when>
+	<c:when test="${sortBy eq 'nameASC'}">
+						<option value="">연관성</option>
+						<option value="releasedDESC">출시일</option>
+						<option value="nameASC" selected>이름</option>
+						<option value="priceASC">낮은 가격</option>
+						<option value="priceDESC">높은 가격</option>
+						<option value="reviewsDESC">사용자 평가</option>
+	</c:when>
+	<c:when test="${sortBy eq 'priceASC'}">
+						<option value="">연관성</option>
+						<option value="releasedDESC">출시일</option>
+						<option value="nameASC">이름</option>
+						<option value="priceASC" selected>낮은 가격</option>
+						<option value="priceDESC">높은 가격</option>
+						<option value="reviewsDESC">사용자 평가</option>
+	</c:when>
+	<c:when test="${sortBy eq 'priceDESC'}">
+						<option value="">연관성</option>
+						<option value="releasedDESC">출시일</option>
+						<option value="nameASC">이름</option>
+						<option value="priceASC">낮은 가격</option>
+						<option value="priceDESC" selected>높은 가격</option>
+						<option value="reviewsDESC">사용자 평가</option>
+	</c:when>
+	<c:when test="${sortBy eq 'reviewsDESC'}">
+						<option value="">연관성</option>
+						<option value="releasedDESC">출시일</option>
+						<option value="nameASC">이름</option>
+						<option value="priceASC">낮은 가격</option>
+						<option value="priceDESC">높은 가격</option>
+						<option value="reviewsDESC" selected>사용자 평가</option>
+	</c:when>
+</c:choose>
 					</select>
 				</div>
 				
@@ -112,53 +156,41 @@
 				
 					<div class="games">
 					
-						<div class="card">
-							<img class="card-img-left" src="/www/img/logo.png" width="120px" height="50px">
+<c:forEach var="data" items="${LIST}">
+						<div class="card" id="${data.appId}">
+							<img class="card-img-left" src="${data.img}" width="120px" height="50px">
 							<div>
-								<h4>Game Title</h4>
+								<h4>${data.title}</h4>
 								<div class="game-title-info">
-									<span class="whenGame">2022.07.04</span>
-									<i class="tim-icons icon-minimal-up"></i>
-									<span class="howSale">-49%</span>
+									<span class="whenGame">${data.released}</span>
+	<c:if test="${data.reviewSummary eq 'positive'}">
+									<i class="tim-icons icon-minimal-up positive"></i>
+	</c:if>
+	<c:if test="${data.reviewSummary eq 'mixed'}">
+									<i class="tim-icons icon-simple-delete mixed"></i>
+	</c:if>
+	<c:if test="${data.reviewSummary eq 'negative'}">
+									<i class="tim-icons icon-minimal-down negative"></i>
+	</c:if>
 								</div>
-								<div class="gamePrice">
-									<span class="originalPrice"><del>₩ 999,990</del></span>
-									<span class="salePrice">₩ 1,990</span>
+								
+								<div class="gameDiscount">
+	<c:if test="${not empty data.discount}">
+									<span class="howSale">${data.discount}</span>
+	</c:if>
+									<div class="gamePrice">
+	<c:if test="${empty data.discountPrice}">
+										<span class="salePrice">${data.price}</span>
+	</c:if>
+	<c:if test="${not empty data.discountPrice}">
+										<span class="originalPrice"><del>${data.price}</del></span>
+										<span class="salePrice">${data.discountPrice}</span>
+	</c:if>
+									</div>
 								</div>
 							</div>
 						</div>
-						
-						<div class="card">
-							<img class="card-img-left" src="/www/img/logo.png" width="120px" height="50px">
-							<div>
-								<h4>Game Title</h4>
-								<div class="game-title-info">
-									<span class="whenGame">2022.07.04</span>
-									<i class="tim-icons icon-minimal-up"></i>
-									<span class="howSale">-49%</span>
-								</div>
-								<div class="gamePrice">
-									<span class="originalPrice"><del>₩ 999,990</del></span>
-									<span class="salePrice">₩ 1,990</span>
-								</div>
-							</div>
-						</div>
-						
-						<div class="card">
-							<img class="card-img-left" src="/www/img/logo.png" width="120px" height="50px">
-							<div>
-								<h4>Game Title</h4>
-								<div class="game-title-info">
-									<span class="whenGame">2022.07.04</span>
-									<i class="tim-icons icon-minimal-up"></i>
-									<span class="howSale">-49%</span>
-								</div>
-								<div class="gamePrice">
-									<span class="originalPrice"><del>₩ 999,990</del></span>
-									<span class="salePrice">₩ 1,990</span>
-								</div>
-							</div>
-						</div>
+</c:forEach>
 						
 					</div>
 					

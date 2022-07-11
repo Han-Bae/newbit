@@ -10,8 +10,11 @@
 .store-top button {
 	height: calc(2.25rem + 2px);
 }
-.store-top > button {
+.store-top > .btn {
 	margin-right: 30px;
+	padding: 11px 30px;
+	width: 140px;
+	text-align: center;
 }
 .store-search {
 	display: flex;

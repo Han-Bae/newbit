@@ -11,6 +11,7 @@
 	
 	<typeAliases>
 		<typeAlias alias="aVO" type="com.newbit.www.vo.AccountVO" />
+		<typeAlias alias="storeVO" type="com.newbit.www.vo.StoreVO" />
 		<typeAlias alias="page" type="com.newbit.www.util.PageUtil" />
 	</typeAliases>
 	
