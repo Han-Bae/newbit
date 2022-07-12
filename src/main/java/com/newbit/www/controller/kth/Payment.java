@@ -47,6 +47,7 @@ public class Payment {
 	@RequestMapping("/payFormInfo.nbs")
 	public ModelAndView payFormInfo(ModelAndView mv, PaymentVO pVO) {
 		mv.addObject("stat", "third");
+		mv.addObject("pVO", pVO);
 		mv.setViewName("pay/paymentInfo");
 		return mv;
 	}
@@ -60,6 +61,7 @@ public class Payment {
 		aVO = aDao.selAccountInfo(aVO);
 		aVO.setTel("010-1111-1111");
 		mv.addObject("aVO", aVO);
+		mv.addObject("nameList", pVO.getNameList());
 		mv.addObject("paySel", pVO.getPaySel());
 		mv.addObject("stat", "fourth");
 		mv.setViewName("pay/paymentCheck");

@@ -38,6 +38,7 @@
 	
 	<!-- bean 설정파일 읽어오기 -->
 	<beans:import resource="bean-context.xml" />
+	<beans:import resource="interceptor-context.xml" />
 	
 	<context:component-scan base-package="com.newbit.www" />
 	

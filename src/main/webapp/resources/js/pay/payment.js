@@ -64,7 +64,7 @@ $(document).ready(function(){
 	/////////////////////////// INFO - 3단계
 	$('#selPay').change(function(){
 		var name = $('#selPay option:selected').val();
-		$('#howPay').attr('src','/www/img/'+name+'pay.png');
+		$('#howPay').attr('src','/www/img/pay/'+name+'pay.png');
 		$('.payInfo').css('display', 'block');
 	});
 
@@ -127,28 +127,96 @@ function getTotal(){
 }
 // 결제 테스트
 function payment(data){
-	IMP.init('imp53015725');	// 가맹점 식별코드
-	IMP.request_pay({	// 파라미터 넣기
-		pg: "kakaopay.TC0ONETIME", //pg사명 or pg사명.CID (잘못 입력할 경우, 기본 PG사가 띄워짐)
-        pay_method: "card", //지불 방법
-        merchant_uid: "kakao_test_id1", //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
-        name: $('#gameList').val(), //결제창에 노출될 상품명
-        amount: $('#totalPrice').val(), //금액
-        buyer_email : $('#buyerEmail').val(), 
-        buyer_name : $('#buyerNick').val(),
-        buyer_tel : $('#buyerTel').val()
-    }, function (rsp) { // callback
-        if (rsp.success) {
-			alert("완료 -> imp_uid : "+rsp.imp_uid+" / merchant_uid(orderKey) : " +rsp.merchant_uid);
-			swal("결제 완료!","결제가 완료되어 메인페이지로 이동됩니다.","success")
-			.then(function(){
-				$(location).attr('href', '/www/store/games/nbs');
-			/* 	$('form').attr('action', '/www/store/games/nbs');
-				$('form').submit(); */
+	switch($('#paySel').val()){
+		// KG이니시스 결제(일반 카드 결제)
+		case "card":
+			IMP.init('imp53015725');	// 가맹점 식별코드
+			IMP.request_pay({	// 파라미터 넣기
+				//pg: "nictest00m",
+				pg: "html5_inicis", //pg사명 or pg사명.CID (잘못 입력할 경우, 기본 PG사가 띄워짐)
+				pay_method: "card", //지불 방법
+				merchant_uid: "card_test_"+ new Date().getTime(), //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
+				name: $('#gameList').val(), //결제창에 노출될 상품명
+				amount: $('#totalPrice').val(), //금액
+				buyer_email : $('#buyerEmail').val(), 
+				buyer_name : $('#buyerNick').val(),
+				buyer_tel : $('#buyerTel').val(),
+				buyer_postcode : "123456"
+		}, function (rsp) { // callback
+			if (rsp.success) {
+				alert("완료 -> imp_uid : "+rsp.imp_uid+" / merchant_uid(orderKey) : " +rsp.merchant_uid);
+				swal("결제 완료!","결제가 완료되어 메인페이지로 이동됩니다.","success")
+				.then(function(){
+					$(location).attr('href', '/www/store/games.nbs');
+					/* 	$('form').attr('action', '/www/store/games.nbs');
+					$('form').submit(); */
+					}
+					)
+				} else {
+					alert("실패 : 코드("+rsp.error_code+") / 메세지(" + rsp.error_msg + ")");
 				}
-			)
-        } else {
-            alert("실패 : 코드("+rsp.error_code+") / 메세지(" + rsp.error_msg + ")");
-        }
-    });
+		});
+		break
+
+		// 카카오 간편 결제
+		case "kakao":
+			IMP.init('imp53015725');	// 가맹점 식별코드
+			IMP.request_pay({	// 파라미터 넣기
+				pg: "TC0ONETIME", //pg사명 or pg사명.CID (잘못 입력할 경우, 기본 PG사가 띄워짐)
+				pay_method: "card", //지불 방법
+				merchant_uid: "kakao_test_"+ new Date().getTime(), //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
+				name: $('#gameList').val(), //결제창에 노출될 상품명
+				amount: $('#totalPrice').val(), //금액
+				buyer_email : $('#buyerEmail').val(), 
+				buyer_name : $('#buyerNick').val(),
+				buyer_tel : $('#buyerTel').val()
+		},  function(rsp) {
+				console.log(rsp);
+				// 결제검증
+				$.ajax({
+					type : "POST",
+					url : "/verifyIamport/" + rsp.imp_uid 
+				}).done(function(data) {
+					
+					console.log(data);
+					
+					// 위의 rsp.paid_amount 와 data.response.amount를 비교한후 로직 실행 (import 서버검증)
+					if(rsp.paid_amount == data.response.amount){
+						alert("결제 및 결제검증완료");
+					} else {
+						alert("결제 실패");
+					}
+	        });
+		});
+		break
+
+		// 토스 간편 결제
+		case "toss":
+			IMP.init('imp53015725');	// 가맹점 식별코드
+			IMP.request_pay({
+				pg : 'tosstest.268694',
+				pay_method : 'card',
+				merchant_uid: "toss_test"+ new Date().getTime(), //상점에서 생성한 고유 주문번호
+				name: $('#gameList').val(), //결제창에 노출될 상품명
+				amount: $('#totalPrice').val(), //금액
+				buyer_email : $('#buyerEmail').val(), 
+				buyer_name : $('#buyerNick').val(),
+				buyer_tel : $('#buyerTel').val(),
+		}, function(rsp) { // callback 로직
+			if (rsp.success) {
+				alert("완료 -> imp_uid : "+rsp.imp_uid+" / merchant_uid(orderKey) : " +rsp.merchant_uid);
+				swal("결제 완료!","결제가 완료되어 메인페이지로 이동됩니다.","success")
+				.then(function(){
+					$(location).attr('href', '/www/store/games.nbs');
+					/* 	$('form').attr('action', '/www/store/games.nbs');
+					$('form').submit(); */
+					}
+					)
+				} else {
+					alert("실패 : 코드("+rsp.error_code+") / 메세지(" + rsp.error_msg + ")");
+				}
+		});
+		break
+	}
 }
+

@@ -24,10 +24,10 @@
 	<script type="text/javascript" src="/www/js/bootstrap.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<!-- iamport.payment.js -->
-  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+  	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 	<script type="text/javascript" src="/www/js/components/header.js"></script>
 	<script type="text/javascript" src="/www/js/pay/payment.js"></script>
-	<script tpye="text/javascript">
+	<script type="text/javascript">
 		$(document).ready(function(){
 			var priceList = 0;
 			$('.card').each(function(index, item){
@@ -45,7 +45,8 @@
 				}
 			});
 			
-			$('#total').text(comma(priceList));
+			$('#subtotal').text(comma(priceList));
+			$('#total').text(comma(getNumber($('#subtotal').text()) * $('input[name="name"]').length));
 			$('#totalPrice').val(getNumber($('#total').text()));
 		});
 
@@ -122,7 +123,6 @@
 			<a href="/www/account/logout.nbs">Log Out</a>
 			<a href="#"><i class="tim-icons icon-single-02"></i></a>
 </c:if>
-			<a href="#"><i class="tim-icons icon-single-02"></i></a>
 			<a href="/www/payment/payForm.nbs"><i class="tim-icons icon-basket-simple"></i></a>
 			<a href="#"><i class="tim-icons icon-shape-star"></i></a>
 		</div>
@@ -137,9 +137,15 @@
 	<input type="hidden" id="totalPrice" name="totalPrice">
 	<input type="hidden" id="gameList" name="gameList">
 	<input type="hidden" id="buyerInfo" name="buyerNick" value="${aVO.nickname}">
-	<input type="hidden" id="buyerInfo" name="buyerEmail" value="${aVO.email}">
-	<input type="hidden" id="buyerInfo" name="buyerTel" value="${aVO.tel}">
+	<input type="hidden" id="buyerEmail" name="buyerEmail" value="${aVO.email}">
+	<input type="hidden" id="buyerTel" name="buyerTel" value="${aVO.tel}">
 </form>
+
+<!-- 가격 계산용 보낼 친구 수 -->
+<c:forEach var="name" items="${nameList}" varStatus="status">
+    	<input type="hidden" name="name" value="${name}">
+</c:forEach>
+
 			<h4>선물 보내기</h4><h5>▶</h5>
 			<h4>메모작성</h4><h5>▶</h5>
 			<h4>결제 정보</h4><h5>▶</h5>
@@ -163,7 +169,7 @@
 											</div>
 											<div class="gamePrice">
 												<span class="originalPrice"><del>999990</del></span>
-												<span class="salePrice">2000</span>
+												<span class="salePrice">2</span>
 											</div>
 										</div>
 									</div>
@@ -177,7 +183,7 @@
 												<span class="howSale">-49%</span>
 											</div>
 											<div class="gamePrice">
-												<span class="originalPrice"><del>30000</del></span>
+												<span class="originalPrice"><del>30</del></span>
 											</div>
 										</div>
 									</div>
@@ -205,20 +211,18 @@
 				
 					<div class="row" style="width:100%;">
 						<div style="padding-top: 20px; margin-bottom:40px; justify-content: space-between; display:flex;">
+							<h2 style="margin-left: 20px; margin-bottom: 10px;">소계:</h2>
+							<h2 id="subtotal" style="margin-right: 20px; margin-bottom: 10px;"></h2>
+					  	</div>
+						<div style="padding-top: 20px; margin-bottom:40px; justify-content: space-between; display:flex;">
 							<h2 style="margin-left: 20px; margin-bottom: 10px;">합계:</h2>
 							<h2 id="total" style="margin-right: 20px; margin-bottom: 10px;"></h2>
 					  	</div>
-						<!-- 선물내용 -->
-						<div class="payInfo" style="display:none;">
-							<h4 style="margin-left: 40px">제공되는 결제 수단은 아래와 같습니다.</h4>
-							<div class="payMain">
-								<img id="howPay" style="width:20%; height:100%; margin-bottom: 50px;">
-							</div>
-						</div>
 			</div>
 		</div>
 				<div class="conti">
 					<button type="button" id="cbtn3" onclick='next4()' class="btn btn-success">${paySel}pay로 결제하기</button>
+					<input type="hidden" id="paySel" value="${paySel}">
 				</div>
 		</div>
 	</main>

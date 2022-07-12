@@ -83,7 +83,6 @@
 			<a href="/www/account/logout.nbs">Log Out</a>
 			<a href="#"><i class="tim-icons icon-single-02"></i></a>
 </c:if>
-			<a href="#"><i class="tim-icons icon-single-02"></i></a>
 			<a href="/www/payment/payForm.nbs"><i class="tim-icons icon-basket-simple"></i></a>
 			<a href="#"><i class="tim-icons icon-shape-star"></i></a>
 		</div>
@@ -95,9 +94,9 @@
 		<input type="hidden" id=stat value="${stat}"></c:if>
 <form method="POST" action="/www/payment/payFormCheck.nbs"
 		name="frm_info" id="frm_info" class="frm">
-		<input type="hidden" name="nameList" value='${nameList}'>
-		<input type="hidden" name="presentTitle" value='${presentTitle}'>
-		<input type="hidden" name="presentMsg" value='${presentMsg}'>
+		<input type="hidden" name="nameList" value='${pVO.nameList}'>
+		<input type="hidden" name="presentTitle" value='${pVO.presentTitle}'>
+		<input type="hidden" name="presentMsg" value='${pVO.presentMsg}'>
 		<input type="hidden" name="paySel">
 
 </form>
@@ -113,8 +112,8 @@
 					<div class="selectPay" >
 						<select class="form-select" id="selPay" name="selPay">
 							<option selected disabled>결제수단을 선택해주세요.</option>
+							<option value="card">일반 카드결제</option>
 							<option value="kakao">카카오페이</option>
-							<option value="naver">네이버페이</option>
 							<option value="toss">토스 간편결제</option>
 						</select>
 					</div>
