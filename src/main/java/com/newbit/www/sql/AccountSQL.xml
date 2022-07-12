@@ -135,4 +135,11 @@
 			#{nickname}, #{email}, #{istype}
 		)
 	</insert>
+	
+<!-- 결제용 회원 정보 확인 -->
+	<select id="selAccountInfo" resultType="aVO" parameterType="aVO">
+		SELECT nickname, email
+		FROM account
+		WHERE id = #{id}
+	</select>
 </mapper>

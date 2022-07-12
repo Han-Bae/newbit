@@ -12,7 +12,7 @@
 	<context:annotation-config />
 	
 	<bean id="aDao" class="com.newbit.www.dao.AccountDao" />
-	
+	<bean id="pDao" class="com.newbit.www.dao.PaymentDao" />
 	<bean id="crawling" class="com.newbit.www.util.Crawling" />
 	
 	<!-- 서비스 클래스 빈처리 -->

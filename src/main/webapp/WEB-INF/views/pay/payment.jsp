@@ -124,42 +124,21 @@
 				<form method="POST" action="/www/payment/payFormMemo.nbs"
 			  			name="frm" id="frm" class="frm">
 			  	<input type="hidden" id="nameList" name="nameList">
+			  	<!-- 친구 내용 -->
+			<c:forEach var="friend" items="${nameList}">
 				<div class="card">
 					<div>    
-						<input type="checkbox" id="f1" name="fid" value="One"/>
-	    				<label for="f1">
+						<input type="checkbox" id="${friend}" name="fid" value="${friend}"/>
+	    				<label for="${friend}">
 							<span></span>
 	    				</label>
 					</div>
-    				<label for="f1" class="notLabel">
+    				<label for="${friend}" class="notLabel">
 						<img class="card-img-left" src="/www/img/logo.png" width="120px" height="50px">
-	    				<h4>One</h4>
+	    				<h4>${friend}</h4>
     				</label>
 				</div>
-				<div class="card">
-					<div>    
-						<input type="checkbox" id="f2" name="fid" value="투" />
-	    				<label for="f2">
-							<span></span>
-	    				</label>
-					</div>
-    				<label for="f2" class="notLabel">
-						<img class="card-img-left" src="/www/img/logo.png" width="120px" height="50px">
-	    				<h4>투</h4>
-    				</label>
-				</div>
-				<div class="card">
-					<div>
-						<input type="checkbox" id="f3" name="fid" value="THREE" />
-	    				<label for="f3">
-							<span></span>
-	    				</label>
-					</div>
-    				<label for="f3" class="notLabel">
-						<img class="card-img-left" src="/www/img/logo.png" width="120px" height="50px">
-	    				<h4>THREE</h4>
-    				</label>
-				</div>
+			</c:forEach>			
 				</form>	
 			</div>
 		</div>

@@ -90,7 +90,8 @@
 	<main>
 		<div class="store-top pay-top">
 <c:if test="${not empty stat}">
-		<input type="hidden" id=stat value="${stat}"></c:if>
+		<input type="hidden" id=stat value="${stat}">
+</c:if>
 <form method="POST" action="/www/payment/payFormInfo.nbs"
 		name="frm_meno" id="frm_memo" class="frm">
 <c:forEach var="name" items="${nameList}" varStatus="status">

@@ -27,6 +27,45 @@
   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 	<script type="text/javascript" src="/www/js/components/header.js"></script>
 	<script type="text/javascript" src="/www/js/pay/payment.js"></script>
+	<script tpye="text/javascript">
+		$(document).ready(function(){
+			var priceList = 0;
+			$('.card').each(function(index, item){
+				if($(this).find('span[class="salePrice"]') == null ||
+					$(this).find('span[class="salePrice"]').text() == ''){
+					// 할인이 아닐 때
+					priceList += Number($(this).find('span[class="originalPrice"]').text());
+					
+					$(this).find('span[class="originalPrice"]').html(comma($(this).find('span[class="originalPrice"]').text()));
+				} else{
+					priceList += Number($(this).find('span[class="salePrice"]').text());
+					
+					$(this).find('span[class="originalPrice"]').html('<del>'+comma($(this).find('span[class="originalPrice"]').text())+'</del>');
+					$(this).find('span[class="salePrice"]').text(comma($(this).find('span[class="salePrice"]').text()));
+				}
+			});
+			
+			$('#total').text(comma(priceList));
+			$('#totalPrice').val(getNumber($('#total').text()));
+		});
+
+	    function comma(str) {
+	        str = String(str);
+	        return '₩ '+ str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+	    }
+
+	    function getNumber(str) {
+	        var len      = str.length;
+	        var sReturn  = "";
+
+	        for (var i=2; i<len; i++){
+	            if ( (str.charAt(i) >= "0") && (str.charAt(i) <= "9") ){
+	                sReturn += str.charAt(i);
+	            }
+	        }
+	        return sReturn;
+	    }
+	</script>
 </head>
 
 <body>
@@ -95,11 +134,11 @@
 		<input type="hidden" id=stat value="${stat}"></c:if>
 <form method="POST" action="/www/payment/payFormCheck.nbs"
 		name="frm_info" id="frm_info" class="frm">
-		<input type="hidden" name="nameList" value='${nameList}'>
-		<input type="hidden" name="presentTitle" value='${presentTitle}'>
-		<input type="hidden" name="presentMsg" value='${presentMsg}'>
-		<input type="hidden" name="paySel">
-
+	<input type="hidden" id="totalPrice" name="totalPrice">
+	<input type="hidden" id="gameList" name="gameList">
+	<input type="hidden" id="buyerInfo" name="buyerNick" value="${aVO.nickname}">
+	<input type="hidden" id="buyerInfo" name="buyerEmail" value="${aVO.email}">
+	<input type="hidden" id="buyerInfo" name="buyerTel" value="${aVO.tel}">
 </form>
 			<h4>선물 보내기</h4><h5>▶</h5>
 			<h4>메모작성</h4><h5>▶</h5>
@@ -108,27 +147,78 @@
 		</div>
 		<hr class="payStat">
 		<div class="payMain">
-			<div class="row">
-				<div style="padding-top: 20px; margin-bottom:40px;"><h2 style="margin-left: 20px; margin-bottom: 10px;">결제 수단 선택</h2>
-					<div class="selectPay" >
-						<select class="form-select" id="selPay" name="selPay">
-							<option selected disabled>결제수단을 선택해주세요.</option>
-							<option value="kakao">카카오페이</option>
-							<option value="naver">네이버페이</option>
-							<option value="toss">토스 간편결제</option>
-						</select>
-					</div>
-			  	</div>
-				<!-- 선물내용 -->
-				<div class="payInfo" style="display:none;">
-					<h4 style="margin-left: 40px">제공되는 결제 수단은 아래와 같습니다.</h4>
-					<div class="payMain">
-						<img id="howPay" style="width:20%; height:100%; margin-bottom: 50px;">
-					</div>
+			<div class="rowDiv">
+				<div class="row" style="width:100%;">
+					<div class="store-games" style="display:contents">
+						<div class="store-games-main">
+							<div class="store-games--games">
+								<div class="games">
+									<!-- 개별 게임 -->
+									<div class="card">
+										<img class="card-img-left" src="/www/img/logo.png" width="65px" height="50px">
+										<div>
+											<h4 style="width:40%;">Game1</h4>
+											<div class="game-title-info">
+												<span class="howSale">-49%</span>
+											</div>
+											<div class="gamePrice">
+												<span class="originalPrice"><del>999990</del></span>
+												<span class="salePrice">2000</span>
+											</div>
+										</div>
+									</div>
+									<!-- 개별게임 끝 -->		
+									<!-- 개별 게임 -->
+									<div class="card">
+										<img class="card-img-left" src="/www/img/logo.png" width="65px" height="50px">
+										<div>
+											<h4 style="width:40%;">Game2</h4>
+											<div class="game-title-info">
+												<span class="howSale">-49%</span>
+											</div>
+											<div class="gamePrice">
+												<span class="originalPrice"><del>30000</del></span>
+											</div>
+										</div>
+									</div>
+									<!-- 개별게임 끝 -->				
+									<!-- 개별 게임 -->
+									<div class="card">
+										<img class="card-img-left" src="/www/img/logo.png" width="65px" height="50px">
+										<div>
+											<h4 style="width:40%;">Game3</h4>
+											<div class="game-title-info">
+												<span class="howSale">-49%</span>
+											</div>
+											<div class="gamePrice">
+												<span class="originalPrice"><del>200</del></span>
+												<span class="salePrice"></span>
+											</div>
+										</div>
+									</div>
+									<!-- 개별게임 끝 -->				
+								</div>
+							</div>
+						</div>
+					</div>	
 				</div>
-			</div> 
+				
+					<div class="row" style="width:100%;">
+						<div style="padding-top: 20px; margin-bottom:40px; justify-content: space-between; display:flex;">
+							<h2 style="margin-left: 20px; margin-bottom: 10px;">합계:</h2>
+							<h2 id="total" style="margin-right: 20px; margin-bottom: 10px;"></h2>
+					  	</div>
+						<!-- 선물내용 -->
+						<div class="payInfo" style="display:none;">
+							<h4 style="margin-left: 40px">제공되는 결제 수단은 아래와 같습니다.</h4>
+							<div class="payMain">
+								<img id="howPay" style="width:20%; height:100%; margin-bottom: 50px;">
+							</div>
+						</div>
+			</div>
+		</div>
 				<div class="conti">
-					<button type="button" id="cbtn3" onclick='next3()' class="btn btn-success">Continue</button>
+					<button type="button" id="cbtn3" onclick='next4()' class="btn btn-success">${paySel}pay로 결제하기</button>
 				</div>
 		</div>
 	</main>

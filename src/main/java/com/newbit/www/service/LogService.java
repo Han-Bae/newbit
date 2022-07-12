@@ -27,7 +27,7 @@ import com.newbit.www.vo.*;
 @Aspect
 public class LogService {
 	private static Logger accountLog = LoggerFactory.getLogger("accountLog");
-	
+	 
 	
 	@Pointcut("execution(* com.newbit.www.controller.kth.Account.loginProc(..))")
 	public void recordLogin() {
@@ -44,16 +44,17 @@ public class LogService {
 		return true;
 	}
 
-
-	@Before("execution(* com.newbit.www.controller.kth.Account.logout(..))")
+	@Pointcut("execution(* com.newbit.www.controller.kth.Account.logout(..))")
+	public void recordLogout() {
+	}
+	@Before("recordLogout()")
 	public void logoutSetData(JoinPoint join) {
 		HttpSession session = (HttpSession) join.getArgs()[1];
 		AccountVO aVO = (AccountVO) join.getArgs()[2];
 		aVO.setId((String) session.getAttribute("SID"));
 	}
-	
-	@After("execution(* com.newbit.www.controller.kth.Account.logout(..))")
-	public void logoutRecord(JoinPoint join) {
+	@After("recordLogout()")
+	public boolean logoutRecord(JoinPoint join) {
 		AccountVO aVO = (AccountVO) join.getArgs()[2];
 		String id = aVO.getId();
 		String result = aVO.getResult();
@@ -61,6 +62,7 @@ public class LogService {
 		if(result != null && result.equals("OK")) {
 			accountLog.info(id + " 님 로그아웃");
 		}
+		return true;
 	}
 	
 }

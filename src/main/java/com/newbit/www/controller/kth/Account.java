@@ -62,10 +62,11 @@ public class Account {
 			return mv;
 	}
 	
+	// 로그아웃
 	@RequestMapping("/logout.nbs")
-	public ModelAndView logout(ModelAndView mv, HttpSession session) {
-		//accountLog.info((String) session.getAttribute("SID") + "님이 로그아웃하였습니다.");
+	public ModelAndView logout(ModelAndView mv, HttpSession session, AccountVO aVO) {
 		session.removeAttribute("SID");
+		aVO.setResult("OK");
 		mv.setViewName("store/games");
 		return mv;
 	}

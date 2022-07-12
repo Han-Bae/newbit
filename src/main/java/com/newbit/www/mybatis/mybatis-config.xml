@@ -10,12 +10,14 @@
 	</settings>
 	
 	<typeAliases>
-		<typeAlias alias="aVO" type="com.newbit.www.vo.AccountVO" />
-		<typeAlias alias="storeVO" type="com.newbit.www.vo.StoreVO" />
-		<typeAlias alias="page" type="com.newbit.www.util.PageUtil" />
+		<typeAlias alias="aVO" 		type="com.newbit.www.vo.AccountVO" />
+		<typeAlias alias="storeVO" 	type="com.newbit.www.vo.StoreVO" />
+		<typeAlias alias="pVO" 		type="com.newbit.www.vo.PaymentVO" />
+		<typeAlias alias="page" 	type="com.newbit.www.util.PageUtil" />
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="com/newbit/www/sql/AccountSQL.xml" />
+		<mapper resource="com/newbit/www/sql/PaymentSQL.xml" />
 	</mappers>
 </configuration>

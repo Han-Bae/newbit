@@ -82,4 +82,9 @@ public class AccountDao {
 	public int insertJoin(AccountVO aVO) {
 		return sqlSession.insert("aSQL.insertJoin", aVO);
 	}
+
+	// 결제용 유저 정보(닉네임, 이메일)
+	public AccountVO selAccountInfo(AccountVO aVO) {
+		return sqlSession.selectOne("aSQL.selAccountInfo", aVO);
+	}
 }
