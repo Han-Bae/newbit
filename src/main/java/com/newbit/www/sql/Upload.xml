@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+			
+<mapper namespace="uSQL">
+	<insert id="insertSShot" parameterType="uVO">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			SELECT 
+				NVL(MAX(no) + 1, 1001) 
+			FROM 
+				SCREENSHOT
+		</selectKey>
+		
+		INSERT INTO
+		    SCREENSHOT(NO, ACCOUNT_NO, GAME_NO, REGISTDATE, ISNEWBIT, ISSHOW, SAVENAME)
+		VALUES(
+		    #{no}, #{account_no}, #{game_no}, SYSDATE, 'N', 'Y',#{savename}
+		)
+	</insert>
+	
+	
+	<select id="getScreenShot" resultType="uVO">
+		SELECT
+		    NO,TO_CHAR(REGISTDATE,'YYYY-MM-DD')AS RDATE, GAME_NO, ISSHOW, SAVEMAME
+		FROM
+		    SCREENSHOT
+	    WHERE
+	    	AND ISSHOW = 'Y'
+	</select>
+</mapper>

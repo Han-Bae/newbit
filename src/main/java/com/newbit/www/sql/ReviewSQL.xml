@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+			
+<mapper namespace="rSQL">
+	<insert id="addReview" parameterType="rVO">
+		INSERT INTO
+		    REVIEW(NO, ACCOUNT_NO, GAME_NO, BODY, ISNEWBIT, ISGOOD, ISSHOW, REGISTDATE)
+		VALUES(
+		    #{no}, #{account_no}, #{game_no}, #{body}, #{isnewbit}, #{isgood}, #{isshow}, SYSDATE
+		)
+	</insert>
+	
+	<select id="getReview" resultType="rVO">
+		SELECT
+		    ACCOUNT_NO,TO_CHAR(REGISTDATE,'YYYY-MM-DD')AS RDATE, ISGOOD, BODY, NO
+		FROM
+		    REVIEW
+	    WHERE
+	    	GAME_NO = 1111111
+	    	AND ISSHOW = 'Y'
+	</select>
+
+	<select id="getGameReview" resultType="rVO" parameterType="int">
+		SELECT
+		    ACCOUNT_NO,TO_CHAR(REGISTDATE,'YYYY-MM-DD')AS RDATE, ISGOOD, BODY, NO
+		FROM
+		    REVIEW
+	    WHERE
+	    	GAME_NO = #{game_no}
+	    	AND ISSHOW = 'Y'
+	</select>
+
+	<select id="getreviewDetail" resultType="rVO" parameterType="int">
+		SELECT
+		    ACCOUNT_NO,TO_CHAR(REGISTDATE,'YYYY-MM-DD')AS RDATE, ISGOOD, BODY, NO
+		FROM
+		    REVIEW
+	    WHERE
+	    	ACCOUNT_NO = #{accountNo}
+	</select>
+
+	<select id="getreviewYN" resultType="rVO" parameterType="rVO">
+		SELECT
+		    REVIEW_NO AS REVIEWNO, SUM(GOOD) AS GOOD, SUM(BAD) AS BAD
+		FROM
+		    REVIEW_GB
+		WHERE
+		    REVIEW_NO = #{dreviewNo}
+		GROUP BY 
+		    REVIEW_NO
+	</select>
+
+	<select id="getFindNo" resultType="int" parameterType="String">
+		SELECT NO FROM ACCOUNT WHERE ID = #{id}
+	</select>
+	
+	<select id ="getSelIdCnt" resultType="int" parameterType="rVO">
+		SELECT COUNT(*)
+		FROM REVIEW_GB
+		WHERE ACCOUNT_NO = #{no}
+		AND REVIEW_NO = #{dreviewNo}
+	</select>
+
+	<insert id="addReviewYN" parameterType="rVO">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			SELECT NO FROM ACCOUNT WHERE ID = #{sid}
+		</selectKey>
+		INSERT INTO
+		    REVIEW_GB(
+		    ACCOUNT_NO 
+		    ,REVIEW_NO 
+		     <if test='reviewYN eq "Y"'>
+		    ,GOOD
+		    </if>
+		    <if test='reviewYN eq "N"'>
+		    ,BAD
+		    </if>
+		    )
+		VALUES(
+		    #{no} 
+		    ,#{dreviewNo} 
+		    <if test='reviewYN eq "Y"'>
+				,(SELECT NVL(MAX(good) + 1, 1)FROM REVIEW_GB WHERE REVIEW_NO = #{dreviewNo})
+			</if>
+		    <if test='reviewYN eq "N"'>
+				,(SELECT NVL(MAX(bad) + 1, 1)FROM REVIEW_GB WHERE REVIEW_NO = #{dreviewNo})
+			</if>
+		)
+	</insert>
+	
+	<update id="delReview" parameterType="int">
+		UPDATE
+		    review
+		SET
+		    ISSHOW = 'N'
+		WHERE
+		    account_no = #{no}
+	</update>
+	
+	<select id ="getSelRewiewCnt" resultType="int" parameterType="rVO">
+		SELECT COUNT(*)
+		FROM REVIEW_GB
+		WHERE ACCOUNT_NO = #{no}
+		AND REVIEW_NO = #{dreviewNo}
+	</select>
+	
+</mapper>
