@@ -381,13 +381,13 @@ CREATE TABLE payhistory(
 		CONSTRAINT PAY_MERCHANT_NN NOT NULL,
 	game_id VARCHAR2(15 CHAR)
 		CONSTRAINT PAY_GAMEID_NN NOT NULL,
-   account_no NUMBER(4)
+   account_no NUMBER(4) -- 게임 가진 사람
         CONSTRAINT PAY_ACCOUNTNUM_FK REFERENCES account(no)
         CONSTRAINT PAY_ACCOUNTNUM_NN NOT NULL,
+    buy_no NUMBER(4)    -- 구매자
+        CONSTRAINT PAY_BUYER_FK REFERENCES account(no),
     paydate DATE DEFAULT sysdate
         CONSTRAINT PAY_DATE_NN NOT NULL
 );
-
-
 
 commit;
