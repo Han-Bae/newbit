@@ -1,18 +1,17 @@
--- ½Ã½ºÅÛ °èÁ¤À¸·Î ½ÇÇà
+-- ì‹œìŠ¤í…œ ê³„ì •ìœ¼ë¡œ ì‹¤í–‰
 
--- ´ººø °èÁ¤ »ý¼º
+-- ë‰´ë¹— ê³„ì • ìƒì„±
 CREATE ACCOUNT newbit IDENTIFIED BY 12345;
--- µ¥ÀÌÅÍº£ÀÌ½º Á¢¼Ó ±ÇÇÑ
+-- ë°ì´í„°ë² ì´ìŠ¤ ì ‘ì† ê¶Œí•œ
 GRANT CREATE SESSION TO newbit;
--- ¸ðµç ±ÇÇÑ ÁÖ±â
+-- ëª¨ë“  ê¶Œí•œ ì£¼ê¸°
 GRANT CONNECT, RESOURCE, DBA TO newbit;
 commit;
 
+-- newbit ê³„ì •ìœ¼ë¡œ ì‹¤í–‰
+-- ACCOUNT ê´€ë ¨ í…Œì´ë¸” ìƒì„±
 
--- newbit °èÁ¤À¸·Î ½ÇÇà
--- ACCOUNT °ü·Ã Å×ÀÌºí »ý¼º
-
-	-- ÀÌ¸ÞÀÏ È®ÀÎ Å×ÀÌºí
+	-- ì´ë©”ì¼ í™•ì¸ í…Œì´ë¸”
 CREATE TABLE email(
     email VARCHAR2(50 CHAR)
         CONSTRAINT MAIL_PK PRIMARY KEY
@@ -22,8 +21,7 @@ CREATE TABLE email(
         CONSTRAINT MAIL_OKAY_NN NOT NULL
 );
 
-drop table account;
-	-- »ç¿ëÀÚ Å×ÀÌºí
+	-- ì‚¬ìš©ìž í…Œì´ë¸”
 CREATE TABLE account(
     no NUMBER(4)
         CONSTRAINT ACCOUNT_NO_PK PRIMARY KEY,
@@ -48,7 +46,7 @@ CREATE TABLE account(
         CONSTRAINT ACCOUNT_JDATE_NN NOT NULL
 );
 
-	-- ¾Æ¹ÙÅ¸ Á¤º¸ Å×ÀÌºí
+	-- ì•„ë°”íƒ€ ì •ë³´ í…Œì´ë¸”
 CREATE TABLE img(
    no NUMBER(4)
         CONSTRAINT IMG_NO_PK PRIMARY KEY,
@@ -60,29 +58,29 @@ CREATE TABLE img(
         CONSTRAINT IMG_ACCOUNTNUM_NN NOT NULL
 );
 
-	-- Âò Å×ÀÌºí
+	-- ì°œ í…Œì´ë¸”
 CREATE TABLE pick(
    account_no NUMBER(4)
         CONSTRAINT PICK_ACCOUNTNUM_FK REFERENCES account(no)
         CONSTRAINT PICK_ACCOUNTNUM_NN NOT NULL,
-   game_no NUMBER(10),		-- APIÈ®ÀÎ
+   game_no NUMBER(10),		-- APIÈ®ï¿½ï¿½
     isnewbit CHAR(1)
         CONSTRAINT PICK_NEWBIT_CK CHECK(isnewbit IN('Y','N'))
         CONSTRAINT PICK_NEWBIT_NN NOT NULL   
 );
 
-	-- Àå¹Ù±¸´Ï Å×ÀÌºí
+	-- ìž¥ë°”êµ¬ë‹ˆ í…Œì´ë¸”
 CREATE TABLE basket(
    account_no NUMBER(4)
         CONSTRAINT BASKET_ACCOUNTNUM_FK REFERENCES account(no)
         CONSTRAINT BASKET_ACCOUNTNUM_NN NOT NULL,
-   game_no NUMBER(10),	-- API È®ÀÎ
+   game_no NUMBER(10),	-- APIí™•ì¸
     isnewbit CHAR(1)
         CONSTRAINT BASKET_NEWBIT_CK CHECK(isnewbit IN('Y','N'))
         CONSTRAINT BASKET_NEWBIT_NN NOT NULL   
 );
 
-	-- Ä£±¸ °ü¸® Å×ÀÌºí
+	-- ì¹œêµ¬ ê´€ë¦¬ í…Œì´ë¸”
 CREATE TABLE follower(
    me NUMBER(4)
        CONSTRAINT FOLLOW_ME_FK REFERENCES account(no)
@@ -98,7 +96,7 @@ CREATE TABLE follower(
 --------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------
 
--- ÅÂ±×(Àå¸£) °ü·Ã Å×ÀÌºí »ý¼º
+-- íƒœê·¸(ìž¥ë¥´) ê´€ë ¨ í…Œì´ë¸” ìƒì„±
 CREATE TABLE tag(
     no NUMBER(4)
 	CONSTRAINT TAG_NO_PK PRIMARY KEY,
@@ -106,7 +104,7 @@ CREATE TABLE tag(
 	CONSTRAINT TAG_NAME_UK UNIQUE
 	CONSTRAINT TAG_NAME_NN NOT NULL
 );
-	-- ÀÌ¿ëÀÚ ¼±È£Àå¸£ Å×ÀÌºí
+	-- ì´ìš©ìž ì„ í˜¸ìž¥ë¥´ í…Œì´ë¸”
 CREATE TABLE account_tag(
    account_no NUMBER(4)
         CONSTRAINT UTAG_ACCOUNTNUM_FK REFERENCES account(no)
@@ -115,7 +113,7 @@ CREATE TABLE account_tag(
         CONSTRAINT UTAG_TAGNUM_FK REFERENCES tag(no)
         CONSTRAINT UTAG_TAGNUM_NN NOT NULL 
 );
-	-- µ¶Á¡°ÔÀÓ Àå¸£ Å×ÀÌºí
+	-- ë…ì ê²Œìž„ ìž¥ë¥´ í…Œì´ë¸”
 CREATE TABLE newbit_tag(
    newbit_no NUMBER(4)
 	CONSTRAINT NBTAG_NBNUM_FK REFERENCES newbit_game(no)
@@ -128,9 +126,8 @@ CREATE TABLE newbit_tag(
 --------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------
 
-
--- °ÔÀÓ °ü·Ã Å×ÀÌºí »ý¼º
-	-- µ¶Á¡ °ÔÀÓ Å×ÀÌºí
+-- ê²Œìž„ ê´€ë ¨ í…Œì´ë¸” ìƒì„±
+	-- ë…ì  ê²Œìž„ í…Œì´ë¸”
 CREATE TABLE newbit_game(
     no NUMBER(4)
         CONSTRAINT NB_NO_PK PRIMARY KEY,
@@ -141,7 +138,7 @@ CREATE TABLE newbit_game(
         CONSTRAINT NB_NAME_NN NOT NULL,
    price VARCHAR2(10 CHAR)
         CONSTRAINT NB_PRICE_NN NOT NULL,
-   describe VARCHAR2(4000)		-- ¾öÃ» ±ç
+   describe VARCHAR2(4000)		-- ï¿½ï¿½Ã» ï¿½ï¿½
         CONSTRAINT NB_DESCRIBE_NN NOT NULL,
    imgname VARCHAR2(20 CHAR)
         CONSTRAINT NB_IMGNAME_UK UNIQUE
@@ -152,15 +149,14 @@ CREATE TABLE newbit_game(
         CONSTRAINT NB_SHOW_CK CHECK(isshow IN('Y','N'))
         CONSTRAINT NB_SHOW_NN NOT NULL
 );
-
-	-- ¶óÀÌºê·¯¸® Å×ÀÌºí
+	-- ë¼ì´ë¸ŒëŸ¬ë¦¬ í…Œì´ë¸”
 CREATE TABLE library(
    no NUMBER(4)
 	CONSTRAINT LIB_NO_PK PRIMARY KEY,
    account_no NUMBER(4)
         CONSTRAINT LIB_ACCOUNTNUM_FK REFERENCES account(no)
         CONSTRAINT LIB_ACCOUNTNUM_NN NOT NULL,
-   game_no NUMBER(10),	-- API È®ÀÎ
+   game_no NUMBER(10),	-- API È®ï¿½ï¿½
    playtime VARCHAR2(15 CHAR)
         CONSTRAINT LIB_PLAYTIME_NN NOT NULL,
     isnewbit CHAR(1)
@@ -172,8 +168,7 @@ CREATE TABLE library(
    buydate DATE DEFAULT sysdate
         CONSTRAINT LIB_BDATE_NN NOT NULL
 );
-
-	-- µî·ÏµÈ µµÀü°úÁ¦
+	-- ë“±ë¡ëœ ë„ì „ê³¼ì œ
 CREATE TABLE newbit_challenge(
    no NUMBER(4)
 	CONSTRAINT NBC_NO_PK PRIMARY KEY,
@@ -187,7 +182,7 @@ CREATE TABLE newbit_challenge(
         CONSTRAINT NBC_SHOW_NN NOT NULL
 );
 
-	-- »ç¿ëÀÚÀÇ µµÀü°úÁ¦
+	-- ì‚¬ìš©ìžì˜ ë„ì „ê³¼ì œ
 CREATE TABLE account_challenge(
    account_no NUMBER(4)
 	CONSTRAINT ACCOUNTC_ACCOUNTNUM_FK REFERENCES account(no)
@@ -200,7 +195,7 @@ CREATE TABLE account_challenge(
         CONSTRAINT ACCOUNTC_CLEAR_CK CHECK(isclear IN('Y','N'))
         CONSTRAINT ACCOUNTC_CLEAR_NN NOT NULL
 );
-	-- ÇÒÀÎ Å×¸¶ Å×ÀÌºí
+	-- í• ì¸ í…Œë§ˆ í…Œì´ë¸”
 CREATE TABLE theme(
    no NUMBER(4)
 	CONSTRAINT THEME_NO_PK PRIMARY KEY,
@@ -215,7 +210,7 @@ CREATE TABLE theme(
         CONSTRAINT THEME_SHOW_NN NOT NULL
 );
 
-	-- ÇÒÀÎ Á¤º¸ Å×ÀÌºí
+	-- í• ì¸ ì •ë³´ í…Œì´ë¸”
 CREATE TABLE sale(
    no NUMBER(4)
 	CONSTRAINT SALE_NO_PK PRIMARY KEY,
@@ -231,7 +226,7 @@ CREATE TABLE sale(
         CONSTRAINT SALE_SHOW_NN NOT NULL
 );
 
-	-- ¹è³Ê Å×ÀÌºí
+	-- ë°°ë„ˆ í…Œì´ë¸”
 CREATE TABLE banner(
    no NUMBER(4)
 	CONSTRAINT BANNER_NO_PK PRIMARY KEY,
@@ -246,7 +241,7 @@ CREATE TABLE banner(
 --------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------
 
--- ½Å°í Å×ÀÌºí
+-- ì‹ ê³  í…Œì´ë¸”
 CREATE TABLE report(
    no NUMBER(4)
 	CONSTRAINT REPORT_NO_PK PRIMARY KEY,
@@ -257,8 +252,8 @@ CREATE TABLE report(
 	CONSTRAINT REPORT_REASON_NN NOT NULL,
    reportdate DATE DEFAULT sysdate
 	CONSTRAINT REPORT_RDATE_NN NOT NULL,
-			-- ½ºÅ©¸°¼¦, ÈÄ±â, °ÔÀÓ
-   link VARCHAR2(4000)		-- ½Å°íÇÑ °Ô½Ã±Û ¸µÅ©
+			-- ìŠ¤í¬ë¦°ìƒ·, í›„ê¸°, ê²Œìž„
+   link VARCHAR2(4000)		-- ì‹ ê³ í•œ ê²Œì‹œê¸€ ë§í¬
 	CONSTRAINT REPORT_LINK_NN NOT NULL,
    istype CHAR(1)
 	CONSTRAINT REPORT_TYPE_CK CHECK(istype IN('S', 'R', 'G'))
@@ -267,7 +262,7 @@ CREATE TABLE report(
 	CONSTRAINT REPORT_CHECK_CK CHECK(ischeck IN('Y','N'))
 	CONSTRAINT REPORT_CHECK_NN NOT NULL
 );
-	-- »çÀ¯°¡ ±âÅ¸ÀÏ¶§ »ç¿ëµÇ´Â Å×ÀÌºí
+	-- ì‚¬ìœ ê°€ ê¸°íƒ€ì¼ë•Œ ì‚¬ìš©ë˜ëŠ” í…Œì´ë¸”
 CREATE TABLE etc(
    report_no NUMBER(4)
 	CONSTRAINT ETC_NO_FK REFERENCES report(no)
@@ -280,15 +275,15 @@ CREATE TABLE etc(
 --------------------------------------------------------------------------
 
 
--- ÈÄ±â ¹× ½ºÅ©¸°¼¦ Å×ÀÌºí
-	-- ÈÄ±â Å×ÀÌºí
+-- í›„ê¸° ë° ìŠ¤í¬ë¦°ìƒ· í…Œì´ë¸”
+	-- í›„ê¸° í…Œì´ë¸”
 CREATE TABLE review( 
    no NUMBER(4)
 	CONSTRAINT REVIEW_NO_PK PRIMARY KEY,
    account_no NUMBER(4)
 	CONSTRAINT REVIEW_ACCOUNTNUM_FK REFERENCES account(no)
 	CONSTRAINT REVIEW_ACCOUNTNUM_NN NOT NULL,
-    game_no	NUMBER(10), --APIÈ®ÀÎ
+    game_no	NUMBER(10), --APIí™•ì¸
     body VARCHAR2(4000)
 	CONSTRAINT REVIEW_BODY_NN NOT NULL,
     registdate DATE DEFAULT sysdate
@@ -304,7 +299,7 @@ CREATE TABLE review(
 	CONSTRAINT REVIEW_SHOW_NN NOT NULL
 );
 
-	-- ÈÄ±â Å×ÀÌºí ÁÁ¾Æ¿ä ½È¾î¿ä ¼ö
+	-- í›„ê¸° í…Œì´ë¸” ì¢‹ì•„ìš” ì‹«ì–´ìš” ìˆ˜
 CREATE TABLE review_gb(
    account_no NUMBER(4)
 	CONSTRAINT REGB_ACCOUNTNUM_FK REFERENCES account(no)
@@ -318,14 +313,14 @@ CREATE TABLE review_gb(
 	CONSTRAINT REGB_BAD_NN NOT NULL
 );
 
-	-- ½ºÅ©¸°¼¦ Å×ÀÌºí
+	-- ìŠ¤í¬ë¦°ìƒ· í…Œì´ë¸”
 CREATE TABLE screenshot(
    no NUMBER(4)
 	CONSTRAINT SCREEN_NO_PK PRIMARY KEY,
    account_no NUMBER(4)
 	CONSTRAINT SCREEN_ACCOUNTNUM_FK REFERENCES account(no)
 	CONSTRAINT SCREEN_ACCOUNTNUM_NN NOT NULL,
-    game_no NUMBER(10),	--APIÈ®ÀÎ
+    game_no NUMBER(10),	--APIí™•ì¸
     registdate DATE DEFAULT sysdate
 	CONSTRAINT SCREEN_RDATE_NN NOT NULL,
     isnewbit CHAR(1)
@@ -335,7 +330,7 @@ CREATE TABLE screenshot(
 	CONSTRAINT SCREEN_SHOW_CK CHECK(isshow IN('Y','N'))
 	CONSTRAINT SCREEN_SHOW_NN NOT NULL
 );
-	-- ½ºÅ©¸°¼¦ Å×ÀÌºí ÁÁ¾Æ¿ä ½È¾î¿ä ¼ö
+	-- ìŠ¤í¬ë¦°ìƒ· í…Œì´ë¸” ì¢‹ì•„ìš” ì‹«ì–´ìš” ìˆ˜
 CREATE TABLE screenshot_gb(
    ss_no NUMBER(4)
 	CONSTRAINT SSGB_SSNUM_FK REFERENCES screenshot(no)
@@ -345,7 +340,7 @@ CREATE TABLE screenshot_gb(
    bad NUMBER(4) DEFAULT 0
 	CONSTRAINT SSGB_BAD_NN NOT NULL
 );
-	-- ½ºÅ©¸°¼¦ Å×ÀÌºí ½ºÅ©¸°¼¦ Á¤º¸
+	-- ìŠ¤í¬ë¦°ìƒ· í…Œì´ë¸” ìŠ¤í¬ë¦°ìƒ· ì •ë³´
 CREATE TABLE screenshot_img(
    ss_no NUMBER(4)
 	CONSTRAINT SSIMG_SSNUM_FK REFERENCES screenshot(no)
@@ -354,7 +349,7 @@ CREATE TABLE screenshot_img(
 	CONSTRAINT SSIMG_SAVENAME_UK UNIQUE
 	CONSTRAINT SSIMG_SAVENAME_NN NOT NULL
 );
-	-- ½ºÅ©¸°¼¦ Å×ÀÌºí ´ñ±Û Á¤º¸
+	-- ìŠ¤í¬ë¦°ìƒ· í…Œì´ë¸” ëŒ“ê¸€ ì •ë³´
 CREATE TABLE screenshot_reply(
    no NUMBER(4)
 	CONSTRAINT SSRE_NO_PK PRIMARY KEY,
@@ -371,4 +366,20 @@ CREATE TABLE screenshot_reply(
     isshow CHAR(1) DEFAULT 'Y'
 	CONSTRAINT SSRE_SHOW_CK CHECK(isshow IN('Y','N'))
 	CONSTRAINT SSRE_SHOW_NN NOT NULL
+);
+
+
+-- ê²°ì œ ë‚´ì—­ ì €ìž¥ í…Œì´ë¸”
+CREATE TABLE payhistory(
+	imp_uid VARCHAR2(50 CHAR)
+		CONSTRAINT PAY_IMP_NN NOT NULL,
+	merchant_uid VARCHAR2(50 CHAR)
+		CONSTRAINT PAY_MERCHANT_NN NOT NULL,
+	gameName VARCHAR2(50 CHAR)
+		CONSTRAINT PAY_GAMENAME_NN NOT NULL,
+   account_no NUMBER(4)
+        CONSTRAINT PAY_ACCOUNTNUM_FK REFERENCES account(no)
+        CONSTRAINT PAY_ACCOUNTNUM_NN NOT NULL,
+    paydate DATE DEFAULT sysdate
+        CONSTRAINT PAY_DATE_NN NOT NULL
 );
