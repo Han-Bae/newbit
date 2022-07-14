@@ -5,8 +5,8 @@ import java.util.*;
 // 회원 계정(+즐겨찾기) + 장바구니 + 찜목록 + 아바타 정보 + 친구 수록한 VO
 
 public class AccountVO {
-	private int no, game_number, tag_number, friend_number, cnt, ck_mail;
-	private String id, pw, nickname, email, istype, isshow, isnewbit, tel,
+	private int no, tag_number, friend_number, cnt, ck_mail;
+	private String game_id, id, pw, nickname, email, istype, isshow, isnewbit, tel,
 		sdate, savename, isokay, result,
 		icon, title, msg, stat, url;	// SwalAlert용
 	private char[] convert_id;
@@ -80,11 +80,11 @@ public class AccountVO {
 	public void setNo(int no) {
 		this.no = no;
 	}
-	public int getGame_number() {
-		return game_number;
+	public String getGame_id() {
+		return game_id;
 	}
-	public void setGame_number(int game_number) {
-		this.game_number = game_number;
+	public void setGame_id(String game_id) {
+		this.game_id = game_id;
 	}
 	public int getTag_number() {
 		return tag_number;
@@ -180,13 +180,13 @@ public class AccountVO {
 	
 	@Override
 	public String toString() {
-		return "AccountVO [no=" + no + ", game_number=" + game_number + ", tag_number=" + tag_number
-				+ ", friend_number=" + friend_number + ", cnt=" + cnt + ", ck_mail=" + ck_mail + ", id=" + id + ", pw="
-				+ pw + ", nickname=" + nickname + ", email=" + email + ", istype=" + istype + ", isshow=" + isshow
-				+ ", isnewbit=" + isnewbit + ", tel=" + tel + ", sdate=" + sdate + ", savename=" + savename
-				+ ", isokay=" + isokay + ", result=" + result + ", icon=" + icon + ", title=" + title + ", msg=" + msg
-				+ ", stat=" + stat + ", url=" + url + ", convert_id=" + Arrays.toString(convert_id) + ", joindate="
-				+ joindate + ", numList=" + numList + "]";
+		return "AccountVO [no=" + no + ", tag_number=" + tag_number + ", friend_number=" + friend_number + ", cnt="
+				+ cnt + ", ck_mail=" + ck_mail + ", game_id=" + game_id + ", id=" + id + ", pw=" + pw + ", nickname="
+				+ nickname + ", email=" + email + ", istype=" + istype + ", isshow=" + isshow + ", isnewbit=" + isnewbit
+				+ ", tel=" + tel + ", sdate=" + sdate + ", savename=" + savename + ", isokay=" + isokay + ", result="
+				+ result + ", icon=" + icon + ", title=" + title + ", msg=" + msg + ", stat=" + stat + ", url=" + url
+				+ ", convert_id=" + Arrays.toString(convert_id) + ", joindate=" + joindate + ", numList=" + numList
+				+ "]";
 	}
 	
 }

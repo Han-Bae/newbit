@@ -14,15 +14,70 @@
 				WHERE id = #{id}
 			)
 	</select>
-			<!-- 번호를 기반으로 유저 정보 찾기 -->
-		<select id="selInfo" resultType="string" parameterType="list">
-			SELECT nickname
-			FROM account
-			WHERE no IN (
-				   <foreach collection="list" item="item" separator=",">
-				   	#{item}
-				   </foreach>
-				   )
-		</select>
+	
+		<!-- 번호를 기반으로 유저 정보 찾기 -->
+	<select id="selInfo" resultType="string" parameterType="list">
+		SELECT nickname
+		FROM account
+		WHERE no IN (
+			   <foreach collection="list" item="item" separator=",">
+			   	#{item}
+			   </foreach>
+			   )
+	</select>
+	
+<!-- 결제-선물 -->
+	<select id="getNo" resultType="int" parameterType="string">
+		SELECT no
+		FROM account
+		WHERE id = #{id}
+	</select>
+	
+		<!-- 닉네임을 기반으로 유저 no 찾기 -->
+	<select id="getNoList" resultType="int" parameterType="list">
+		SELECT no
+		FROM account
+		WHERE nickname IN(
+				<foreach collection="list" item="item" separator=",">
+				#{item}
+				</foreach>
+			)
+	</select>
+	
+		<!-- 결제내역 저장 나중에 중복게임 제거 필요 -->
+	<insert id="savePay" parameterType="pVO">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(no) +1, 1001) FROM payhistory
+		</selectKey>
+		INSERT INTO
+			payhistory(no, imp_uid, merchant_uid, game_id, account_no, buy_no, game_price)
+		VALUES(
+			#{no},#{imp_uid}, #{merchant_uid}, #{game_id}, #{account_no}, #{buy_no}, #{game_price}
+		)	
+	</insert>
+	
+		<!-- 환불 체크용 데이터뽑기(개별 가격과 결제ID) -->
+	<select id="refundGame" resultType="pVO" parameterType="pVO">
+		SELECT IMP_UID, game_price, no, isrefund
+		FROM payhistory
+		WHERE account_no = (
+		        SELECT no
+		        FROM account
+		        WHERE id = #{id}
+		    )
+		    AND game_id = #{game_id}
+		    AND paydate = (
+		        SELECT  DISTINCT paydate
+		        FROM    payhistory
+		        WHERE   paydate+14 >= sysdate
+		    )
+	</select>
+	
+		<!-- 환불완료 -->
+	<update id="refundSuccess" parameterType="pVO">
+		UPDATE payhistory
+		SET isrefund = 'Y'
+		WHERE no = #{no}
+	</update>
 	
 </mapper>

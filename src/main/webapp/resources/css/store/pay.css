@@ -42,7 +42,26 @@ option{
 	padding: 5px;
 	border: 1px solid white;
 }
-
+.rowDiv{
+	width: 65%;
+}
+.rowDiv .row{
+	width:100%;
+}
+.rowDiv .games{
+	width: 100%;
+}
+.rowDiv .card{
+	width: 100%;
+	justify-content: flex-start;
+}
+.rowDiv .card-width{
+	width: 100%;
+	justify-content: space-around;
+}
+.rowDiv span{
+	width: 80px;
+}
 /* 게임 목록의 게임 타이틀 */
 .payMain .friend-main {
 	margin-left: 1%;

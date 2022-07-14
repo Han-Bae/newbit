@@ -136,7 +136,7 @@
 		name="frm_info" id="frm_info" class="frm">
 	<input type="hidden" id="totalPrice" name="totalPrice">
 	<input type="hidden" id="gameList" name="gameList">
-	<input type="hidden" id="buyerInfo" name="buyerNick" value="${aVO.nickname}">
+	<input type="hidden" id="buyerNick" name="buyerNick" value="${aVO.nickname}">
 	<input type="hidden" id="buyerEmail" name="buyerEmail" value="${aVO.email}">
 	<input type="hidden" id="buyerTel" name="buyerTel" value="${aVO.tel}">
 </form>
@@ -160,9 +160,9 @@
 							<div class="store-games--games">
 								<div class="games">
 									<!-- 개별 게임 -->
-									<div class="card">
+									<div class="card" id="sample_000001">
 										<img class="card-img-left" src="/www/img/logo.png" width="65px" height="50px">
-										<div>
+										<div class="card-width">
 											<h4 style="width:40%;">Game1</h4>
 											<div class="game-title-info">
 												<span class="howSale">-49%</span>
@@ -175,9 +175,9 @@
 									</div>
 									<!-- 개별게임 끝 -->		
 									<!-- 개별 게임 -->
-									<div class="card">
+									<div class="card" id="sample_000002">
 										<img class="card-img-left" src="/www/img/logo.png" width="65px" height="50px">
-										<div>
+										<div class="card-width">
 											<h4 style="width:40%;">Game2</h4>
 											<div class="game-title-info">
 												<span class="howSale">-49%</span>
@@ -189,9 +189,9 @@
 									</div>
 									<!-- 개별게임 끝 -->				
 									<!-- 개별 게임 -->
-									<div class="card">
+									<div class="card" id="sample_000003">
 										<img class="card-img-left" src="/www/img/logo.png" width="65px" height="50px">
-										<div>
+										<div class="card-width">
 											<h4 style="width:40%;">Game3</h4>
 											<div class="game-title-info">
 												<span class="howSale">-49%</span>
