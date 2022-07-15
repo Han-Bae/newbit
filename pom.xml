@@ -236,13 +236,13 @@
 		    <artifactId>selenium-java</artifactId>
 		    <version>4.0.0</version>
 		</dependency>
-		<!-- web driver -->
+		<!--web driver manager -->
 		<dependency>
 		    <groupId>io.github.bonigarcia</groupId>
 		    <artifactId>webdrivermanager</artifactId>
 		    <version>5.2.1</version>
-		    <scope>test</scope>
 		</dependency>
+
 		
 		
 		<!-- iamport -->
