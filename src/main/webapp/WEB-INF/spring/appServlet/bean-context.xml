@@ -16,7 +16,8 @@
 	<bean id="rDao" class="com.newbit.www.dao.ReviewDao" />
 	<bean id="uDao" class="com.newbit.www.dao.UploadDao" />
 	
-	<!-- Selenium -->
+	<!-- Crawling -->
+	<bean id="storeJsoup" class="com.newbit.www.util.StoreJsoup" />
 	<bean id="storeSelenium" class="com.newbit.www.util.StoreSelenium" />
 	
 	<!-- 서비스 클래스 빈처리 -->
