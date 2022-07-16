@@ -32,7 +32,7 @@
 		<ul class="main-nav">
 			<li>
 				<a class="nav-link active" href="/www/store/games.nbs">
-					<i class="tim-icons icon-cart main-nav-icon"></i>
+					<i class="tim-icons icon-cart"></i>
 					<span class="main-nav-text">Store</span>
 					<div class="indicator"></div>
 				</a>
@@ -89,7 +89,7 @@
 		
 		<div class="store-games">
 			<div class="store-games__tab">
-				<button type="button" class="btn">최고 인기</button>
+				<button type="button" class="btn" id="TopSellersBtn">최고 인기</button>
 				<button type="button" class="btn">신규 인기</button>
 				<button type="button" class="btn">현재 할인</button>
 			</div>
@@ -157,7 +157,7 @@
 					<div class="games">
 					
 <c:forEach var="data" items="${LIST}">
-						<div class="card" id="${data.appId}">
+						<div class="card game" id="${data.appId}">
 							<img class="card-img-left" src="${data.img}" width="120px" height="50px">
 							<div>
 								<h4>${data.title}</h4>

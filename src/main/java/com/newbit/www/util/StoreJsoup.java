@@ -18,10 +18,9 @@ import com.newbit.www.vo.StoreVO;
  * 			작업이력 ] 2022.07.06 - 담당자 전다빈 : 크롤링 클래스 제작
  *
  */
-public class Crawling {
+public class StoreJsoup {
 	
-	public List<StoreVO> crawlingStoreMain(String sort) {
-		ArrayList<StoreVO> list = new ArrayList<StoreVO>();
+	public List<StoreVO> crawlingStoreMain(String sort, List<StoreVO> list) {
 		String url = "https://store.steampowered.com/search/?filter=topsellers";
 		if(sort != null) {
 			switch(sort) {
@@ -50,37 +49,34 @@ public class Crawling {
 			Document document = conn.get();
 			Element urlElement = document.getElementById("search_resultsRows");
 			Elements aElements = urlElement.select("a");
+			int i = 0;
 			for (Element element : aElements) {
-				StoreVO storeVO = new StoreVO();
-				storeVO.setAppId(element.attr("abs:data-ds-appid").substring(element.attr("abs:data-ds-appid").lastIndexOf("/") + 1));
-				storeVO.setImg(element.select("img").attr("abs:src"));
-				storeVO.setTitle(element.select("span[class=\"title\"]").text());
-				storeVO.setReleased(element.select("div[class=\"col search_released responsive_secondrow\"]").text());
+				list.get(i).setAppId(element.attr("abs:data-ds-appid").substring(element.attr("abs:data-ds-appid").lastIndexOf("/") + 1));
+				list.get(i).setImg(element.select("img").attr("abs:src"));
 				
 				Element reviewScore = element.selectFirst("div[class=\"col search_reviewscore responsive_secondrow\"]");
 				if(reviewScore.select("span").hasClass("positive")) {
-					storeVO.setReviewSummary("positive");
+					list.get(i).setReviewSummary("positive");
 				} else if(reviewScore.select("span").hasClass("mixed")) {
-					storeVO.setReviewSummary("mixed");
+					list.get(i).setReviewSummary("mixed");
 				} else if(reviewScore.select("span").hasClass("negative")) {
-					storeVO.setReviewSummary("negative");
+					list.get(i).setReviewSummary("negative");
 				}
 				
-				storeVO.setDiscount(element.select("div[class=\"col search_discount responsive_secondrow\"]").text());
+				list.get(i).setDiscount(element.select("div[class=\"col search_discount responsive_secondrow\"]").text());
 				
 				Element price = element.selectFirst("div[class=\"col search_price  responsive_secondrow\"]");
 				if(price == null) {
 					price = element.selectFirst("div[class=\"col search_price discounted responsive_secondrow\"]");
-					storeVO.setPrice(price.select("strike").text());
+					list.get(i).setPrice(price.select("strike").text());
 					
 					String priceText = price.text();
 					String disPrice = priceText.substring(priceText.lastIndexOf("₩"));
-					storeVO.setDiscountPrice(disPrice);
+					list.get(i).setDiscountPrice(disPrice);
 				} else {
-					storeVO.setPrice(price.text());
+					list.get(i).setPrice(price.text());
 				}
-				
-				list.add(storeVO);
+				i++;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

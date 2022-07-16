@@ -50,7 +50,7 @@ body {
 	display: flex;
 }
 .store-games--games .games .card h4 {
-	font-size: 15px;
+	font-size: 14px;
 	margin: 0;
 	width: 320px;
 }
@@ -58,7 +58,10 @@ body {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	width: 120px;
+	width: 140px;
+}
+.store-games--games .game-title-info .whenGame {
+	font-size: 12px;
 }
 .store-games--games .game-title-info i,
 .store-games--games .gameDiscount .howSale {
