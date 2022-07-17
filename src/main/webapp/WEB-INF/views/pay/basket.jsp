@@ -96,7 +96,7 @@
 		</div>
 		<hr class="payStat">
 		<div class="payMain" style="flex-direction: column; align-items: center;">
-			<div class="row">
+			<div class="row basket_row">
 				<div class="store-games" style="display:contents">
 					<div class="store-games-main">
 						<div class="store-games--games">
@@ -133,7 +133,7 @@
 										</label>
 									</div>
 									<div>
-										<button type="button" id="del_game" onclick='del_game()' class="btn btn-warning animation-on-hover">삭제</button>
+										<button type="button" class="btn btn-warning animation-on-hover del_game">삭제</button>
 									</div>
 								</div>
 								<!-- 개별게임 끝 -->			
@@ -169,7 +169,7 @@
 										</label>
 									</div>
 									<div>
-										<button type="button" id="del_game" onclick='del_game()' class="btn btn-warning animation-on-hover">삭제</button>
+										<button type="button" class="btn btn-warning animation-on-hover del_game">삭제</button>
 									</div>
 								</div>
 								<!-- 개별게임 끝 -->			
@@ -178,14 +178,14 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row basket_row">
 				<div style="padding-top: 20px; margin-bottom:40px; justify-content: space-between; display:flex;">
 					<h2 style="margin-left: 20px; margin-bottom: 10px;">합계:</h2>
-					<h2 id="total" style="margin-right: 20px; margin-bottom: 10px;"></h2>
+					<h2 id="total" style="margin-right: 20px; margin-bottom: 10px;">₩ 0</h2>
 			  	</div>
 				<div class="gamePay">
 					<form method="POST" name="frm" id="frm">
-						<input type="hidden" id="gameList" name="gameList">
+						<input type="hidden" name="gameIdList">
 					</form>
 					<button type="button" id="selfPay" onclick='selfPay()' class="btn btn-success animation-on-hover" style="margin-right: 20px;">직접사용</button>
 					<button type="button" id="presentPay" onclick='presentPay()' class="btn btn-success animation-on-hover">선물하기</button>

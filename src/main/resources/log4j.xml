@@ -12,8 +12,17 @@
 	
 	
 	<!-- account Appender -->
+		<!-- 계정 기능 로그 -->
 	<appender name="accountAppender" class="org.apache.log4j.FileAppender">
 		<param name="File" value="${catalina.base}/src/main/resources/log/account.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p - %d{yyyy/MM/dd} : %m%n" />
+		</layout>
+	</appender>
+		<!-- 결제 기능 로그 -->
+	<appender name="accountAppender" class="org.apache.log4j.FileAppender">
+		<param name="File" value="${catalina.base}/src/main/resources/log/payment.log" />
 		<param name="Append" value="true" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%-5p - %d{yyyy/MM/dd} : %m%n" />
@@ -43,6 +52,10 @@
 	<logger name="accountLog">
 		<level value="info" />
 		<appender-ref ref="accountAppender" /> <!-- 3. -->
+	</logger>
+	<logger name="paymentLog">
+		<level value="info" />
+		<appender-ref ref="paymentAppender" /> <!-- 3. -->
 	</logger>
 	
 	<!-- 3rdparty Loggers -->

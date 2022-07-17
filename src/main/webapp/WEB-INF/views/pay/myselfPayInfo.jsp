@@ -89,14 +89,15 @@
 	</header>
 	<!-- 여기까지 -->
 	<main>
-		<div class="store-top pay-top">
 <c:if test="${not empty stat}">
 		<input type="hidden" id=self_stat value="${stat}"></c:if>
 <form method="POST" action="/www/payment/myselfPayCheck.nbs"
 		name="frm_info" id="frm_info" class="frm">
 		<input type="hidden" name="paySel">
 </form>
-			<h4>결제 정보</h4><h5>▶</h5>
+		<div class="store-top pay-top">
+			<h4>결제정보 확인</h4>
+			<h5>▶</h5>
 			<h4>확인 및 구매</h4>
 		</div>
 		<hr class="payStat">

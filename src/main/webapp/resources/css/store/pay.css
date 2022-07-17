@@ -23,7 +23,7 @@ option{
 }
 
 .payStat{
-	width: 80%;
+	width: 95%;
 	color: white;
 	text-align: center;
 	border: thin solid white;
@@ -66,6 +66,11 @@ option{
 	padding: 5px;
 	border: 1px solid white;
 }
+
+.basket_row{
+	width: 45%;	
+}
+
 .rowDiv{
 	width: 65%;
 }

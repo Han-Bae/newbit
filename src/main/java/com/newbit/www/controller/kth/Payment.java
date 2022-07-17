@@ -3,6 +3,7 @@ package com.newbit.www.controller.kth;
 import java.io.IOException;
 import java.util.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.*;
@@ -26,6 +27,8 @@ public class Payment {
 	@Autowired
 	PaymentDao pDao;
 	@Autowired
+	PayService pSrc;
+	@Autowired
 	PaymentImp pImp;
 	
 	// 장바구니 페이지 이동
@@ -37,23 +40,33 @@ public class Payment {
 
 	// 셀프 결제 1단계 이동
 	@RequestMapping("/myselfPayInfo.nbs")
-	public ModelAndView myselfPayInfo(ModelAndView mv, PaymentVO pVO) {
+	public ModelAndView myselfPayInfo(ModelAndView mv, PaymentVO pVO, HttpSession session) {
+		session.setAttribute("GAMELIST", pVO.getGameIdList());
 		mv.addObject("stat", "first");
-		mv.addObject("pVO", pVO);
-		mv.setViewName("pay/myselfPayCheck");
+		mv.addObject("gameIdList", pVO.getGameIdList());
+		mv.setViewName("pay/myselfPayInfo");
 		return mv;
 	}
 	
 	// 셀프 결제 2단계 이동
 	@RequestMapping("/myselfPayCheck.nbs")
 	public ModelAndView myselfPayCheck(ModelAndView mv, PaymentVO pVO ,HttpSession session) {
+		AccountVO aVO = new AccountVO();
+		aVO.setId((String)session.getAttribute("SID"));
+		aVO = aDao.selAccountInfo(aVO);
+		aVO.setTel("010-1111-1111");
+		mv.addObject("aVO", aVO);
 		mv.addObject("stat", "second");
+		mv.addObject("gameIdList", session.getAttribute("GAMELIST"));
+		mv.addObject("paySel", pVO.getPaySel());
+		mv.setViewName("pay/myselfPayCheck");
 		return mv;
 	}
 	
-	// 선물하기 결제 1단계
+	// 선물하기 결제 1단계 이동
 	@RequestMapping("/payForm.nbs")
-	public ModelAndView payForm(ModelAndView mv, HttpSession session) {
+	public ModelAndView payForm(ModelAndView mv, HttpSession session, PaymentVO pVO) {
+		session.setAttribute("GAMELIST", pVO.getGameIdList());
 		List<Integer> list = pDao.selFollower((String)session.getAttribute("SID"));
 		List<String> nameList = pDao.getFriendInfo(list);
 		mv.addObject("nameList", nameList);
@@ -91,11 +104,53 @@ public class Payment {
 		aVO = aDao.selAccountInfo(aVO);
 		aVO.setTel("010-1111-1111");
 		mv.addObject("aVO", aVO);
+		mv.addObject("gameIdList", session.getAttribute("GAMELIST"));
 		mv.addObject("nameList", session.getAttribute("NAMELIST"));
 		mv.addObject("paySel", pVO.getPaySel());
 		mv.addObject("stat", "fourth");
 		mv.setViewName("pay/paymentCheck");
 		return mv;
+	}
+	// 셀프 결제
+	// 결제 검증, 내역 저장 및 결제 완료
+	@RequestMapping(path="/selfCheckPay.nbs", method=RequestMethod.POST)
+	@ResponseBody
+	public AccountVO selfCheckPay(HttpSession session,
+				PaymentVO pVO, String amount) throws IOException {
+		// 반환VO
+		AccountVO returnVO = new AccountVO();
+		System.out.println(pVO);
+				// 게임이름       구매자
+		String token = pImp.getToken();
+			// 결제 완료된 금액
+		int paid_amount = pImp.paymentInfo(pVO.getImp_uid(), token);
+			// 계산된 금액
+		int count_amount = Integer.parseInt(amount);
+		// 계산된 금액과 실제 금액이 다를 때
+		try {
+			if(count_amount != paid_amount) {
+	            pImp.payMentCancle(token, pVO.getImp_uid(), paid_amount, "결제 금액 오류");
+	            returnVO.setTitle("결제 금액 오류");
+	            returnVO.setMsg("처음부터 다시 시도해주세요.");
+	            returnVO.setIcon("error");
+	            return returnVO;
+			}			
+			pSrc.addPayData(pVO, session);
+    		pVO.setId((String)session.getAttribute("SID"));
+            pVO.setResult("OK");
+            returnVO.setTitle("주문 완료");
+            returnVO.setMsg("주문이 성공하였습니다.");
+            returnVO.setIcon("success");
+            return returnVO;
+		} catch (Exception e) {
+			pVO.setResult("NO");
+			e.printStackTrace();
+	        pImp.payMentCancle(token, pVO.getImp_uid(), paid_amount, "결제 에러");
+	    }
+        returnVO.setTitle("결제 에러");
+        returnVO.setMsg("처음부터 다시 시도해주세요.");
+        returnVO.setIcon("error");
+        return returnVO;
 	}
 	
 	// 결제 검증, 내역 저장 및 결제 완료
@@ -121,41 +176,17 @@ public class Payment {
 	            return returnVO;
 			}
 				// 금액이 같다면 결제내역 저장
-			List<String> nameList = (ArrayList<String>)session.getAttribute("NAMELIST");
-				// 선물받는 친구 명단
-			List<Integer> noList = pDao.getNoList(nameList);
-				// 선물할 친구 수 * 게임 수만큼 내역 반복
-			int total_cnt = 0;
-			int total = noList.size() * pVO.getGameIdList().size();
-			for(int friendCnt = 0; friendCnt < noList.size(); friendCnt ++) {
-				for(int gameCnt = 0; gameCnt < pVO.getGameIdList().size(); gameCnt++) {
-						// game ID 입력
-					pVO.setGame_id(pVO.getGameIdList().get(gameCnt));
-						// 각 game 가격 입력
-					pVO.setGame_price(pVO.getGamePriceList().get(gameCnt));
-						// 구매자 no 입력
-					pVO.setBuy_no(pDao.getNo((String)session.getAttribute("SID")));
-						// 받는 사람 no 입력
-					pVO.setAccount_no(noList.get(friendCnt));
-					int cnt = pDao.savePay(pVO);
-					if(cnt == 1) {
-						total_cnt += 1;
-					}else {
-			            returnVO.setTitle("결제 오류");
-			            returnVO.setMsg("처음부터 다시 시도해주세요.");
-			            returnVO.setIcon("error");
-			            return returnVO;
-					}
-				}
-			}
-			if(total_cnt == total) {
+				pVO.setNameList((ArrayList<String>)session.getAttribute("NAMELIST"));
+				pSrc.addPayData(pVO, session);
 	            returnVO.setTitle("주문 완료");
 	            returnVO.setMsg("주문이 성공하였습니다.");
 	            returnVO.setIcon("success");
-	            return returnVO;
-			}			 
+	    		pVO.setId((String)session.getAttribute("SID"));
+	            pVO.setResult("OK");
+	            return returnVO;	 
 		} catch (Exception e) {
 			e.printStackTrace();
+			pVO.setResult("NO");
 	        pImp.payMentCancle(token, pVO.getImp_uid(), paid_amount, "결제 에러");
 	    }
         returnVO.setTitle("결제 에러");

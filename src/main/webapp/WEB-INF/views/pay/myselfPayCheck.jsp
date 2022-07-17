@@ -27,6 +27,63 @@
   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 	<script type="text/javascript" src="/www/js/components/header.js"></script>
 	<script type="text/javascript" src="/www/js/pay/payment.js"></script>
+	<script type="text/javascript" src="/www/js/pay/basket.js"></script>
+		<script type="text/javascript">
+		$(document).ready(function(){
+			$('input[name="gameName"]').each(function(){
+				$('.games').append(
+						'<div class="card" id='+$(this).val()+'>'
+						+	'<img class="card-img-left" src="/www/img/logo.png" width="65px" height="50px">'
+						+		'<div class="card-width">'
+						+			'<h4 style="width:40%;">'+$(this).val()+'</h4>'
+						+				'<div class="game-title-info">'
+						+					'<span class="howSale">-49%</span>'
+						+				'</div>'
+						+				'<div class="gamePrice">'
+						+					'<span class="originalPrice"><del>999990</del></span>'
+						+					'<span class="salePrice">2</span>'
+						+				'</div>'
+						+		'</div>'
+						+'</div>');				
+			})
+			var priceList = 0;
+			$('.card').each(function(index, item){
+				if($(this).find('span[class="salePrice"]') == null ||
+					$(this).find('span[class="salePrice"]').text() == ''){
+					// 할인이 아닐 때
+					priceList += Number($(this).find('span[class="originalPrice"]').text());
+					
+					$(this).find('span[class="originalPrice"]').html(comma($(this).find('span[class="originalPrice"]').text()));
+				} else{
+					priceList += Number($(this).find('span[class="salePrice"]').text());
+					
+					$(this).find('span[class="originalPrice"]').html('<del>'+comma($(this).find('span[class="originalPrice"]').text())+'</del>');
+					$(this).find('span[class="salePrice"]').text(comma($(this).find('span[class="salePrice"]').text()));
+				}
+			});
+			
+			$('#subtotal').text(comma(priceList));
+			$('#total').text(comma(getNumber($('#subtotal').text())));
+			$('#totalPrice').val(getNumber($('#total').text()));
+		});
+
+	    function comma(str) {
+	        str = String(str);
+	        return '₩ '+ str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+	    }
+
+	    function getNumber(str) {
+	        var len      = str.length;
+	        var sReturn  = "";
+
+	        for (var i=2; i<len; i++){
+	            if ( (str.charAt(i) >= "0") && (str.charAt(i) <= "9") ){
+	                sReturn += str.charAt(i);
+	            }
+	        }
+	        return sReturn;
+	    }
+	</script>
 </head>
 
 <body>
@@ -89,15 +146,21 @@
 	</header>
 	<!-- 여기까지 -->
 	<main>
-		<div class="store-top pay-top">
 <c:if test="${not empty stat}">
 		<input type="hidden" id=self_stat value="${stat}"></c:if>
 <form method="POST" action="/www/payment/myselfPayCheck.nbs"
 		name="frm_info" id="frm_info" class="frm">
-		<input type="hidden" name="paySel">
-
+	<input type="hidden" id="totalPrice" name="totalPrice">
+	<input type="hidden" id="gameList" name="gameList">
+	<input type="hidden" id="buyerNick" name="buyerNick" value="${aVO.nickname}">
+	<input type="hidden" id="buyerEmail" name="buyerEmail" value="${aVO.email}">
+	<input type="hidden" id="buyerTel" name="buyerTel" value="${aVO.tel}">
 </form>
-			<h4>결제 정보</h4><h5>▶</h5>
+
+<c:forEach var="name" items="${gameIdList}" varStatus="status"><input type="hidden" name="gameName" value="${name}"></c:forEach>
+		<div class="store-top pay-top">
+			<h4>결제정보 확인</h4>
+			<h5>▶</h5>
 			<h4>확인 및 구매</h4>
 		</div>
 		<hr class="payStat">
@@ -108,50 +171,7 @@
 						<div class="store-games-main">
 							<div class="store-games--games">
 								<div class="games">
-									<!-- 개별 게임 -->
-									<div class="card" id="sample_000001">
-										<img class="card-img-left" src="/www/img/logo.png" width="65px" height="50px">
-										<div class="card-width">
-											<h4 style="width:40%;">Game1</h4>
-											<div class="game-title-info">
-												<span class="howSale">-49%</span>
-											</div>
-											<div class="gamePrice">
-												<span class="originalPrice"><del>999990</del></span>
-												<span class="salePrice">2</span>
-											</div>
-										</div>
-									</div>
-									<!-- 개별게임 끝 -->		
-									<!-- 개별 게임 -->
-									<div class="card" id="sample_000002">
-										<img class="card-img-left" src="/www/img/logo.png" width="65px" height="50px">
-										<div class="card-width">
-											<h4 style="width:40%;">Game2</h4>
-											<div class="game-title-info">
-												<span class="howSale">-49%</span>
-											</div>
-											<div class="gamePrice">
-												<span class="originalPrice"><del>30</del></span>
-											</div>
-										</div>
-									</div>
-									<!-- 개별게임 끝 -->				
-									<!-- 개별 게임 -->
-									<div class="card" id="sample_000003">
-										<img class="card-img-left" src="/www/img/logo.png" width="65px" height="50px">
-										<div class="card-width">
-											<h4 style="width:40%;">Game3</h4>
-											<div class="game-title-info">
-												<span class="howSale">-49%</span>
-											</div>
-											<div class="gamePrice">
-												<span class="originalPrice"><del>200</del></span>
-												<span class="salePrice"></span>
-											</div>
-										</div>
-									</div>
-									<!-- 개별게임 끝 -->				
+									<!-- 개별 게임 -->				
 								</div>
 							</div>
 						</div>
@@ -170,7 +190,7 @@
 			</div>
 		</div>
 				<div class="conti">
-					<button type="button" id="cbtn3" onclick='next4()' class="btn btn-success animation-on-hover">${paySel}pay로 결제하기</button>
+					<button type="button" id="cbtn3" onclick='self_next()' class="btn btn-success animation-on-hover">${paySel}pay로 결제하기</button>
 					<input type="hidden" id="paySel" value="${paySel}">
 				</div>
 		</div>

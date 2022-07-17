@@ -258,7 +258,7 @@ function payment(){
 			},
 			error: function(){
 				alert("결제 에러, 다시 진행해주세요");
-				//location.replace('/www/store/games.nbs');
+				location.replace('/www/store/games.nbs');
 			}
 	    });
     }

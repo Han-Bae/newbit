@@ -5,12 +5,18 @@ import java.util.*;
 
 public class PaymentVO {
 	private String presentTitle, presentMsg, paySel, name, id,
-		imp_uid, merchant_uid, game_id, isrefund;
+		imp_uid, merchant_uid, game_id, isrefund, result;
 	private int no, amount, account_no, buy_no, game_price;
 	private List<String> nameList, gameIdList;
 	private List<Integer> noList, gamePriceList;
 	
 	
+	public String getResult() {
+		return result;
+	}
+	public void setResult(String result) {
+		this.result = result;
+	}
 	public String getIsrefund() {
 		return isrefund;
 	}
@@ -126,10 +132,10 @@ public class PaymentVO {
 	public String toString() {
 		return "PaymentVO [presentTitle=" + presentTitle + ", presentMsg=" + presentMsg + ", paySel=" + paySel
 				+ ", name=" + name + ", id=" + id + ", imp_uid=" + imp_uid + ", merchant_uid=" + merchant_uid
-				+ ", game_id=" + game_id + ", isrefund=" + isrefund + ", no=" + no + ", amount=" + amount
-				+ ", account_no=" + account_no + ", buy_no=" + buy_no + ", game_price=" + game_price + ", nameList="
-				+ nameList + ", gameIdList=" + gameIdList + ", noList=" + noList + ", gamePriceList=" + gamePriceList
-				+ "]";
+				+ ", game_id=" + game_id + ", isrefund=" + isrefund + ", result=" + result + ", no=" + no + ", amount="
+				+ amount + ", account_no=" + account_no + ", buy_no=" + buy_no + ", game_price=" + game_price
+				+ ", nameList=" + nameList + ", gameIdList=" + gameIdList + ", noList=" + noList + ", gamePriceList="
+				+ gamePriceList + "]";
 	}
 	
 	

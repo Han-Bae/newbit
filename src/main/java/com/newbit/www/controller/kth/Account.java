@@ -34,7 +34,7 @@ public class Account {
 	// 로그인 처리
 	@RequestMapping(path="/loginProc.nbs", method=RequestMethod.POST, params= {"id", "pw"})
 	public ModelAndView loginProc(ModelAndView mv, AccountVO aVO, HttpSession session){
-
+			
 			int cnt = aDao.getLogin(aVO);
 			aVO.setCnt(cnt);
 			
@@ -46,7 +46,11 @@ public class Account {
 				mv.addObject("icon", "success");
 				mv.addObject("title", "로그인 성공!");
 				mv.addObject("msg", aVO.getId()+"님 어서오세요.");
-				mv.addObject("url", "/www/store/games.nbs");
+				if(session.getAttribute("vw") != null) {
+					mv.addObject("url", (String)session.getAttribute("vw"));					
+				} else {					
+					mv.addObject("url", "/www/store/games.nbs");
+				}
 			}else {
 				// 로그인 처리하면 안된다.
 				// 정보가 정확하지 않거나 없는 회원이다.

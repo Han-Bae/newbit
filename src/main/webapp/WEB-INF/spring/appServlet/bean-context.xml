@@ -22,6 +22,7 @@
 	
 	<!-- 서비스 클래스 빈처리 -->
 	<bean id="lSrc" class="com.newbit.www.service.LogService" />
+	<bean id="pSrc" class="com.newbit.www.service.PayService" />
 	<bean id="aSrc" class="com.newbit.www.service.AccountService" />
 	<bean id="uSrvc" class="com.newbit.www.service.UploadService" />
 	

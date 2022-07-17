@@ -2,11 +2,15 @@ package com.newbit.www.service;
 
 
 
+import java.lang.reflect.Method;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
-import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.*;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.*;
 import org.slf4j.*;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +31,7 @@ import com.newbit.www.vo.*;
 @Aspect
 public class LogService {
 	private static Logger accountLog = LoggerFactory.getLogger("accountLog");
+	private static Logger paymentLog = LoggerFactory.getLogger("paymentLog");
 	 
 	
 	@Pointcut("execution(* com.newbit.www.controller.kth.Account.loginProc(..))")
@@ -64,5 +69,31 @@ public class LogService {
 		}
 		return true;
 	}
-	
+
+	// 결제
+	@After("execution(* com.newbit.www.controller.kth.Payment.**heckPay(..))")
+	public void payRecord(JoinPoint join) {
+		MethodSignature methodSignature = (MethodSignature) join.getSignature();
+        Method method = methodSignature.getMethod();
+        String funcName = method.getName();
+        if(funcName.equals("selfPayCheck")) {
+    		PaymentVO pVO = (PaymentVO) join.getArgs()[1];
+    		String result = pVO.getResult();
+    		String id = pVO.getId();
+    		List<String> gameList = pVO.getGameIdList();
+    		if(result.contentEquals("OK")) {
+    			paymentLog.info(id + " 회원님이 게임 [ " + gameList + " ] 을 결제하셨습니다.");
+    		}
+        }else {
+        	PaymentVO pVO = (PaymentVO) join.getArgs()[1];
+    		String result = pVO.getResult();
+    		String id = pVO.getId();
+    		List<String> gameList = pVO.getGameIdList();
+    		List<String> nameList = pVO.getNameList();
+    		if(result.contentEquals("OK")) {
+    			paymentLog.info(id + " 회원님이 친구 [" +nameList+ "] 님께 게임 [ " + gameList + " ] 를 선물하셨습니다.");
+    		}
+        }
+	}
 }
+	

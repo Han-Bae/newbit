@@ -29,6 +29,22 @@
 	<script type="text/javascript" src="/www/js/pay/payment.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
+			$('input[name="gameName"]').each(function(){
+				$('.games').append(
+						'<div class="card" id='+$(this).val()+'>'
+						+	'<img class="card-img-left" src="/www/img/logo.png" width="65px" height="50px">'
+						+		'<div class="card-width">'
+						+			'<h4 style="width:40%;">'+$(this).val()+'</h4>'
+						+				'<div class="game-title-info">'
+						+					'<span class="howSale">-49%</span>'
+						+				'</div>'
+						+				'<div class="gamePrice">'
+						+					'<span class="originalPrice"><del>999990</del></span>'
+						+					'<span class="salePrice">2</span>'
+						+				'</div>'
+						+		'</div>'
+						+'</div>');				
+			})
 			var priceList = 0;
 			$('.card').each(function(index, item){
 				if($(this).find('span[class="salePrice"]') == null ||
@@ -123,7 +139,7 @@
 			<a href="/www/account/logout.nbs">Log Out</a>
 			<a href="#"><i class="tim-icons icon-single-02"></i></a>
 </c:if>
-			<a href="/www/payment/payForm.nbs"><i class="tim-icons icon-basket-simple"></i></a>
+			<a href="/www/payment/basket.nbs"><i class="tim-icons icon-basket-simple"></i></a>
 			<a href="#"><i class="tim-icons icon-shape-star"></i></a>
 		</div>
 	</header>
@@ -145,7 +161,9 @@
 <c:forEach var="name" items="${nameList}" varStatus="status">
     	<input type="hidden" name="name" value="${name}">
 </c:forEach>
-
+<c:forEach var="name" items="${gameIdList}" varStatus="status">
+    	<input type="hidden" name="gameName" value="${name}">
+</c:forEach>
 			<h4>선물 보내기</h4><h5>▶</h5>
 			<h4>메모작성</h4><h5>▶</h5>
 			<h4>결제 정보</h4><h5>▶</h5>
@@ -159,50 +177,7 @@
 						<div class="store-games-main">
 							<div class="store-games--games">
 								<div class="games">
-									<!-- 개별 게임 -->
-									<div class="card" id="sample_000001">
-										<img class="card-img-left" src="/www/img/logo.png" width="65px" height="50px">
-										<div class="card-width">
-											<h4 style="width:40%;">Game1</h4>
-											<div class="game-title-info">
-												<span class="howSale">-49%</span>
-											</div>
-											<div class="gamePrice">
-												<span class="originalPrice"><del>999990</del></span>
-												<span class="salePrice">2</span>
-											</div>
-										</div>
-									</div>
-									<!-- 개별게임 끝 -->		
-									<!-- 개별 게임 -->
-									<div class="card" id="sample_000002">
-										<img class="card-img-left" src="/www/img/logo.png" width="65px" height="50px">
-										<div class="card-width">
-											<h4 style="width:40%;">Game2</h4>
-											<div class="game-title-info">
-												<span class="howSale">-49%</span>
-											</div>
-											<div class="gamePrice">
-												<span class="originalPrice"><del>30</del></span>
-											</div>
-										</div>
-									</div>
-									<!-- 개별게임 끝 -->				
-									<!-- 개별 게임 -->
-									<div class="card" id="sample_000003">
-										<img class="card-img-left" src="/www/img/logo.png" width="65px" height="50px">
-										<div class="card-width">
-											<h4 style="width:40%;">Game3</h4>
-											<div class="game-title-info">
-												<span class="howSale">-49%</span>
-											</div>
-											<div class="gamePrice">
-												<span class="originalPrice"><del>200</del></span>
-												<span class="salePrice"></span>
-											</div>
-										</div>
-									</div>
-									<!-- 개별게임 끝 -->				
+									<!-- 개별 게임 -->				
 								</div>
 							</div>
 						</div>

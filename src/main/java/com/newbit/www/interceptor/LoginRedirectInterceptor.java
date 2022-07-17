@@ -2,6 +2,7 @@ package com.newbit.www.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,6 +23,7 @@ public class LoginRedirectInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler)
 			throws Exception {
 		if(req.getSession().getAttribute("SID") == null) {
+			req.getSession().setAttribute("vw", "/www/payment/basket.nbs");
 			resp.sendRedirect("/www/account/login.nbs");
 			return false;
 		}
