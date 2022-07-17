@@ -5,7 +5,7 @@
 		메인
 		
 		제작자 : 김태현
-		since : 2022.07.08
+		since : 2022.07.16
 		version : v.1.0
 	-->
 <html>
@@ -24,49 +24,9 @@
 	<script type="text/javascript" src="/www/js/bootstrap.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<!-- iamport.payment.js -->
-  	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 	<script type="text/javascript" src="/www/js/components/header.js"></script>
 	<script type="text/javascript" src="/www/js/pay/payment.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			var priceList = 0;
-			$('.card').each(function(index, item){
-				if($(this).find('span[class="salePrice"]') == null ||
-					$(this).find('span[class="salePrice"]').text() == ''){
-					// 할인이 아닐 때
-					priceList += Number($(this).find('span[class="originalPrice"]').text());
-					
-					$(this).find('span[class="originalPrice"]').html(comma($(this).find('span[class="originalPrice"]').text()));
-				} else{
-					priceList += Number($(this).find('span[class="salePrice"]').text());
-					
-					$(this).find('span[class="originalPrice"]').html('<del>'+comma($(this).find('span[class="originalPrice"]').text())+'</del>');
-					$(this).find('span[class="salePrice"]').text(comma($(this).find('span[class="salePrice"]').text()));
-				}
-			});
-			
-			$('#subtotal').text(comma(priceList));
-			$('#total').text(comma(getNumber($('#subtotal').text()) * $('input[name="name"]').length));
-			$('#totalPrice').val(getNumber($('#total').text()));
-		});
-
-	    function comma(str) {
-	        str = String(str);
-	        return '₩ '+ str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
-	    }
-
-	    function getNumber(str) {
-	        var len      = str.length;
-	        var sReturn  = "";
-
-	        for (var i=2; i<len; i++){
-	            if ( (str.charAt(i) >= "0") && (str.charAt(i) <= "9") ){
-	                sReturn += str.charAt(i);
-	            }
-	        }
-	        return sReturn;
-	    }
-	</script>
 </head>
 
 <body>
@@ -123,7 +83,7 @@
 			<a href="/www/account/logout.nbs">Log Out</a>
 			<a href="#"><i class="tim-icons icon-single-02"></i></a>
 </c:if>
-			<a href="/www/payment/payForm.nbs"><i class="tim-icons icon-basket-simple"></i></a>
+			<a href="/www/payment/basket.nbs"><i class="tim-icons icon-basket-simple"></i></a>
 			<a href="#"><i class="tim-icons icon-shape-star"></i></a>
 		</div>
 	</header>
@@ -131,23 +91,12 @@
 	<main>
 		<div class="store-top pay-top">
 <c:if test="${not empty stat}">
-		<input type="hidden" id=stat value="${stat}"></c:if>
-<form method="POST" action="/www/payment/payFormCheck.nbs"
+		<input type="hidden" id=self_stat value="${stat}"></c:if>
+<form method="POST" action="/www/payment/myselfPayCheck.nbs"
 		name="frm_info" id="frm_info" class="frm">
-	<input type="hidden" id="totalPrice" name="totalPrice">
-	<input type="hidden" id="gameList" name="gameList">
-	<input type="hidden" id="buyerNick" name="buyerNick" value="${aVO.nickname}">
-	<input type="hidden" id="buyerEmail" name="buyerEmail" value="${aVO.email}">
-	<input type="hidden" id="buyerTel" name="buyerTel" value="${aVO.tel}">
+		<input type="hidden" name="paySel">
+
 </form>
-
-<!-- 가격 계산용 보낼 친구 수 -->
-<c:forEach var="name" items="${nameList}" varStatus="status">
-    	<input type="hidden" name="name" value="${name}">
-</c:forEach>
-
-			<h4>선물 보내기</h4><h5>▶</h5>
-			<h4>메모작성</h4><h5>▶</h5>
 			<h4>결제 정보</h4><h5>▶</h5>
 			<h4>확인 및 구매</h4>
 		</div>

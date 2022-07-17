@@ -5,7 +5,7 @@
 		메인
 		
 		제작자 : 김태현
-		since : 2022.07.06
+		since : 2022.07.16
 		version : v.1.0
 	-->
 <html>
@@ -23,6 +23,8 @@
 	<script type="text/javascript" src="/www/js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="/www/js/bootstrap.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<!-- iamport.payment.js -->
+  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 	<script type="text/javascript" src="/www/js/components/header.js"></script>
 	<script type="text/javascript" src="/www/js/pay/payment.js"></script>
 </head>
@@ -89,61 +91,37 @@
 	<main>
 		<div class="store-top pay-top">
 <c:if test="${not empty stat}">
-			<input type="hidden" id=stat value="${stat}">
-</c:if>
-			<h4>선물 보내기</h4><h5>▶</h5>
-			<h4>메모작성</h4><h5>▶</h5>
+		<input type="hidden" id=self_stat value="${stat}"></c:if>
+<form method="POST" action="/www/payment/myselfPayCheck.nbs"
+		name="frm_info" id="frm_info" class="frm">
+		<input type="hidden" name="paySel">
+</form>
 			<h4>결제 정보</h4><h5>▶</h5>
 			<h4>확인 및 구매</h4>
 		</div>
 		<hr class="payStat">
 		<div class="payMain">
-			<!-- 친구 검색 -->
 			<div class="row">
-				<div style="padding-top: 20px;"><h2 style="margin-left: 20px; margin-bottom: 10px;">친구 선택</h2></div>
-				<div class="findF">
-					<form method="post" name="search">
-						<table class="pull-right">
-							<tr>
-								<!-- 카테고리<td><select class="form-control" name="searchField">
-										<option value="0">선택</option>
-										<option value="bbsTitle">게임명</option>
-										<option value="userID">개발사</option>
-								</select></td> -->
-								<td><input type="text" class="form-control" id="find"
-									placeholder="검색어 입력" name="searchText" maxlength="100"></td>
-								<!-- 검색 버튼 <td><button type="submit" class="btn btn-success animation-on-hover">검색</button></td> -->
-							</tr>
-		
-						</table>
-					</form>
-				</div>
-				<!-- 친구 정보 -->
-			<div class="friend-main">
-				<form method="POST" action="/www/payment/payFormMemo.nbs"
-			  			name="frm" id="frm" class="frm">
-			  	<input type="hidden" id="nameList" name="nameList">
-			  	<!-- 친구 내용 -->
-			<c:forEach var="friend" items="${nameList}">
-				<div class="card">
-					<div>    
-						<input type="checkbox" id="${friend}" name="fid" value="${friend}"/>
-	    				<label for="${friend}">
-							<span></span>
-	    				</label>
+				<div style="padding-top: 20px; margin-bottom:40px;"><h2 style="margin-left: 20px; margin-bottom: 10px;">결제 수단 선택</h2>
+					<div class="selectPay" >
+						<select class="form-select" id="selPay" name="selPay">
+							<option selected disabled>결제수단을 선택해주세요.</option>
+							<option value="card">일반 카드결제</option>
+							<option value="kakao">카카오페이</option>
+						</select>
 					</div>
-    				<label for="${friend}" class="notLabel">
-						<img class="card-img-left" src="/www/img/logo.png" width="120px" height="50px">
-	    				<h4>${friend}</h4>
-    				</label>
+			  	</div>
+				<!-- 선물내용 -->
+				<div class="payInfo" style="display:none;">
+					<h4 style="margin-left: 40px">제공되는 결제 수단은 아래와 같습니다.</h4>
+					<div class="payMain">
+						<img id="howPay" style="width:20%; height:100%; margin-bottom: 50px;">
+					</div>
 				</div>
-			</c:forEach>			
-				</form>	
-			</div>
-		</div>
-			<div class="conti">
-				<button type="button" id="cbtn" class="btn btn-success animation-on-hover">Continue</button>
-			</div>
+			</div> 
+				<div class="conti">
+					<button type="button" id="cbtn3" onclick='next3()' class="btn btn-success animation-on-hover">Continue</button>
+				</div>
 		</div>
 	</main>
 </body>

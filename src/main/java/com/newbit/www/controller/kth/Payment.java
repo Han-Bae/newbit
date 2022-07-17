@@ -28,6 +28,29 @@ public class Payment {
 	@Autowired
 	PaymentImp pImp;
 	
+	// 장바구니 페이지 이동
+	@RequestMapping("/basket.nbs")
+	public ModelAndView basket(ModelAndView mv) {
+		mv.setViewName("pay/basket");
+		return mv;
+	}
+
+	// 셀프 결제 1단계 이동
+	@RequestMapping("/myselfPayInfo.nbs")
+	public ModelAndView myselfPayInfo(ModelAndView mv, PaymentVO pVO) {
+		mv.addObject("stat", "first");
+		mv.addObject("pVO", pVO);
+		mv.setViewName("pay/myselfPayCheck");
+		return mv;
+	}
+	
+	// 셀프 결제 2단계 이동
+	@RequestMapping("/myselfPayCheck.nbs")
+	public ModelAndView myselfPayCheck(ModelAndView mv, PaymentVO pVO ,HttpSession session) {
+		mv.addObject("stat", "second");
+		return mv;
+	}
+	
 	// 선물하기 결제 1단계
 	@RequestMapping("/payForm.nbs")
 	public ModelAndView payForm(ModelAndView mv, HttpSession session) {
@@ -57,6 +80,7 @@ public class Payment {
 		mv.setViewName("pay/paymentInfo");
 		return mv;
 	}
+
 	
 	// 선물하기 결제 4단계 이동
 	@RequestMapping("/payFormCheck.nbs")

@@ -81,7 +81,7 @@
 			<a href="/www/account/logout.nbs">Log Out</a>
 			<a href="#"><i class="tim-icons icon-single-02"></i></a>
 </c:if>
-			<a href="/www/payment/payForm.nbs"><i class="tim-icons icon-basket-simple"></i></a>
+			<a href="/www/payment/basket.nbs"><i class="tim-icons icon-basket-simple"></i></a>
 			<a href="#"><i class="tim-icons icon-shape-star"></i></a>
 		</div>
 	</header>
@@ -125,7 +125,7 @@
 				</div>
 			</div> 
 				<div class="conti">
-					<button type="button" id="cbtn2" onclick='next2()' class="btn btn-success">Continue</button>
+					<button type="button" id="cbtn2" onclick='next2()' class="btn btn-success animation-on-hover">Continue</button>
 				</div>
 		</div>
 	</main>

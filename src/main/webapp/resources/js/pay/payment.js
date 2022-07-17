@@ -41,6 +41,21 @@ $(document).ready(function(){
 		if(i == no)	$('.store-top > h4:eq('+i+')').css("color", "white");
 		else $('.store-top > h4:eq('+i+')').css("color", "grey");
 	}
+
+	var self_stat = $("#self_stat").val();
+	var self_no;
+	switch(self_stat){
+		case 'first':
+			self_no = 0;
+			break;
+		case 'second':
+			self_no = 1;
+			break;
+		}
+	for(var i = 0; i < $('.store-top > h4').length; i++){
+		if(i == self_no)	$('.store-top > h4:eq('+i+')').css("color", "white");
+		else $('.store-top > h4:eq('+i+')').css("color", "grey");
+	}
 	
 	/////////////////////// 친구설정 - 1단계
 	// 검색창
@@ -223,35 +238,6 @@ function payment(){
 					paymentCheck(data);
 				} else {
 					alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
-				}
-		});
-		break
-
-		// 토스 간편 결제
-		case "toss":
-			IMP.init('imp53015725');	// 가맹점 식별코드
-			IMP.request_pay({
-				pg : 'tosstest',
-				pay_method : 'card',
-				merchant_uid: "toss_test"+ new Date().getTime(), //상점에서 생성한 고유 주문번호
-				name: $('#gameList').val(), //결제창에 노출될 상품명
-				amount: $('#totalPrice').val(), //금액
-				buyer_email : $('#buyerEmail').val(), 
-				buyer_name : $('#buyerNick').val(),
-				buyer_tel : $('#buyerTel').val(),
-		}, function(rsp) { // callback 로직
-				console.log(rsp);
-			if (rsp.success) {
-				alert("완료 -> imp_uid : "+rsp.imp_uid+" / merchant_uid(orderKey) : " +rsp.merchant_uid);
-				swal("결제 완료!","결제가 완료되어 메인페이지로 이동됩니다.","success")
-				.then(function(){
-					$(location).attr('href', '/www/store/games.nbs');
-					/* 	$('form').attr('action', '/www/store/games.nbs');
-					$('form').submit(); */
-					}
-					)
-				} else {
-					alert("실패 : 코드("+rsp.error_code+") / 메세지(" + rsp.error_msg + ")");
 				}
 		});
 		break

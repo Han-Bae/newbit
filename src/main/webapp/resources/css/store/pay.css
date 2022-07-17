@@ -30,6 +30,30 @@ option{
 	margin-top: 0px;
 }
 
+.gamePay {
+    justify-content: end;
+    flex-direction: row;
+    display: flex;
+}
+
+.basket-game{
+	margin-left: 1%;
+    justify-content: end;
+    display: flex;
+}
+
+.labelDiv .notLabel{
+	width: 98%;
+}
+
+.btn-warning{
+	padding: 5px 10px;
+	width: 50px;
+}
+.store-games--games .gamePrice {
+	width: 60%;
+}
+
 /* 선물 목록 */
 .payMain{
 	justify-content: space-around;
@@ -56,6 +80,10 @@ option{
 	justify-content: flex-start;
 }
 .rowDiv .card-width{
+	width: 100%;
+	justify-content: space-around;
+}
+.notLabel .card-width{
 	width: 100%;
 	justify-content: space-around;
 }

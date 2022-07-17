@@ -83,7 +83,7 @@
 			<a href="/www/account/logout.nbs">Log Out</a>
 			<a href="#"><i class="tim-icons icon-single-02"></i></a>
 </c:if>
-			<a href="/www/payment/payForm.nbs"><i class="tim-icons icon-basket-simple"></i></a>
+			<a href="/www/payment/basket.nbs"><i class="tim-icons icon-basket-simple"></i></a>
 			<a href="#"><i class="tim-icons icon-shape-star"></i></a>
 		</div>
 	</header>
@@ -114,7 +114,6 @@
 							<option selected disabled>결제수단을 선택해주세요.</option>
 							<option value="card">일반 카드결제</option>
 							<option value="kakao">카카오페이</option>
-							<option value="toss">토스 간편결제</option>
 						</select>
 					</div>
 			  	</div>
@@ -127,7 +126,7 @@
 				</div>
 			</div> 
 				<div class="conti">
-					<button type="button" id="cbtn3" onclick='next3()' class="btn btn-success">Continue</button>
+					<button type="button" id="cbtn3" onclick='next3()' class="btn btn-success animation-on-hover">Continue</button>
 				</div>
 		</div>
 	</main>
