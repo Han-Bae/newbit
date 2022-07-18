@@ -13,6 +13,7 @@ import org.springframework.web.servlet.*;
 
 import com.newbit.www.dao.*;
 import com.newbit.www.service.AccountService;
+import com.newbit.www.service.SessionConfig;
 import com.newbit.www.vo.AccountVO;
 
 @Controller
@@ -42,6 +43,8 @@ public class Account {
 
 				// 아이디와 비밀번호가 일치하는
 				// 회원이 있는 경우 -> 로그인 처리
+				String userId = SessionConfig.getSessionidCheck("SID", aVO.getId());
+				System.out.println(aVO.getId()+" : "+userId);
 				session.setAttribute("SID", aVO.getId());
 				mv.addObject("icon", "success");
 				mv.addObject("title", "로그인 성공!");
@@ -70,8 +73,12 @@ public class Account {
 	@RequestMapping("/logout.nbs")
 	public ModelAndView logout(ModelAndView mv, HttpSession session, AccountVO aVO) {
 		session.removeAttribute("SID");
+		mv.addObject("icon", "success");
+		mv.addObject("title", "로그 아웃");
+		mv.addObject("msg", "");
+		mv.addObject("url", "/www/account/login.nbs");
 		aVO.setResult("OK");
-		mv.setViewName("store/games");
+		mv.setViewName("account/redirect");
 		return mv;
 	}
 	

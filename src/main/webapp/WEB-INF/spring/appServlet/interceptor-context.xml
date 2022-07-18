@@ -11,8 +11,10 @@
 	<!-- 로그인 체크 인터셉터 빈처리 -->
 	<beans:bean id="loginCheck" class="com.newbit.www.interceptor.LoginCheckInterceptor"/>
 	<beans:bean id="loginRedirect" class="com.newbit.www.interceptor.LoginRedirectInterceptor"/>
+	<beans:bean id="loginOverlap" class="com.newbit.www.interceptor.LoginOverlapInterceptor"/>
 	
 	<interceptors>
+		<!-- 로그인 되어 있는데 관련 요청시 메인화면 전환 -->
 		<interceptor>
 			<mapping path="/account/login**.nbs" />
 			<mapping path="/account/find*.nbs" />
@@ -23,9 +25,18 @@
 			<beans:ref bean="loginCheck" />
 		</interceptor>
 		
+		<!-- 로그인 아니면 로그인 화면 -->
 		<interceptor>
 			<mapping path="/payment/*.nbs" />
 			<beans:ref bean="loginRedirect" />
 		</interceptor>
+		
+		<!-- 중복 로그인 확인 -->
+		<interceptor>
+			<mapping path="*.nbs" />
+			<exclude-mapping path="/account/logout.nbs" />
+			<beans:ref bean="loginOverlap" />
+		</interceptor>
+		
 	</interceptors>
 </beans:beans>
