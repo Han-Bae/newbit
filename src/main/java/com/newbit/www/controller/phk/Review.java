@@ -30,17 +30,19 @@ public class Review {
 	public ModelAndView reviewMain(ModelAndView mv, HttpSession session) {
 
 		List<ReviewVO> list = rDao.getReview();
-		//List<UploadVO> ulist = uDao.getScreenShot();
+		/* List<UploadVO> ulist = uDao.getScreenShot(); */
 
 		// 작성자, 작성일, 평가, 평가리뷰글
-		for (int i = 0; i < list.size(); i++) {
-			/*
-			 * System.out.println("작성자#########" + list.get(i).getAccount_no());
-			 * System.out.println("작성일#########" + list.get(i).getRdate());
-			 * System.out.println("게임평가#########" + list.get(i).getIsgood());
-			 * System.out.println("평가리뷰글#########" + list.get(i).getBody());
-			 */
-		}
+		/*
+		 * for (int i = 0; i < ulist.size(); i++) {
+		 * 
+		 * System.out.println("작성자#########" + list.get(i).getAccount_no());
+		 * System.out.println("작성일#########" + list.get(i).getRdate());
+		 * System.out.println("게임평가#########" + list.get(i).getIsgood());
+		 * System.out.println("평가리뷰글#########" + list.get(i).getBody());
+		 * 
+		 * }
+		 */
 		// 뷰에 데이터 심고 // EL형식으로 바꾸어야 JSP에서 바로 사용할 수 있다.
 		mv.addObject("LIST", list);
 
@@ -50,8 +52,9 @@ public class Review {
 
 	@Autowired
 	ReviewDao rDao;
+
 	@Autowired
-	UploadDao uDao;
+	UploadDao uDao; 
 
 	/*----------------------------------------------------------------------*/
 
@@ -111,7 +114,7 @@ public class Review {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		String result = "NO";
-		String divReview = "OK"; //JSP에서 평가가 유용한가요 DIV영역 처리용
+		String divReview = "OK"; // JSP에서 평가가 유용한가요 DIV영역 처리용
 
 		String sid = (String) session.getAttribute("SID");
 		System.out.println("세션에서 받아온ID===================" + sid);
@@ -125,17 +128,17 @@ public class Review {
 
 		List<ReviewVO> list = rDao.getreviewDetail(accountNo);
 		List<ReviewVO> listYN = rDao.getreviewYN(dreviewNo);
-		
+
 		// 고객NO로 리뷰평가를 했는지 확인
 		rVO.setDreviewNo(dreviewNo);
 		int idCnt = rDao.getSelRewiewCnt(rVO);
 		System.out.println("##### 고객리뷰 평가 했니?  ####" + idCnt);
-		
-		if(idCnt == 1) {//이미 고객리뷰를 평가한 사람인 경우
-			divReview = "NO";//DIV 영역 보여주지 말자
+
+		if (idCnt == 1) {// 이미 고객리뷰를 평가한 사람인 경우
+			divReview = "NO";// DIV 영역 보여주지 말자
 		}
 
-		//System.out.println("야야야----유용데이터 왔능가?" + listYN);
+		// System.out.println("야야야----유용데이터 왔능가?" + listYN);
 
 		for (int i = 0; i < list.size(); i++) {
 			/*
@@ -165,7 +168,6 @@ public class Review {
 			map.put("GOODYN", listYN.get(i).getGood()); // 유용yes
 			map.put("BADYN", listYN.get(i).getBad()); // 유용no
 
-			 
 		}
 
 		// dao에서 가져온 리스트가 정상적으로 들어왔는지 사이즈0 보다 크면
@@ -178,7 +180,7 @@ public class Review {
 		// jsp에서 쓰여질 result를 만든다.
 		// EL형식으로 바꾸어야 에서 바로 사용할 수 있다.
 		map.put("result", result);
-		map.put("divReview", divReview); //평가가 유용한지 div 표현여부 값
+		map.put("divReview", divReview); // 평가가 유용한지 div 표현여부 값
 
 		return map;
 	}
@@ -223,40 +225,37 @@ public class Review {
 		return mv;
 
 	}
-	
-	
+
 	/*---------------------------------------------------------------------*/
 	// 삭제기능
 	@RequestMapping("/delReview.nbs")
-	public ModelAndView delReview(ModelAndView mv, String id, RedirectView rv, HttpSession session, ReviewVO rVO ) {
+	public ModelAndView delReview(ModelAndView mv, String id, RedirectView rv, HttpSession session, ReviewVO rVO) {
 		String sid = (String) session.getAttribute("SID");
-		
-		if(sid == null) {
+
+		if (sid == null) {
 			rv.setUrl("/www/review/reviewMain.nbs");
 			mv.setView(rv);
 			return mv;
 		}
-		
+
 		System.out.println("세션아이디########" + sid);
-		
+
 		// 세션ID를 가지고 ACCOUNT테이블에서 고객 NO조회
 		int no = rDao.getFindNo(sid);
 		rVO.setNo(no);
-				
+
 		int cnt = rDao.delReview(rVO.getNo());
-		
-		if(cnt == 1) {
+
+		if (cnt == 1) {
 			// 세션에 기억시켜둔 데이터를 삭제하고
 			session.removeAttribute("SID");
 			rv.setUrl("/www/review/reviewMain.nbs");
 		} else {
 			rv.setUrl("/www/review/reviewMain.nbs");
 		}
-		
+
 		mv.setView(rv);
 		return mv;
 	}
-	
-	
 
 }

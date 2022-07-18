@@ -8,10 +8,15 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/www/img/favicon/favicon.ico">
 <!-- CSS Files -->
 <link rel="stylesheet" type="text/css" href="/www/css/theme/black-dashboard.css">
+<link rel="stylesheet" type="text/css" href="/www/css/theme/nucleo-icons.css">
+<link rel="stylesheet" type="text/css" href="/www/css/components/header.css">
+<link rel="stylesheet" type="text/css" href="/www/css/store/store.css">
+<script src="https://kit.fontawesome.com/e0f46f82c6.js"></script>
 <script type="text/javascript" src="/www/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/www/js/components/header.js"></script>
 <script type="text/javascript" src="/www/js/review/reviewMain.js"></script>
 <style>
-
+/* 
 * {
 	padding: 0;
 	margin: 0;
@@ -226,19 +231,70 @@ footer>a {
 	z-index: 1040;
 	width: auto;
 	height: auto;
-}
+} */
 
 </style>
 </head>
-<body>
+<body class="store-main-body">
+
+
+	<header>
+		<div class="header-line"></div>
+		<div class="header-logo">
+			<img src="/www/img/logo.png" height="80px">
+		</div>
+		
+		<ul class="main-nav">
+			<li>
+				<a class="nav-link active" href="/www/store/games.nbs">
+					<i class="tim-icons icon-cart main-nav-icon"></i>
+					<span class="main-nav-text">Store</span>
+					<div class="indicator"></div>
+				</a>
+			</li>
+			<li>
+				<a class="nav-link active" href="#">
+					<i class="tim-icons icon-controller"></i>
+					<span class="main-nav-text">Library</span>
+					<div class="indicator"></div>
+				</a>
+			</li>
+			<li>
+				<a class="nav-link active" href="/www/review/reviewMain.nbs">
+					<i class="tim-icons icon-world"></i>
+					<span class="main-nav-text">Community</span>
+					<div class="indicator"></div>
+				</a>
+			</li>
+			<li>
+				<a class="nav-link active" href="#">
+					<i class="fa-solid fa-ghost"></i>
+					<span class="main-nav-text">Newbit</span>
+					<div class="indicator"></div>
+				</a>
+			</li>
+		</ul>
+		
+		<div class="user-nav">
+<c:if test="${empty SID}">
+			<a href="/www/account/login.nbs">Log In</a>
+</c:if>
+<c:if test="${not empty SID}">
+			<a href="/www/account/logout.nbs">Log Out</a>
+			<a href="#"><i class="tim-icons icon-single-02"></i></a>
+</c:if>
+			<a href="/www/payment/basket.nbs"><i class="tim-icons icon-basket-simple"></i></a>
+			<a href="#"><i class="tim-icons icon-shape-star"></i></a>
+		</div>
+	</header>
 <form method="POST" id="frm" name="frm" enctype="multipart/form-data">
 <input type="hidden" name="game_no" id="game_no" />
 <input type="hidden" name="dreviewNo" id="dreviewNo"/>
 
 
+<!-- 리뷰페이지 main -->
 
-
-<div class="back-top0">
+<div class="back-top0" >
 	<div class="back-top">
 		<header>
 			<p>Steam Game</p>
