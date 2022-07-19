@@ -139,7 +139,7 @@ CREATE TABLE newbit_tag(
 -- 게임 관련 테이블 생성
 	-- 독점 게임 테이블
 CREATE TABLE newbit_game(
-    id NUMBER(4)
+    id VARCHAR2(15 CHAR)
         CONSTRAINT NB_ID_PK PRIMARY KEY,
    account_no NUMBER(4)
         CONSTRAINT NB_ACCOUNTNUM_FK REFERENCES account(no)
