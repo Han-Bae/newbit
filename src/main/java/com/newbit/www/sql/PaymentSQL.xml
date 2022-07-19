@@ -4,7 +4,8 @@
 			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pSQL">
 	
-<!-- 찜목록 불러오기 -->
+<!-- 찜목록 -->
+	<!-- 찜목록 불러오기 -->
 	<select id="getPickList" resultType="string" parameterType="string">
 		SELECT game_id
 		FROM pick
@@ -12,8 +13,43 @@
 				SELECT no
 				FROM account
 				WHERE id = #{id}
-			)
+			) AND isshow = 'Y'
 	</select>
+	<!-- 장바구니 불러오기 -->
+	<select id="getBasketList" resultType="string" parameterType="string">
+		SELECT game_id
+		FROM basket
+		WHERE account_no = (
+				SELECT no
+				FROM account
+				WHERE id = #{id}
+			) AND isshow = 'Y'
+	</select>
+	
+	<!-- 장바구니 추가 -->
+	<insert id="addBasket" parameterType="pVO">
+		<selectKey keyProperty="account_no" resultType="int" order="BEFORE">
+			SELECT no FROM account WHERE id = #{id}
+		</selectKey>
+		INSERT INTO
+			basket(account_no, game_id, isnewbit, isshow)
+		VALUES(
+			#{account_no}, #{game_id}, 'N', 'Y'
+		)	
+	</insert>
+	
+	<!-- 찜목록 삭제 -->
+	<update id="delPick" parameterType="string">
+		UPDATE pick
+		SET isshow = 'N'
+		WHERE game_id = #{game_id}
+	</update>
+	<!-- 장바구니 삭제 -->
+	<update id="delBasket" parameterType="string">
+		UPDATE basket
+		SET isshow = 'N'
+		WHERE game_id = #{game_id}
+	</update>
 	
 	<!-- 친구 찾기 질의문 -->
 	<select id="selFollow" resultType="int" parameterType="string">

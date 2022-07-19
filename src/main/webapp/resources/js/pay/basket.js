@@ -30,7 +30,28 @@ $(document).ready(function(){
 	});
 	
 	$('.del_game').click(function(){
-		$(this).parent().parent().remove();
+		var me = $(this).parent().parent();
+		var sgame_id = $(me).find('div[class="card"]').attr('id');
+		var surl = $(location).attr('href');
+		$.ajax({
+			url: '/www/payment/delPick.nbs',
+			type: 'post',
+			dataType: 'json',
+			data: {
+				game_id : sgame_id,
+				url : surl
+			},
+			success: function(data){
+				if(data.result == 'OK'){
+					// 찜목록 삭제처리 완료 시
+					$(me).remove();			
+				}else{
+					swal('삭제 실패', '다시 시도해주세요', 'error');
+				}
+			}, error: function(){
+				swal('통신 에러', '다시 시도해주세요', 'error');
+			}
+		});
 	});
 });
 

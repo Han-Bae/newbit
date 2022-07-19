@@ -27,6 +27,8 @@ public class Payment {
 	@Autowired
 	PaymentDao pDao;
 	@Autowired
+	AccountService aSrc;
+	@Autowired
 	PayService pSrc;
 	@Autowired
 	PaymentImp pImp;
@@ -35,13 +37,57 @@ public class Payment {
 	@RequestMapping("/pick.nbs")
 	public ModelAndView pick(ModelAndView mv, HttpSession session) {
 		String id = (String)session.getAttribute("SID");
-//		pDao
-//		mv.setViewName("pay/pick");
+		List<String> gameIdList = pDao.getPickList(id);
+		List<String> basketList = pDao.getBasketList(id);
+		mv.addObject("gameIdList", gameIdList);
+		mv.addObject("basketList", basketList);
+		mv.setViewName("pay/pick");
 		return mv;
 	}
+	// 장바구니 추가
+	@ResponseBody
+	@RequestMapping(path="/addBasket.nbs", method=RequestMethod.POST, params="game_id")
+	public Map<String, String> addBasket(ModelAndView mv, HttpSession session, String game_id) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		String result = "NO";
+		PaymentVO pVO = new PaymentVO();
+		pVO.setGame_id(game_id);
+		pVO.setId((String)session.getAttribute("SID"));
+		int cnt = 0;
+		cnt = pDao.addBasket(pVO);
+		if(cnt == 1) {
+			result = "OK";
+		}
+		map.put("result", result);
+		return map;
+	}
+	// 찜목록, 장바구니 삭제
+	@ResponseBody
+	@RequestMapping(path="/delPick.nbs", method=RequestMethod.POST, params={"game_id","url"})
+	public Map<String, String> delPick(ModelAndView mv, String game_id, String url) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		String result = "NO";
+		int cnt = 0;
+		// 찜목록에서 삭제 시
+		if(url == "http://localhost/www/payment/pick.nbs") {
+			cnt = pDao.delPick(game_id);
+			// 장바구니에서 삭제 시
+		} else {
+			cnt = pDao.delBasket(game_id);
+		}
+		if(cnt == 1) {
+			result = "OK";
+		}
+		map.put("result", result);
+		return map;
+	}
+	
 	// 장바구니 페이지 이동
 	@RequestMapping("/basket.nbs")
-	public ModelAndView basket(ModelAndView mv) {
+	public ModelAndView basket(ModelAndView mv, HttpSession session) {
+		String id = (String)session.getAttribute("SID");
+		List<String> basketList = pDao.getBasketList(id);
+		mv.addObject("gameIdList", basketList);
 		mv.setViewName("pay/basket");
 		return mv;
 	}
@@ -149,6 +195,14 @@ public class Payment {
             returnVO.setTitle("주문 완료");
             returnVO.setMsg("주문이 성공하였습니다.");
             returnVO.setIcon("success");
+            
+            	// 게임 결제 메일 보내기
+            AccountVO aVO = new AccountVO();
+            aVO.setId((String)session.getAttribute("SID"));
+            aVO = aDao.selAccountInfo(aVO);
+            aVO.setpVO(pVO);
+            aSrc.sendMail(aVO);
+            
             return returnVO;
 		} catch (Exception e) {
 			pVO.setResult("NO");
@@ -189,6 +243,14 @@ public class Payment {
 	            returnVO.setTitle("주문 완료");
 	            returnVO.setMsg("주문이 성공하였습니다.");
 	            returnVO.setIcon("success");
+
+            	// 게임 결제 메일 보내기
+	            AccountVO aVO = new AccountVO();
+	            aVO.setId((String)session.getAttribute("SID"));
+	            aVO = aDao.selAccountInfo(aVO);
+	            aVO.setpVO(pVO);
+	            aSrc.sendMail(aVO);
+	            
 	    		pVO.setId((String)session.getAttribute("SID"));
 	            pVO.setResult("OK");
 	            return returnVO;	 

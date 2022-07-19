@@ -15,6 +15,22 @@ public class PaymentDao {
 	public List<String> getPickList(String id) {
 		return sqlSession.selectList("pSQL.getPickList", id);
 	}
+// 장바구니 불러오기
+	public List<String> getBasketList(String id) {
+		return sqlSession.selectList("pSQL.getBasketList", id);
+	}
+// 장바구니 저장
+	public int addBasket(PaymentVO pVO) {
+		return sqlSession.insert("pSQL.addBasket", pVO);
+	}
+// 찜목록 삭제
+	public int delPick(String game_id) {
+		return sqlSession.update("pSQL.delPick", game_id);
+	}
+// 장바구니 삭제
+	public int delBasket(String game_id) {
+		return sqlSession.update("pSQL.delBasket", game_id);
+	}
 	
 // 선물 줄 친구 리스트
 	public List<Integer> selFollower(String id) {

@@ -24,7 +24,7 @@
 	<script type="text/javascript" src="/www/js/bootstrap.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
 	<script type="text/javascript" src="/www/js/components/header.js"></script>
-	<script type="text/javascript" src="/www/js/pay/basket.js"></script>
+	<script type="text/javascript" src="/www/js/pay/pick.js"></script>
 </head>
 <body>
 	
@@ -104,37 +104,31 @@
 				<c:forEach var="pick" items="${gameIdList}">
 								<!-- 개별 게임 나중에 label for, input name ${game_id} -->
 								<div class="basket-game">
-									<div class="form-check">
-										<label class="form-check-label" for="ck_${pick}">
-											<input type="checkbox" name="ckid" id="ck_${pick}" class="form-check-input" value="ck_${pick}">
-											<span class="form-check-sign">
-												<span class="check"></span>
-											</span>
-										</label>
-									</div>
 									<div class="labelDiv">
-	   									<label for="ck_${pick}" class="notLabel">
-											<div class="card" id="${pick}">
-												<img class="card-img-left" src="/www/img/logo.png" width="120px" height="50px">
-												<div class="card-width">
-													<h4 style="width: 160px;">Game_${pick}</h4>
-													<div class="game-title-info">
-														<span class="whenGame">123</span>
-														<i class="tim-icons icon-minimal-up positive"></i>
-													</div>
-													<div class="gameDiscount">
-														<span class="howSale">-49%</span>
-														<div class="gamePrice">
-															<span class="originalPrice"><del>999990</del></span>
-															<span class="salePrice">2000</span>
-														</div>
+										<div class="card" id="${pick}">
+											<img class="card-img-left" src="/www/img/logo.png" width="120px" height="50px">
+											<div class="card-width">
+												<h4 style="width: 160px;">Game_${pick}</h4>
+												<div class="game-title-info" style="width: 100px">
+													<span class="whenGame">123</span>
+													<i class="tim-icons icon-minimal-up positive"></i>
+												</div>
+												<div class="gameDiscount">
+													<span class="howSale">-49%</span>
+													<div class="gamePrice">
+														<span class="originalPrice"><del>999990</del></span>
+														<span class="salePrice">2000</span>
 													</div>
 												</div>
 											</div>
-										</label>
+										</div>
 									</div>
-									<div>
-										<button type="button" class="btn btn-primary animation-on-hover del_game">장바구니</button>
+									<div class="btnDiv">
+						<c:forEach var="basket" items="${basketList}">
+							<c:if test="${basket == pick}">
+										<input type="hidden" name="yesBasket" value="yes">
+							</c:if>
+						</c:forEach>
 										<button type="button" class="btn btn-warning animation-on-hover del_game">삭제</button>
 									</div>
 								</div>
@@ -147,7 +141,7 @@
 			</div>
 			<div class="row basket_row">
 				<div class="gamePay">
-					<button type="button" id="presentPay" onclick='goBasket()' class="btn btn-success animation-on-hover">장바구니 가기</button>
+					<button type="button" id="goBasket" onclick='goBasket()' class="btn btn-success animation-on-hover">장바구니 가기</button>
 				</div>
 			</div>
 		</div>

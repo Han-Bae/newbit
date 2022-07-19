@@ -1,6 +1,7 @@
 package com.newbit.www.service;
 
 import java.net.*;
+import java.util.Optional;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -11,7 +12,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import com.newbit.www.vo.AccountVO;
+import com.newbit.www.vo.*;
 
 /**
  * 이 클래스는 계정 관리 전반의 서비스에 대한 클래스
@@ -25,6 +26,18 @@ import com.newbit.www.vo.AccountVO;
 public class AccountService {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	private String myIP;
+	
+	private PaymentVO pVO;
+	
+	
+	public PaymentVO getpVO() {
+		return pVO;
+	}
+	public void setpVO(PaymentVO pVO) {
+		this.pVO = pVO;
+	}
+	
+	
 	// 메일로 전송하기 위해 ID의 일부만 표시해주는 함수
 	public char[] convertID(String id) {
 		char[] myID = new char[id.length()];
@@ -54,11 +67,17 @@ public class AccountService {
 			}
 		});
 		setMyIP();	// IP주소 받기
+			// 게임 결제 시 정보 전송
+		if(aVO.getpVO() != null) {
+			sendGame(aVO, session);
+		}
+		else {
 			// 아이디찾기 메일이면
-		if(aVO.getConvert_id() != null) {
-			sendID(aVO, session);
-		}else {
-			sendJoin(aVO, session);
+			if(aVO.getConvert_id() != null) {
+				sendID(aVO, session);
+			}else {
+				sendJoin(aVO, session);
+			}
 		}
 	}
 	
@@ -106,6 +125,7 @@ public class AccountService {
 		}
 	}
 	
+	// 회원가입 메일
 	public void sendJoin(AccountVO aVO, Session session) {
 		String receiver = aVO.getEmail(); // 메일 받을 주소
 		String title = "회원 인증 메일입니다.";
@@ -143,6 +163,49 @@ public class AccountService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+		// 게임 결제 메일
+		public void sendGame(AccountVO aVO, Session session) {
+			String receiver = aVO.getEmail(); // 메일 받을 주소
+			String title = "NewBit 결제 메일입니다.";
+			String content = "<div style=\"font-family: 'Apple SD Gothic Neo', 'sans-serif' !important; width: 540px; height: 600px; border-top: 4px solid purple; margin: 100px auto; padding: 30px 0; box-sizing: border-box;\">\r\n"
+					+ "	<h1 style=\"margin: 0; padding: 0 5px; font-size: 28px; font-weight: 400;\">\r\n"
+					+ "		<span style=\"font-size: 15px; margin: 0 0 10px 3px;\">NewBit Store</span><br />\r\n"
+					+ "		<span style=\"color: purple; \">결제 완료</span> 안내입니다.\r\n"
+					+ "	</h1>\r\n"
+					+ "	<p style=\"font-size: 16px; line-height: 26px; margin-top: 50px; padding: 0 5px;\">\r\n"
+					+ "		안녕하세요. "+aVO.getNickname()+" 님<br />\r\n"
+					+ "		결제완료 메일입니다.<br />\r\n"
+					+ "		<b style=\"color: purple;\">'결제된 게임'</b><br />\r\n";
+			// 결제한 게임 수만큼 반복
+			for(int i = 0; i < aVO.getpVO().getGameIdList().size(); i++) {
+				content += "게임명 : " +aVO.getpVO().getGameIdList().get(i) +"<br />\r\n"
+						+"&nbsp;게임 가격 : " +aVO.getpVO().getGamePriceList().get(i)+"원<br />\r\n";
+			}
+			// 선물을 보낸 경우엔 친구 리스트 추가
+			if(aVO.getpVO().getNameList() != null) {
+				content += "친구 ";
+				for(int i = 0; i < aVO.getpVO().getNameList().size(); i++) {
+						content += aVO.getpVO().getNameList().get(i)+", ";
+				}
+				content = content.substring(0, content.length()-2);
+				content += "님에게 선물하셨습니다.<br />\\r\\n";
+			}
+			content +="		감사합니다.\r\n"
+					+ "	</p>\r\n"
+					+ "\r\n"
+					+ "</div>";
+			Message message = new MimeMessage(session);
+			try {
+				message.setFrom(new InternetAddress("taehk1011@gmail.com", "NewBit Store", "utf-8"));
+				message.addRecipient(Message.RecipientType.TO, new InternetAddress(receiver));
+				message.setSubject(title);
+				message.setContent(content, "text/html; charset=utf-8");
+				
+				Transport.send(message);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 	}
 	
 	

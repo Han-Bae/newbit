@@ -12,8 +12,15 @@ public class AccountVO {
 	private char[] convert_id;
 	private Date joindate;
 	private List<AccountVO> numList;
+	private PaymentVO pVO;
 	
 	
+	public PaymentVO getpVO() {
+		return pVO;
+	}
+	public void setpVO(PaymentVO pVO) {
+		this.pVO = pVO;
+	}
 	public String getTel() {
 		return tel;
 	}
@@ -186,7 +193,7 @@ public class AccountVO {
 				+ ", tel=" + tel + ", sdate=" + sdate + ", savename=" + savename + ", isokay=" + isokay + ", result="
 				+ result + ", icon=" + icon + ", title=" + title + ", msg=" + msg + ", stat=" + stat + ", url=" + url
 				+ ", convert_id=" + Arrays.toString(convert_id) + ", joindate=" + joindate + ", numList=" + numList
-				+ "]";
+				+ ", pVO=" + pVO + "]";
 	}
 	
 }

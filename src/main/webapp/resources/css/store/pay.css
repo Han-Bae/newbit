@@ -46,9 +46,10 @@ option{
 	width: 98%;
 }
 
-.btn-warning{
+.btn-warning, .btn-primary{
 	padding: 5px 10px;
-	width: 50px;
+	width: 80px;
+	float: right;
 }
 .store-games--games .gamePrice {
 	width: 60%;

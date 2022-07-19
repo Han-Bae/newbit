@@ -101,22 +101,24 @@
 					<div class="store-games-main">
 						<div class="store-games--games">
 							<div class="games">
+							
+			<c:forEach var="pick" items="${gameIdList}">
 								<!-- 개별 게임 나중에 label for, input name ${game_id} -->
 								<div class="basket-game">
 									<div class="form-check">
-										<label class="form-check-label" for="ck_sample_000001">
-											<input type="checkbox" name="ckid" id="ck_sample_000001" class="form-check-input" value="ck_sample_000001">
+										<label class="form-check-label" for="ck_${pick}">
+											<input type="checkbox" name="ckid" id="ck_${pick}" class="form-check-input" value="ck_${pick}">
 											<span class="form-check-sign">
 												<span class="check"></span>
 											</span>
 										</label>
 									</div>
 									<div class="labelDiv">
-	   									<label for="ck_sample_000001" class="notLabel">
-											<div class="card" id="sample_000001">
+	   									<label for="ck_${pick}" class="notLabel">
+											<div class="card" id="${pick}">
 												<img class="card-img-left" src="/www/img/logo.png" width="120px" height="50px">
 												<div class="card-width">
-													<h4 style="width: 160px;">Game1</h4>
+													<h4 style="width: 160px;">${pick}</h4>
 													<div class="game-title-info">
 														<span class="whenGame">123</span>
 														<i class="tim-icons icon-minimal-up positive"></i>
@@ -136,43 +138,8 @@
 										<button type="button" class="btn btn-warning animation-on-hover del_game">삭제</button>
 									</div>
 								</div>
-								<!-- 개별게임 끝 -->			
-								<!-- 개별 게임 -->
-								<div class="basket-game">
-									<div class="form-check">
-										<label class="form-check-label" for="ck_sample_000002">
-											<input type="checkbox" name="ckid" id="ck_sample_000002" class="form-check-input" value="ck_sample_000002">
-											<span class="form-check-sign">
-												<span class="check"></span>
-											</span>
-										</label>
-									</div>
-									<div class="labelDiv">
-	   									<label for="ck_sample_000002" class="notLabel">
-											<div class="card" id="sample_000002">
-												<img class="card-img-left" src="/www/img/logo.png" width="120px" height="50px">
-												<div class="card-width">
-													<h4 style="width: 160px;">Game2</h4>
-													<div class="game-title-info">
-														<span class="whenGame">123</span>
-														<i class="tim-icons icon-minimal-up positive"></i>
-													</div>
-													<div class="gameDiscount">
-														<span class="howSale">-30%</span>
-														<div class="gamePrice">
-															<span class="originalPrice"><del>9990</del></span>
-															<span class="salePrice">300</span>
-														</div>
-													</div>
-												</div>
-											</div>
-										</label>
-									</div>
-									<div>
-										<button type="button" class="btn btn-warning animation-on-hover del_game">삭제</button>
-									</div>
-								</div>
-								<!-- 개별게임 끝 -->			
+								<!-- 개별게임 끝 -->
+			</c:forEach>			
 							</div>
 						</div>
 					</div>
