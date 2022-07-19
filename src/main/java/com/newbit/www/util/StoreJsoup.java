@@ -51,7 +51,7 @@ public class StoreJsoup {
 			Elements aElements = urlElement.select("a");
 			int i = 0;
 			for (Element element : aElements) {
-				list.get(i).setAppId(element.attr("abs:data-ds-appid").substring(element.attr("abs:data-ds-appid").lastIndexOf("/") + 1));
+				list.get(i).setAppId(element.attr("abs:data-ds-itemkey").substring(element.attr("abs:data-ds-itemkey").lastIndexOf("/") + 1));
 				list.get(i).setImg(element.select("img").attr("abs:src"));
 				
 				Element reviewScore = element.selectFirst("div[class=\"col search_reviewscore responsive_secondrow\"]");

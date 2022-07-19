@@ -1,11 +1,13 @@
 .app-detail-main {
-	padding: 30px 300px 0;
+	padding: 30px 300px;
 	display: flex;
 	flex-direction: column;
 }
 .app-detail-loot {
 	font-size: 13px;
 }
+
+/* 헤더 */
 .app-detail-header {
 	display: flex;
 	justify-content: space-between;
@@ -17,4 +19,146 @@
 }
 .app-detail-header .btn {
 	padding: 5px 10px;
+}
+
+/* 바디 */
+.app-detail-body {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+.app-detail-body img {
+	border-radius: 0;
+}
+
+#mainMedia {
+	width: 590px;
+	height: 320px;
+	margin-bottom: 7px;
+}
+.game-media-scroll {
+	display: flex;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	width: 590px;
+	height: 75px;
+}
+.game-media-scroll img {
+	margin-left: 5px;
+	width: 112px;
+	height: 60px;
+	object-fit: cover;
+}
+.game-media-scroll::-webkit-scrollbar {
+	height: 10px;
+}
+.game-media-scroll::-webkit-scrollbar-thumb {
+    background: #ba54f5;
+    border-radius: 2px;
+}
+.game-media-scroll::-webkit-scrollbar-track {
+    background: #27293d;
+}
+
+.app-detail-body .game-info {
+	width: 310px;
+}
+.app-detail-body .game-info .thumbnail {
+	width: 100%;
+	margin-bottom: 5px;
+}
+.app-detail-body .game-info p {
+	font-size: 12px;
+}
+.app-detail-body .game-info .fullgame {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 10px;
+}
+.app-detail-body .game-info .fullgame .img-anchor {
+	width: 180px;
+	height: 65px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+}
+.app-detail-body .game-info .fullgame img {
+	width: 180px;
+}
+.app-detail-body .game-info .fullgame .img-anchor:hover {
+	box-shadow:0 0 0 1px #ba54f5;
+}
+.app-detail-body .game-info .game-ect > div {
+	display: flex;
+	align-items: center;
+}
+.app-detail-body .game-info .game-ect .margin-bottom {
+	margin-bottom: 5px;
+}
+.app-detail-body .game-info .game-ect .label {
+	font-size: 10px;
+	width: 35%;
+}
+/*
+	긍정적, 복합적, 부정적 등등 추가
+*/
+.app-detail-body .game-info .game-ect .content span {
+	font-size: 13px;
+}
+.app-detail-body .game-info .game-ect .content .gb {
+	color: #ffc107;
+}
+.app-detail-body .game-info .game-ect .content .released {
+	color: white;
+}
+.app-detail-body .game-info .game-ect .content .company {
+	color: #ba54f5;
+}
+
+.app-detail-body .game-tag span {
+	font-size: 13px;
+}
+.app-detail-body .game-tag div {
+	display: flex;
+}
+.app-detail-body .game-tag button {
+	font-size: 11px;
+	background-color: #344675;
+	border-radius: 2px;
+	border: none;
+	color: white;
+	margin: 1px;
+}
+.app-detail-body .game-tag button:focus {
+	outline: none;
+}
+
+.app-detail-main .game {
+	display: flex;
+	justify-content: space-between;
+	position: relative;
+}
+.app-detail-main .game .card {
+	width: 70%;
+	padding: 10px;
+	margin: 0;
+}
+.app-detail-main .game .card div {
+	position: absolute;
+	right: 10px;
+	bottom: -20px;
+	padding: 5px;
+	background: black;
+}
+.app-detail-main .game .card span {
+	height: 25px;
+	margin: 0;
+	padding: 5px 10px;
+	color: white;
+}
+.app-detail-main .game .card .add-to-cart {
+	background: #ba54f5;
+	cursor: pointer;
+	border-radius: 2px;
 }

@@ -3,6 +3,9 @@ $(document).ready(function() {
 	$('#storeCategoryBtn').click(function(){
 		$(location).attr('href', '/www/store/categories.nbs');
 	});
+	$('#allGameBtn').click(function(){
+		$(location).attr('href', '/www/store/games.nbs');
+	});
 	
 	$('#TopSellersBtn').click(function(){
 		$(location).attr('href', '/www/store/');

@@ -1,9 +1,6 @@
-body {
-	overflow-x: hidden;
-}
 /* 메인 상점 페이지 게임 목록 */
 .store-games {
-	margin: 0px 200px;
+	margin: 0px 200px 30px;
 	display: flex;
 	flex-direction: column;
 }

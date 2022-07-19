@@ -17,9 +17,21 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.newbit.www.vo.StoreVO;
 import com.newbit.www.vo.WebDriverPathVO;
 
+/**
+ * 
+ * @author 전다빈
+ * @since	2022.07.14
+ * @version v.1.0
+ * 
+ * 			작업이력 ] 2022.07.14 - 담당자 전다빈 : 셀레니움 핸들링 클래스
+ * 					   2022.07.16 ~ 18 - 담당자 전다빈 : 속도 개선
+ *
+ */
+
 public class StoreSelenium {
 	
 		// WebDriver
+		// 속도 개선 1
 		private WebDriver driver;
 		
 		// Properties
@@ -28,11 +40,16 @@ public class StoreSelenium {
 		// crawling 할 URL
 		private String url;
 		
-		public ArrayList<StoreVO> mainPageselenium(String sort) {
+		public List<StoreVO> mainPageselenium(String sort) {
 			// System Property SetUp
 			System.setProperty(WEB_DRIVER_ID, WebDriverPathVO.WEB_DRIVER_PATH);
 			ChromeOptions options = new ChromeOptions();
+			// 속도 개선 2
 			options.setHeadless(true);
+			options.addArguments("disable-gpu");
+			options.addArguments("disable-infobars");
+			options.addArguments("--disable-extensions");
+			options.addArguments("--blink-setting=imagesEnable=false");
 			
 			// Driver SetUp
 			driver = new ChromeDriver(options);

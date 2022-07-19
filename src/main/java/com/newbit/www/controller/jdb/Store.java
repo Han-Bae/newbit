@@ -47,6 +47,12 @@ public class Store {
 		return mv;
 	}
 	
+	@RequestMapping("/categories.nbs")
+	public ModelAndView CategoryForm(ModelAndView mv) {
+		mv.setViewName("/store/categories");
+		return mv;
+	}
+	
 	@RequestMapping("/app")
 	public ModelAndView AppDetailForm(ModelAndView mv) {
 		mv.setViewName("/store/appDetail");
@@ -54,9 +60,5 @@ public class Store {
 		return mv;
 	}
 	
-	@RequestMapping("/categories.nbs")
-	public ModelAndView CategoryForm(ModelAndView mv) {
-		mv.setViewName("/store/categories");
-		return mv;
-	}
+
 }
