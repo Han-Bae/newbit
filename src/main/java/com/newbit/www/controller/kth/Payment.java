@@ -31,6 +31,12 @@ public class Payment {
 	@Autowired
 	PaymentImp pImp;
 	
+	// 찜 페이지 이동
+	@RequestMapping("/pick.nbs")
+	public ModelAndView pick(ModelAndView mv) {
+		mv.setViewName("pay/pick");
+		return mv;
+	}
 	// 장바구니 페이지 이동
 	@RequestMapping("/basket.nbs")
 	public ModelAndView basket(ModelAndView mv) {
