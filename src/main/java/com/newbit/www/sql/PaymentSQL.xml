@@ -4,6 +4,17 @@
 			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pSQL">
 	
+<!-- 찜목록 불러오기 -->
+	<select id="getPickList" resultType="string" parameterType="string">
+		SELECT game_id
+		FROM pick
+		WHERE account_no = (
+				SELECT no
+				FROM account
+				WHERE id = #{id}
+			)
+	</select>
+	
 	<!-- 친구 찾기 질의문 -->
 	<select id="selFollow" resultType="int" parameterType="string">
 		SELECT friend
@@ -32,6 +43,7 @@
 		FROM account
 		WHERE id = #{id}
 	</select>
+	
 	
 		<!-- 닉네임을 기반으로 유저 no 찾기 -->
 	<select id="getNoList" resultType="int" parameterType="list">

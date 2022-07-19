@@ -33,8 +33,10 @@ public class Payment {
 	
 	// 찜 페이지 이동
 	@RequestMapping("/pick.nbs")
-	public ModelAndView pick(ModelAndView mv) {
-		mv.setViewName("pay/pick");
+	public ModelAndView pick(ModelAndView mv, HttpSession session) {
+		String id = (String)session.getAttribute("SID");
+//		pDao
+//		mv.setViewName("pay/pick");
 		return mv;
 	}
 	// 장바구니 페이지 이동

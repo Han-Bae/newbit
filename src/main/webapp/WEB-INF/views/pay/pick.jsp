@@ -2,16 +2,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 	<!-- 
-		메인
+		찜목록
 		
 		제작자 : 김태현
-		since : 2022.07.15
+		since : 2022.07.19
 		version : v.1.0
 	-->
 <html>
 <head>
 <meta charset="UTF-8">
-<title>장바구니</title>
+<title>Newbit 찜 목록</title>
 	<link rel="icon" type="image/png" sizes="32x32" href="/www/img/favicon/favicon.ico">
 <!-- head에서 꼭 넣어야 하는것 아래부터 -->
 	<link rel="stylesheet" type="text/css" href="/www/css/theme/black-dashboard.css">
@@ -101,22 +101,23 @@
 					<div class="store-games-main">
 						<div class="store-games--games">
 							<div class="games">
+				<c:forEach var="pick" items="${gameIdList}">
 								<!-- 개별 게임 나중에 label for, input name ${game_id} -->
 								<div class="basket-game">
 									<div class="form-check">
-										<label class="form-check-label" for="ck_sample_000001">
-											<input type="checkbox" name="ckid" id="ck_sample_000001" class="form-check-input" value="ck_sample_000001">
+										<label class="form-check-label" for="ck_${pick}">
+											<input type="checkbox" name="ckid" id="ck_${pick}" class="form-check-input" value="ck_${pick}">
 											<span class="form-check-sign">
 												<span class="check"></span>
 											</span>
 										</label>
 									</div>
 									<div class="labelDiv">
-	   									<label for="ck_sample_000001" class="notLabel">
-											<div class="card" id="sample_000001">
+	   									<label for="ck_${pick}" class="notLabel">
+											<div class="card" id="${pick}">
 												<img class="card-img-left" src="/www/img/logo.png" width="120px" height="50px">
 												<div class="card-width">
-													<h4 style="width: 160px;">Game1</h4>
+													<h4 style="width: 160px;">Game_${pick}</h4>
 													<div class="game-title-info">
 														<span class="whenGame">123</span>
 														<i class="tim-icons icon-minimal-up positive"></i>
@@ -133,62 +134,20 @@
 										</label>
 									</div>
 									<div>
+										<button type="button" class="btn btn-primary animation-on-hover del_game">장바구니</button>
 										<button type="button" class="btn btn-warning animation-on-hover del_game">삭제</button>
 									</div>
 								</div>
-								<!-- 개별게임 끝 -->			
-								<!-- 개별 게임 -->
-								<div class="basket-game">
-									<div class="form-check">
-										<label class="form-check-label" for="ck_sample_000002">
-											<input type="checkbox" name="ckid" id="ck_sample_000002" class="form-check-input" value="ck_sample_000002">
-											<span class="form-check-sign">
-												<span class="check"></span>
-											</span>
-										</label>
-									</div>
-									<div class="labelDiv">
-	   									<label for="ck_sample_000002" class="notLabel">
-											<div class="card" id="sample_000002">
-												<img class="card-img-left" src="/www/img/logo.png" width="120px" height="50px">
-												<div class="card-width">
-													<h4 style="width: 160px;">Game2</h4>
-													<div class="game-title-info">
-														<span class="whenGame">123</span>
-														<i class="tim-icons icon-minimal-up positive"></i>
-													</div>
-													<div class="gameDiscount">
-														<span class="howSale">-30%</span>
-														<div class="gamePrice">
-															<span class="originalPrice"><del>9990</del></span>
-															<span class="salePrice">300</span>
-														</div>
-													</div>
-												</div>
-											</div>
-										</label>
-									</div>
-									<div>
-										<button type="button" class="btn btn-warning animation-on-hover del_game">삭제</button>
-									</div>
-								</div>
-								<!-- 개별게임 끝 -->			
+								<!-- 개별게임 끝 -->
+				</c:forEach>													
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="row basket_row">
-				<div style="padding-top: 20px; margin-bottom:40px; justify-content: space-between; display:flex;">
-					<h2 style="margin-left: 20px; margin-bottom: 10px;">합계:</h2>
-					<h2 id="total" style="margin-right: 20px; margin-bottom: 10px;">₩ 0</h2>
-			  	</div>
 				<div class="gamePay">
-					<form method="POST" name="frm" id="frm">
-						<input type="hidden" name="gameIdList">
-					</form>
-					<button type="button" id="selfPay" onclick='selfPay()' class="btn btn-success animation-on-hover" style="margin-right: 20px;">직접사용</button>
-					<button type="button" id="presentPay" onclick='presentPay()' class="btn btn-success animation-on-hover">선물하기</button>
+					<button type="button" id="presentPay" onclick='goBasket()' class="btn btn-success animation-on-hover">장바구니 가기</button>
 				</div>
 			</div>
 		</div>

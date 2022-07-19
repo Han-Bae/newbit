@@ -11,8 +11,12 @@ public class PaymentDao {
 
 	@Autowired
 	SqlSessionTemplate sqlSession;
+// 찜목록 불러오기
+	public List<String> getPickList(String id) {
+		return sqlSession.selectList("pSQL.getPickList", id);
+	}
 	
-// 선물줄 친구 리스트
+// 선물 줄 친구 리스트
 	public List<Integer> selFollower(String id) {
 		return sqlSession.selectList("pSQL.selFollow", id);
 	}

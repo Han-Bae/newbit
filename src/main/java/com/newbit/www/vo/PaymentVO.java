@@ -10,7 +10,6 @@ public class PaymentVO {
 	private List<String> nameList, gameIdList;
 	private List<Integer> noList, gamePriceList;
 	
-	
 	public String getResult() {
 		return result;
 	}
