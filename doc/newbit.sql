@@ -68,7 +68,10 @@ CREATE TABLE pick(
    game_id VARCHAR2(15 CHAR),		-- API확인
     isnewbit CHAR(1)
         CONSTRAINT PICK_NEWBIT_CK CHECK(isnewbit IN('Y','N'))
-        CONSTRAINT PICK_NEWBIT_NN NOT NULL   
+        CONSTRAINT PICK_NEWBIT_NN NOT NULL,
+    isshow CHAR(1)
+        CONSTRAINT PICK_SHOW_CK CHECK(isshow IN('Y','N'))
+        CONSTRAINT PICK_SHOW_NN NOT NULL
 );
 
 	-- 장바구니 테이블
@@ -79,7 +82,10 @@ CREATE TABLE basket(
    game_id VARCHAR2(15 CHAR),	-- API 확인
     isnewbit CHAR(1)
         CONSTRAINT BASKET_NEWBIT_CK CHECK(isnewbit IN('Y','N'))
-        CONSTRAINT BASKET_NEWBIT_NN NOT NULL   
+        CONSTRAINT BASKET_NEWBIT_NN NOT NULL,
+    isshow CHAR(1)
+        CONSTRAINT BASKET_SHOW_CK CHECK(isshow IN('Y','N'))
+        CONSTRAINT BASKET_SHOW_NN NOT NULL
 );
 
 	-- 친구 관리 테이블

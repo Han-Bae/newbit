@@ -284,7 +284,7 @@ footer>a {
 			<a href="#"><i class="tim-icons icon-single-02"></i></a>
 </c:if>
 			<a href="/www/payment/basket.nbs"><i class="tim-icons icon-basket-simple"></i></a>
-			<a href="#"><i class="tim-icons icon-shape-star"></i></a>
+			<a href="/www/payment/pick.nbs"><i class="tim-icons icon-basket-simple"></i></a>
 		</div>
 	</header>
 <form method="POST" id="frm" name="frm" enctype="multipart/form-data">
