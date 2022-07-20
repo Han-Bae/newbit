@@ -38,7 +38,7 @@
 				</a>
 			</li>
 			<li>
-				<a class="nav-link active" href="#">
+				<a class="nav-link active" href="/www/profile/library.nbs">
 					<i class="tim-icons icon-controller"></i>
 					<span class="main-nav-text">Library</span>
 					<div class="indicator"></div>
@@ -77,7 +77,7 @@
 	<main>
 		<div class="store-top">
 			<button type="button" class="btn btn-warning animation-on-hover">Favorites</button>
-			<button type="button" class="btn btn-primary animation-on-hover">All Games</button>
+			<button type="button" id="allGameBtn" class="btn btn-primary animation-on-hover">All Games</button>
 			<button type="button" id="storeCategoryBtn" class="btn btn-info animation-on-hover">Category</button>
 			<form method="GET" action="#" class="store-search">
 				<input type="text" class="form-control store-input" placeholder="Search">

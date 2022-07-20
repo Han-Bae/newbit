@@ -45,3 +45,14 @@ body::-webkit-scrollbar-track {
 	width: 250px;
 }
 
+/* 평점 컬러 */
+.positive {
+	background-color: #17a2b8;
+}
+.mixed {
+	background-color: #ffc107;
+}
+.negative {
+	background-color: #fd5d93;
+}
+

@@ -69,7 +69,7 @@
 			<a href="#"><i class="tim-icons icon-single-02"></i></a>
 </c:if>
 			<a href="/www/payment/payForm.nbs"><i class="tim-icons icon-basket-simple"></i></a>
-			<a href="#"><i class="tim-icons icon-shape-star"></i></a>
+			<a href="/www/payment/pick.nbs"><i class="tim-icons icon-shape-star"></i></a>
 		</div>
 	</header>
 	
@@ -164,7 +164,7 @@
 				<h4>MONSTER HUNTER RISE: SUNBREAK 구매</h4>
 				<div>
 					<span class="price">48,400 원</span>
-					<span class="add-to-cart">장바구니에 추가</span>
+					<span id="addToBasketBtn" class="add-to-basket">장바구니에 추가</span>
 				</div>
 			</div>
 		</div>

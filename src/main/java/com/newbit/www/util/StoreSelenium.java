@@ -46,10 +46,12 @@ public class StoreSelenium {
 			ChromeOptions options = new ChromeOptions();
 			// 속도 개선 2
 			options.setHeadless(true);
-			options.addArguments("disable-gpu");
-			options.addArguments("disable-infobars");
+			options.addArguments("--disable-gpu");
+			options.addArguments("--disable-infobars");
 			options.addArguments("--disable-extensions");
 			options.addArguments("--blink-setting=imagesEnable=false");
+			options.addArguments("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36");
+			options.addArguments("--lang=ko_KR");
 			
 			// Driver SetUp
 			driver = new ChromeDriver(options);
@@ -81,7 +83,7 @@ public class StoreSelenium {
 			try {
 				// 쿠키 추가
 				Calendar cal = Calendar.getInstance();
-				cal.add(cal.DATE, 1);
+				cal.add(cal.DATE, 3);
 				Date date = new Date(cal.getTimeInMillis());
 				Cookie lang = new Cookie("Steam_Language", "koreana", "store.steampowered.com", "/", date, true, false);
 				
@@ -105,6 +107,7 @@ public class StoreSelenium {
 				e.printStackTrace();
 			} finally {
 				driver.close();
+				driver.quit();
 			}
 			
 			return list;

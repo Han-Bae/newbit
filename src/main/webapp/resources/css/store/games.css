@@ -66,15 +66,6 @@
 	padding: 2px;
 	border-radius: 10%;
 }
-.store-games--games .game-title-info i.positive {
-	background-color: #17a2b8;
-}
-.store-games--games .game-title-info i.mixed {
-	background-color: #ffc107;
-}
-.store-games--games .game-title-info i.negative {
-	background-color: #fd5d93;
-}
 .store-games--games .gameDiscount .howSale {
 	background-color: #28a745;
 	margin-right: 15px;

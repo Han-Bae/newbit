@@ -20,6 +20,9 @@
 	<bean id="storeJsoup" class="com.newbit.www.util.StoreJsoup" />
 	<bean id="storeSelenium" class="com.newbit.www.util.StoreSelenium" />
 	
+	<!-- API -->
+	<bean id="storeJson" class="com.newbit.www.util.StoreJsonSimple" />
+	
 	<!-- 서비스 클래스 빈처리 -->
 	<bean id="lSrc" class="com.newbit.www.service.LogService" />
 	<bean id="pSrc" class="com.newbit.www.service.PayService" />
