@@ -51,7 +51,16 @@ public class StoreJsonSimple {
 			}
 			sVO.setPublishers(publishers);
 			JSONObject priceOverview = (JSONObject) appData.get("price_overview");
-			sVO.setDiscount((String) priceOverview.get("discount_percent"));
+			String discount = String.valueOf(priceOverview.get("discount_percent"));
+			sVO.setDiscount(discount);
+			if(discount.equals("0")) {
+				sVO.setPrice((String) priceOverview.get("final_formatted"));
+			} else {
+				sVO.setPrice((String) priceOverview.get("initial_formatted"));
+				sVO.setDiscountPrice((String) priceOverview.get("final_formatted"));
+			}
+			sVO.setPackageTitle((String) ((JSONObject) ((JSONArray) appData.get("package_groups")).get(0)).get("title"));
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
