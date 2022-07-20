@@ -19,7 +19,9 @@ CREATE TABLE email(
         CONSTRAINT MAIL_NN NOT NULL,
     isokay CHAR(1) DEFAULT 'N'
         CONSTRAINT MAIL_OKAY_CK CHECK(isokay IN('Y','N'))
-        CONSTRAINT MAIL_OKAY_NN NOT NULL
+        CONSTRAINT MAIL_OKAY_NN NOT NULL,
+    ck_mail NUMBER(4)
+        CONSTRAINT MAIL_CK NOT NULL
 );
 
 drop table account;
