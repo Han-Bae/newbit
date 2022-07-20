@@ -110,9 +110,29 @@
 	flex-direction: column;
 	align-items: center;
 }
-.priceFilter input[type="range"] {
+#range {
+	-webkit-appearance: none;
 	width: 250px;
 	height: 5px;
+	border-radius: 2px;
+	background: linear-gradient(to bottom left, #e14eca, #ba54f5, #e14eca);
+	outline: none;
+}
+#range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 20px;
+    border-radius: 2px;
+    background: linear-gradient(to bottom left, #e14eca, #ba54f5, #e14eca);
+    cursor: pointer;
+}
+#range::-moz-range-thumb {
+    width: 10px;
+    height: 20px;
+    border-radius: 2px;
+    background: linear-gradient(to bottom left, #e14eca, #ba54f5, #e14eca);
+    cursor: pointer;
 }
 .games-filter--range {
 	margin: 10px 0px;

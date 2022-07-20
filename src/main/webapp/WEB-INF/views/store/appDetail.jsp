@@ -186,19 +186,19 @@
 					<span id="addToBasketBtn" class="add-to-basket">장바구니에 추가</span>
 				</div>
 			</div>
+			
+			<button type="button" class="btn btn-primary animation-on-hover"><i class="tim-icons icon-shape-star"></i></button>
 		</div>
 </c:if>
 	</main>
 	
-	<form method="POST" action="/www/payment/addBasket.nbs" id="addToBasket">
-		<input type="hidden" id="gameId" name="game_id" value="${param.game}">
+	<input type="hidden" id="gameId" name="game_id" value="${param.game}">
 <!-- 
 <c:if test="${sVO.type eq 'dlc'}">
 		<input type="hidden" id="type" name="type" value="${sVO.type}">
 		<input type="hidden" id="fullgameId" name="fullgameId" value="${sVO.fullgameId}">
 </c:if>		
  -->
-	</form>
 	
 </body>
 </html>

@@ -23,5 +23,6 @@
 		<mapper resource="com/newbit/www/sql/PaymentSQL.xml" />
 		<mapper resource="com/newbit/www/sql/ReviewSQL.xml" />
 		<mapper resource="com/newbit/www/sql/Upload.xml" />
+		<mapper resource="com/newbit/www/sql/StoreSQL.xml" />
 	</mappers>
 </configuration>

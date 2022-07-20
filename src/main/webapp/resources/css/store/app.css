@@ -149,8 +149,8 @@ img.mainMedia {
 	background: none;
 }
 .app-detail-main .game-description {
-	width: 80%;
-	padding: 10px;
+	width: 90%;
+	padding: 10px 20px;
 	margin-bottom: 10px;
 	border: 1px solid #ba54f5;
 	border-radius: 5px;
@@ -159,7 +159,7 @@ img.mainMedia {
 
 .app-detail-main .game {
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-evenly;
 	position: relative;
 }
 .app-detail-main .game .card {
@@ -181,7 +181,14 @@ img.mainMedia {
 	color: white;
 }
 .app-detail-main .game .card .add-to-basket {
-	background: #ba54f5;
+	background: linear-gradient(to bottom left, #e14eca, #ba54f5, #e14eca);
 	cursor: pointer;
 	border-radius: 2px;
+}
+.app-detail-main .game .card .add-to-basket:hover {
+	background: none;
+	color: #ba54f5;
+}
+.app-detail-main .game .btn {
+	font-size: 20px;
 }

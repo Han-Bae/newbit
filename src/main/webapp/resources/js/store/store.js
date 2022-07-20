@@ -24,17 +24,16 @@ $(document).ready(function() {
 			$('#goAppDetail').attr('action', '/www/store/app/?game=' + appId);
 			
 			const reviewIcon = document.querySelector('#' + appId + ' i');
-			const reviewClass = $(reviewIcon).attr('class');
-			// const reviewScore = reviewClass.substring(reviewClass.lastindexOf(' ') + 1);
-			if(reviewClass.indexOf('positive')){
-				$('#score').val('positive');
-			} else if(reviewClass.indexOf('mixed')){
-				$('#score').val('mixed');
-			} else if(reviewClass.indexOf('negative')){
-				$('#score').val('negative');
+			if(reviewIcon != null) {
+				const reviewClass = $(reviewIcon).attr('class');
+				if(reviewClass.indexOf('positive')){
+					$('#score').val('positive');
+				} else if(reviewClass.indexOf('mixed')){
+					$('#score').val('mixed');
+				} else if(reviewClass.indexOf('negative')){
+					$('#score').val('negative');
+				}
 			}
-			const score = $('#score').val();
-			console.log(score)
 			$('#goAppDetail').submit();
 		}
 	});
@@ -42,6 +41,22 @@ $(document).ready(function() {
 	
 	/* 앱 디테일 페이지 이벤트 */
 	$('#addToBasketBtn').click(function(){
-		$('#addToBasket').submit();
+		const gameId = $('#gameId').val()
+		$.ajax({
+			url: '/www/payment/addBasket.nbs',
+			type: 'post',
+			dataType: 'json',
+			data: {
+				game_id: gameId
+			},
+			success: function(data){
+				if(data.result == 'OK') {
+					$(location).attr('href', '/www/payment/basket.nbs');
+				}
+			},
+			error: function(){
+				alert('장바구니 추가 에러');
+			}
+		});
 	});
 });

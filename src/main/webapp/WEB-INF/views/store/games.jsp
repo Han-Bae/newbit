@@ -199,7 +199,7 @@
 						<div class="card card-nav-tabs text-center priceFilter">
 							<div class="card-header chard-header-primary">가격으로 검색하기</div>
 							<div class="card-body">
-								<input type="range" step="1" min="0" max="13" value="13">
+								<input id="range" type="range" step="1" min="0" max="13" value="13">
 								<span class="games-filter--range">모든 가격</span>
 								<div class="boundary"></div>
 								

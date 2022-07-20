@@ -403,3 +403,36 @@ CREATE TABLE payhistory(
         CONSTRAINT PAY_REFUND_NN NOT NULL
 );
 commit;
+
+-- tag 데이터 추가
+INSERT INTO tag
+VALUES(
+    (SELECT NVL(MAX(no) + 1000, 1000) FROM tag),
+    '액션'
+);
+INSERT INTO tag
+VALUES(
+    (SELECT NVL(MAX(no) + 1000, 1000) FROM tag),
+    '롤플레잉'
+);
+INSERT INTO tag
+VALUES(
+    (SELECT NVL(MAX(no) + 1000, 1000) FROM tag),
+    '전략'
+);
+INSERT INTO tag
+VALUES(
+    (SELECT NVL(MAX(no) + 1000, 1000) FROM tag),
+    '어드벤처'
+);
+INSERT INTO tag
+VALUES(
+    (SELECT NVL(MAX(no) + 1000, 1000) FROM tag),
+    '시뮬레이션'
+);
+INSERT INTO tag
+VALUES(
+    (SELECT NVL(MAX(no) + 1000, 1000) FROM tag),
+    '모든 스포츠'
+);
+COMMIT;
