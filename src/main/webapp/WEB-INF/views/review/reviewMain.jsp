@@ -284,7 +284,7 @@ footer>a {
 			<a href="#"><i class="tim-icons icon-single-02"></i></a>
 </c:if>
 			<a href="/www/payment/basket.nbs"><i class="tim-icons icon-basket-simple"></i></a>
-			<a href="/www/payment/pick.nbs"><i class="tim-icons icon-shape-star"></i></a>
+			<a href="#"><i class="tim-icons icon-shape-star"></i></a>
 		</div>
 	</header>
 <form method="POST" id="frm" name="frm" enctype="multipart/form-data">
@@ -292,21 +292,8 @@ footer>a {
 <input type="hidden" name="dreviewNo" id="dreviewNo"/>
 
 
-<!-- 리뷰페이지 main -->
+<!-- 리뷰페이지 reviewMain -->
 
-<div class="back-top0" >
-	<div class="back-top">
-		<header>
-			<p>Steam Game</p>
-			<ul>
-				<li><a href="#">상점</a></li>
-				<li><a href="#">커뮤니티</a></li>
-				<li><a href="#">정보</a></li>
-				<li><a href="#">지원</a></li>
-			</ul>
-		</header>
-	</div>
-</div>
 <div class="container">
 
 	<section>
@@ -349,7 +336,6 @@ footer>a {
 			
 			<div class="reviewBoxWrap">
 				<c:forEach var="data" items="${LIST}">
-				<!-- data-target="#fid" data-toggle="modal" -->
 				
 					<div class="reviewBox" id="reviewBoxDetail" name="reviewBoxDetail" data-value1="${data.account_no}" data-value2="${data.no}">
 						<div class="reviewBox1">
@@ -482,6 +468,9 @@ footer>a {
 				</div>
 			</div>
 			
+			
+			
+			
 <%-- 스샷 상세내용 모달창  --%>
 		<div class="modal" id="">
 		  <div class="" role="document">
@@ -560,6 +549,8 @@ footer>a {
 <script src="/www/js/theme/plugins/bootstrap-notify.js"></script>
 <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="/www/js/theme/black-dashboard.js?v=1.0.0" type="text/javascript"></script>
+
+
 </form>	
 
 </body>

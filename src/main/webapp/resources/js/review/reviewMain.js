@@ -1,8 +1,11 @@
 $(document).ready(function(){
+	
+	// 리뷰, 스샷, 방송 탭 전환용
 	$('#review').show();
 	$('#screenShot').hide();
 	$('#live').hide();
 	
+	// 리뷰저장버튼을 누르면 작성한 리뷰글을 저장하게 하는 기능
 	$('#rbtn').click(function(){
 		if($("#review_body").val() == ""){ // id에 있는 val값이 비어있으면 안내창 띄워라
 	        alert("리뷰를 입력하세요");
@@ -10,15 +13,18 @@ $(document).ready(function(){
 	        return false;	// return false를 해서 넘어가지 못하게 함
 	      }
 		
-		
+	// reviewWrite.nbs 로 이동할 때 전체 내용을 가지고 서밋해라
 		$('#frm').attr('action', '/www/review/reviewWrite.nbs');
 		$('#frm').submit();
 	});
-
+	
+	// 태그 name의 game을 클릭했을 시 
 	$('input[name="game"]').click(function(){
 		
+		// 상단 버튼이 클릭되면 game_no의 val값을 value 값으로 사용해라 
 		$('#game_no').val($(this).attr('value'));
 		
+		// gameReviewList.nbs 로 이동 시 현재 정보를 가지고 가서 서밋해라.
 		$('#frm').attr('action', '/www/review/gameReviewList.nbs');
 		$('#frm').submit();
 	});
