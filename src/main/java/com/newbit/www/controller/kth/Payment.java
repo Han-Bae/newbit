@@ -16,6 +16,7 @@ import org.springframework.web.servlet.*;
 
 import com.newbit.www.dao.*;
 import com.newbit.www.service.*;
+import com.newbit.www.util.StoreJsonSimple;
 import com.newbit.www.vo.*;
 
 @Controller
@@ -32,15 +33,31 @@ public class Payment {
 	PayService pSrc;
 	@Autowired
 	PaymentImp pImp;
+	@Autowired
+	StoreJsonSimple sJson;
 	
 	// 찜 페이지 이동
 	@RequestMapping("/pick.nbs")
 	public ModelAndView pick(ModelAndView mv, HttpSession session) {
 		String id = (String)session.getAttribute("SID");
 		List<String> gameIdList = pDao.getPickList(id);
+		List<StoreVO> gameSVO = new ArrayList<StoreVO>();
+		for(int i = 0; i < gameIdList.size(); i++) {
+			String gameId = gameIdList.get(i).substring(4,gameIdList.get(i).length()); 
+			StoreVO sVO = sJson.getDetailJson(gameId);
+			sVO.setAppId(gameIdList.get(i));
+			gameSVO.add(sVO);
+		}
 		List<String> basketList = pDao.getBasketList(id);
-		mv.addObject("gameIdList", gameIdList);
-		mv.addObject("basketList", basketList);
+		List<StoreVO> basketSVO = new ArrayList<StoreVO>();
+		for(int i = 0; i < basketList.size(); i++) {
+			String gameId = basketList.get(i).substring(4,basketList.get(i).length()); 
+			StoreVO sVO = sJson.getDetailJson(gameId);
+			sVO.setAppId(basketList.get(i));
+			basketSVO.add(sVO);
+		}
+		mv.addObject("gameList", gameSVO);
+		mv.addObject("basketList", basketSVO);
 		mv.setViewName("pay/pick");
 		return mv;
 	}
@@ -87,7 +104,14 @@ public class Payment {
 	public ModelAndView basket(ModelAndView mv, HttpSession session) {
 		String id = (String)session.getAttribute("SID");
 		List<String> basketList = pDao.getBasketList(id);
-		mv.addObject("gameIdList", basketList);
+		List<StoreVO> basketSVO = new ArrayList<StoreVO>();
+		for(int i = 0; i < basketList.size(); i++) {
+			String gameId = basketList.get(i).substring(4,basketList.get(i).length()); 
+			StoreVO sVO = sJson.getDetailJson(gameId);
+			sVO.setAppId(basketList.get(i));
+			basketSVO.add(sVO);
+		}
+		mv.addObject("gameList", basketSVO);
 		mv.setViewName("pay/basket");
 		return mv;
 	}
@@ -108,10 +132,20 @@ public class Payment {
 		AccountVO aVO = new AccountVO();
 		aVO.setId((String)session.getAttribute("SID"));
 		aVO = aDao.selAccountInfo(aVO);
+
+		List<String> gameList = (ArrayList<String>)session.getAttribute("GAMELIST");
+		List<StoreVO> gameSVO = new ArrayList<StoreVO>();
+		for(int i = 0; i < gameList.size(); i++) {
+			String gameId = gameList.get(i).substring(4,gameList.get(i).length()); 
+			StoreVO sVO = sJson.getDetailJson(gameId);
+			sVO.setAppId(gameList.get(i));
+			gameSVO.add(sVO);
+		}
+		
 		aVO.setTel("010-1111-1111");
 		mv.addObject("aVO", aVO);
 		mv.addObject("stat", "second");
-		mv.addObject("gameIdList", session.getAttribute("GAMELIST"));
+		mv.addObject("gameIdList", gameSVO);
 		mv.addObject("paySel", pVO.getPaySel());
 		mv.setViewName("pay/myselfPayCheck");
 		return mv;
@@ -157,8 +191,18 @@ public class Payment {
 		aVO.setId((String)session.getAttribute("SID"));
 		aVO = aDao.selAccountInfo(aVO);
 		aVO.setTel("010-1111-1111");
+
+		List<String> gameList = (ArrayList<String>)session.getAttribute("GAMELIST");
+		List<StoreVO> gameSVO = new ArrayList<StoreVO>();
+		for(int i = 0; i < gameList.size(); i++) {
+			String gameId = gameList.get(i).substring(4,gameList.get(i).length()); 
+			StoreVO sVO = sJson.getDetailJson(gameId);
+			sVO.setAppId(gameList.get(i));
+			gameSVO.add(sVO);
+		}
+		
 		mv.addObject("aVO", aVO);
-		mv.addObject("gameIdList", session.getAttribute("GAMELIST"));
+		mv.addObject("gameIdList", gameSVO);
 		mv.addObject("nameList", session.getAttribute("NAMELIST"));
 		mv.addObject("paySel", pVO.getPaySel());
 		mv.addObject("stat", "fourth");
@@ -192,6 +236,18 @@ public class Payment {
 			pSrc.addPayData(pVO, session);
     		pVO.setId((String)session.getAttribute("SID"));
             pVO.setResult("OK");
+            
+    		List<String> gameIdList = (ArrayList<String>)session.getAttribute("GAMELIST");
+    		List<StoreVO> gameSVO = new ArrayList<StoreVO>();
+    		for(int i = 0; i < gameIdList.size(); i++) {
+    			String gameId = gameIdList.get(i).substring(4,gameIdList.get(i).length()); 
+    			StoreVO sVO = sJson.getDetailJson(gameId);
+    			sVO.setAppId(gameIdList.get(i));
+    			gameSVO.add(sVO);
+    		}
+    		// 게임 정보 저장
+            pVO.setsVOList(gameSVO);
+            
             returnVO.setTitle("주문 완료");
             returnVO.setMsg("주문이 성공하였습니다.");
             returnVO.setIcon("success");
@@ -243,7 +299,18 @@ public class Payment {
 	            returnVO.setTitle("주문 완료");
 	            returnVO.setMsg("주문이 성공하였습니다.");
 	            returnVO.setIcon("success");
-
+	            
+	    		List<String> gameIdList = pVO.getGameIdList();
+	    		List<StoreVO> gameSVO = new ArrayList<StoreVO>();
+	    		for(int i = 0; i < gameIdList.size(); i++) {
+	    			String gameId = gameIdList.get(i).substring(4,gameIdList.get(i).length()); 
+	    			StoreVO sVO = sJson.getDetailJson(gameId);
+	    			sVO.setAppId(gameIdList.get(i));
+	    			gameSVO.add(sVO);
+	    		}
+	    		// 게임 정보 저장
+	            pVO.setsVOList(gameSVO);
+	            
             	// 게임 결제 메일 보내기
 	            AccountVO aVO = new AccountVO();
 	            aVO.setId((String)session.getAttribute("SID"));

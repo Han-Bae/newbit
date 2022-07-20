@@ -17,6 +17,11 @@ public class AccountDao {
 		return sqlSession.selectOne("aSQL.login", aVO);
 	}
 	
+	// 로그인 처리
+	public AccountVO getType(String id) {
+		return sqlSession.selectOne("aSQL.getType", id);
+	}
+	
 	// 아이디 카운트 조회
 	public int getIdCnt(String id) {
 		return sqlSession.selectOne("aSQL.idCnt", id);

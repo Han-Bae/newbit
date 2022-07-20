@@ -10,6 +10,7 @@ import org.springframework.stereotype.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.newbit.www.dao.*;
 import com.newbit.www.service.AccountService;
@@ -32,6 +33,20 @@ public class Account {
 		return mv;
 	}
 	
+	// 관리자 폼 보기 요청처리
+	@RequestMapping("/admin.nbs")
+	public ModelAndView admin(ModelAndView mv, HttpSession session, RedirectView rv) {
+		AccountVO aVO = aDao.getType((String)session.getAttribute("SID"));
+		// 관리자만 관리자폼 진입
+		if(aVO.getIstype().equals("A")) {			
+			mv.setViewName("/account/admin");
+		}else {
+			rv.setUrl("/www/store/games.nbs");
+			mv.setView(rv);
+		}
+		return mv;
+	}
+	
 	// 로그인 처리
 	@RequestMapping(path="/loginProc.nbs", method=RequestMethod.POST, params= {"id", "pw"})
 	public ModelAndView loginProc(ModelAndView mv, AccountVO aVO, HttpSession session){
@@ -46,14 +61,24 @@ public class Account {
 				String userId = SessionConfig.getSessionidCheck("SID", aVO.getId());
 				System.out.println(aVO.getId()+" : "+userId);
 				session.setAttribute("SID", aVO.getId());
-				mv.addObject("icon", "success");
-				mv.addObject("title", "로그인 성공!");
-				mv.addObject("msg", aVO.getId()+"님 어서오세요.");
-				if(session.getAttribute("vw") != null) {
-					mv.addObject("url", (String)session.getAttribute("vw"));					
-				} else {					
-					mv.addObject("url", "/www/store/games.nbs");
+				
+				// 아이디가 관리자일 경우
+				aVO = aDao.getType(aVO.getId());
+				if(aVO.getIstype().equals("A")) {
+					mv.addObject("title", "관리자 접속");
+					mv.addObject("url", "/www/account/admin.nbs");
+					session.setAttribute("AVO", aVO);
+				// 그 외 유저일 경우
+				}else {					
+					mv.addObject("title", "로그인 성공!");
+					if(session.getAttribute("vw") != null) {
+						mv.addObject("url", (String)session.getAttribute("vw"));					
+					} else {					
+						mv.addObject("url", "/www/store/games.nbs");
+					}
 				}
+				mv.addObject("icon", "success");
+				mv.addObject("msg", aVO.getNickname()+"님 어서오세요.");
 			}else {
 				// 로그인 처리하면 안된다.
 				// 정보가 정확하지 않거나 없는 회원이다.

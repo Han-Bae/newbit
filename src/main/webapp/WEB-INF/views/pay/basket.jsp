@@ -102,32 +102,38 @@
 						<div class="store-games--games">
 							<div class="games">
 							
-			<c:forEach var="pick" items="${gameIdList}">
+			<c:forEach var="pick" items="${gameList}">
 								<!-- 개별 게임 나중에 label for, input name ${game_id} -->
 								<div class="basket-game">
 									<div class="form-check">
-										<label class="form-check-label" for="ck_${pick}">
-											<input type="checkbox" name="ckid" id="ck_${pick}" class="form-check-input" value="ck_${pick}">
+										<label class="form-check-label" for="ck_${pick.appId}">
+											<input type="checkbox" name="ckid" id="ck_${pick.appId}" class="form-check-input" value="ck_${pick.appId}">
 											<span class="form-check-sign">
 												<span class="check"></span>
 											</span>
 										</label>
 									</div>
 									<div class="labelDiv">
-	   									<label for="ck_${pick}" class="notLabel">
-											<div class="card" id="${pick}">
-												<img class="card-img-left" src="/www/img/logo.png" width="120px" height="50px">
+	   									<label for="ck_${pick.appId}" class="notLabel">
+											<div class="card" id="${pick.appId}">
+												<img class="card-img-left" src="${pick.img}" width="120px" height="50px">
 												<div class="card-width">
-													<h4 style="width: 160px;">${pick}</h4>
-													<div class="game-title-info">
-														<span class="whenGame">123</span>
-														<i class="tim-icons icon-minimal-up positive"></i>
+													<h4 style="width: 160px;">${pick.title}</h4>
+													<div class="game-title-info" style="width:80px">
+														<span class="whenGame">${pick.released}</span>
 													</div>
 													<div class="gameDiscount">
-														<span class="howSale">-49%</span>
-														<div class="gamePrice">
-															<span class="originalPrice"><del>999990</del></span>
-															<span class="salePrice">2000</span>
+							<c:if test="${not empty pick.discountPrice}">
+														<span class="howSale">-${pick.discount}%</span>
+							</c:if>
+															<div class="gamePrice">
+							<c:if test="${empty pick.discountPrice}">
+																<span class="salePrice">${pick.price}</span>
+							</c:if>
+							<c:if test="${not empty pick.discountPrice}">
+																<span class="originalPrice"><del>${pick.price}</del></span>
+																<span class="salePrice">${pick.discountPrice}</span>
+							</c:if>
 														</div>
 													</div>
 												</div>

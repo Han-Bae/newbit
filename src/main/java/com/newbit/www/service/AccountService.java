@@ -168,19 +168,23 @@ public class AccountService {
 		public void sendGame(AccountVO aVO, Session session) {
 			String receiver = aVO.getEmail(); // 메일 받을 주소
 			String title = "NewBit 결제 메일입니다.";
-			String content = "<div style=\"font-family: 'Apple SD Gothic Neo', 'sans-serif' !important; width: 540px; height: 600px; border-top: 4px solid purple; margin: 100px auto; padding: 30px 0; box-sizing: border-box;\">\r\n"
-					+ "	<h1 style=\"margin: 0; padding: 0 5px; font-size: 28px; font-weight: 400;\">\r\n"
+			String content = "<div style=\"background: #1e2024;color: white;font-family:'Apple SD Gothic Neo','sans-serif'!important;width:540px;height:600px;border-top:4px solid purple;margin:100px auto;padding:30px 0;box-sizing:border-box\">\r\n"
+					+ "	<h1 style=\"margin:0;background: #800080;padding:0 5px;font-size:28px;font-weight:400\">\r\n"
 					+ "		<span style=\"font-size: 15px; margin: 0 0 10px 3px;\">NewBit Store</span><br />\r\n"
-					+ "		<span style=\"color: purple; \">결제 완료</span> 안내입니다.\r\n"
+					+ "		<span style=\"color: #1e2024; \"><b>결제 완료</b></span> 안내입니다.\r\n"
 					+ "	</h1>\r\n"
-					+ "	<p style=\"font-size: 16px; line-height: 26px; margin-top: 50px; padding: 0 5px;\">\r\n"
+					+ "	<p style=\"margin-left: 10px; font-size: 16px; line-height: 26px; margin-top: 50px; padding: 0 5px;\">\r\n"
 					+ "		안녕하세요. "+aVO.getNickname()+" 님<br />\r\n"
 					+ "		결제완료 메일입니다.<br />\r\n"
 					+ "		<b style=\"color: purple;\">'결제된 게임'</b><br />\r\n";
 			// 결제한 게임 수만큼 반복
 			for(int i = 0; i < aVO.getpVO().getGameIdList().size(); i++) {
-				content += "게임명 : " +aVO.getpVO().getGameIdList().get(i) +"<br />\r\n"
-						+"&nbsp;게임 가격 : " +aVO.getpVO().getGamePriceList().get(i)+"원<br />\r\n";
+				content += "<div style=\"display:flex; margin-bottom:10px;"
+						+ "		justify-content:space-around;\r\n"
+						+ "    width: 100%; \r\n" + 
+						"    font-size: 15pt;\"> <img class=\"card-img-left\" src=\""+aVO.getpVO().getsVOList().get(i).getImg()+"\" width=\"200px\" height=\"100%\">"
+						+ "<div style=\"flex-driection: row\"><div>게임명 : " +aVO.getpVO().getsVOList().get(i).getTitle() +"<br /></div>\r\n"
+						+"<div>&nbsp;게임 가격 : " +aVO.getpVO().getGamePriceList().get(i)+"원<br />\r\n</div></div></div>";
 			}
 			// 선물을 보낸 경우엔 친구 리스트 추가
 			if(aVO.getpVO().getNameList() != null) {
@@ -189,9 +193,9 @@ public class AccountService {
 						content += aVO.getpVO().getNameList().get(i)+", ";
 				}
 				content = content.substring(0, content.length()-2);
-				content += "님에게 선물하셨습니다.<br />\\r\\n";
+				content += "님에게 선물하셨습니다.<br />\r\n";
 			}
-			content +="		감사합니다.\r\n"
+			content +="		<h3 style=\"text-align:center\">감사합니다.</h3>\r\n"
 					+ "	</p>\r\n"
 					+ "\r\n"
 					+ "</div>";

@@ -1,5 +1,10 @@
 @import "store.css";
 /* 보라색 #ba54f5 */
+/* 결제관련 css 구현 */
+/* 
+		제작자 : 김태현
+		since : 2022.07.06
+		version : v.1.0 */
 div{
 	color: #fff;
 }
@@ -38,10 +43,13 @@ option{
 
 .basket-game{
 	margin-left: 1%;
-    justify-content: end;
+    justify-content: space-between;
     display: flex;
 }
 
+.pick-games{
+	display: block;
+}
 .labelDiv .notLabel{
 	width: 98%;
 }
@@ -49,7 +57,6 @@ option{
 .btn-warning, .btn-primary{
 	padding: 5px 10px;
 	width: 80px;
-	float: right;
 }
 .store-games--games .gamePrice {
 	width: 60%;
@@ -72,6 +79,10 @@ option{
 	width: 45%;	
 }
 
+.btnDiv{
+    flex-direction: column;
+    display: flex;
+}
 .rowDiv{
 	width: 65%;
 }
@@ -226,7 +237,7 @@ textarea::-webkit-scrollbar-thumb{
 
 /* 결제수단 선택 */
 .selectPay{
-	margin-left: 40px;
+   margin-left: 40px;
    position: relative;
    display: flex;
    width: 20em;
@@ -235,6 +246,9 @@ textarea::-webkit-scrollbar-thumb{
    background: linear-gradient(#1e2024, #212529);
    overflow: hidden;
    border-radius: .25em;
+}
+.payInfo{
+   padding-bottom: 60px;
 }
 select{
    -webkit-appearance:none;

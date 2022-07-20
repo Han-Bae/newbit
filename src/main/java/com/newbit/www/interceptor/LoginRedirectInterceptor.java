@@ -2,10 +2,12 @@ package com.newbit.www.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.newbit.www.vo.AccountVO;
+
 /**
  * 로그인이 필요한 요청인데 로그인이 되지 않았다면 로그인으로 보내기 
  * 인터셉터 클래스
@@ -16,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
  * 			작업이력 ]
  * 				2022.07.12	-	담당자 : 김태현
  * 									클래스 제작
+ * 				2022.07.20	-	담당자 : 김태현
+ * 									관리자 페이지용 인터셉터 추가
  */
 public class LoginRedirectInterceptor implements HandlerInterceptor {
 
@@ -23,8 +27,14 @@ public class LoginRedirectInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler)
 			throws Exception {
 		if(req.getSession().getAttribute("SID") == null) {
+			// 관리자라면 바로 관리자 페이지 접속
+			if(((AccountVO)req.getSession().getAttribute("AVO")).getIstype().equals("A")) {
+				req.getSession().setAttribute("vw", "/www/account/admin.nbs");
+				req.getSession().removeAttribute("AVO");
+			}else {				
 			req.getSession().setAttribute("vw", (String)req.getRequestURI());
 			resp.sendRedirect("/www/account/login.nbs");
+			}
 			return false;
 		}
 		return true;

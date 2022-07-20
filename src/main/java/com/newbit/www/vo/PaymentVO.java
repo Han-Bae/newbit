@@ -9,7 +9,15 @@ public class PaymentVO {
 	private int no, amount, account_no, buy_no, game_price;
 	private List<String> nameList, gameIdList;
 	private List<Integer> noList, gamePriceList;
+	private List<StoreVO> sVOList;
 	
+	
+	public List<StoreVO> getsVOList() {
+		return sVOList;
+	}
+	public void setsVOList(List<StoreVO> sVOList) {
+		this.sVOList = sVOList;
+	}
 	public String getResult() {
 		return result;
 	}
@@ -134,7 +142,7 @@ public class PaymentVO {
 				+ ", game_id=" + game_id + ", isrefund=" + isrefund + ", result=" + result + ", no=" + no + ", amount="
 				+ amount + ", account_no=" + account_no + ", buy_no=" + buy_no + ", game_price=" + game_price
 				+ ", nameList=" + nameList + ", gameIdList=" + gameIdList + ", noList=" + noList + ", gamePriceList="
-				+ gamePriceList + "]";
+				+ gamePriceList + ", sVOList=" + sVOList + "]";
 	}
 	
 	

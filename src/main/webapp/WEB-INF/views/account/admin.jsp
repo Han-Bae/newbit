@@ -2,16 +2,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 	<!-- 
-		찜목록
+		결제 첫 페이지
 		
 		제작자 : 김태현
-		since : 2022.07.19
+		since : 2022.07.06
 		version : v.1.0
 	-->
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Newbit 찜 목록</title>
+<title>관리자 페이지</title>
 	<link rel="icon" type="image/png" sizes="32x32" href="/www/img/favicon/favicon.ico">
 <!-- head에서 꼭 넣어야 하는것 아래부터 -->
 	<link rel="stylesheet" type="text/css" href="/www/css/theme/black-dashboard.css">
@@ -22,10 +22,11 @@
 <!-- 위까지 -->
 	<script type="text/javascript" src="/www/js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="/www/js/bootstrap.js"></script>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script type="text/javascript" src="/www/js/components/header.js"></script>
-	<script type="text/javascript" src="/www/js/pay/pick.js"></script>
+	<script type="text/javascript" src="/www/js/pay/payment.js"></script>
 </head>
+
 <body>
 	
 	<!-- 여기부터 -->
@@ -85,73 +86,36 @@
 		</div>
 	</header>
 	<!-- 여기까지 -->
-	<main>
+	<main>	
 		<div class="store-top pay-top">
-<!-- 전송할 데이터 -->
-<form method="POST" action="/www/payment/payFormCheck.nbs"
-		name="frm_info" id="frm_info" class="frm">
-	<input type="hidden" id="totalPrice" name="totalPrice">
-</form>
+		<!-- 전송받은 신고 데이터 -->
+			<input type="hidden" id="declare" name="declare">
 		</div>
 		<hr class="payStat">
-		<div class="payMain" style="flex-direction: column; align-items: center;">
-			<div class="row basket_row">
-				<div class="store-games" style="display:contents">
-					<div class="store-games-main">
-						<div class="store-games--games pick-games">
-							<div class="games">
-				<c:forEach var="pick" items="${gameList}">
-								<!-- 개별 게임 나중에 label for, input name ${game_id} -->
-								<div class="basket-game">
-									<div class="labelDiv">
-										<div class="card" id="${pick.appId}">
-											<img class="card-img-left" src="${pick.img}" width="120px" height="50px">
-											<div class="card-width">
-												<h4 style="width: 160px;">${pick.title}</h4>
-												<div class="game-title-info" style="width: 50px">
-													<span class="whenGame">${pick.released}</span>
-												</div>
-												<div class="gameDiscount">
-					<c:if test="${not empty pick.discountPrice}">
-													<span class="howSale">-${pick.discount}%</span>
-					</c:if>
-													<div class="gamePrice">
-					<c:if test="${empty pick.discountPrice}">
-														<span class="salePrice">${pick.price}</span>
-					</c:if>
-					<c:if test="${not empty pick.discountPrice}">
-														<span class="originalPrice"><del>${pick.price}</del></span>
-														<span class="salePrice">${pick.discountPrice}</span>
-					</c:if>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="btnDiv">
-					<c:if test="${not empty basketList}">
-						<c:forEach var="basket" items="${basketList}">
-							<c:if test="${basket.appId == pick.appId}">
-										<input type="hidden" name="yesBasket" value="yes">
-							</c:if>
-						</c:forEach>
-					</c:if>
-										<button type="button" class="btn btn-warning animation-on-hover del_game">삭제</button>
-									</div>
-								</div>
-								<!-- 개별게임 끝 -->
-				</c:forEach>													
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row basket_row">
-				<div class="gamePay">
-					<button type="button" id="goBasket" onclick='goBasket()' class="btn btn-success animation-on-hover">장바구니 가기</button>
-				</div>
-			</div>
-		</div>
+		<h1 style="text-align:center">신고 관리 페이지</h1>	
+	    <table border="1" bordercolor="#3f1961" width ="800" align = "center" style="color:white">
+	    <tr bgcolor="#ba54f5" align="center" >
+			<td>제목</td>
+			<td>타입</td>
+			<td>내용</td>
+			<td>링크</td>
+			<td>처리유무</td>
+	    </tr>
+		<tr><!-- 첫번째 줄 시작 -->
+		    <td>신고제목</td>
+		    <td>스크린샷</td>
+		    <td>신고내용</td>
+		    <td>신고링크</td>
+		    <td>처리완료</td>
+		</tr><!-- 첫번째 줄 끝 -->
+		<tr><!-- 두번째 줄 시작 -->
+		    <td>신고제목</td>
+		    <td>스크린샷</td>
+		    <td>신고내용</td>
+		    <td>신고링크</td>
+		    <td>처리완료</td>
+		</tr><!-- 두번째 줄 끝 -->
+	    </table>
 	</main>
 </body>
 </html>

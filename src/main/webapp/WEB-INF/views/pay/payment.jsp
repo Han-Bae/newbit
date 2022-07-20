@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 	<!-- 
-		메인
+		결제 첫 페이지
 		
 		제작자 : 김태현
 		since : 2022.07.06

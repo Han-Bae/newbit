@@ -17,6 +17,12 @@
 			AND pw = #{pw}
 	</select>
 	
+	<!-- 유저 타입 확인 -->
+	<select id="getType" resultType="aVO" parameterType="string">
+		SELECT nickname, istype
+		FROM account
+		WHERE id = #{id}
+	</select>
 	
 <!-- 아이디찾기 관련 -->
 	<!-- 아이디 찾기 유저 확인 -->

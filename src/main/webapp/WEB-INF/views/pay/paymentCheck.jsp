@@ -29,36 +29,9 @@
 	<script type="text/javascript" src="/www/js/pay/payment.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$('input[name="gameName"]').each(function(){
-				$('.games').append(
-						'<div class="card" id='+$(this).val()+'>'
-						+	'<img class="card-img-left" src="/www/img/logo.png" width="65px" height="50px">'
-						+		'<div class="card-width">'
-						+			'<h4 style="width:40%;">'+$(this).val()+'</h4>'
-						+				'<div class="game-title-info">'
-						+					'<span class="howSale">-49%</span>'
-						+				'</div>'
-						+				'<div class="gamePrice">'
-						+					'<span class="originalPrice"><del>999990</del></span>'
-						+					'<span class="salePrice">2</span>'
-						+				'</div>'
-						+		'</div>'
-						+'</div>');				
-			})
 			var priceList = 0;
 			$('.card').each(function(index, item){
-				if($(this).find('span[class="salePrice"]') == null ||
-					$(this).find('span[class="salePrice"]').text() == ''){
-					// 할인이 아닐 때
-					priceList += Number($(this).find('span[class="originalPrice"]').text());
-					
-					$(this).find('span[class="originalPrice"]').html(comma($(this).find('span[class="originalPrice"]').text()));
-				} else{
-					priceList += Number($(this).find('span[class="salePrice"]').text());
-					
-					$(this).find('span[class="originalPrice"]').html('<del>'+comma($(this).find('span[class="originalPrice"]').text())+'</del>');
-					$(this).find('span[class="salePrice"]').text(comma($(this).find('span[class="salePrice"]').text()));
-				}
+				priceList += Number(getNumber($(this).find('span[class="salePrice"]').text()));
 			});
 			
 			$('#subtotal').text(comma(priceList));
@@ -161,9 +134,6 @@
 <c:forEach var="name" items="${nameList}" varStatus="status">
     	<input type="hidden" name="name" value="${name}">
 </c:forEach>
-<c:forEach var="name" items="${gameIdList}" varStatus="status">
-    	<input type="hidden" name="gameName" value="${name}">
-</c:forEach>
 			<h4>선물 보내기</h4><h5>▶</h5>
 			<h4>메모작성</h4><h5>▶</h5>
 			<h4>결제 정보</h4><h5>▶</h5>
@@ -177,7 +147,34 @@
 						<div class="store-games-main">
 							<div class="store-games--games">
 								<div class="games">
-									<!-- 개별 게임 -->				
+									<!-- 개별 게임 -->	
+				<c:forEach var="pick" items="${gameIdList}">
+								<!-- 개별 게임 나중에 label for, input name ${game_id} -->
+										<div class="card" id="${pick.appId}">
+											<img class="card-img-left" src="${pick.img}" width="120px" height="50px">
+											<div class="card-width">
+												<h4 style="width: 160px;">${pick.title}</h4>
+												<div class="game-title-info">
+													<span class="whenGame">${pick.released}</span>
+												</div>
+												<div class="gameDiscount">
+					<c:if test="${not empty pick.discountPrice}">
+													<span class="howSale">-${pick.discount}%</span>
+					</c:if>
+													<div class="gamePrice">
+					<c:if test="${empty pick.discountPrice}">
+														<span class="salePrice">${pick.price}</span>
+					</c:if>
+					<c:if test="${not empty pick.discountPrice}">
+														<span class="originalPrice"><del>${pick.price}</del></span>
+														<span class="salePrice">${pick.discountPrice}</span>
+					</c:if>
+													</div>
+												</div>
+											</div>
+										</div>
+				</c:forEach>			
+								<!-- 개별게임 끝 -->
 								</div>
 							</div>
 						</div>

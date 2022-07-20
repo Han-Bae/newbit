@@ -5,7 +5,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-
+/**
+ * 다른 작업 중 로그인 페이지로 이동했다면 로그인 이후 해당 작업으로 이동 
+ * 인터셉터 클래스
+ * @author	김태현
+ * @since	2022.07.18
+ * @version	v.1.0
+ * 
+ * 			작업이력 ]
+ * 				2022.07.18	-	담당자 : 김태현
+ * 									클래스 제작
+ */
 public class LoginOverlapInterceptor extends HandlerInterceptorAdapter {
 	
 	@Override

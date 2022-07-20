@@ -25,7 +25,7 @@ $(document).ready(function(){
 		if(priceList == 0){
 			$('#total').text('₩ 0');						
 		}else{
-			$('#total').text(comma(priceList));			
+			$('#total').text('₩ '+comma(priceList));			
 		}
 	});
 	
@@ -57,7 +57,7 @@ $(document).ready(function(){
 
 function comma(str) {
 	str = String(str);
-	return '₩ '+ str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+	return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
 }
 
 function getNumber(str) {
