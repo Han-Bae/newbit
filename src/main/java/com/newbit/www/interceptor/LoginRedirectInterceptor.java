@@ -26,15 +26,9 @@ public class LoginRedirectInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler)
 			throws Exception {
-		if(req.getSession().getAttribute("SID") == null) {
-			// 관리자라면 바로 관리자 페이지 접속
-			if(((AccountVO)req.getSession().getAttribute("AVO")).getIstype().equals("A")) {
-				req.getSession().setAttribute("vw", "/www/account/admin.nbs");
-				req.getSession().removeAttribute("AVO");
-			}else {				
+		if(req.getSession().getAttribute("SID") == null) {		
 			req.getSession().setAttribute("vw", (String)req.getRequestURI());
 			resp.sendRedirect("/www/account/login.nbs");
-			}
 			return false;
 		}
 		return true;
