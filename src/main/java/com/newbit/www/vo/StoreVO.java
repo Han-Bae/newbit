@@ -1,6 +1,7 @@
 package com.newbit.www.vo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 
@@ -17,8 +18,9 @@ public class StoreVO {
 	/* reviewSummary => positive, mixed, negative */
 	
 	/* detail 페이지에서 추가로 필요한 변수 */
-	private String shortDescription, detailedDescription, fullgameId, type, packageTitle;
-	private List<String> developers, publishers, screenshotThumb, screenshotFull, movieThumb, movieFull;
+	private String shortDescription, detailedDescription, fullgameId, fullgameTitle, type, packageTitle;
+	private List<String> developers, publishers, tags;
+	private Map<String, String> screenshot, movie;
 
 	public String getTitle() {
 		return title;
@@ -89,6 +91,12 @@ public class StoreVO {
 	public void setFullgameId(String fullgameId) {
 		this.fullgameId = fullgameId;
 	}
+	public String getFullgameTitle() {
+		return fullgameTitle;
+	}
+	public void setFullgameTitle(String fullgameTitle) {
+		this.fullgameTitle = fullgameTitle;
+	}
 	public String getType() {
 		return type;
 	}
@@ -113,41 +121,23 @@ public class StoreVO {
 	public void setPublishers(List<String> publishers) {
 		this.publishers = publishers;
 	}
-	public List<String> getScreenshotThumb() {
-		return screenshotThumb;
+	public List<String> getTags() {
+		return tags;
 	}
-	public void setScreenshotThumb(List<String> screenshotThumb) {
-		this.screenshotThumb = screenshotThumb;
+	public void setTags(List<String> tags) {
+		this.tags = tags;
 	}
-	public List<String> getScreenshotFull() {
-		return screenshotFull;
+	public Map<String, String> getScreenshot() {
+		return screenshot;
 	}
-	public void setScreenshotFull(List<String> screenshotFull) {
-		this.screenshotFull = screenshotFull;
+	public void setScreenshot(Map<String, String> screenshot) {
+		this.screenshot = screenshot;
 	}
-	public List<String> getMovieThumb() {
-		return movieThumb;
+	public Map<String, String> getMovie() {
+		return movie;
 	}
-	public void setMovieThumb(List<String> movieThumb) {
-		this.movieThumb = movieThumb;
-	}
-	public List<String> getMovieFull() {
-		return movieFull;
-	}
-	public void setMovieFull(List<String> movieFull) {
-		this.movieFull = movieFull;
-	}
-	
-	
-	@Override
-	public String toString() {
-		return "StoreVO [title=" + title + ", img=" + img + ", appId=" + appId + ", released=" + released
-				+ ", reviewSummary=" + reviewSummary + ", discount=" + discount + ", price=" + price
-				+ ", discountPrice=" + discountPrice + ", shortDescription=" + shortDescription
-				+ ", detailedDescription=" + detailedDescription + ", fullgameId=" + fullgameId + ", type=" + type
-				+ ", packageTitle=" + packageTitle + ", developers=" + developers + ", publishers=" + publishers
-				+ ", screenshotThumb=" + screenshotThumb + ", screenshotFull=" + screenshotFull + ", movieThumb="
-				+ movieThumb + ", movieFull=" + movieFull + "]";
+	public void setMovie(Map<String, String> movie) {
+		this.movie = movie;
 	}
 	
 }

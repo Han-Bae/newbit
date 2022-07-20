@@ -250,5 +250,8 @@
 		</div>
 	</main>
 	
+	<form method="POST" action="" id="goAppDetail">
+		<input type="hidden" id="score" name="score">
+	</form>
 </body>
 </html>

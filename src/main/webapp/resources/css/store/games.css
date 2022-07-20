@@ -60,6 +60,17 @@
 .store-games--games .game-title-info .whenGame {
 	font-size: 12px;
 }
+/* 평점 컬러 */
+.store-games--games .game-title-info .positive {
+	background: #17a2b8;
+}
+.store-games--games .game-title-info .mixed {
+	background: #ffc107;
+}
+.store-games--games .game-title-info .negative {
+	background: #fd5d93;
+}
+
 .store-games--games .game-title-info i,
 .store-games--games .gameDiscount .howSale {
 	color: white;

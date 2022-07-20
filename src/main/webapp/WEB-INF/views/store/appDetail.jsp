@@ -75,73 +75,80 @@
 	
 	<!-- steam 웹사이트 참고 -->
 	<main class="app-detail-main">
-		<div class="app-detail-loot">
-			모든 게임
-			<i class="tim-icons icon-minimal-right"></i>
-			액션 게임
-			<i class="tim-icons icon-minimal-right"></i>
-			Monster Hunter 프랜차이즈
-			<i class="tim-icons icon-minimal-right"></i>
-			MONSTER HUNTER RISE
-			<i class="tim-icons icon-minimal-right"></i>
-			DLC
-			<i class="tim-icons icon-minimal-right"></i>
-			MONSTER HUNTER RISE: SUNBREAK
-		</div>
-		
+<c:if test="${not empty sVO}">
 		<div class="app-detail-header">
-			<h2>${param.game}</h2>
+			<h2>${sVO.title}</h2>
 			<button type="button" class="btn btn-success animation-on-hover">커뮤니티 허브</button>
 		</div>
 		
 		<div class="app-detail-body">
 			<div class="game-media">
-				<img id="mainMedia" src="/www/img/pay/naverpay.png">		
+				<div>
+					<video class="mainMedia" controls>
+						<source src="" type="video/mp4">
+					</video>
+					<img class="mainMedia" src="">
+				</div>
 				<div class="game-media-scroll">
-					<img src="https://cdn.akamai.steamstatic.com/steam/apps/1880360/header.jpg?t=1656626643">
-					<img src="https://cdn.akamai.steamstatic.com/steam/apps/1880360/header.jpg?t=1656626643">
-					<img src="https://cdn.akamai.steamstatic.com/steam/apps/1880360/header.jpg?t=1656626643">
-					<img src="https://cdn.akamai.steamstatic.com/steam/apps/1880360/header.jpg?t=1656626643">
-					<img src="https://cdn.akamai.steamstatic.com/steam/apps/1880360/header.jpg?t=1656626643">
-					<img src="https://cdn.akamai.steamstatic.com/steam/apps/1880360/header.jpg?t=1656626643">
-					<img src="https://cdn.akamai.steamstatic.com/steam/apps/1880360/header.jpg?t=1656626643">
-					<img src="https://cdn.akamai.steamstatic.com/steam/apps/1880360/header.jpg?t=1656626643">
+	<c:forEach var="mv" items="${sVO.movie}">
+					<img src="${mv.key}" class="${mv.value} movie">
+	</c:forEach>
+	<c:forEach var="sc" items="${sVO.screenshot}">
+					<img src="${sc.key}" class="${sc.value}">
+	</c:forEach>
+	
 				</div>
 			</div>
 			
 			<div class="game-info">
-				<img class="thumbnail" src="https://cdn.akamai.steamstatic.com/steam/apps/1880360/header.jpg?t=1656626643">
+				<img class="thumbnail" src="${sVO.img}">
+	<c:if test="${sVO.type eq 'dlc'}">
 				<div class="fullgame">
-					<p>플레이하려면 Steam 버전인 <a class="title-anchor" href="">MONSTER HUNTER RISE</a> 기본 게임이 필요합니다.</p>
-					<a class="img-anchor" href=""><img src="https://cdn.akamai.steamstatic.com/steam/apps/1446780/header.jpg?t=1656665891"></a>
+					<p>플레이하려면 Steam 버전인 <a class="title-anchor" href="http://localhost/www/store/app/?game=App_${sVO.fullgameId}">${sVO.fullgameTitle}</a> 기본 게임이 필요합니다.</p>
+					<a class="img-anchor" href="http://localhost/www/store/app/?game=App_${sVO.fullgameId}"><img src="https://cdn.akamai.steamstatic.com/steam/apps/1446780/header.jpg?t=1656665891"></a>
 				</div>
+	</c:if>
+	<c:if test="${sVO.type eq 'game'}">
+				<p class="shortDescription">${sVO.shortDescription}</p>
+	</c:if>
 				
 				<div class="game-ect">
 					<div class=" margin-bottom">
 						<span class="label">모든 평가</span>
 						<div class="content">
-							<span class="gb">복합적</span>
-							<span>(2,197)</span>
+	<c:if test="${param.score eq 'positive'}">
+							<span class="positive">긍정적</span>
+	</c:if>
+	<c:if test="${param.score eq 'mixed'}">
+							<span class="mixed">복합적</span>
+	</c:if>
+	<c:if test="${param.score eq 'negative'}">
+							<span class="negative">부정적</span>
+	</c:if>
 						</div>
 					</div>
 					
 					<div class=" margin-bottom">
 						<span class="label">출시일:</span>
 						<div class="content">
-							<span class="released">2022년 6월 30일</span>
+							<span class="released">${sVO.released}</span>
 						</div>
 					</div>
 					
 					<div>
 						<span class="label">개발자:</span>
 						<div class="content">
-							<span class="company">CAPCOM Co., Ltd.</span>
+	<c:forEach var="dev" items="${sVO.developers}">
+							<span class="company">${dev}</span>
+	</c:forEach>
 						</div>
 					</div>
 					<div class=" margin-bottom">
 						<span class="label">배급사:</span>
 						<div class="content">
-							<span class="company">CAPCOM Co., Ltd.</span>
+	<c:forEach var="pub" items="${sVO.publishers}">
+							<span class="company">${pub}</span>
+	</c:forEach>
 						</div>
 					</div>
 				</div>
@@ -149,26 +156,49 @@
 				<div class="game-tag">
 					<span>이 제품의 인기 태그:</span>
 					<div>
-						<button type="button">액션</button>
-						<button type="button">멀티플레이어</button>
-						<button type="button">협동</button>
-						<button type="button">캐릭터 커스터마이즈</button>
+	<c:forEach var="tag" items="${sVO.tags}">
+						<button type="button">${tag}</button>
+	</c:forEach>
 						<button type="button">+</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		
+		<div class="game-description">
+			${sVO.detailedDescription}
+		</div>
+		
 		<div class="game">
 			<div class="card">
-				<h4>MONSTER HUNTER RISE: SUNBREAK 구매</h4>
+				<h4>${sVO.packageTitle}</h4>
 				<div>
-					<span class="price">48,400 원</span>
+	<c:if test="${sVO.discount ne '0'}">
+					<span class="salePercent">-${sVO.discount}%</span>
+					<div>
+						<span class="oriPrice">${sVO.price}</span>
+						<span class="price">${sVO.discountPrice}</span>
+					</div>
+	</c:if>
+	<c:if test="${sVO.discount eq '0'}">
+					<span class="price">${sVO.price}</span>
+	</c:if>
 					<span id="addToBasketBtn" class="add-to-basket">장바구니에 추가</span>
 				</div>
 			</div>
 		</div>
+</c:if>
 	</main>
+	
+	<form method="POST" action="/www/payment/addBasket.nbs" id="addToBasket">
+		<input type="hidden" id="gameId" name="game_id" value="${param.game}">
+<!-- 
+<c:if test="${sVO.type eq 'dlc'}">
+		<input type="hidden" id="type" name="type" value="${sVO.type}">
+		<input type="hidden" id="fullgameId" name="fullgameId" value="${sVO.fullgameId}">
+</c:if>		
+ -->
+	</form>
 	
 </body>
 </html>

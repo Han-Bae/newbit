@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.newbit.www.util.StoreJsonSimple;
 import com.newbit.www.util.StoreJsoup;
 import com.newbit.www.util.StoreSelenium;
 import com.newbit.www.vo.StoreVO;
@@ -31,6 +32,8 @@ public class Store {
 	StoreSelenium storeSelenium;
 	@Autowired
 	StoreJsoup storeJsoup;
+	@Autowired
+	StoreJsonSimple storeJson;
 	
 	
 	// 스토어 메인겸 인기 페이지
@@ -54,9 +57,12 @@ public class Store {
 	}
 	
 	@RequestMapping("/app")
-	public ModelAndView AppDetailForm(ModelAndView mv) {
+	public ModelAndView AppDetailForm(ModelAndView mv, HttpServletRequest request) {
 		mv.setViewName("/store/appDetail");
 		
+		String appId = request.getParameter("game").substring(request.getParameter("game").indexOf("_") + 1);
+		StoreVO sVO = storeJson.getDetailJson(appId);
+		mv.addObject("sVO", sVO);
 		return mv;
 	}
 	

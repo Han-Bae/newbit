@@ -18,17 +18,30 @@ $(document).ready(function() {
 	});
 	
 	$('.game').click(function(){
-		const appType = this.id.substring(0, this.id.indexOf("_"));
+		const appId = this.id;
+		const appType = appId.substring(0, appId.indexOf("_"));
 		if(appType == "App"){
-			$(location).attr('href', '/www/store/app/?game=' + this.id);
+			$('#goAppDetail').attr('action', '/www/store/app/?game=' + appId);
+			
+			const reviewIcon = document.querySelector('#' + appId + ' i');
+			const reviewClass = $(reviewIcon).attr('class');
+			// const reviewScore = reviewClass.substring(reviewClass.lastindexOf(' ') + 1);
+			if(reviewClass.indexOf('positive')){
+				$('#score').val('positive');
+			} else if(reviewClass.indexOf('mixed')){
+				$('#score').val('mixed');
+			} else if(reviewClass.indexOf('negative')){
+				$('#score').val('negative');
+			}
+			const score = $('#score').val();
+			console.log(score)
+			$('#goAppDetail').submit();
 		}
 	});
 	
 	
 	/* 앱 디테일 페이지 이벤트 */
 	$('#addToBasketBtn').click(function(){
-		const param = (new URL(document.location)).searchParams;
-		const appId = param.get('game');
-		$(location).attr('href', '/www/payment/addBasket.nbs/?game_id=' + appId);
+		$('#addToBasket').submit();
 	});
 });
