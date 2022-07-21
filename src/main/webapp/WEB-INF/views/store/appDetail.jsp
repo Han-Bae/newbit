@@ -176,7 +176,7 @@
 	<c:if test="${sVO.discount ne '0'}">
 					<span class="salePercent">-${sVO.discount}%</span>
 					<div>
-						<span class="oriPrice">${sVO.price}</span>
+						<span class="oriPrice"><del>${sVO.price}</del></span>
 						<span class="price">${sVO.discountPrice}</span>
 					</div>
 	</c:if>

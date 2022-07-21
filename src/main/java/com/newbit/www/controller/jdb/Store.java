@@ -20,9 +20,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.newbit.www.util.StoreJsonSimple;
-import com.newbit.www.util.StoreJsoup;
-import com.newbit.www.util.StoreSelenium;
+import com.newbit.www.api.StoreJsonSimple;
+import com.newbit.www.api.StoreJsoup;
+import com.newbit.www.api.StoreSelenium;
 import com.newbit.www.vo.StoreVO;
 
 @Controller

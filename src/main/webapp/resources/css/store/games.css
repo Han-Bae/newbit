@@ -31,6 +31,9 @@
 	display: flex;
 	flex-direction: column;
 }
+.store-games--games .games .game:hover {
+	background: none;
+}
 .store-games--games .games .card {
 	padding: 5px;
 	display: flex;
