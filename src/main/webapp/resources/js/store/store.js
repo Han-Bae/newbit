@@ -41,21 +41,25 @@ $(document).ready(function() {
 	
 	/* 앱 디테일 페이지 이벤트 */
 	$('#addToBasketBtn').click(function(){
-		const gameId = $('#gameId').val()
+		const data = {
+			game_id : $('#gameId').val()
+		}
 		$.ajax({
 			url: '/www/payment/addBasket.nbs',
 			type: 'post',
 			dataType: 'json',
-			data: {
-				game_id: gameId
-			},
+			data: data,
 			success: function(data){
 				if(data.result == 'OK') {
 					$(location).attr('href', '/www/payment/basket.nbs');
+				}else if(data.result == 'RETRY'){
+					swal('추가 불가', '이미 장바구니에 등록된 상품입니다.', 'error');
 				}
 			},
 			error: function(){
-				alert('장바구니 추가 에러');
+				$('input[name="vw"]').val($(location).attr('href'));
+				$('form').attr('action', '/www/account/login.nbs');
+				$('form').submit();
 			}
 		});
 	});

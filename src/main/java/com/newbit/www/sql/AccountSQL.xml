@@ -144,11 +144,15 @@
 	
 <!-- 결제용 회원 정보 확인 -->
 	<select id="selAccountInfo" resultType="aVO" parameterType="aVO">
-		SELECT nickname, email
+		SELECT nickname, email, no
 		FROM account
 		WHERE id = #{id}
 	</select>
-	
+	<select id="getNickInfo" resultType="aVO" parameterType="string">
+		SELECT no, nickname
+		FROM account
+		WHERE nickname = #{nickname}
+	</select>
 <!-- 해당 유저의 알람 내역 확인 -->
 	<select id="getNotice" resultType="nVO" parameterType="string">
 		SELECT no, title, body, ischeck
@@ -159,4 +163,23 @@
 			WHERE id = #{id}
 		)
 	</select>
+	
+	<!-- 알림 내용 전송 -->
+	<insert id="insertNotice" parameterType="nVO">
+		<selectKey keyProperty="post_no" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(no) + 1, 1000) FROM notice
+		</selectKey>
+		INSERT INTO
+			notice(no, account_no, title, body)
+		VALUES(
+			#{post_no}, #{no}, #{title}, #{body}
+		)
+	</insert>
+	
+	<!-- 알림 체크 질의문 ('Y'면 이미 가입된 거) -->
+	<update id='checkNotice' parameterType="int">
+		UPDATE notice
+		SET ischeck = 'Y'
+		WHERE no = #{no}	 		
+	</update>
 </mapper>

@@ -11,9 +11,17 @@ package com.newbit.www.vo;
  */
 public class NoticeVO {
 	private String id, title, body, ischeck;
-	private int no;
+	private int no, post_no;
 	
 	
+	public int getPost_no() {
+		return post_no;
+	}
+
+	public void setPost_no(int post_no) {
+		this.post_no = post_no;
+	}
+
 	public int getNo() {
 		return no;
 	}
@@ -57,7 +65,7 @@ public class NoticeVO {
 	@Override
 	public String toString() {
 		return "NoticeVO [id=" + id + ", title=" + title + ", body=" + body + ", ischeck=" + ischeck + ", no=" + no
-				+ "]";
+				+ ", post_no=" + post_no + "]";
 	}
 	
 	

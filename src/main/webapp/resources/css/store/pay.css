@@ -5,6 +5,41 @@
 		제작자 : 김태현
 		since : 2022.07.06
 		version : v.1.0 */
+table{
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 75%;
+	border: 1px solid #3f1961;
+	align:center;
+}
+th, td{
+	text-align: left;
+	padding: 15px;
+	text-align:center;
+}
+td{
+	text-align:left;
+}
+.noticeNo{
+	width: 100px;
+}
+tr{
+	height: 40px;
+}
+tr:nth-child(even){
+	background-color: #290540;
+}
+th{
+	background-color: #ba54f5;
+	color: white;	
+}
+tr:nth-child(even):hover{
+	background-color: #461b61;
+}
+tr:nth-child(odd):hover{
+	background-color: #461b61;
+}
+
 div{
 	color: #fff;
 }

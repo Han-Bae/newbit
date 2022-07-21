@@ -15,7 +15,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.newbit.www.dao.*;
 import com.newbit.www.service.AccountService;
 import com.newbit.www.service.SessionConfig;
-import com.newbit.www.vo.AccountVO;
+import com.newbit.www.vo.*;
 
 @Controller
 @RequestMapping("/account")
@@ -29,6 +29,12 @@ public class Account {
 	// 로그인 폼 보기 요청처리
 	@RequestMapping("/login.nbs")
 	public ModelAndView loginForm(ModelAndView mv) {
+		mv.setViewName("/account/login");
+		return mv;
+	}
+	@RequestMapping(path="/login.nbs", params="vw")
+	public ModelAndView loginForm(ModelAndView mv, String vw, HttpSession session) {
+		session.setAttribute("vw", vw);
 		mv.setViewName("/account/login");
 		return mv;
 	}
@@ -53,6 +59,16 @@ public class Account {
 		aVO.setnVOList(aDao.getNotice((String)session.getAttribute("SID")));
 		mv.addObject("NOTICELIST", aVO);
 		mv.setViewName("/account/notice");
+		return mv;
+	}
+	// 알림창 디테일 폼 보기 요청처리
+	@RequestMapping(path="/noticeDetail.nbs", method=RequestMethod.POST, params= {"no", "title", "body", "ischeck"})
+	public ModelAndView noticeDetail(ModelAndView mv, NoticeVO nVO) {
+		if(nVO.getIscheck().equals("N")) {
+			aDao.checkNotice(nVO.getNo());
+		}
+		mv.addObject("NOTICE", nVO);
+		mv.setViewName("/account/noticeDetail");
 		return mv;
 	}
 	// 로그인 처리

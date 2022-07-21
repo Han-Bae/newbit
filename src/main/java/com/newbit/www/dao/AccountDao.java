@@ -93,8 +93,19 @@ public class AccountDao {
 	public AccountVO selAccountInfo(AccountVO aVO) {
 		return sqlSession.selectOne("aSQL.selAccountInfo", aVO);
 	}
+	public AccountVO getNickInfo(String nickname) {
+		return sqlSession.selectOne("aSQL.getNickInfo", nickname);
+	}
 // 알림 내역 불러오기
 	public List<NoticeVO> getNotice(String id){
 		return sqlSession.selectList("aSQL.getNotice", id);
+	}
+// 알림 내역 저장
+	public int insertNotice(NoticeVO nVO) {
+		return sqlSession.insert("aSQL.insertNotice", nVO);
+	}
+	// 회원가입 실패시 되돌리기
+	public int checkNotice(int no) {
+		return sqlSession.update("aSQL.checkNotice", no);
 	}
 }

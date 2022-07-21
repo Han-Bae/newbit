@@ -6,7 +6,7 @@
 	
 <!-- 찜목록 -->
 	<!-- 찜목록 불러오기 -->
-	<select id="getPickList" resultType="string" parameterType="string">
+	<select id="getPickList" resultType="pVO" parameterType="string">
 		SELECT game_id
 		FROM pick
 		WHERE account_no = (
@@ -16,7 +16,7 @@
 			) AND isshow = 'Y'
 	</select>
 	<!-- 장바구니 불러오기 -->
-	<select id="getBasketList" resultType="string" parameterType="string">
+	<select id="getBasketList" resultType="pVO" parameterType="string">
 		SELECT game_id
 		FROM basket
 		WHERE account_no = (
@@ -25,6 +25,13 @@
 				WHERE id = #{id}
 			) AND isshow = 'Y'
 	</select>
+	<select id="isshowBasket" resultType="int" parameterType="string">
+		SELECT count(*)
+		FROM basket
+		WHERE game_id = #{game_id}
+			AND isshow = 'N'
+	</select>
+	
 	
 	<!-- 장바구니 추가 -->
 	<insert id="addBasket" parameterType="pVO">
@@ -42,6 +49,12 @@
 	<update id="delPick" parameterType="string">
 		UPDATE pick
 		SET isshow = 'N'
+		WHERE game_id = #{game_id}
+	</update>
+	<!-- 장바구니 다시 보이기 -->
+	<update id="showBasket" parameterType="string">
+		UPDATE basket
+		SET isshow = 'Y'
 		WHERE game_id = #{game_id}
 	</update>
 	<!-- 장바구니 삭제 -->

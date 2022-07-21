@@ -83,7 +83,7 @@
 				</a>
 			</li>
 			<li>
-				<a class="nav-link active" href="#">
+				<a class="nav-link active" href="/www/profile/library.nbs">
 					<i class="tim-icons icon-controller"></i>
 					<span class="main-nav-text">Library</span>
 					<div class="indicator"></div>

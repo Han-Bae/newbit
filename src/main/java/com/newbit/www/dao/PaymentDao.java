@@ -12,12 +12,15 @@ public class PaymentDao {
 	@Autowired
 	SqlSessionTemplate sqlSession;
 // 찜목록 불러오기
-	public List<String> getPickList(String id) {
+	public List<PaymentVO> getPickList(String id) {
 		return sqlSession.selectList("pSQL.getPickList", id);
 	}
 // 장바구니 불러오기
-	public List<String> getBasketList(String id) {
+	public List<PaymentVO> getBasketList(String id) {
 		return sqlSession.selectList("pSQL.getBasketList", id);
+	}
+	public int isshowBasket(String id) {
+		return sqlSession.selectOne("pSQL.isshowBasket", id);
 	}
 // 장바구니 저장
 	public int addBasket(PaymentVO pVO) {
@@ -26,6 +29,10 @@ public class PaymentDao {
 // 찜목록 삭제
 	public int delPick(String game_id) {
 		return sqlSession.update("pSQL.delPick", game_id);
+	}
+// 장바구니 다시 보이기
+	public int showBasket(String game_id) {
+		return sqlSession.update("pSQL.showBasket", game_id);
 	}
 // 장바구니 삭제
 	public int delBasket(String game_id) {

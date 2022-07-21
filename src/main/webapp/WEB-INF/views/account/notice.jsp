@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자 페이지</title>
+<title>알림 페이지</title>
 	<link rel="icon" type="image/png" sizes="32x32" href="/www/img/favicon/favicon.ico">
 <!-- head에서 꼭 넣어야 하는것 아래부터 -->
 	<link rel="stylesheet" type="text/css" href="/www/css/theme/black-dashboard.css">
@@ -24,6 +24,7 @@
 	<script type="text/javascript" src="/www/js/bootstrap.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script type="text/javascript" src="/www/js/components/header.js"></script>
+	<script type="text/javascript" src="/www/js/notice.js"></script>
 </head>
 
 <body>
@@ -51,7 +52,7 @@
 				</a>
 			</li>
 			<li>
-				<a class="nav-link active" href="#">
+				<a class="nav-link active" href="/www/profile/library.nbs">
 					<i class="tim-icons icon-controller"></i>
 					<span class="main-nav-text">Library</span>
 					<div class="indicator"></div>
@@ -86,24 +87,37 @@
 	</header>
 	<!-- 여기까지 -->
 	<main>	
+		<div class="store-top pay-top">
+		</div>
+	<form method="post">
+		<input type="hidden" name="no" id="no">
+		<input type="hidden" name="title" id="title">
+		<input type="hidden" name="body" id="body">
+		<input type="hidden" name="ischeck" id="ischeck">
+	</form>
 		<hr class="payStat">
 		<h1 style="text-align:center">알림창</h1>	
-	    <table border="1" bordercolor="#3f1961" width ="800" align = "center" style="color:white">
-	    <tr bgcolor="#ba54f5" align="center" >
-			<td>제목</td>
-			<td>체크유무</td>
+	    <table align = "center" style="color:white">
+	    <tr id="main" align="center" >
+			<th class="noticeNo">글번호</th>
+			<th>제목</th>
 	    </tr>
- <c:forEach var="notice" items="${NOTICELIST}">
-	 <c:if test="${notice.ischeck eq 'N'}">
-		<tr id="${notice.no}" style="color:#818182"><!-- 첫번째 줄 시작 -->
-		    <td>${notice.no}</td>
-		    <td>${notice.title}</td>
-		</tr><!-- 첫번째 줄 끝 -->
-	</c:if>
+ <c:forEach var="notice" items="${NOTICELIST.nVOList}">
 	 <c:if test="${notice.ischeck eq 'Y'}">
-		<tr id="${notice.no}"><!-- 첫번째 줄 시작 -->
-		    <td>${notice.no}</td>
-		    <td>${notice.title}</td>
+		<!-- 첫번째 줄 시작 -->
+		<tr id="${notice.no}" style="color:#818182">
+		    <td class="no">${notice.no}</td>
+		    <td class="title">${notice.title}</td>
+		    <input type="hidden" name="body" value="${notice.body}">
+		    <input type="hidden" name="check" value="${notice.ischeck}">
+		</tr>
+	</c:if>
+	 <c:if test="${notice.ischeck eq 'N'}">
+		<tr id="${notice.no}">
+		    <td class="no">${notice.no}</td>
+		    <td class="title">${notice.title}</td>
+		    <input type="hidden" name="body" value="${notice.body}">
+		    <input type="hidden" name="check" value="${notice.ischeck}">
 		</tr><!-- 첫번째 줄 끝 -->
 	</c:if>
 </c:forEach>

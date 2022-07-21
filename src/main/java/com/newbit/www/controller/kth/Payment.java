@@ -40,7 +40,11 @@ public class Payment {
 	@RequestMapping("/pick.nbs")
 	public ModelAndView pick(ModelAndView mv, HttpSession session) {
 		String id = (String)session.getAttribute("SID");
-		List<String> gameIdList = pDao.getPickList(id);
+		List<PaymentVO> pickList = pDao.getBasketList(id);
+		List<String> gameIdList = new ArrayList<String>();
+		for(PaymentVO pavo : pickList) {
+			gameIdList.add(pavo.getGame_id());
+		}
 		List<StoreVO> gameSVO = new ArrayList<StoreVO>();
 		for(int i = 0; i < gameIdList.size(); i++) {
 			String gameId = gameIdList.get(i).substring(4,gameIdList.get(i).length()); 
@@ -48,7 +52,12 @@ public class Payment {
 			sVO.setAppId(gameIdList.get(i));
 			gameSVO.add(sVO);
 		}
-		List<String> basketList = pDao.getBasketList(id);
+		
+		List<PaymentVO> baList = pDao.getBasketList(id);
+		List<String> basketList = new ArrayList<String>();
+		for(PaymentVO pavo : baList) {
+			basketList.add(pavo.getGame_id());
+		}
 		List<StoreVO> basketSVO = new ArrayList<StoreVO>();
 		for(int i = 0; i < basketList.size(); i++) {
 			String gameId = basketList.get(i).substring(4,basketList.get(i).length()); 
@@ -67,13 +76,35 @@ public class Payment {
 	public Map<String, String> addBasket(ModelAndView mv, HttpSession session, String game_id) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		String result = "NO";
-		PaymentVO pVO = new PaymentVO();
-		pVO.setGame_id(game_id);
-		pVO.setId((String)session.getAttribute("SID"));
-		int cnt = 0;
-		cnt = pDao.addBasket(pVO);
-		if(cnt == 1) {
-			result = "OK";
+		String overlap = "NO";
+		List<PaymentVO> pavo =  pDao.getBasketList((String)session.getAttribute("SID"));
+		List<String> basketList = new ArrayList<String>();
+		for(PaymentVO basket : pavo) {
+			basketList.add(basket.getGame_id());
+		}
+		for(String basket : basketList) {
+			if(basket.equals(game_id)) {
+				// 이미 장바구니에 존재하는 게임이면
+				overlap = "YES";
+				result = "RETRY";
+			}
+		}
+		// 중복이 아닐때만 장바구니에 저장
+		if(overlap.equals("YES") == false) {
+			int cnt = pDao.isshowBasket(game_id);
+			// isshow가 n인 경우라 감춰졌다면 Y로 변경
+			if(cnt == 1) {
+				cnt = pDao.showBasket(game_id);
+			}else {				
+				PaymentVO pVO = new PaymentVO();
+				pVO.setGame_id(game_id);
+				pVO.setId((String)session.getAttribute("SID"));
+				cnt = 0;
+				cnt = pDao.addBasket(pVO);
+			}
+			if(cnt == 1) {
+				result = "OK";
+			}
 		}
 		map.put("result", result);
 		return map;
@@ -103,7 +134,11 @@ public class Payment {
 	@RequestMapping("/basket.nbs")
 	public ModelAndView basket(ModelAndView mv, HttpSession session) {
 		String id = (String)session.getAttribute("SID");
-		List<String> basketList = pDao.getBasketList(id);
+		List<PaymentVO> baList = pDao.getBasketList(id);
+		List<String> basketList = new ArrayList<String>();
+		for(PaymentVO pavo : baList) {
+			basketList.add(pavo.getGame_id());
+		}
 		List<StoreVO> basketSVO = new ArrayList<StoreVO>();
 		for(int i = 0; i < basketList.size(); i++) {
 			String gameId = basketList.get(i).substring(4,basketList.get(i).length()); 
@@ -251,13 +286,24 @@ public class Payment {
             returnVO.setTitle("주문 완료");
             returnVO.setMsg("주문이 성공하였습니다.");
             returnVO.setIcon("success");
-            
             	// 게임 결제 메일 보내기
             AccountVO aVO = new AccountVO();
             aVO.setId((String)session.getAttribute("SID"));
             aVO = aDao.selAccountInfo(aVO);
             aVO.setpVO(pVO);
             aSrc.sendMail(aVO);
+            
+            // 결제 완료 알림 보내기
+            String gameName = new String();
+            for(int i = 0; i < pVO.getsVOList().size(); i++) {
+            	gameName += pVO.getsVOList().get(i).getTitle()+", ";
+            }
+            NoticeVO nVO = new NoticeVO();
+            nVO.setNo(aVO.getNo());
+            nVO.setId((String)session.getAttribute("SID"));
+            nVO.setTitle("게임 결제가 완료되었습니다.");
+            nVO.setBody(nVO.getId()+"회원님이 결제하신 게임은 "+gameName.substring(0, gameName.length()-2)+"입니다.");
+            aDao.insertNotice(nVO);
             
             return returnVO;
 		} catch (Exception e) {
@@ -320,6 +366,33 @@ public class Payment {
 	            
 	    		pVO.setId((String)session.getAttribute("SID"));
 	            pVO.setResult("OK");
+	            
+	            // 결제 완료 알림 보내기
+	            String gameName = new String();
+	            for(int i = 0; i < pVO.getsVOList().size(); i++) {
+	            	gameName += pVO.getsVOList().get(i).getTitle()+", ";
+	            }
+	            NoticeVO nVO = new NoticeVO();
+	            nVO.setNo(aVO.getNo());
+	            nVO.setId((String)session.getAttribute("SID"));
+	            nVO.setTitle("게임 선물이 완료되었습니다.");
+	            nVO.setBody(nVO.getId()+"회원님이 선물하신 게임은 "+gameName.substring(0, gameName.length()-2)+"입니다.");
+	            aDao.insertNotice(nVO);
+	            
+	            // 선물 받는 친구에게 알림 보내기
+	            for(int i = 0; i < pVO.getNameList().size(); i++) {
+	            	AccountVO friendVO = new AccountVO();
+	            	friendVO = aDao.getNickInfo(pVO.getNameList().get(i));
+	            	NoticeVO presentVO = new NoticeVO();
+	            	presentVO.setNo(friendVO.getNo());
+	            	presentVO.setTitle(aVO.getNickname()+"님께서 선물을 보내셨습니다.");
+	            	presentVO.setBody(aVO.getNickname()+"님께서 "+friendVO.getNickname()+"님께 "+gameName.substring(0, gameName.length()-2)+"를 선물하셨습니다.\r\n"
+	            			+"아래는 "+aVO.getNickname()+"님께서 보내신 메세지입니다.\r\n"
+	            			+pVO.getPresentTitle()+"\r\n"
+	            			+pVO.getPresentTitle());
+	            	aDao.insertNotice(presentVO);
+	            }
+	            
 	            return returnVO;	 
 		} catch (Exception e) {
 			e.printStackTrace();

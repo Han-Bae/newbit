@@ -2,16 +2,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 	<!-- 
-		찜목록
+		결제 첫 페이지
 		
 		제작자 : 김태현
-		since : 2022.07.19
+		since : 2022.07.06
 		version : v.1.0
 	-->
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Newbit 찜 목록</title>
+<title>알림 페이지</title>
 	<link rel="icon" type="image/png" sizes="32x32" href="/www/img/favicon/favicon.ico">
 <!-- head에서 꼭 넣어야 하는것 아래부터 -->
 	<link rel="stylesheet" type="text/css" href="/www/css/theme/black-dashboard.css">
@@ -22,10 +22,11 @@
 <!-- 위까지 -->
 	<script type="text/javascript" src="/www/js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="/www/js/bootstrap.js"></script>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script type="text/javascript" src="/www/js/components/header.js"></script>
-	<script type="text/javascript" src="/www/js/pay/pick.js"></script>
+	<script type="text/javascript" src="/www/js/notice.js"></script>
 </head>
+
 <body>
 	
 	<!-- 여기부터 -->
@@ -85,72 +86,25 @@
 		</div>
 	</header>
 	<!-- 여기까지 -->
-	<main>
+	<main>	
 		<div class="store-top pay-top">
-<!-- 전송할 데이터 -->
-<form method="POST" action="/www/payment/payFormCheck.nbs"
-		name="frm_info" id="frm_info" class="frm">
-	<input type="hidden" id="totalPrice" name="totalPrice">
-</form>
 		</div>
 		<hr class="payStat">
-		<div class="payMain" style="flex-direction: column; align-items: center;">
-			<div class="row basket_row">
-				<div class="store-games" style="display:contents">
-					<div class="store-games-main">
-						<div class="store-games--games pick-games">
-							<div class="games">
-				<c:forEach var="pick" items="${gameList}">
-								<!-- 개별 게임 나중에 label for, input name ${game_id} -->
-								<div class="basket-game">
-									<div class="labelDiv">
-										<div class="card" id="${pick.appId}">
-											<img class="card-img-left" src="${pick.img}" width="120px" height="50px">
-											<div class="card-width">
-												<h4>${pick.title}</h4>
-												<div class="game-title-info">
-													<span class="whenGame">${pick.released}</span>
-												</div>
-												<div class="gameDiscount">
-					<c:if test="${not empty pick.discountPrice}">
-													<span class="howSale">-${pick.discount}%</span>
-					</c:if>
-													<div class="gamePrice">
-					<c:if test="${empty pick.discountPrice}">
-														<span class="salePrice">${pick.price}</span>
-					</c:if>
-					<c:if test="${not empty pick.discountPrice}">
-														<span class="originalPrice"><del>${pick.price}</del></span>
-														<span class="salePrice">${pick.discountPrice}</span>
-					</c:if>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="btnDiv">
-					<c:if test="${not empty basketList}">
-						<c:forEach var="basket" items="${basketList}">
-							<c:if test="${basket.appId == pick.appId}">
-										<input type="hidden" name="yesBasket" value="yes">
-							</c:if>
-						</c:forEach>
-					</c:if>
-										<button type="button" class="btn btn-warning animation-on-hover del_game">삭제</button>
-									</div>
-								</div>
-								<!-- 개별게임 끝 -->
-				</c:forEach>													
-							</div>
-						</div>
-					</div>
+		<div class="payMain">
+			<div class="row">
+				<div style="padding-top: 20px; margin-bottom:40px;">
+					<input type="text" class="form-control" readonly
+			  			style="color: white; height: 10%; background-color: darkslateblue; margin-left: 40px; max-width:350px; font-size:20pt" value="${NOTICE.title}"></input>
+			  	</div>
+				<!-- 선물내용 -->
+				<div class="friend-main">
+					<textarea class="textarea" id="friendBody" name="friendBody" rows="10" cols="60" readonly
+						maxlength="160" style="margin-left:25px;">${NOTICE.body}</textarea>
 				</div>
-			</div>
-			<div class="row basket_row">
-				<div class="gamePay">
-					<button type="button" id="goBasket" onclick='goBasket()' class="btn btn-success animation-on-hover">장바구니 가기</button>
+			</div> 
+				<div class="conti">
+					<button type="button" id="back" onclick='back()' class="btn btn-success animation-on-hover">Back</button>
 				</div>
-			</div>
 		</div>
 	</main>
 </body>
