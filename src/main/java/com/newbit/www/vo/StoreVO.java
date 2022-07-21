@@ -16,19 +16,21 @@ import java.util.Map;
  */
 
 public class StoreVO {
-	private String title, img, appId, released, reviewSummary, discount, price, discountPrice;
+	private String title, img, appId, released, reviewSummary, discount, price, discountPrice, sessionId;
 	/* reviewSummary => positive, mixed, negative */
 	
 	/* detail 페이지에서 추가로 필요한 변수 */
 	private String shortDescription, detailedDescription, fullgameId, fullgameTitle, type, packageTitle;
 	private List<String> developers, publishers, tags;
 	private Map<String, String> screenshot, movie;
+	private int pickCount, basketCount;
 	
 	/* library 페이지에 추가로 필요한 변수 */
 	private Date dateFormatBuydate;
 	private String buydate;
 	private int diffDate;
 
+	
 	public String getTitle() {
 		return title;
 	}
@@ -76,6 +78,12 @@ public class StoreVO {
 	}
 	public void setDiscountPrice(String discountPrice) {
 		this.discountPrice = discountPrice;
+	}
+	public String getSessionId() {
+		return sessionId;
+	}
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
 	}
 	
 	
@@ -146,6 +154,19 @@ public class StoreVO {
 	public void setMovie(Map<String, String> movie) {
 		this.movie = movie;
 	}
+	public int getPickCount() {
+		return pickCount;
+	}
+	public void setPickCount(int pickCount) {
+		this.pickCount = pickCount;
+	}
+	public int getBasketCount() {
+		return basketCount;
+	}
+	public void setBasketCount(int basketCount) {
+		this.basketCount = basketCount;
+	}
+	
 	
 	
 	public void setDateFormatBuydate(Date FormatBuydate) {

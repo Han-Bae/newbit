@@ -108,6 +108,11 @@
 .priceFilter {
 	height: 180px;
 }
+.priceFilter.card {
+	position: sticky;
+	top: 0;
+	height: 180px;
+}
 .priceFilter .card-body {
 	display: flex;
 	flex-direction: column;
@@ -145,16 +150,15 @@
 	height: 1px;
 	border-radius: 10%;
 	background-color: #ba54f5;
+	margin-bottom: 20px;
 }
-/* 태그 필터 */
-.tagFilter {
-	height: 180px;
-	padding-left: 30px;
-}
-.tagFilter .form-check {
+.priceFilter .form-check {
 	display: flex;
 	flex-direction: column;
 }
-.tagFilter label {
+.priceFilter label {
 	margin-bottom: 200px;
+	font-size: 13px;
+	display: flex;
+	align-items: center;
 }

@@ -30,7 +30,8 @@ public class StoreJsonSimple {
 		try {
 			// json url
 			URL url = new URL("https://store.steampowered.com/api/appdetails?appids=" + appId + "&l=korean");
-			BufferedReader bf = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+			InputStreamReader isr = new InputStreamReader(url.openStream(), "UTF-8");
+			BufferedReader bf = new BufferedReader(isr);
 			String result = bf.readLine();
 			
 			JSONParser jsonParser = new JSONParser();
@@ -102,6 +103,9 @@ public class StoreJsonSimple {
 			sVO.setMovie(mvMap);
 			
 			sVO.setReleased((String) ((JSONObject) appData.get("release_date")).get("date"));
+			
+			bf.close();
+			isr.close();
 			
 		} catch(Exception e) {
 			e.printStackTrace();

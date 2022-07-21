@@ -79,8 +79,8 @@
 		<div class="library">
 		
 			<div class="library--games">
-			
-<c:forEach var="data" items="${LIST}">
+<c:if test="${not empty LIST}">
+	<c:forEach var="data" items="${LIST}">
 				<div class="card" id="${data.appId}" >
 					<img class="card-img-left" src="${data.img}">
 					<div>
@@ -89,13 +89,19 @@
 							<span class="whenGame">${data.buydate} 구매</span>
 						</div>
 						<button type="button" class="btn btn-primary animation-on-hover goTOStoreBtn">상점 페이지</button>
-	<c:if test="${data.diffDate lt 14}">
+		<c:if test="${data.diffDate lt 14}">
 						<button type="button" class="btn btn-warning animation-on-hover refundBtn">환불 신청</button>
-	</c:if>
+		</c:if>
 					</div>
 				</div>
-</c:forEach>		
-									
+	</c:forEach>		
+</c:if>			
+<c:if test="${empty LIST}">
+				<div class="emptyLibrary">
+					<i class="tim-icons icon-simple-remove"></i>
+					<h4>아직 구매한 게임이 없어요!</h4>
+				</div>
+</c:if>
 			</div>
 		</div>
 	</main>

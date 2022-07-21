@@ -12,4 +12,11 @@ public class StoreDao {
 	@Autowired
 	SqlSessionTemplate sqlSession;
 	
+	public int getPickCount(StoreVO storeVO) {
+		return sqlSession.selectOne("storeSQL.getPickCount", storeVO);
+	}
+	
+	public int getBasketCount(StoreVO storeVO) {
+		return sqlSession.selectOne("storeSQL.getBasketCount", storeVO);
+	}
 }

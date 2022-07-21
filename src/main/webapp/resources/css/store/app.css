@@ -199,7 +199,7 @@ img.mainMedia {
 .app-detail-main .game .card .oriPrice {
 	color: #6c757d;
 }
-.app-detail-main .game .card .add-to-basket {
+.app-detail-main .game .card .basket {
 	background: linear-gradient(to bottom left, #e14eca, #ba54f5, #e14eca);
 	cursor: pointer;
 	border-radius: 5px;
@@ -207,7 +207,7 @@ img.mainMedia {
 	height: 100%;
 	align-items: center;
 }
-.app-detail-main .game .card .add-to-basket:hover {
+.app-detail-main .game .card .basket:hover {
 	background: none;
 	color: #ba54f5;
 }

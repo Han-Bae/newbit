@@ -3,5 +3,27 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="storeSQL">
-
+	<select id="getPickCount" resultType="int" parameterType="storeVO">
+		SELECT
+		    COUNT(*) pickCount
+		FROM
+		    pick p, account
+		WHERE
+		    account_no = no
+		    AND id = #{sessionId}
+		    AND game_id = #{appId}
+		    AND p.isshow = 'Y'
+	</select>
+	
+	<select id="getBasketCount" resultType="int" parameterType="storeVO">
+		SELECT
+		    COUNT(*) basketCount
+		FROM
+		    basket b, account
+		WHERE
+		    account_no = no
+		    AND id = #{sessionId}
+		    AND game_id = #{appId}
+		    AND b.isshow = 'Y'
+	</select>
 </mapper>

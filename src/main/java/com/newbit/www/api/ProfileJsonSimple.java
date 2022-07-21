@@ -26,7 +26,8 @@ public class ProfileJsonSimple {
 			try {
 				String appId = list.get(i).getAppId().substring(list.get(i).getAppId().indexOf("_") + 1);
 				URL url = new URL("https://store.steampowered.com/api/appdetails?appids=" + appId + "&l=korean");
-				BufferedReader bf = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+				InputStreamReader isr = new InputStreamReader(url.openStream(), "UTF-8");
+				BufferedReader bf = new BufferedReader(isr);
 				String result = bf.readLine();
 				
 				JSONParser jsonParser = new JSONParser();
@@ -36,6 +37,9 @@ public class ProfileJsonSimple {
 				
 				list.get(i).setTitle((String) appData.get("name"));
 				list.get(i).setImg((String) appData.get("header_image"));
+				
+				bf.close();
+				isr.close();
 				
 			} catch(Exception e) {
 				e.printStackTrace();

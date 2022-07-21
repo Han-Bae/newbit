@@ -187,11 +187,31 @@
 	<c:if test="${sVO.discount eq '0'}">
 					<span class="price">${sVO.price}</span>
 	</c:if>
-					<span id="addToBasketBtn" class="add-to-basket">장바구니에 추가</span>
+	
+	<c:if test="${empty SID}">
+					<span id="addToBasketBtn" class="basket">장바구니에 추가</span>
+	</c:if>
+	<c:if test="${not empty SID}">
+		<c:if test="${sVO.basketCount eq 0}">
+					<span id="addToBasketBtn" class="basket">장바구니에 추가</span>
+		</c:if>
+		<c:if test="${sVO.basketCount eq 1}">
+					<span id="goToBasketBtn" class="basket">장바구니로 가기</span>
+		</c:if>
+	</c:if>
 				</div>
 			</div>
-			
-			<button type="button" class="btn btn-primary animation-on-hover"><i class="tim-icons icon-shape-star"></i></button>
+	<c:if test="${empty SID}">
+			<button type="button" class="btn btn-primary btn-round btn-icon animation-on-hover"><i class="tim-icons icon-shape-star"></i></button>
+	</c:if>
+	<c:if test="${not empty SID}">
+		<c:if test="${sVO.pickCount eq 0}">
+			<button type="button" class="btn btn-primary btn-round btn-icon animation-on-hover"><i class="tim-icons icon-shape-star"></i></button>
+		</c:if>
+		<c:if test="${sVO.pickCount eq 1}">
+			<button type="button" class="btn btn-primary btn-round btn-icon animation-on-hover" disabled><i class="tim-icons icon-shape-star"></i></button>
+		</c:if>
+	</c:if>
 		</div>
 </c:if>
 	</main>

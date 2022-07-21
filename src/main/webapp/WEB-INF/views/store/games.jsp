@@ -203,39 +203,13 @@
 							<div class="card-body">
 								<input id="range" type="range" step="1" min="0" max="13" value="13">
 								<span class="games-filter--range">모든 가격</span>
+								
 								<div class="boundary"></div>
 								
-								
-							</div>
-						</div>
-						
-						<div class="card tagFilter">
-							<div class="card-header chard-header-primary">태그로 검색하기</div>
-							<div class="card-body">
 								<div class="form-check">
 									<label class="form-check-label">
 										<input type="checkbox" class="form-check-input" value="">
-										어드벤처
-										<span class="form-check-sign">
-											<span class="check"></span>
-										</span>
-									</label>
-								</div>
-								
-								<div class="form-check">
-									<label class="form-check-label">
-										<input type="checkbox" class="form-check-input" value="">
-										RPG
-										<span class="form-check-sign">
-											<span class="check"></span>
-										</span>
-									</label>
-								</div>
-								
-								<div class="form-check">
-									<label class="form-check-label">
-										<input type="checkbox" class="form-check-input" value="">
-										시뮬레이션
+										특별 할인
 										<span class="form-check-sign">
 											<span class="check"></span>
 										</span>

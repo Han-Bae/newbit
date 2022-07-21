@@ -63,4 +63,9 @@ $(document).ready(function() {
 			}
 		});
 	});
+	
+	$('#goToBasketBtn').click(function(){
+		$(location).attr('href', '/www/payment/basket.nbs');
+	});
+	
 });

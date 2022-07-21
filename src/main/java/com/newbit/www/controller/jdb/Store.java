@@ -13,6 +13,7 @@ package com.newbit.www.controller.jdb;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.newbit.www.api.StoreJsonSimple;
 import com.newbit.www.api.StoreJsoup;
 import com.newbit.www.api.StoreSelenium;
+import com.newbit.www.dao.StoreDao;
 import com.newbit.www.vo.StoreVO;
 
 @Controller
@@ -34,6 +36,8 @@ public class Store {
 	StoreJsoup storeJsoup;
 	@Autowired
 	StoreJsonSimple storeJson;
+	@Autowired
+	StoreDao storeDao;
 	
 	
 	// 스토어 메인겸 인기 페이지
@@ -57,11 +61,23 @@ public class Store {
 	}
 	
 	@RequestMapping("/app")
-	public ModelAndView AppDetailForm(ModelAndView mv, HttpServletRequest request) {
+	public ModelAndView AppDetailForm(ModelAndView mv, HttpServletRequest request,  HttpSession session) {
 		mv.setViewName("/store/appDetail");
 		
-		String appId = request.getParameter("game").substring(request.getParameter("game").indexOf("_") + 1);
-		StoreVO sVO = storeJson.getDetailJson(appId);
+		String appId = request.getParameter("game");
+		String appNo = appId.substring(appId.indexOf("_") + 1);
+		StoreVO sVO = storeJson.getDetailJson(appNo);
+		
+		String sessionId = (String) session.getAttribute("SID");
+		if(sessionId != null) {
+			sVO.setAppId(appId);
+			sVO.setSessionId(sessionId);
+			int pickCount = storeDao.getPickCount(sVO);
+			int basketCount = storeDao.getBasketCount(sVO);
+			sVO.setPickCount(pickCount);
+			sVO.setBasketCount(basketCount);
+		}
+		
 		mv.addObject("sVO", sVO);
 		return mv;
 	}
