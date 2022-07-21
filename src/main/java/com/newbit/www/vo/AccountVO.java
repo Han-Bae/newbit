@@ -11,10 +11,17 @@ public class AccountVO {
 		icon, title, msg, stat, url;	// SwalAlert용
 	private char[] convert_id;
 	private Date joindate;
-	private List<AccountVO> numList;
 	private PaymentVO pVO;
+	private List<AccountVO> numList;
+	private List<NoticeVO> nVOList;
 	
 	
+	public List<NoticeVO> getnVOList() {
+		return nVOList;
+	}
+	public void setnVOList(List<NoticeVO> nVOList) {
+		this.nVOList = nVOList;
+	}
 	public PaymentVO getpVO() {
 		return pVO;
 	}
@@ -192,8 +199,8 @@ public class AccountVO {
 				+ nickname + ", email=" + email + ", istype=" + istype + ", isshow=" + isshow + ", isnewbit=" + isnewbit
 				+ ", tel=" + tel + ", sdate=" + sdate + ", savename=" + savename + ", isokay=" + isokay + ", result="
 				+ result + ", icon=" + icon + ", title=" + title + ", msg=" + msg + ", stat=" + stat + ", url=" + url
-				+ ", convert_id=" + Arrays.toString(convert_id) + ", joindate=" + joindate + ", numList=" + numList
-				+ ", pVO=" + pVO + "]";
+				+ ", convert_id=" + Arrays.toString(convert_id) + ", joindate=" + joindate + ", pVO=" + pVO
+				+ ", numList=" + numList + ", nVOList=" + nVOList + "]";
 	}
 	
 }

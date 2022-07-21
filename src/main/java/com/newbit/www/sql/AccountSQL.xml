@@ -148,4 +148,15 @@
 		FROM account
 		WHERE id = #{id}
 	</select>
+	
+<!-- 해당 유저의 알람 내역 확인 -->
+	<select id="getNotice" resultType="nVO" parameterType="string">
+		SELECT no, title, body, ischeck
+		FROM notice
+		WHERE account_no = (
+			SELECT no
+			FROM account
+			WHERE id = #{id}
+		)
+	</select>
 </mapper>

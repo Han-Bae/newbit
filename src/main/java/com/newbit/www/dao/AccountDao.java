@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.newbit.www.vo.AccountVO;
+import com.newbit.www.vo.NoticeVO;
 
 public class AccountDao {
 	
@@ -91,5 +92,9 @@ public class AccountDao {
 	// 결제용 유저 정보(닉네임, 이메일)
 	public AccountVO selAccountInfo(AccountVO aVO) {
 		return sqlSession.selectOne("aSQL.selAccountInfo", aVO);
+	}
+// 알림 내역 불러오기
+	public List<NoticeVO> getNotice(String id){
+		return sqlSession.selectList("aSQL.getNotice", id);
 	}
 }

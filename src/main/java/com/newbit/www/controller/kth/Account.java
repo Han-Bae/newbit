@@ -46,7 +46,15 @@ public class Account {
 		}
 		return mv;
 	}
-	
+	// 알림창 폼 보기 요청처리
+	@RequestMapping("/notice.nbs")
+	public ModelAndView noticeForm(ModelAndView mv, HttpSession session) {
+		AccountVO aVO = new AccountVO();
+		aVO.setnVOList(aDao.getNotice((String)session.getAttribute("SID")));
+		mv.addObject("NOTICELIST", aVO);
+		mv.setViewName("/account/notice");
+		return mv;
+	}
 	// 로그인 처리
 	@RequestMapping(path="/loginProc.nbs", method=RequestMethod.POST, params= {"id", "pw"})
 	public ModelAndView loginProc(ModelAndView mv, AccountVO aVO, HttpSession session){
