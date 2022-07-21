@@ -458,3 +458,9 @@ CREATE TABLE notice(
 ALTER TABLE library
 ADD fullgame_id VARCHAR2(15 CHAR)
 ;
+
+-- ACCOUNT 테이블에 선호태그 추가
+ALTER TABLE account
+ADD tag_no NUMBER(4) NOT NULL;
+ALTER TABLE account
+ADD CONSTRAINT ACCOUNT_TAG_NO FOREIGN KEY(tag_no) REFERENCES tag(no);
