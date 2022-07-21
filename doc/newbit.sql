@@ -169,6 +169,7 @@ CREATE TABLE library(
         CONSTRAINT LIB_ACCOUNTNUM_FK REFERENCES account(no)
         CONSTRAINT LIB_ACCOUNTNUM_NN NOT NULL,
    game_id VARCHAR2(15 CHAR),	-- API 확인
+   fullgame_id VARCHAR2(15 CHAR),
    playtime VARCHAR2(15 CHAR)
         CONSTRAINT LIB_PLAYTIME_NN NOT NULL,
     isnewbit CHAR(1)
@@ -436,3 +437,24 @@ VALUES(
     '모든 스포츠'
 );
 COMMIT;
+
+-- 알림 저장 테이블
+CREATE TABLE notice(
+    no NUMBER(4)
+        CONSTRAINT NOTICE_PK PRIMARY KEY,
+    account_no NUMBER(4)
+        CONSTRAINT NOTICE_ACCOUNTNUM_FK REFERENCES account(no)
+        CONSTRAINT NOTICE_ACCOUNTNUM_NN NOT NULL,
+    title VARCHAR2(20 CHAR)
+        CONSTRAINT NOTICE_TITLE_NN NOT NULL,
+    body VARCHAR2(160 CHAR)
+        CONSTRAINT NOTICE_BODY_NN NOT NULL,
+    ischeck CHAR(1) DEFAULT 'N'
+        CONSTRAINT NOTICE_SHOW_CK CHECK(ischeck IN('Y','N'))
+        CONSTRAINT NOTICE_SHOW_NN NOT NULL
+);
+
+-- library 테이블에 fullgame_id 추가
+ALTER TABLE library
+ADD fullgame_id VARCHAR2(15 CHAR)
+;
