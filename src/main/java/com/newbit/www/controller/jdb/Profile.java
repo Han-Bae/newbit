@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.newbit.www.api.ProfileJsonSimple;
 import com.newbit.www.dao.ProfileDao;
 import com.newbit.www.vo.StoreVO;
 
@@ -17,11 +18,14 @@ import com.newbit.www.vo.StoreVO;
 public class Profile {
 	@Autowired
 	ProfileDao profileDao;
+	@Autowired
+	ProfileJsonSimple profileJson;
 	
 	@RequestMapping("/library.nbs")
 	public ModelAndView LibraryForm(ModelAndView mv, HttpSession session) {
 		String id = (String) session.getAttribute("SID");
 		List<StoreVO> list = profileDao.getLibrary(id);
+		list = profileJson.getLibraryJson(list);
 		
 		mv.setViewName("/profile/library");
 		return mv;

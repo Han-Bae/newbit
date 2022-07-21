@@ -5,7 +5,7 @@
 <mapper namespace="profileSQL">
 	<select id="getLibrary" resultType="storeVO" parameterType="string">
 		SELECT
-		    game_id, buydate
+		    game_id appId, buydate
 		FROM
 		    library li, account ac
 		WHERE

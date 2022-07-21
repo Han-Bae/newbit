@@ -126,3 +126,15 @@ header {
 .user-nav *:hover {
 	color: white;
 }
+
+#noticeBtn {
+	cursor: pointer;
+	font-size: 22px;
+	margin-right: 20px;
+	position: absolute;
+	top: 40px;
+	left: 170px;
+}
+#noticeBtn:hover {
+	color: white;
+}
