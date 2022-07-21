@@ -12,7 +12,7 @@
 	<script src="https://kit.fontawesome.com/e0f46f82c6.js"></script>
 	<script type="text/javascript" src="/www/js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="/www/js/components/header.js"></script>
-	<script type="text/javascript" src="/www/js/profile/libarary.js"></script>
+	<script type="text/javascript" src="/www/js/profile/profile.js"></script>
 </head>
 <body>
 	
@@ -71,47 +71,30 @@
 			<a href="/www/payment/basket.nbs"><i class="tim-icons icon-basket-simple"></i></a>
 			<a href="/www/payment/pick.nbs"><i class="tim-icons icon-shape-star"></i></a>
 		</div>
+		
+		<a href="/www/account/notice.nbs" id="noticeBtn"><i class="tim-icons icon-alert-circle-exc"></i></a>
 	</header>
 	
 	<main>
 		<div class="library">
 		
 			<div class="library--games">
-		
-				<div class="card">
-					<img class="card-img-left" src="/www/img/logo.png">
+			
+<c:forEach var="data" items="${LIST}">
+				<div class="card" id="${data.appId}" >
+					<img class="card-img-left" src="${data.img}">
 					<div>
 						<div class="game-title-info">
-							<h4>Game Title</h4>
-							<span class="whenGame">구입한 날짜</span>
+							<h4>${data.title}</h4>
+							<span class="whenGame">${data.buydate} 구매</span>
 						</div>
-						<button type="button" class="btn btn-primary animation-on-hover">상점 페이지</button>
-						<button id="refundBtn" type="button" class="btn btn-warning animation-on-hover">환불 신청</button>
+						<button type="button" class="btn btn-primary animation-on-hover goTOStoreBtn">상점 페이지</button>
+	<c:if test="${data.diffDate lt 14}">
+						<button type="button" class="btn btn-warning animation-on-hover refundBtn">환불 신청</button>
+	</c:if>
 					</div>
 				</div>
-				
-				<div class="card">
-					<img class="card-img-left" src="/www/img/logo.png">
-					<div>
-						<h4>Game Title</h4>
-						<div class="game-title-info">
-							<span class="whenGame">2022.07.04</span>
-							<i class="tim-icons icon-minimal-up"></i>
-						</div>
-					</div>
-				</div>
-				
-				<div class="card">
-					<img class="card-img-left" src="/www/img/logo.png">
-					<div>
-						<h4>Game Title</h4>
-						<div class="game-title-info">
-							<span class="whenGame">2022.07.04</span>
-							<i class="tim-icons icon-minimal-up"></i>
-						</div>
-					</div>
-				</div>
-				
+</c:forEach>		
 									
 			</div>
 		</div>

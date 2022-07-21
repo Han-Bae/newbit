@@ -3,14 +3,15 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="profileSQL">
+	<!-- 절대로 DB 식별자, 예약어로 하지말자 -->
 	<select id="getLibrary" resultType="storeVO" parameterType="string">
 		SELECT
-		    game_id appId, buydate
+		    game_id appId, buydate dateFormatBuydate
 		FROM
 		    library li, account ac
 		WHERE
-		    id = #{id}
-		    AND account_no = ac.no
+		    account_no = ac.no
+		    AND id = #{id}
 		    AND li.isshow = 'Y'
 		ORDER BY
 		    li.no DESC

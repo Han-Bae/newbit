@@ -23,11 +23,13 @@ public class Profile {
 	
 	@RequestMapping("/library.nbs")
 	public ModelAndView LibraryForm(ModelAndView mv, HttpSession session) {
+		mv.setViewName("/profile/library");
+		
 		String id = (String) session.getAttribute("SID");
 		List<StoreVO> list = profileDao.getLibrary(id);
 		list = profileJson.getLibraryJson(list);
 		
-		mv.setViewName("/profile/library");
+		mv.addObject("LIST", list);
 		return mv;
 	}
 
