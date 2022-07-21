@@ -43,31 +43,37 @@ public class StoreJsonSimple {
 			sVO.setType((String) appData.get("type"));
 			sVO.setTitle((String) appData.get("name"));
 			sVO.setDetailedDescription((String) appData.get("about_the_game"));
+			
 			if(((String) appData.get("type")).equals("dlc")) {
 				sVO.setFullgameId((String) ((JSONObject) appData.get("fullgame")).get("appid"));
 				sVO.setFullgameTitle((String) ((JSONObject) appData.get("fullgame")).get("name"));
 			} else if(((String) appData.get("type")).equals("game")) {
 				sVO.setShortDescription((String) appData.get("short_description"));
 			}
+			
 			sVO.setImg((String) appData.get("header_image"));
+			
 			ArrayList<String> developers = new ArrayList<String>();
 			JSONArray devArr = (JSONArray) appData.get("developers");
 			for(int i = 0 ; i < devArr.size() ; i++) {
 				developers.add((String) devArr.get(i));
 			}
 			sVO.setDevelopers(developers);
+			
 			ArrayList<String> publishers = new ArrayList<String>();
 			JSONArray publArr = (JSONArray) appData.get("publishers");
 			for(int i = 0 ; i < publArr.size() ; i++) {
 				publishers.add((String) publArr.get(i));
 			}
 			sVO.setPublishers(publishers);
+			
 			ArrayList<String> tags = new ArrayList<String>();
 			JSONArray tagArr = (JSONArray) appData.get("genres");
 			for(int i = 0 ; i < tagArr.size() ; i++) {
 				tags.add((String) ((JSONObject) tagArr.get(i)).get("description"));
 			}
 			sVO.setTags(tags);
+			
 			JSONObject priceOverview = (JSONObject) appData.get("price_overview");
 			String discount = String.valueOf(priceOverview.get("discount_percent"));
 			sVO.setDiscount(discount);
@@ -78,6 +84,7 @@ public class StoreJsonSimple {
 				sVO.setDiscountPrice((String) priceOverview.get("final_formatted"));
 			}
 			sVO.setPackageTitle((String) ((JSONObject) ((JSONArray) appData.get("package_groups")).get(0)).get("title"));
+			
 			/* 장르 추가 */
 			HashMap<String, String> ssMap = new HashMap<String, String>();
 			JSONArray screenshots = (JSONArray) appData.get("screenshots");
@@ -85,6 +92,7 @@ public class StoreJsonSimple {
 				ssMap.put((String) ((JSONObject) screenshots.get(i)).get("path_thumbnail"), (String) ((JSONObject) screenshots.get(i)).get("path_full"));
 			}
 			sVO.setScreenshot(ssMap);
+			
 			HashMap<String, String> mvMap = new HashMap<String, String>();
 			JSONArray movies = (JSONArray) appData.get("movies");
 			for(int i = 0 ; i < movies.size() ; i++) {
@@ -92,7 +100,9 @@ public class StoreJsonSimple {
 						(String) ((JSONObject) ((JSONObject) movies.get(i)).get("mp4")).get("480"));
 			}
 			sVO.setMovie(mvMap);
+			
 			sVO.setReleased((String) ((JSONObject) appData.get("release_date")).get("date"));
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

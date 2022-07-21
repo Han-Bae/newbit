@@ -16,6 +16,7 @@
 	<bean id="rDao" class="com.newbit.www.dao.ReviewDao" />
 	<bean id="uDao" class="com.newbit.www.dao.UploadDao" />
 	<bean id="storeDao" class="com.newbit.www.dao.StoreDao" />
+	<bean id="profileDao" class="com.newbit.www.dao.ProfileDao" />
 	
 	<!-- API -->
 	<!-- Crawling -->

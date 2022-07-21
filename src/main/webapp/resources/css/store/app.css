@@ -202,7 +202,7 @@ img.mainMedia {
 .app-detail-main .game .card .add-to-basket {
 	background: linear-gradient(to bottom left, #e14eca, #ba54f5, #e14eca);
 	cursor: pointer;
-	border-radius: 2px;
+	border-radius: 5px;
 	display: flex;
 	height: 100%;
 	align-items: center;
