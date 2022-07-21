@@ -1,5 +1,7 @@
 package com.newbit.www.vo;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +23,11 @@ public class StoreVO {
 	private String shortDescription, detailedDescription, fullgameId, fullgameTitle, type, packageTitle;
 	private List<String> developers, publishers, tags;
 	private Map<String, String> screenshot, movie;
+	
+	/* library 페이지에 추가로 필요한 변수 */
+	private Date dateFormatBuydate;
+	private String buydate;
+	private int diffDate;
 
 	public String getTitle() {
 		return title;
@@ -139,5 +146,34 @@ public class StoreVO {
 	public void setMovie(Map<String, String> movie) {
 		this.movie = movie;
 	}
+	
+	
+	public void setDateFormatBuydate(Date FormatBuydate) {
+		this.dateFormatBuydate = FormatBuydate;
+		
+		setBuydate();
+		
+		Date now = new Date();
+		int diffDate = (int) (((now.getTime() - FormatBuydate.getTime()) / 1000) / (24 * 60 * 60));
+		setDiffDate(diffDate);
+		
+	}
+	public String getBuydate() {
+		return buydate;
+	}
+	public void setBuydate(String buydate) {
+		this.buydate = buydate;
+	}
+	public void setBuydate() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월 dd일");
+		buydate = format.format(dateFormatBuydate);
+	}
+	public int getDiffDate() {
+		return diffDate;
+	}
+	public void setDiffDate(int diffDate) {
+		this.diffDate = diffDate;
+	}
+	
 	
 }

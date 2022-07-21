@@ -71,6 +71,8 @@
 			<a href="/www/payment/payForm.nbs"><i class="tim-icons icon-basket-simple"></i></a>
 			<a href="/www/payment/pick.nbs"><i class="tim-icons icon-shape-star"></i></a>
 		</div>
+		
+		<a href="/www/account/notice.nbs" id="noticeBtn"><i class="tim-icons icon-alert-circle-exc"></i></a>
 	</header>
 	
 	<!-- steam 웹사이트 참고 -->

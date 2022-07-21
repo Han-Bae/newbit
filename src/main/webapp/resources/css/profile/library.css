@@ -43,10 +43,11 @@ body::-webkit-scrollbar-track {
 .library--games .card .game-title-info h4 {
 	margin: 0;
 }
-.library--games .card .btn {
+.library--games .card .goTOStoreBtn {
 	padding: 5px 10px;
+	width: 145px;
 }
-#refundBtn {
+.library--games .card .refundBtn {
 	position: absolute;
 	right: 20px;
 	top: 30%;
