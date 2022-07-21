@@ -75,16 +75,20 @@ public class StoreJsonSimple {
 			}
 			sVO.setTags(tags);
 			
-			JSONObject priceOverview = (JSONObject) appData.get("price_overview");
-			String discount = String.valueOf(priceOverview.get("discount_percent"));
-			sVO.setDiscount(discount);
-			if(discount.equals("0")) {
-				sVO.setPrice((String) priceOverview.get("final_formatted"));
-			} else {
-				sVO.setPrice((String) priceOverview.get("initial_formatted"));
-				sVO.setDiscountPrice((String) priceOverview.get("final_formatted"));
+			Boolean isFree = (Boolean) appData.get("is_free");
+			if(isFree == false) {
+				JSONObject priceOverview = (JSONObject) appData.get("price_overview");
+				String discount = String.valueOf(priceOverview.get("discount_percent"));
+				sVO.setDiscount(discount);
+				if(discount.equals("0")) {
+					sVO.setPrice((String) priceOverview.get("final_formatted"));
+				} else {
+					sVO.setPrice((String) priceOverview.get("initial_formatted"));
+					sVO.setDiscountPrice((String) priceOverview.get("final_formatted"));
+				}
+				
+				sVO.setPackageTitle((String) ((JSONObject) ((JSONArray) appData.get("package_groups")).get(0)).get("title"));
 			}
-			sVO.setPackageTitle((String) ((JSONObject) ((JSONArray) appData.get("package_groups")).get(0)).get("title"));
 			
 			/* 장르 추가 */
 			HashMap<String, String> ssMap = new HashMap<String, String>();
@@ -96,11 +100,13 @@ public class StoreJsonSimple {
 			
 			HashMap<String, String> mvMap = new HashMap<String, String>();
 			JSONArray movies = (JSONArray) appData.get("movies");
-			for(int i = 0 ; i < movies.size() ; i++) {
-				mvMap.put((String) ((JSONObject) movies.get(i)).get("thumbnail"),
-						(String) ((JSONObject) ((JSONObject) movies.get(i)).get("mp4")).get("480"));
+			if(movies != null) {
+				for(int i = 0 ; i < movies.size() ; i++) {
+					mvMap.put((String) ((JSONObject) movies.get(i)).get("thumbnail"),
+							(String) ((JSONObject) ((JSONObject) movies.get(i)).get("mp4")).get("480"));
+				}
+				sVO.setMovie(mvMap);
 			}
-			sVO.setMovie(mvMap);
 			
 			sVO.setReleased((String) ((JSONObject) appData.get("release_date")).get("date"));
 			
@@ -112,5 +118,31 @@ public class StoreJsonSimple {
 		}
 		
 		return sVO;
+	}
+	
+	public String getFullgameImg(String appId) {
+		String fullgameImg = "";
+		
+		try {
+			URL url = new URL("https://store.steampowered.com/api/appdetails?appids=" + appId + "&l=korean");
+			InputStreamReader isr = new InputStreamReader(url.openStream(), "UTF-8");
+			BufferedReader bf = new BufferedReader(isr);
+			String result = bf.readLine();
+			
+			JSONParser jsonParser = new JSONParser();
+			JSONObject jsonObject = (JSONObject) jsonParser.parse(result);
+			JSONObject appJson = (JSONObject) jsonObject.get(appId);
+			JSONObject appData = (JSONObject) appJson.get("data");
+			
+			fullgameImg = (String) appData.get("header_image");
+			
+			bf.close();
+			isr.close();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return fullgameImg;
 	}
 }

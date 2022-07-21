@@ -109,7 +109,7 @@
 	<c:if test="${sVO.type eq 'dlc'}">
 				<div class="fullgame">
 					<p>플레이하려면 Steam 버전인 <a class="title-anchor" href="http://localhost/www/store/app/?game=App_${sVO.fullgameId}">${sVO.fullgameTitle}</a> 기본 게임이 필요합니다.</p>
-					<a class="img-anchor" href="http://localhost/www/store/app/?game=App_${sVO.fullgameId}"><img src="https://cdn.akamai.steamstatic.com/steam/apps/1446780/header.jpg?t=1656665891"></a>
+					<a class="img-anchor" href="http://localhost/www/store/app/?game=App_${sVO.fullgameId}"><img src="${fullgameImg}"></a>
 				</div>
 	</c:if>
 	<c:if test="${sVO.type eq 'game'}">
@@ -175,31 +175,36 @@
 		
 		<div class="game">
 			<div class="card">
+	<c:if test="${empty sVO.discount}">
+				<h4>무료 게임</h4>
+	</c:if>
+	<c:if test="${not empty sVO.discount}">
 				<h4>${sVO.packageTitle}</h4>
 				<div>
-	<c:if test="${sVO.discount ne '0'}">
+		<c:if test="${sVO.discount ne '0'}">
 					<span class="salePercent">-${sVO.discount}%</span>
 					<div>
 						<span class="oriPrice"><del>${sVO.price}</del></span>
 						<span class="price">${sVO.discountPrice}</span>
 					</div>
-	</c:if>
-	<c:if test="${sVO.discount eq '0'}">
+		</c:if>
+		<c:if test="${sVO.discount eq '0'}">
 					<span class="price">${sVO.price}</span>
-	</c:if>
+		</c:if>
 	
-	<c:if test="${empty SID}">
-					<span id="addToBasketBtn" class="basket">장바구니에 추가</span>
-	</c:if>
-	<c:if test="${not empty SID}">
-		<c:if test="${sVO.basketCount eq 0}">
+		<c:if test="${empty SID}">
 					<span id="addToBasketBtn" class="basket">장바구니에 추가</span>
 		</c:if>
-		<c:if test="${sVO.basketCount eq 1}">
+		<c:if test="${not empty SID}">
+			<c:if test="${sVO.basketCount eq 0}">
+					<span id="addToBasketBtn" class="basket">장바구니에 추가</span>
+			</c:if>
+			<c:if test="${sVO.basketCount eq 1}">
 					<span id="goToBasketBtn" class="basket">장바구니로 가기</span>
+			</c:if>
 		</c:if>
-	</c:if>
 				</div>
+	</c:if>
 			</div>
 	<c:if test="${empty SID}">
 			<button type="button" id="addToPickBtn" class="btn btn-primary btn-round btn-icon animation-on-hover"><i class="tim-icons icon-shape-star"></i></button>

@@ -20,7 +20,7 @@ public class StoreVO {
 	/* reviewSummary => positive, mixed, negative */
 	
 	/* detail 페이지에서 추가로 필요한 변수 */
-	private String shortDescription, detailedDescription, fullgameId, fullgameTitle, type, packageTitle;
+	private String shortDescription, detailedDescription, fullgameId, fullgameTitle, type, packageTitle, isFree;
 	private List<String> developers, publishers, tags;
 	private Map<String, String> screenshot, movie;
 	private int pickCount, basketCount;
@@ -123,6 +123,15 @@ public class StoreVO {
 	}
 	public void setPackageTitle(String packageTitle) {
 		this.packageTitle = packageTitle;
+	}
+	public String getIsFree() {
+		return isFree;
+	}
+	public void setIsFree(String isFree) {
+		this.isFree = isFree;
+	}
+	public Date getDateFormatBuydate() {
+		return dateFormatBuydate;
 	}
 	public List<String> getDevelopers() {
 		return developers;
