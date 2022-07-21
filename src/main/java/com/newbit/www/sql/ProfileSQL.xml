@@ -3,5 +3,16 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="profileSQL">
-
+	<select id="getLibrary" resultType="storeVO" parameterType="string">
+		SELECT
+		    game_id, buydate
+		FROM
+		    library li, account ac
+		WHERE
+		    id = #{id}
+		    AND account_no = ac.no
+		    AND li.isshow = 'Y'
+		ORDER BY
+		    li.no DESC
+	</select>
 </mapper>

@@ -24,6 +24,7 @@
 	<bean id="storeSelenium" class="com.newbit.www.api.StoreSelenium" />
 	<!-- Json Handler -->
 	<bean id="storeJson" class="com.newbit.www.api.StoreJsonSimple" />
+	<bean id="profileJson" class="com.newbit.www.api.ProfileJsonSimple" />
 	
 	<!-- 서비스 클래스 빈처리 -->
 	<bean id="lSrc" class="com.newbit.www.service.LogService" />
