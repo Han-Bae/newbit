@@ -202,11 +202,11 @@
 				</div>
 			</div>
 	<c:if test="${empty SID}">
-			<button type="button" class="btn btn-primary btn-round btn-icon animation-on-hover"><i class="tim-icons icon-shape-star"></i></button>
+			<button type="button" id="addToPickBtn" class="btn btn-primary btn-round btn-icon animation-on-hover"><i class="tim-icons icon-shape-star"></i></button>
 	</c:if>
 	<c:if test="${not empty SID}">
 		<c:if test="${sVO.pickCount eq 0}">
-			<button type="button" class="btn btn-primary btn-round btn-icon animation-on-hover"><i class="tim-icons icon-shape-star"></i></button>
+			<button type="button" id="addToPickBtn" class="btn btn-primary btn-round btn-icon animation-on-hover"><i class="tim-icons icon-shape-star"></i></button>
 		</c:if>
 		<c:if test="${sVO.pickCount eq 1}">
 			<button type="button" class="btn btn-primary btn-round btn-icon animation-on-hover" disabled><i class="tim-icons icon-shape-star"></i></button>

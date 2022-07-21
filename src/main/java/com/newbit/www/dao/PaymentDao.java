@@ -15,6 +15,9 @@ public class PaymentDao {
 	public List<PaymentVO> getPickList(String id) {
 		return sqlSession.selectList("pSQL.getPickList", id);
 	}
+	public int isshowPick(String id) {
+		return sqlSession.selectOne("pSQL.isshowPick", id);
+	}
 // 장바구니 불러오기
 	public List<PaymentVO> getBasketList(String id) {
 		return sqlSession.selectList("pSQL.getBasketList", id);
@@ -25,6 +28,14 @@ public class PaymentDao {
 // 장바구니 저장
 	public int addBasket(PaymentVO pVO) {
 		return sqlSession.insert("pSQL.addBasket", pVO);
+	}
+// 찜목록 저장
+	public int addPick(PaymentVO pVO) {
+		return sqlSession.insert("pSQL.addPick", pVO);
+	}
+// 찜목록 다시 보이기
+	public int showPick(String game_id) {
+		return sqlSession.update("pSQL.showPick", game_id);
 	}
 // 찜목록 삭제
 	public int delPick(String game_id) {

@@ -15,6 +15,13 @@
 				WHERE id = #{id}
 			) AND isshow = 'Y'
 	</select>
+	<select id="isshowPick" resultType="int" parameterType="string">
+		SELECT count(*)
+		FROM pick
+		WHERE game_id = #{game_id}
+			AND isshow = 'N'
+	</select>
+	
 	<!-- 장바구니 불러오기 -->
 	<select id="getBasketList" resultType="pVO" parameterType="string">
 		SELECT game_id
@@ -33,6 +40,17 @@
 	</select>
 	
 	
+	<!-- 찜목록 추가 -->
+	<insert id="addPick" parameterType="pVO">
+		<selectKey keyProperty="account_no" resultType="int" order="BEFORE">
+			SELECT no FROM account WHERE id = #{id}
+		</selectKey>
+		INSERT INTO
+			pick(account_no, game_id, isnewbit, isshow)
+		VALUES(
+			#{account_no}, #{game_id}, 'N', 'Y'
+		)	
+	</insert>
 	<!-- 장바구니 추가 -->
 	<insert id="addBasket" parameterType="pVO">
 		<selectKey keyProperty="account_no" resultType="int" order="BEFORE">
@@ -45,6 +63,12 @@
 		)	
 	</insert>
 	
+	<!-- 찜목록 다시 보이기 -->
+	<update id="showPick" parameterType="string">
+		UPDATE pick
+		SET isshow = 'Y'
+		WHERE game_id = #{game_id}
+	</update>
 	<!-- 찜목록 삭제 -->
 	<update id="delPick" parameterType="string">
 		UPDATE pick

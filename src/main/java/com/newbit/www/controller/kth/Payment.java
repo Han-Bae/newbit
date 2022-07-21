@@ -70,6 +70,45 @@ public class Payment {
 		mv.setViewName("pay/pick");
 		return mv;
 	}
+	// 찜목록 추가
+	@ResponseBody
+	@RequestMapping(path="/addPick.nbs", method=RequestMethod.POST, params="game_id")
+	public Map<String, String> addPick(ModelAndView mv, HttpSession session, String game_id) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		String result = "NO";
+		String overlap = "NO";
+		List<PaymentVO> pavo =  pDao.getPickList((String)session.getAttribute("SID"));
+		List<String> pickList = new ArrayList<String>();
+		for(PaymentVO pick : pavo) {
+			pickList.add(pick.getGame_id());
+		}
+		for(String pick : pickList) {
+			if(pick.equals(game_id)) {
+				// 이미 찜목록에 존재하는 게임이면
+				overlap = "YES";
+				result = "RETRY";
+			}
+		}
+		// 중복이 아닐때만 장바구니에 저장
+		if(overlap.equals("YES") == false) {
+			int cnt = pDao.isshowPick(game_id);
+			// isshow가 n인 경우라 감춰졌다면 Y로 변경
+			if(cnt == 1) {
+				cnt = pDao.showPick(game_id);
+			}else {				
+				PaymentVO pVO = new PaymentVO();
+				pVO.setGame_id(game_id);
+				pVO.setId((String)session.getAttribute("SID"));
+				cnt = 0;
+				cnt = pDao.addPick(pVO);
+			}
+			if(cnt == 1) {
+				result = "OK";
+			}
+		}
+		map.put("result", result);
+		return map;
+	}
 	// 장바구니 추가
 	@ResponseBody
 	@RequestMapping(path="/addBasket.nbs", method=RequestMethod.POST, params="game_id")

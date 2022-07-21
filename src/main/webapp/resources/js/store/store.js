@@ -68,4 +68,27 @@ $(document).ready(function() {
 		$(location).attr('href', '/www/payment/basket.nbs');
 	});
 	
+	$('#addToPickBtn').click(function(){
+		const data = {
+				game_id : $('#gameId').val()
+		}
+		$.ajax({
+			url: '/www/payment/addPick.nbs',
+			type: 'post',
+			dataType: 'json',
+			data: data,
+			success: function(data){
+				if(data.result == 'OK') {
+					$(location).attr('href', '/www/payment/pick.nbs');
+				}else if(data.result == 'RETRY'){
+					swal('추가 불가', '이미 찜목록에 등록된 상품입니다.', 'error');
+				}
+			},
+			error: function(){
+				$('input[name="vw"]').val($(location).attr('href'));
+				$('form').attr('action', '/www/account/login.nbs');
+				$('form').submit();
+			}
+		});		
+	});
 });
