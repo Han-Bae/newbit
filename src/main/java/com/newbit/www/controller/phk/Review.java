@@ -184,6 +184,14 @@ public class Review {
 
 		return map;
 	}
+	
+	@RequestMapping("reviewDetailPage.nbs")
+	public ModelAndView reviewDetailPage(ModelAndView mv, String ano, String rno) {
+		mv.addObject("ANO", ano);
+		mv.addObject("RNO", rno);
+		mv.setViewName("/review/reviewDetail");
+		return mv;
+	}
 
 	//
 	@RequestMapping(path = "/reviewYN.nbs", method = RequestMethod.POST)

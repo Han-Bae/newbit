@@ -14,12 +14,15 @@
 <script src="https://kit.fontawesome.com/e0f46f82c6.js"></script>
 <script type="text/javascript" src="/www/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/www/js/components/header.js"></script>
-<script type="text/javascript" src="/www/js/review/reviewMain.js"></script>
+<script type="text/javascript" src="/www/js/review/reviewDetail.js"></script>
 <style>
+
 
 </style>
 </head>
 <body class="store-main-body">
+<input type="hidden" id="ano" value="${ANO}">
+<input type="hidden" id="rno" value="${RNO}">
 
 
 	<header>
@@ -99,65 +102,16 @@
 		
 		<!-- 1. 리뷰 탭 -->
 		<div id="review">
-			<div class="sort">
-				<ul>
-					<li>표시중</li>
-					<li><a href="#">가장인기있는항목</a></li>
-					<li><a href="#">최신항목</a></li>
-				</ul>
-			</div>
 			
-			<div class="reviewWriteWrap">
-			<%-- <c:if test="${}"> --%>
-				<div class="form-group">
-		        	<label for="exampleFormControlTextarea1">평가리뷰입력자리입니다</label>
-		        	<textarea class="form-control" id="body" name="body" rows="1"></textarea>
-		        	<button class="btn btn-success animation-on-hover" id="rbtn">평가리뷰저장</button>
-		      	</div>
-			<%-- </c:if> --%>
-			</div>
-			
-			<!-- 평가리뷰 게시글 -->
-			<div class="reviewBoxWrap">
-				<c:forEach var="data" items="${LIST}">
-				
-					<div class="reviewBox" id="reviewBoxDetail" name="reviewBoxDetail" data-value1="${data.account_no}" data-value2="${data.no}">
-						<div class="reviewBox1">
-							<div>
-								<p>39명이 이 평가가 유용하다고 함</p>
-								<c:if test="${data.isgood eq 'G'}">
-									<img src="/www/img/good.png">
-								</c:if>
-								<c:if test="${data.isgood eq 'B'}">
-									<img src="/www/img/bad.png">
-								</c:if>
-								<p>게시일시:${data.rdate}</p>
-								<p>${data.body}</p>
-							</div>
-						</div>
-					
-						<div class="reviewBox2">
-							<p>${data.account_no}</p>
-						</div>
-					</div>
-					<input type="hidden" name="no" id="no" value="${data.no}"/>
-					<input type="hidden" name="account_no" id="account_no" value="${data.account_no}"/>
-				</c:forEach>
-			</div>
-			
-		
-		
-		
-		<%-- 리뷰 상세내용 모달창  --%>
-		<div class="modal" id="reviewDetail">
+		<%-- 리뷰 상세내용 페이지  --%>
 		  <div class="" role="document">
 		    <div style="">
 		      <div style="background-color: #151e2a; display: flex; flex-direction: column; flex-direction: column;">
-		        자기가 등록한 글을 클릭했을때만 노출
+		        <!-- 자기가 등록한 글을 클릭했을때만 노출 -->
 		        <div style="background-color: #2f343f; display: flex;">
 			        <img id="accountImg" src="/www/img/logo.png" width="40px;" height="40px;" >
 			        <div id="dAccount"></div>
-			        <div id="btnModify" display='none'>수정</div>
+			      <!--   <div id="btnModify" display='none'>수정</div> -->
 			        <div id="btnDelete" display='none'>삭제</div>
 		        </div>
 		        
@@ -177,7 +131,7 @@
 		        	<div id="dBody"></div>
 		        </div>
 		        
-		        이 평가에 대한 평가
+		        <!-- 이 평가에 대한 평가 -->
 		        <div id="divReview" display='none'>
 		        	<div>이 평가가 유용한가요?</div>
 						<div>
@@ -189,7 +143,10 @@
 		      </div>	      	
 		    </div>
 		  </div>
-		</div>
+		<!--</div>-->
+
+			
+		
 		
 		
 		
@@ -197,127 +154,6 @@
 		
 		
 	</div>
-	
-
-	
-	
-	
-	
-	<!-- 2. 스샷 탭 -->
-<div id="screenShot">
-	<div class="sort">
-		<div>
-			<div class="sort">
-				<ul>
-					<li>표시</li>
-					<li><a href="#">인기순</a></li>
-					<li><a href="#">검색</a></li>
-					<li><a href="#">친구만 표시</a></li>
-				</ul>
-			</div>
-			
-			<div class="reviewWriteWrap">
-				<div class="form-group">
-		        	<label for="exampleFormControlTextarea1">스샷파일 업로드하는 곳 입니다.</label>
-		        	<textarea class="form-control" id="" name="" rows="1"></textarea>
-		        	<div class="w3-col w3-margin-bottom">
-						<label class="w3-col s2">파일추가</label>
-						<div class="w3-col m10" id="filebox">
-							<input type="file" name="file" class="upfile">
-						</div>
-					</div>
-					<div class="w3-col w3-margin-bottom" id="previewbox" style="display: none;">
-						<label class="w3-col s2">미리보기</label>
-						<div class="w3-col m10 w3-center" id="preview">
-						</div>
-					</div>
-		        	
-		      	</div>
-			</div>
-		       <button class="btn btn-success animation-on-hover" id="ssUploadBtn">업로드</button>
-			
-		</div>
-		<div>
-	
-			<div class="reviewBoxWrap">
-				<div class="reviewBox" id="" name="" data-value1="" data-value2="">
-					<div class="reviewBox1">
-						<div>
-							<div>프로필</div>
-							<div>
-								<img src="<%=request.getContextPath()  %>/files/${r.reviewPhoto}" style="width: 500px; height: 300px;">
-							</div>
-							<div>추천n개</div>
-							<div>비추n개</div>
-							<div>댓글n개</div>
-						</div>
-					</div>
-				
-					<div class="reviewBox2">
-						<div>작성자</div>
-					</div>
-				</div>
-			</div>
-				
-			
-<%-- 스샷 상세내용 모달창  --%>
-		<div class="modal" id="">
-		  <div class="" role="document">
-		    <div style="">
-		      <div style="background-color: #151e2a; display: flex; flex-direction: column; flex-direction: column;">
-		        <!-- 자기가 등록한 글을 클릭했을때만 노출 -->
-		        <div style="background-color: #2f343f; display: flex;">
-			        <img id="accountImg" src="/www/img/logo.png" width="40px;" height="40px;" >
-			        <div id=""></div>
-			        <div id="" display='none'>삭제</div>
-		        </div>
-		        
-		        <div><span id=""></span>명이 평가가 유용하다고 함</div>
-		        <div><span id=""></span>명이 평가가 유용하지 않다고 함</div>
-		        
-		        <div>
-					<div>
-						<img id="goodImg" src="/www/img/good.png" display='none'>
-						<img id="badImg" src="/www/img/bad.png" display='none'>
-					</div>
-		        </div>
-				<div>
-					<div id=""></div>
-				</div>
-		        <div>
-		        	<div id=""></div>
-		        </div>
-		        
-		        <!-- 이 평가에 대한 평가 -->
-		        <div id="" display='none'>
-		        	<div>이 평가가 유용한가요?</div>
-						<div>
-							<input type="radio" name="" id="" value="Y"><label for="reviewY"> 네</label>
-							<input type="radio" name="" id="" value="N"><label for="reviewN"> 아니오</label>
-							<input type="button" id="" value="저장">
-						</div>
-		        </div>
-		      </div>	      	
-		    </div>
-		  </div>
-		</div>
-			
-		</div>
-	</div>
-</div>
-
-
-
-
-
-
-
-	<!-- 3. 방송 탭 -->
-	<div id="live">
-		<div>여긴 방송페이지</div>
-	</div>
-		
-		
 	<footer>Cover template for
 		<a href="https://naver.com">Bootstrap</a>, by
 		<a href="https://daum.net">@fighterkun</a>.
