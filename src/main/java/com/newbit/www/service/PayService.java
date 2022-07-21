@@ -21,8 +21,7 @@ public class PayService {
 	public void addPayData(PaymentVO pVO, HttpSession session) {
 		// 선물할 친구 명단이 있다면 선물 결제이다.
 			// 선물결제
-		System.out.println(session.getAttribute("NAMELIST"));
-		if(session.getAttribute("NAMELIST") == null) {
+		if(session.getAttribute("NAMELIST") != null) {
 			List<String> nameList = pVO.getNameList();
 				// 선물받는 친구 명단
 			List<Integer> noList = pDao.getNoList(nameList);

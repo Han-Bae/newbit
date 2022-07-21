@@ -108,7 +108,7 @@
 											<img class="card-img-left" src="${pick.img}" width="120px" height="50px">
 											<div class="card-width">
 												<h4 style="width: 160px;">${pick.title}</h4>
-												<div class="game-title-info" style="width: 50px">
+												<div class="game-title-info">
 													<span class="whenGame">${pick.released}</span>
 												</div>
 												<div class="gameDiscount">

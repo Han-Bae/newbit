@@ -41,6 +41,10 @@ option{
     display: flex;
 }
 
+.game-title-info{
+	width:100px;
+}
+
 .basket-game{
 	margin-left: 1%;
     justify-content: space-between;
