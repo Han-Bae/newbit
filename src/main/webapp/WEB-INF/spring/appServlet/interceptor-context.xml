@@ -28,6 +28,7 @@
 		<!-- 로그인 아니면 로그인 화면 -->
 		<interceptor>
 			<mapping path="/payment/*.nbs" />
+			<mapping path="/profile/*.nbs" />
 			<beans:ref bean="loginRedirect" />
 		</interceptor>
 		

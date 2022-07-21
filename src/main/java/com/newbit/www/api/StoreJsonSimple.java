@@ -12,6 +12,16 @@ import org.json.simple.parser.JSONParser;
 
 import com.newbit.www.vo.StoreVO;
 
+/**
+ * 
+ * @author 전다빈
+ * @since	2022.07.20
+ * @version v.1.0
+ * 
+ * 			작업이력 ] 2022.07.20 - 담당자 전다빈 : json-simple을 이용한 api 제작
+ *
+ */
+
 public class StoreJsonSimple {
 	
 	public StoreVO getDetailJson(String appId) {

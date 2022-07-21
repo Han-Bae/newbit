@@ -15,7 +15,7 @@ import com.newbit.www.vo.StoreVO;
  * @since	2022.07.06
  * @version v.1.0
  * 
- * 			작업이력 ] 2022.07.06 - 담당자 전다빈 : 크롤링 클래스 제작
+ * 			작업이력 ] 2022.07.06 - 담당자 전다빈 : Jsoup을 이용한 크롤링 api 제작
  *
  */
 public class StoreJsoup {

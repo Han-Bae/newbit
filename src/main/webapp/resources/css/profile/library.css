@@ -25,6 +25,12 @@ body::-webkit-scrollbar-track {
 	margin-bottom: 5px;
 	position: relative;
 }
+.library--games .card > div {
+	padding: 10px 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
 .library--games .card img {
 	height: 100%;
 	width: auto;
@@ -32,19 +38,17 @@ body::-webkit-scrollbar-track {
 }
 .library--games .card .game-title-info {
 	display: flex;
-	justify-content: space-around;
-}
-.library--games .card .gamePrice {
-	position: absolute;
-	bottom: 5px;
-	right: 10px;
-	background: #1e1e2f;
-	padding: 5px;
-	display: flex;
-	align-items: center;
-}
-.library--games .card .gamePrice div {
-	display: flex;
 	flex-direction: column;
-	align-items: end;
+}
+.library--games .card .game-title-info h4 {
+	margin: 0;
+}
+.library--games .card .btn {
+	padding: 5px 10px;
+}
+#refundBtn {
+	position: absolute;
+	right: 20px;
+	top: 30%;
+	padding: 11px 40px;
 }

@@ -81,11 +81,12 @@
 				<div class="card">
 					<img class="card-img-left" src="/www/img/logo.png">
 					<div>
-						<h4>Game Title</h4>
 						<div class="game-title-info">
-							<span class="whenGame">2022.07.04</span>
-							<i class="tim-icons icon-minimal-up"></i>
+							<h4>Game Title</h4>
+							<span class="whenGame">구입한 날짜</span>
 						</div>
+						<button type="button" class="btn btn-primary animation-on-hover">상점 페이지</button>
+						<button id="refundBtn" type="button" class="btn btn-warning animation-on-hover">환불 신청</button>
 					</div>
 				</div>
 				
