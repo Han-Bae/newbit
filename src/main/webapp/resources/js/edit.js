@@ -107,7 +107,7 @@ $(document).ready(function(){
 		$(function(){
 			// exit 버튼
 			$(".exit-btn").click(function(){
-				$(location).attr("href", "/viseo/main.blp");
+				$(location).attr("href", "/www/");
 			});
 			
 			$.each($('#aname').find('option'),function(i,data) {
