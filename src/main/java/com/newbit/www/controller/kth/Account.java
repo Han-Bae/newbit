@@ -47,7 +47,7 @@ public class Account {
 		if(aVO.getIstype().equals("A")) {			
 			mv.setViewName("/account/admin");
 		}else {
-			rv.setUrl("/www/store/games.nbs");
+			rv.setUrl("/www/store/");
 			mv.setView(rv);
 		}
 		return mv;
@@ -98,7 +98,7 @@ public class Account {
 					if(session.getAttribute("vw") != null) {
 						mv.addObject("url", (String)session.getAttribute("vw"));					
 					} else {					
-						mv.addObject("url", "/www/store/games.nbs");
+						mv.addObject("url", "/www/store/");
 					}
 				}
 				mv.addObject("icon", "success");

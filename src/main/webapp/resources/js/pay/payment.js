@@ -208,8 +208,8 @@ function payment(){
 				alert("완료 -> imp_uid : "+rsp.imp_uid+" / merchant_uid(orderKey) : " +rsp.merchant_uid);
 				swal("결제 완료!","결제가 완료되어 메인페이지로 이동됩니다.","success")
 				.then(function(){
-					$(location).attr('href', '/www/store/games.nbs');
-					/* 	$('form').attr('action', '/www/store/games.nbs');
+					$(location).attr('href', '/www/store/');
+					/* 	$('form').attr('action', '/www/store/');
 					$('form').submit(); */
 					});
 				} else {
@@ -253,12 +253,12 @@ function payment(){
 			success: function(result){
 				swal(result.title, result.msg, result.icon)
 				.then(function(){
-					location.replace('/www/store/games.nbs');
+					location.replace('/www/store/');
 				})
 			},
 			error: function(){
 				alert("결제 에러, 다시 진행해주세요");
-				location.replace('/www/store/games.nbs');
+				location.replace('/www/store/');
 			}
 	    });
     }
