@@ -26,7 +26,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler)
 			throws Exception {
 		if(req.getSession().getAttribute("SID") != null) {
-			resp.sendRedirect("/www/store/games.nbs");
+			resp.sendRedirect("/www/store/");
 			return false; // 요청처리함수 실행을 하지 마세요...
 		}
 		return true;	// 요청 처리함수 실행을 해주세요.
