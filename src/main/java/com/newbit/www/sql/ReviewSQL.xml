@@ -100,10 +100,13 @@
 	</update>
 	
 	<select id ="getSelRewiewCnt" resultType="int" parameterType="rVO">
-		SELECT COUNT(*)
-		FROM REVIEW_GB
-		WHERE ACCOUNT_NO = #{no}
-		AND REVIEW_NO = #{dreviewNo}
+		SELECT 
+			COUNT(*)
+		FROM 
+			REVIEW_GB
+		WHERE 
+			ACCOUNT_NO = #{no}
+			AND REVIEW_NO = #{dreviewNo}
 	</select>
 	
 </mapper>

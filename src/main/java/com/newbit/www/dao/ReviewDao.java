@@ -15,14 +15,14 @@ public class ReviewDao {
 	
 	public int addReview(ReviewVO rVO) {
 		 System.out.println("dao" + rVO.getBody());
+		 System.out.println("dao" + rVO.getAccount_no());
+		 System.out.println("게임넘버모냐구?" + rVO.getGame_no());
 		 
 		 // 강제로 하드코딩할때는 set을 해서 임의로 값을 넣어준다 - 쁭히
-		 rVO.setNo(4444);
-		 //rVO.setAccount_no(1111);
-		 rVO.setGame_no(1111111111);
-		 rVO.setIsnewbit("Y");
-		 rVO.setIsgood("G");
-		 rVO.setIsshow("Y");
+			/*
+			 * rVO.setNo(4444); //rVO.setAccount_no(1111); rVO.setGame_no(1111111111);
+			 * rVO.setIsnewbit("Y"); rVO.setIsgood("G"); rVO.setIsshow("Y");
+			 */
 
 		 
 		return sqlSession.insert("rSQL.addReview", rVO);

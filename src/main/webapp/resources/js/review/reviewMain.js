@@ -7,13 +7,14 @@ $(document).ready(function(){
 	
 	// 리뷰저장버튼을 누르면 작성한 리뷰글을 저장하게 하는 기능
 	$('#rbtn').click(function(){
-		if($("#review_body").val() == ""){ // id에 있는 val값이 비어있으면 안내창 띄워라
+		
+		if($("#body").val() == ""){ // id에 있는 val값이 비어있으면 안내창 띄워라
 	        alert("리뷰를 입력하세요");
-	        $("#review_body").focus(); // 그리고 id에 포커스 해라
+	        $("#body").focus(); // 그리고 id에 포커스 해라
 	        return false;	// return false를 해서 넘어가지 못하게 함
 	      }
 		
-	// reviewWrite.nbs 로 이동할 때 전체 내용을 가지고 서밋해라
+		// reviewWrite.nbs 로 이동할 때 전체 내용을 가지고 서밋해라
 		$('#frm').attr('action', '/www/review/reviewWrite.nbs');
 		$('#frm').submit();
 	});
@@ -32,7 +33,7 @@ $(document).ready(function(){
 
 	
 	// 평가게시글을 누르면 상세페이지 띄우기
-	$('.reviewBox').click(function(){
+	$('.card').click(function(){
 		var ano = $(this).attr('data-value1');
 		var rno = $(this).attr('data-value2');
 		$(location).attr('href', '/www/review/reviewDetailPage.nbs?ano='+ano+'&rno='+rno);
@@ -106,6 +107,7 @@ $(document).ready(function(){
 		$('#frm').attr('action', '/www/sshot/uploadScreenShot.nbs');
 		$('#frm').submit();
 	});
+
 
 	
 

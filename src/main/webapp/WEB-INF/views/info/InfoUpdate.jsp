@@ -31,14 +31,14 @@
 		
 		<ul class="main-nav">
 			<li>
-				<a class="nav-link active" href="/www/store/games.nbs">
+				<a class="nav-link active" href="/www/store/">
 					<i class="tim-icons icon-cart main-nav-icon"></i>
 					<span class="main-nav-text">Store</span>
 					<div class="indicator"></div>
 				</a>
 			</li>
 			<li>
-				<a class="nav-link active" href="#">
+				<a class="nav-link active" href="/www/profile/library.nbs">
 					<i class="tim-icons icon-controller"></i>
 					<span class="main-nav-text">Library</span>
 					<div class="indicator"></div>
@@ -66,7 +66,7 @@
 </c:if>
 <c:if test="${not empty SID}">
 			<a href="/www/account/logout.nbs">Log Out</a>
-			<a href="#"><i class="tim-icons icon-single-02"></i></a>
+			<a href="/www/info/ProfileUpdate.nbs"><i class="tim-icons icon-single-02"></i></a>
 </c:if>
 			<a href="/www/payment/basket.nbs"><i class="tim-icons icon-basket-simple"></i></a>
 			<a href="#"><i class="tim-icons icon-shape-star"></i></a>

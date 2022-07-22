@@ -33,14 +33,14 @@
 		
 		<ul class="main-nav">
 			<li>
-				<a class="nav-link active" href="/www/store/games.nbs">
+				<a class="nav-link active" href="/www/store/">
 					<i class="tim-icons icon-cart main-nav-icon"></i>
 					<span class="main-nav-text">Store</span>
 					<div class="indicator"></div>
 				</a>
 			</li>
 			<li>
-				<a class="nav-link active" href="#">
+				<a class="nav-link active" href="/www/profile/library.nbs">
 					<i class="tim-icons icon-controller"></i>
 					<span class="main-nav-text">Library</span>
 					<div class="indicator"></div>
@@ -84,18 +84,19 @@
 <div class="container">
 
 	<section>
-		<p>최근 플레이(구매)한 게임의 포럼</p>
-		<p>Cover your page.Cover your page.Cover your page.Cover your page.Cover your page.Cover your page.Cover your page.Cover your page.Cover your page.Cover your page.Cover your page.Cover your page.Cover your page.Cover your page.Cover your page.Cover your page.</p>
+		<div style="margin-top: 20px;">
+			<h3>최근 플레이(구매)한 게임의 포럼</h3>
+		</div>
 		<input type="button" class="btn btn-primary btn-lg animation-on-hover" id="game1" name="game" value="1111111">
 		<input type="button" class="btn btn-primary btn-lg animation-on-hover" id="game2" name="game" value="2222222">
 	</section>
 	
 		
-		<div class="section_nav" style="">
-			<ul>
-				<li><a href="#review" id="reviewBtn">평가</a></li>
-				<li><a href="#screenShot" id="ssBtn">스크린샷</a></li>
-				<li><a href="#live" id="liveBtn">방송</a></li>
+		<div>
+			<ul class="nav justify-content-center">
+				<li class="nav-item"><a class="nav-link active" href="#review" id="reviewBtn">평가</a></li>
+				<li class="nav-item"><a class="nav-link" href="#screenShot" id="ssBtn">스크린샷</a></li>
+				<li class="nav-item"><a class="nav-link" href="#live" id="liveBtn">방송</a></li>
 			</ul>
 		</div>
 		
@@ -104,12 +105,10 @@
 		<div id="review">
 			
 		<%-- 리뷰 상세내용 페이지  --%>
-		  <div class="" role="document">
-		    <div style="">
-		      <div style="background-color: #151e2a; display: flex; flex-direction: column; flex-direction: column;">
+		        
 		        <!-- 자기가 등록한 글을 클릭했을때만 노출 -->
-		        <div style="background-color: #2f343f; display: flex;">
-			        <img id="accountImg" src="/www/img/logo.png" width="40px;" height="40px;" >
+		        <div class="card">
+		        <div>
 			        <div id="dAccount"></div>
 			      <!--   <div id="btnModify" display='none'>수정</div> -->
 			        <div id="btnDelete" display='none'>삭제</div>
@@ -132,33 +131,29 @@
 		        </div>
 		        
 		        <!-- 이 평가에 대한 평가 -->
+		        <c:if test="${not empty SID}">
 		        <div id="divReview" display='none'>
 		        	<div>이 평가가 유용한가요?</div>
 						<div>
 							<input type="radio" name="reviewYN" id="reviewY" value="Y"><label for="reviewY"> 네</label>
 							<input type="radio" name="reviewYN" id="reviewN" value="N"><label for="reviewN"> 아니오</label>
-							<input type="button" id="ynSaveBtn" value="저장">
+							<input type="button" class="btn btn-info btn-sm" id="ynSaveBtn" value="저장">
+							
 						</div>
-		        </div>
-		      </div>	      	
-		    </div>
-		  </div>
-		<!--</div>-->
+				</c:if>
 
-			
-		
-		
-		
-		
-		
-		
-		
-	</div>
-	<footer>Cover template for
-		<a href="https://naver.com">Bootstrap</a>, by
-		<a href="https://daum.net">@fighterkun</a>.
-	</footer>
-</div>
+		        </div>
+		        </div>
+		        <div>
+					<input type="button" class="btn btn-deflaut animation-on-hover" id="confirm_btn" name="" value="확  인">
+		        </div>
+		    </div>
+		    
+		    
+		    
+		    
+		    
+
 
 	
 <!--   Core JS Files   -->

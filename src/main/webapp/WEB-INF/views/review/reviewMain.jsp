@@ -30,7 +30,7 @@
 		
 		<ul class="main-nav">
 			<li>
-				<a class="nav-link active" href="/www/store/games.nbs">
+				<a class="nav-link active" href="/www/store/">
 					<i class="tim-icons icon-cart main-nav-icon"></i>
 					<span class="main-nav-text">Store</span>
 					<div class="indicator"></div>
@@ -65,14 +65,14 @@
 </c:if>
 <c:if test="${not empty SID}">
 			<a href="/www/account/logout.nbs">Log Out</a>
-			<a href="#"><i class="tim-icons icon-single-02"></i></a>
+			<a href="/www/info/ProfileUpdate.nbs"><i class="tim-icons icon-single-02"></i></a>
 </c:if>
 			<a href="/www/payment/basket.nbs"><i class="tim-icons icon-basket-simple"></i></a>
 			<a href="#"><i class="tim-icons icon-shape-star"></i></a>
 		</div>
 	</header>
+	
 <form method="POST" id="frm" name="frm" enctype="multipart/form-data">
-<input type="hidden" name="game_no" id="game_no" />
 <input type="hidden" name="dreviewNo" id="dreviewNo"/>
 
 
@@ -81,20 +81,22 @@
 <div class="container">
 
 	<section>
-		<p>최근 플레이(구매)한 게임의 포럼</p>
-		<p>Cover your page.Cover your page.Cover your page.Cover your page.Cover your page.Cover your page.Cover your page.Cover your page.Cover your page.Cover your page.Cover your page.Cover your page.Cover your page.Cover your page.Cover your page.Cover your page.</p>
+		<div style="margin-top: 20px;">
+			<h3>최근 플레이(구매)한 게임의 포럼</h3>
+		</div>
 		<input type="button" class="btn btn-primary btn-lg animation-on-hover" id="game1" name="game" value="1111111">
 		<input type="button" class="btn btn-primary btn-lg animation-on-hover" id="game2" name="game" value="2222222">
 	</section>
 	
 		
-		<div class="section_nav" style="">
-			<ul>
-				<li><a href="#review" id="reviewBtn">평가</a></li>
-				<li><a href="#screenShot" id="ssBtn">스크린샷</a></li>
-				<li><a href="#live" id="liveBtn">방송</a></li>
+		<div>
+			<ul class="nav justify-content-center">
+				<li class="nav-item"><a class="nav-link active" href="#review" id="reviewBtn">평가</a></li>
+				<li class="nav-item"><a class="nav-link" href="#screenShot" id="ssBtn">스크린샷</a></li>
+				<li class="nav-item"><a class="nav-link" href="#live" id="liveBtn">방송</a></li>
 			</ul>
 		</div>
+		
 		
 		
 		<!-- 1. 리뷰 탭 -->
@@ -108,94 +110,59 @@
 			</div>
 			
 			<div class="reviewWriteWrap">
-			<%-- <c:if test="${}"> --%>
-				<div class="form-group">
-		        	<label for="exampleFormControlTextarea1">평가리뷰입력자리입니다</label>
-		        	<textarea class="form-control" id="body" name="body" rows="1"></textarea>
-		        	<button class="btn btn-success animation-on-hover" id="rbtn">평가리뷰저장</button>
-		      	</div>
-			<%-- </c:if> --%>
+				<c:if test="${not empty SID}">
+					<div class="form-group">
+			        	<label for="exampleFormControlTextarea1">평가리뷰입력자리입니다</label>
+			        	<textarea class="form-control" id="body" name="body" rows="1"></textarea>
+			        	<button class="btn btn-default animation-on-hover" id="rbtn">평가리뷰저장</button>
+			      	</div>
+				</c:if>
 			</div>
 			
 			<!-- 평가리뷰 게시글 -->
+			
 			<div class="reviewBoxWrap">
 				<c:forEach var="data" items="${LIST}">
+				
+							<div class="card" style="width: auto;" id="reviewBoxDetail" name="reviewBoxDetail" data-value1="${data.account_no}" data-value2="${data.no}">
+							  <div class="reviewBox1">
+							  <div class="card-body">
+							  <p>${data.account_no}</p>
+							    <h4 class="card-title">39명이 이 평가가 유용하다고 함</h4>
+							    <h6 class="card-subtitle mb-4 text-muted">
+									<p>게시일시:${data.rdate}</p>
+									<c:if test="${data.isgood eq 'G'}">
+										<img src="/www/img/good.png">
+									</c:if>
+									<c:if test="${data.isgood eq 'B'}">
+										<img src="/www/img/bad.png">
+									</c:if>
+								</h6>
+							    <p class="card-text">${data.body}</p>
+							  </div>
+							  </div>
+							</div>
 				
 					<div class="reviewBox" id="reviewBoxDetail" name="reviewBoxDetail" data-value1="${data.account_no}" data-value2="${data.no}">
 						<div class="reviewBox1">
 							<div>
-								<p>39명이 이 평가가 유용하다고 함</p>
-								<c:if test="${data.isgood eq 'G'}">
-									<img src="/www/img/good.png">
-								</c:if>
-								<c:if test="${data.isgood eq 'B'}">
-									<img src="/www/img/bad.png">
-								</c:if>
-								<p>게시일시:${data.rdate}</p>
-								<p>${data.body}</p>
+
 							</div>
 						</div>
 					
 						<div class="reviewBox2">
-							<p>${data.account_no}</p>
+							
 						</div>
 					</div>
+					
+					
 					<input type="hidden" name="no" id="no" value="${data.no}"/>
+					<input type="hidden" name="game_no" id="game_no" value="${data.game_no}"/>
 					<input type="hidden" name="account_no" id="account_no" value="${data.account_no}"/>
 				</c:forEach>
 			</div>
 			
-		
-		
-		
-		<%-- 리뷰 상세내용 모달창  --%>
-		<div class="modal" id="reviewDetail">
-		  <div class="" role="document">
-		    <div style="">
-		      <div style="background-color: #151e2a; display: flex; flex-direction: column; flex-direction: column;">
-		        자기가 등록한 글을 클릭했을때만 노출
-		        <div style="background-color: #2f343f; display: flex;">
-			        <img id="accountImg" src="/www/img/logo.png" width="40px;" height="40px;" >
-			        <div id="dAccount"></div>
-			        <div id="btnModify" display='none'>수정</div>
-			        <div id="btnDelete" display='none'>삭제</div>
-		        </div>
-		        
-		        <div><span id="reviewYnGood"></span>명이 평가가 유용하다고 함</div>
-		        <div><span id="reviewYnBad"></span>명이 평가가 유용하지 않다고 함</div>
-		        
-		        <div>
-					<div>
-						<img id="goodImg" src="/www/img/good.png" display='none'>
-						<img id="badImg" src="/www/img/bad.png" display='none'>
-					</div>
-		        </div>
-				<div>
-					<div id="dRdate"></div>
-				</div>
-		        <div>
-		        	<div id="dBody"></div>
-		        </div>
-		        
-		        이 평가에 대한 평가
-		        <div id="divReview" display='none'>
-		        	<div>이 평가가 유용한가요?</div>
-						<div>
-							<input type="radio" name="reviewYN" id="reviewY" value="Y"><label for="reviewY"> 네</label>
-							<input type="radio" name="reviewYN" id="reviewN" value="N"><label for="reviewN"> 아니오</label>
-							<input type="button" id="ynSaveBtn" value="저장">
-						</div>
-		        </div>
-		      </div>	      	
-		    </div>
-		  </div>
-		</div>
-		
-		
-		
-		
-		
-		
+
 	</div>
 	
 
@@ -259,56 +226,6 @@
 				</div>
 			</div>
 				
-			
-<%-- 스샷 상세내용 모달창  --%>
-		<div class="modal" id="">
-		  <div class="" role="document">
-		    <div style="">
-		      <div style="background-color: #151e2a; display: flex; flex-direction: column; flex-direction: column;">
-		        <!-- 자기가 등록한 글을 클릭했을때만 노출 -->
-		        <div style="background-color: #2f343f; display: flex;">
-			        <img id="accountImg" src="/www/img/logo.png" width="40px;" height="40px;" >
-			        <div id=""></div>
-			        <div id="" display='none'>삭제</div>
-		        </div>
-		        
-		        <div><span id=""></span>명이 평가가 유용하다고 함</div>
-		        <div><span id=""></span>명이 평가가 유용하지 않다고 함</div>
-		        
-		        <div>
-					<div>
-						<img id="goodImg" src="/www/img/good.png" display='none'>
-						<img id="badImg" src="/www/img/bad.png" display='none'>
-					</div>
-		        </div>
-				<div>
-					<div id=""></div>
-				</div>
-		        <div>
-		        	<div id=""></div>
-		        </div>
-		        
-		        <!-- 이 평가에 대한 평가 -->
-		        <div id="" display='none'>
-		        	<div>이 평가가 유용한가요?</div>
-						<div>
-							<input type="radio" name="" id="" value="Y"><label for="reviewY"> 네</label>
-							<input type="radio" name="" id="" value="N"><label for="reviewN"> 아니오</label>
-							<input type="button" id="" value="저장">
-						</div>
-		        </div>
-		      </div>	      	
-		    </div>
-		  </div>
-		</div>
-			
-		</div>
-	</div>
-</div>
-
-
-
-
 
 
 
@@ -316,12 +233,7 @@
 	<div id="live">
 		<div>여긴 방송페이지</div>
 	</div>
-		
-		
-	<footer>Cover template for
-		<a href="https://naver.com">Bootstrap</a>, by
-		<a href="https://daum.net">@fighterkun</a>.
-	</footer>
+
 </div>
 
 	

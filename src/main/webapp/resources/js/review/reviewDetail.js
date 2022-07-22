@@ -4,6 +4,7 @@ $(document).ready(function(){
 		if(!ano){
 			return;
 		}
+		
 		$.ajax({
 			url: '/www/review/reviewDetail.nbs',
 			type: 'post',
@@ -63,7 +64,13 @@ $(document).ready(function(){
 			}
 		});
 		
-	
+		
+		// 리뷰 상세에서 확인버튼 누르면 리뷰메인으로 이동해라
+		$('#confirm_btn').click(function(){
+			$(location).attr('href', '/www/review/reviewMain.nbs');
+		});
+		
+		
 	// 리뷰, 스샷, 방송 탭 전환용
 	$('#review').show();
 	$('#screenShot').hide();

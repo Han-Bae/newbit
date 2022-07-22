@@ -63,6 +63,9 @@ public class Review {
 	public ModelAndView joinProc(ReviewVO rVO, ModelAndView mv, RedirectView rv, HttpSession session) {
 
 		System.out.println("#########" + rVO.getBody());
+		System.out.println("넘버뭐야?" + rVO.getAccount_no());
+		System.out.println("게임넘버뭐야?" + rVO.getGame_no());
+		
 
 		int cnt = rDao.addReview(rVO);
 
