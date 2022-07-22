@@ -38,38 +38,69 @@ public class Store {
 	StoreDao storeDao;
 	
 	
-	// 스토어 메인겸 인기 페이지
+	// 스토어 메인겸 최고 인기 페이지
 	@RequestMapping({"/", "/topSeller.nbs"})
-	public ModelAndView GameForm(ModelAndView mv, HttpServletRequest request, RedirectView rv) {
+	public ModelAndView topSellerForm(ModelAndView mv, HttpServletRequest request) {
 		mv.setViewName("/store/topSeller");
 		
-		String sortBy = request.getParameter("sortSelect");
+		String sortSelect = request.getParameter("sortSelect");
+		String maxPrice = request.getParameter("maxPrice");
+		String specials = request.getParameter("specials");
 		
-		List<StoreVO> list = storeJsoup.crawlingStoreMain(sortBy);
+		List<StoreVO> list = null;
+		
+		if(specials == null) {
+			if(maxPrice == null) {
+				list = storeJsoup.crawlingStoreTopSeller(sortSelect);
+			} else {
+				list = storeJsoup.crawlingStoreTopSeller(sortSelect, maxPrice);
+			}
+		} else {
+			if(maxPrice == null) {
+				list = storeJsoup.crawlingStoreTopSeller(sortSelect, specials);
+			} else {
+				list = storeJsoup.crawlingStoreTopSeller(sortSelect, maxPrice, specials);
+			}
+		}
 		
 		mv.addObject("LIST", list);
-		mv.addObject("sortBy", sortBy);
+		mv.addObject("sortSelect", sortSelect);
+		mv.addObject("maxPrice", maxPrice);
+		mv.addObject("specials", specials);
 		return mv;
 	}
 	
+	// 스토어 신규
+	@RequestMapping("/newTopSeller.nbs")
+	public ModelAndView newTopSeller(ModelAndView mv) {
+		mv.setViewName("/store/newTopSeller");
+		
+		List<StoreVO> medium = storeJsoup.crawlingStoreNewTop("medium");
+		List<StoreVO> mini10000 = storeJsoup.crawlingStoreNewTop("mini10000");
+		List<StoreVO> mini5000 = storeJsoup.crawlingStoreNewTop("mini5000");
+		
+		mv.addObject("medium", medium);
+		mv.addObject("mini10000", mini10000);
+		mv.addObject("mini5000", mini5000);
+		return mv;
+	}
 	
 	// 스토어 카테고리 페이지
 	@RequestMapping("/categories.nbs")
-	public ModelAndView CategoryForm(ModelAndView mv) {
+	public ModelAndView categoryForm(ModelAndView mv) {
 		mv.setViewName("/store/categories");
 		return mv;
 	}
 
-
 	// 스토어 게임 디테일 페이지
 	@RequestMapping("/app")
-	public ModelAndView AppDetailForm(ModelAndView mv, HttpServletRequest request,  HttpSession session) {
+	public ModelAndView appDetailForm(ModelAndView mv, HttpServletRequest request,  HttpSession session) {
 		mv.setViewName("/store/appDetail");
 		
 		String appId = request.getParameter("game");
 		String appNo = appId.substring(appId.indexOf("_") + 1);
 		StoreVO sVO = storeJson.getDetailJson(appNo);
-		
+		sVO = storeJsoup.crawlingStoreDetail(appNo, sVO);
 		
 		String sessionId = (String) session.getAttribute("SID");
 		if(sessionId != null) {

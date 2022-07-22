@@ -1,0 +1,126 @@
+.store-new {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 10px;
+}
+
+.store-new--games .games {
+	display: flex;
+	flex-direction: column;
+}
+.store-new--games .games .game:hover {
+	background: none;
+}
+.store-new--games .games .card {
+	padding: 5px;
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 10px;
+	cursor: pointer;
+	width: 780px;
+}
+.store-new--games .games img {
+	border: 1px solid #525f7f;
+	margin-right: 10px;
+	height: 75px;
+}
+.store-new--games .games .card > div {
+	padding-top: 5px;
+	display: flex;
+	justify-content: space-between;
+}
+.store-new--games .new-title-info {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding-bottom: 5px;
+	width: 380px;
+}
+.store-new--games .games .new-game-h4 {
+	font-size: 18px;
+	margin: 0;
+	margin-bottom: 5px;
+}
+.store-new--games .new-title-info .new-game-tag {
+	font-size: 14px;	
+}
+.store-new--games .gameDiscount .howSale {
+	color: white;
+	padding: 2px;
+	border-radius: 10%;
+}
+.store-new--games .gameDiscount .howSale {
+	background-color: #28a745;
+	margin-right: 15px;
+}
+.store-new--games .gameDiscount {
+	width: 180px;
+	display: flex;
+	justify-content: end;
+	align-items: center;
+	padding: 0px 20px;
+}
+.store-new--games .gamePrice {
+	display: flex;
+	flex-direction: column;
+	justify-content: end;
+	align-items: end;
+	position: relative;
+}
+.store-new--games .originalPrice {
+	position: absolute;
+	top: -20px;
+}
+.store-new--games .nowPrice {
+	color: white;
+}
+
+
+.new-low-price-games > .card {
+	width: 320px;
+	position: relative;
+	background: none;
+	margin-bottom: 50px;
+}
+.new-low-price-games .card .card-header {
+	position: absolute;
+	top: -35px;
+}
+
+.new-low-price-game {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+.new-low-price-game .card.game {
+	width: 49%;
+	padding: 15px 15px 10px 15px;
+	margin: 2px 0;
+	cursor: pointer;
+}
+.new-low-price-game .game:hover {
+	background: none;
+}
+.new-low-price-game .card img {
+	display: block;
+}
+.new-low-price-game .card > div {
+	display: flex;
+	justify-content: space-between;
+	padding: 0 3px;
+}
+.new-low-price-game .card span {
+	font-size: 13px;
+	color: white;
+}
+.new-low-price-game .howSale {
+	background-color: #28a745;
+	border-radius: 3px;
+}
+.new-low-price-game .originalPrice {
+	opacity: 0.7;
+	width: 30%;
+	white-space: nowrap;
+	overflow-x: hidden;
+	font-size: 12px;
+}

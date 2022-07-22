@@ -21,35 +21,49 @@ import com.newbit.www.vo.StoreVO;
 public class StoreJsoup {
 	
 	
-	// 스토어 메인 페이지 크롤링
-	public List<StoreVO> crawlingStoreMain(String sort) {
+	// 스토어 최고 인기 페이지 url 컨트롤러
+	// sort == null | sort != null
+	public List<StoreVO> crawlingStoreTopSeller(String sort) {
 		String url = "https://store.steampowered.com/search/?filter=topsellers";
 		if(sort != null) {
-			switch(sort) {
-			case "":
-				break;
-			case "releasedDESC":
-				url = "https://store.steampowered.com/search/?sort_by=Released_DESC&filter=topsellers";
-				break;
-			case "nameASC":
-				url = "https://store.steampowered.com/search/?sort_by=Name_ASC&filter=topsellers";
-				break;
-			case "priceASC":
-				url = "https://store.steampowered.com/search/?sort_by=Price_ASC&filter=topsellers";
-				break;
-			case "priceDESC":
-				url = "https://store.steampowered.com/search/?sort_by=Price_DESC&filter=topsellers";
-				break;
-			case "reviewsDESC":
-				url = "https://store.steampowered.com/search/?sort_by=Reviews_DESC&filter=topsellers";
-				break;
+			url = "https://store.steampowered.com/search/?sort_by=" + sort + "&filter=topsellers";
+		}
+		return topSellAppListCrawling(url);
+	}
+	// (sort == null | sort != null) & (maxPrice != null | Specials != null)
+	public List<StoreVO> crawlingStoreTopSeller(String sort, String maxPriceOrSpecials) {
+		String url = "";
+		if(!maxPriceOrSpecials.equals("1")) {
+			if(sort != null) {
+				url = "https://store.steampowered.com/search/?maxprice=" + maxPriceOrSpecials + "&filter=topsellers";
+			} else {
+				url = "https://store.steampowered.com/search/?sort_by=" + sort + "&maxprice=" + maxPriceOrSpecials + "&filter=topsellers";
+			}
+		} else {
+			if(sort != null) {
+				url = "https://store.steampowered.com/search/?specials=" + maxPriceOrSpecials + "&filter=topsellers";
+			} else {
+				url = "https://store.steampowered.com/search/?sort_by=" + sort + "&specials=" + maxPriceOrSpecials + "&filter=topsellers";
 			}
 		}
+		return topSellAppListCrawling(url);
+	}
+	// (sort == null | sort != null) & (maxPrice != null & Specials != null)
+	public List<StoreVO> crawlingStoreTopSeller(String sort, String maxPrice, String specials) {
+		String url = "https://store.steampowered.com/search/?maxprice=" + maxPrice + "&specials=" + specials + "&filter=topsellers";
+		if(sort != null) {
+			url = "https://store.steampowered.com/search/?sort_by=" + sort + "&maxprice=" + maxPrice + "&specials=" + specials + "&filter=topsellers";
+		}
+		return topSellAppListCrawling(url);
+	}
+	
+	
+	// url
+	public List<StoreVO> topSellAppListCrawling(String url) {
+		ArrayList<StoreVO> list = new ArrayList<StoreVO>();
 		
 		Connection conn = Jsoup.connect(url);
 		conn.cookie("Steam_Language", "koreana");
-		
-		ArrayList<StoreVO> list = new ArrayList<StoreVO>();
 		
 		try {
 			Document document = conn.get();
@@ -103,6 +117,84 @@ public class StoreJsoup {
 	}
 	
 	
+	public List<StoreVO> crawlingStoreNewTop(String cardType) {
+		ArrayList<StoreVO> list = new ArrayList<StoreVO>();
+		
+		String url = "https://store.steampowered.com/explore/new/";
+		
+		Connection conn = Jsoup.connect(url);
+		conn.cookie("Steam_Language", "koreana");
+		
+		try {
+			Document document = conn.get();
+			
+			if(cardType.equals("medium")) {
+				Element element = document.getElementById("tab_newreleases_content");
+				Elements anchor = element.select("a[class=\"tab_item  \"]");
+				for(int i = 0 ; i < anchor.size() ; i++) {
+					StoreVO sVO = new StoreVO();
+					sVO.setAppId(anchor.get(i).attr("abs:data-ds-itemkey").substring(anchor.get(i).attr("abs:data-ds-itemkey").lastIndexOf("/") + 1));
+					sVO.setImg(anchor.get(i).select("img").attr("abs:src"));
+					sVO.setTitle(anchor.get(i).select("div[class=\"tab_item_name\"]").text());
+					sVO.setType(anchor.get(i).select("div[class=\"tab_item_top_tags\"]").text());
+					
+					Element priceDiv = anchor.get(i).selectFirst("div[class=\"discount_block tab_item_discount\"]");
+					if(priceDiv == null) {
+						sVO.setPrice(anchor.get(i).select("div[class=\"discount_final_price\"]").text());
+					} else {
+						sVO.setDiscount(anchor.get(i).select("div[class=\"discount_pct\"]").text());
+						sVO.setPrice(anchor.get(i).select("div[class=\"discount_original_price\"]").text());
+						sVO.setDiscountPrice(anchor.get(i).select("div[class=\"discount_final_price\"]").text());
+					}
+					
+					list.add(sVO);
+				}
+			} else if(cardType.equals("mini10000")) {
+				Element mini10000Div = document.selectFirst("div[class=\"home_specials_ctn underten sidebar_wide\"]");
+				Elements anchor = mini10000Div.getElementsByTag("a");
+				for(int i = 0 ; i < anchor.size() ; i++) {
+					StoreVO sVO = new StoreVO();
+					sVO.setImg(anchor.get(i).select("img").attr("abs:src"));
+					
+					Element priceDiv = anchor.get(i).selectFirst("div[class=\"discount_block discount_block_inline discount_block_collapsable\"]");
+					if(priceDiv == null) {
+						sVO.setPrice(anchor.get(i).select("div[class=\"discount_final_price\"]").text());
+					} else {
+						sVO.setDiscount(anchor.get(i).select("div[class=\"discount_pct\"]").text());
+						sVO.setPrice(anchor.get(i).select("div[class=\"discount_original_price\"]").text());
+						sVO.setDiscountPrice(anchor.get(i).select("div[class=\"discount_final_price\"]").text());
+					}
+					
+					list.add(sVO);
+				}
+			} else if(cardType.equals("mini5000")) {
+				Element mini5000Div = document.selectFirst("div[class=\"home_specials_ctn underten underfive\"]");
+				Elements anchor = mini5000Div.getElementsByTag("a");
+				for(int i = 0 ; i < anchor.size() ; i++) {
+					StoreVO sVO = new StoreVO();
+					sVO.setImg(anchor.get(i).select("img").attr("abs:src"));
+					
+					Element priceDiv = anchor.get(i).selectFirst("div[class=\"discount_block discount_block_inline discount_block_collapsable\"]");
+					if(priceDiv == null) {
+						sVO.setPrice(anchor.get(i).select("div[class=\"discount_final_price\"]").text());
+					} else {
+						sVO.setDiscount(anchor.get(i).select("div[class=\"discount_pct\"]").text());
+						sVO.setPrice(anchor.get(i).select("div[class=\"discount_original_price\"]").text());
+						sVO.setDiscountPrice(anchor.get(i).select("div[class=\"discount_final_price\"]").text());
+					}
+					
+					list.add(sVO);
+				}
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	
 	public List<StoreVO> crawlingStoreCategory() {
 		ArrayList<StoreVO> list = new ArrayList<StoreVO>();
 		
@@ -119,6 +211,16 @@ public class StoreJsoup {
 		
 		try {
 			Document document = conn.get();
+			Element element = document.selectFirst("div[class=\"summary column\"]").selectFirst("span[itemprop=\"description\"]");
+			if(element != null) {
+				if(element.hasClass("positive")) {
+					sVO.setReviewSummary("positive");
+				} else if(element.hasClass("mixed")) {
+					sVO.setReviewSummary("mixed");
+				} else if(element.hasClass("negative")) {
+					sVO.setReviewSummary("negative");
+				} 
+			}
 			
 		} catch(Exception e) {
 			e.printStackTrace();

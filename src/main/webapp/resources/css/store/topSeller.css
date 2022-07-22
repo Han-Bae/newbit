@@ -4,7 +4,14 @@
 	display: flex;
 	flex-direction: column;
 }
+.store-games-main {
+	position: relative;
+	margin-top: 10px;
+}
 .games-sort {
+	position: absolute;
+	top: -45px;
+	right: 0;
 	display: flex;
 	justify-content: end;
 	align-items: center;
@@ -99,7 +106,7 @@
 	justify-content: end;
 	align-items: end;
 }
-.store-games--games .salePrice {
+.store-games--games .nowPrice {
 	color: white;
 }
 /* 게임 필터 */
@@ -112,8 +119,9 @@
 }
 .priceFilter.card {
 	position: sticky;
-	top: 0;
+	top: 200px;
 	height: 180px;
+	width: 320px;
 }
 .priceFilter .card-body {
 	display: flex;
@@ -146,6 +154,7 @@
 }
 .games-filter--range {
 	margin: 10px 0px;
+	color: white;
 }
 .boundary {
 	width: 100%;

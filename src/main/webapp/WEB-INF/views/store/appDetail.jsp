@@ -47,7 +47,7 @@
 				</a>
 			</li>
 			<li>
-				<a class="nav-link active" href="#">
+				<a class="nav-link active" href="/www/review/reviewMain.nbs">
 					<i class="tim-icons icon-world"></i>
 					<span class="main-nav-text">Community</span>
 					<div class="indicator"></div>
@@ -68,7 +68,7 @@
 </c:if>
 <c:if test="${not empty SID}">
 			<a href="/www/account/logout.nbs">Log Out</a>
-			<a href="#"><i class="tim-icons icon-single-02"></i></a>
+			<a href="/www/info/ProfileUpdate.nbs"><i class="tim-icons icon-single-02"></i></a>
 </c:if>
 			<a href="/www/payment/payForm.nbs"><i class="tim-icons icon-basket-simple"></i></a>
 			<a href="/www/payment/pick.nbs"><i class="tim-icons icon-shape-star"></i></a>
@@ -120,14 +120,19 @@
 					<div class=" margin-bottom">
 						<span class="label">모든 평가</span>
 						<div class="content">
-	<c:if test="${param.score eq 'positive'}">
+	<c:if test="${not empty sVO.reviewSummary}">
+		<c:if test="${sVO.reviewSummary eq 'positive'}">
 							<span class="positive">긍정적</span>
-	</c:if>
-	<c:if test="${param.score eq 'mixed'}">
+		</c:if>
+		<c:if test="${sVO.reviewSummary eq 'mixed'}">
 							<span class="mixed">복합적</span>
-	</c:if>
-	<c:if test="${param.score eq 'negative'}">
+		</c:if>
+		<c:if test="${sVO.reviewSummary eq 'negative'}">
 							<span class="negative">부정적</span>
+		</c:if>
+	</c:if>
+	<c:if test="${empty sVO.reviewSummary}">
+							<span>사용자 평가 없음</span>
 	</c:if>
 						</div>
 					</div>
