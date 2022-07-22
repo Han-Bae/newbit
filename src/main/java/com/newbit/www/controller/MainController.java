@@ -18,7 +18,7 @@ public class MainController {
 
 	@RequestMapping("/")
 	public ModelAndView GameForm(ModelAndView mv, RedirectView rv) {
-		rv.setUrl("/www/store/games.nbs");
+		rv.setUrl("/www/store/");
 		mv.setView(rv);
 		return mv;
 	}

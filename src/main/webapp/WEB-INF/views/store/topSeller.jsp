@@ -160,7 +160,7 @@
 					
 <c:forEach var="data" items="${LIST}">
 						<div class="card game" id="${data.appId}">
-							<img class="card-img-left" src="${data.img}" width="120px" height="50px">
+							<img class="card-img-left" src="${data.img}" height="50px">
 							<div>
 								<h4>${data.title}</h4>
 								<div class="game-title-info">
