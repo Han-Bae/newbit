@@ -24,7 +24,7 @@ public class UploadDao {
 	}
 	
 	
-	public List<ReviewVO> getScreenShot() {
+	public List<UploadVO> getScreenShot() {
 		return sqlSession.selectList("rSQL.getScreenShot");
 	}
 	

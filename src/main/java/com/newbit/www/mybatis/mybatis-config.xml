@@ -17,6 +17,7 @@
 		<typeAlias alias="page" 	type="com.newbit.www.util.PageUtil" />
 		<typeAlias alias="rVO" 		type="com.newbit.www.vo.ReviewVO" />
 		<typeAlias alias="uVO" 		type="com.newbit.www.vo.UploadVO" />
+		<typeAlias alias="inVO" 	type="com.newbit.www.vo.InfoVO" />
 	</typeAliases>
 	
 	<mappers>
@@ -26,5 +27,6 @@
 		<mapper resource="com/newbit/www/sql/Upload.xml" />
 		<mapper resource="com/newbit/www/sql/StoreSQL.xml" />
 		<mapper resource="com/newbit/www/sql/ProfileSQL.xml" />
+		<mapper resource="com/newbit/www/sql/InfoSQL.xml" />
 	</mappers>
 </configuration>

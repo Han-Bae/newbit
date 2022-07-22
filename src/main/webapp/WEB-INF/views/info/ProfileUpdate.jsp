@@ -115,7 +115,7 @@
 	<h5 class="text-primary"><b>Profile Edit</b></h5>
 	<hr>
 	
-	<form action="/viseo/member/info/ProfileUpdateProc.blp" method="post" name="frm" id="frm">
+	<form action="/www/info/ProfileUpdateProc.blp" method="post" name="frm" id="frm">
 		<input type="hidden" id="tname" value="${DATA.nickname}">
 		
 	 	<div class="form-group">

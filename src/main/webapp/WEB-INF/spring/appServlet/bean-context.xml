@@ -15,6 +15,7 @@
 	<bean id="pDao" class="com.newbit.www.dao.PaymentDao" />
 	<bean id="rDao" class="com.newbit.www.dao.ReviewDao" />
 	<bean id="uDao" class="com.newbit.www.dao.UploadDao" />
+	<bean id="inDao" class="com.newbit.www.dao.InfoDao" />
 	<bean id="storeDao" class="com.newbit.www.dao.StoreDao" />
 	<bean id="profileDao" class="com.newbit.www.dao.ProfileDao" />
 	
