@@ -5,10 +5,13 @@
 			
 <mapper namespace="rSQL">
 	<insert id="addReview" parameterType="rVO">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(no) + 1, 1000) FROM review
+		</selectKey>
 		INSERT INTO
 		    REVIEW(NO, ACCOUNT_NO, GAME_NO, BODY, ISNEWBIT, ISGOOD, ISSHOW, REGISTDATE)
 		VALUES(
-		    #{no}, #{account_no}, #{game_no}, #{body}, #{isnewbit}, #{isgood}, #{isshow}, SYSDATE
+		    #{no}, #{account_no}, #{game_NO}, #{body}, 'Y', 'B', 'Y', SYSDATE
 		)
 	</insert>
 	
@@ -16,7 +19,7 @@
 		SELECT
 		    ACCOUNT_NO,TO_CHAR(REGISTDATE,'YYYY-MM-DD')AS RDATE, ISGOOD, BODY, NO
 		FROM
-		    REVIEW
+		    REVIEW 
 	    WHERE
 	    	GAME_NO = 1111111
 	    	AND ISSHOW = 'Y'
@@ -24,7 +27,7 @@
 
 	<select id="getGameReview" resultType="rVO" parameterType="int">
 		SELECT
-		    ACCOUNT_NO,TO_CHAR(REGISTDATE,'YYYY-MM-DD')AS RDATE, ISGOOD, BODY, NO
+		    ACCOUNT_NO,TO_CHAR(REGISTDATE,'YYYY-MM-DD')AS RDATE, ISGOOD, BODY, NO, GAME_NO
 		FROM
 		    REVIEW
 	    WHERE
@@ -107,6 +110,15 @@
 		WHERE 
 			ACCOUNT_NO = #{no}
 			AND REVIEW_NO = #{dreviewNo}
+	</select>
+	
+		<select id="getGameId" resultType="rVO" parameterType="rVO">
+		SELECT
+		    GAME_ID
+		FROM
+		    LIBRARY
+		WHERE
+		    account_no = #{account_no}
 	</select>
 	
 </mapper>

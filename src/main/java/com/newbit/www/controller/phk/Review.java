@@ -27,24 +27,28 @@ public class Review {
 	// 리뷰메인페이지를 reviewMain.nbs로 요청이 왔을때 띄워주는 기능
 
 	@RequestMapping("/reviewMain.nbs")
-	public ModelAndView reviewMain(ModelAndView mv, HttpSession session) {
+	public ModelAndView reviewMain(ModelAndView mv, HttpSession session, ReviewVO rVO) {
 
+		String sid = (String) session.getAttribute("SID");
+		int no = rDao.getFindNo(sid);
+		rVO.setAccount_no(no);
+		
 		List<ReviewVO> list = rDao.getReview();
-		/* List<UploadVO> ulist = uDao.getScreenShot(); */
+		List<ReviewVO> gList = rDao.getGameId(rVO);
+		
+		/* List<UploadVO> gList = uDao.getScreenShot(); */
 
 		// 작성자, 작성일, 평가, 평가리뷰글
-		/*
-		 * for (int i = 0; i < ulist.size(); i++) {
-		 * 
-		 * System.out.println("작성자#########" + list.get(i).getAccount_no());
-		 * System.out.println("작성일#########" + list.get(i).getRdate());
-		 * System.out.println("게임평가#########" + list.get(i).getIsgood());
-		 * System.out.println("평가리뷰글#########" + list.get(i).getBody());
-		 * 
-		 * }
-		 */
+		
+		  for (int i = 0; i < gList.size(); i++) {
+		  
+		  System.out.println("게임아이디#########" + gList.get(i).getGame_id());
+		  
+		  }
+		 
 		// 뷰에 데이터 심고 // EL형식으로 바꾸어야 JSP에서 바로 사용할 수 있다.
 		mv.addObject("LIST", list);
+		mv.addObject("GLIST", gList);
 
 		mv.setViewName("review/reviewMain");
 		return mv;
@@ -64,8 +68,11 @@ public class Review {
 
 		System.out.println("#########" + rVO.getBody());
 		System.out.println("넘버뭐야?" + rVO.getAccount_no());
-		System.out.println("게임넘버뭐야?" + rVO.getGame_no());
+		System.out.println("게임넘?" + rVO.getGame_NO());
 		
+		String sid = (String) session.getAttribute("SID");
+		int no = rDao.getFindNo(sid);
+		rVO.setAccount_no(no);
 
 		int cnt = rDao.addReview(rVO);
 

@@ -9,17 +9,24 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class ReviewVO {
 	
-	private int no, account_no, good, bad, reviewno;
-	private Integer game_no, dreviewNo;
-	private String body, isnewbit, isgood, isshow, rdate, reviewYN, sid;
+	private int account_no, good, bad, reviewno;
+	private Integer game_no, dreviewNo, game_NO, no;
+	private String body, isnewbit, isgood, isshow, rdate, reviewYN, sid, game_id;
 	private Date resitdate;
 	private List<ReviewVO> list;
 	
 	
-	public int getNo() {
+	
+	public String getGame_id() {
+		return game_id;
+	}
+	public void setGame_id(String game_id) {
+		this.game_id = game_id;
+	}
+	public Integer getNo() {
 		return no;
 	}
-	public void setNo(int no) {
+	public void setNo(Integer no) {
 		this.no = no;
 	}
 	public int getAccount_no() {
@@ -115,4 +122,12 @@ public class ReviewVO {
 	public void setReviewno(int reviewno) {
 		this.reviewno = reviewno;
 	}
+	public Integer getGame_NO() {
+		return game_NO;
+	}
+	public void setGame_NO(Integer game_NO) {
+		this.game_NO = game_NO;
+	}
+	
+	
 }

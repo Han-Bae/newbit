@@ -14,15 +14,21 @@ public class ReviewDao {
 	SqlSessionTemplate sqlSession;
 	
 	public int addReview(ReviewVO rVO) {
-		 System.out.println("dao" + rVO.getBody());
-		 System.out.println("dao" + rVO.getAccount_no());
-		 System.out.println("게임넘버모냐구?" + rVO.getGame_no());
+		 System.out.println("getBody" + rVO.getBody());
+		 System.out.println("getAccount_no" + rVO.getAccount_no());
+		 System.out.println("getGame_NO" + rVO.getGame_NO());
+		 System.out.println("getIsnewbit" + rVO.getIsnewbit());
+		 System.out.println("getIsgood" + rVO.getIsgood());
+		 System.out.println("getIsshow" + rVO.getIsshow());
+		 System.out.println("getNo" + rVO.getNo());
 		 
 		 // 강제로 하드코딩할때는 set을 해서 임의로 값을 넣어준다 - 쁭히
+			
 			/*
-			 * rVO.setNo(4444); //rVO.setAccount_no(1111); rVO.setGame_no(1111111111);
+			 * rVO.setNo(4444); rVO.setAccount_no(1111); rVO.setGame_no(1111111111);
 			 * rVO.setIsnewbit("Y"); rVO.setIsgood("G"); rVO.setIsshow("Y");
 			 */
+			 
 
 		 
 		return sqlSession.insert("rSQL.addReview", rVO);
@@ -74,5 +80,10 @@ public class ReviewDao {
 		System.out.println("dao getDreviewNo------" + rVO.getDreviewNo());
 		
 		return sqlSession.selectOne("rSQL.getSelRewiewCnt", rVO);
+	}
+	
+	public List<ReviewVO> getGameId(ReviewVO rVO) {
+		System.out.println("dao accNo------" + rVO.getAccount_no());
+		return sqlSession.selectList("rSQL.getGameId", rVO);
 	}
 }

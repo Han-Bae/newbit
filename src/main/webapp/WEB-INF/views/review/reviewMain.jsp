@@ -37,7 +37,7 @@
 				</a>
 			</li>
 			<li>
-				<a class="nav-link active" href="#">
+				<a class="nav-link active" href="/www/profile/library.nbs">
 					<i class="tim-icons icon-controller"></i>
 					<span class="main-nav-text">Library</span>
 					<div class="indicator"></div>
@@ -74,6 +74,7 @@
 	
 <form method="POST" id="frm" name="frm" enctype="multipart/form-data">
 <input type="hidden" name="dreviewNo" id="dreviewNo"/>
+<input type="hidden" name="game_no" id="game_no"/>
 
 
 <!-- 리뷰페이지 reviewMain -->
@@ -84,8 +85,10 @@
 		<div style="margin-top: 20px;">
 			<h3>최근 플레이(구매)한 게임의 포럼</h3>
 		</div>
-		<input type="button" class="btn btn-primary btn-lg animation-on-hover" id="game1" name="game" value="1111111">
+		<c:forEach var="data" items="${GLIST}">
+		<input type="button" class="btn btn-primary btn-lg animation-on-hover" id="game1" name="game" value="${data.game_id}">
 		<input type="button" class="btn btn-primary btn-lg animation-on-hover" id="game2" name="game" value="2222222">
+		</c:forEach>
 	</section>
 	
 		
@@ -157,7 +160,7 @@
 					
 					
 					<input type="hidden" name="no" id="no" value="${data.no}"/>
-					<input type="hidden" name="game_no" id="game_no" value="${data.game_no}"/>
+					<input type="text" name="game_NO" id="game_NO" value="${data.game_no}"/>
 					<input type="hidden" name="account_no" id="account_no" value="${data.account_no}"/>
 				</c:forEach>
 			</div>
