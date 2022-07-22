@@ -20,6 +20,8 @@ import com.newbit.www.vo.StoreVO;
  */
 public class StoreJsoup {
 	
+	
+	// 스토어 메인 페이지 크롤링
 	public List<StoreVO> crawlingStoreMain(String sort) {
 		String url = "https://store.steampowered.com/search/?filter=topsellers";
 		if(sort != null) {
@@ -43,7 +45,9 @@ public class StoreJsoup {
 				break;
 			}
 		}
+		
 		Connection conn = Jsoup.connect(url);
+		conn.cookie("Steam_Language", "koreana");
 		
 		ArrayList<StoreVO> list = new ArrayList<StoreVO>();
 		
@@ -106,5 +110,21 @@ public class StoreJsoup {
 		return list;
 	}
 	
+	
+	// 스토어 디테일 페이지 크롤링
+	public StoreVO crawlingStoreDetail(String appId, StoreVO sVO) {
+		String url = "https://store.steampowered.com/app/" + appId;
+		
+		Connection conn = Jsoup.connect(url);
+		
+		try {
+			Document document = conn.get();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return sVO;
+	}
 	
 }

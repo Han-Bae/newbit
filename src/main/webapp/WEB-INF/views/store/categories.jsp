@@ -31,7 +31,7 @@
 		
 		<ul class="main-nav">
 			<li>
-				<a class="nav-link active" href="/www/store/games.nbs">
+				<a class="nav-link active" href="/www/store/">
 					<i class="tim-icons icon-cart main-nav-icon"></i>
 					<span class="main-nav-text">Store</span>
 					<div class="indicator"></div>

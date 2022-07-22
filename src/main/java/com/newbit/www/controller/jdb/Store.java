@@ -46,19 +46,22 @@ public class Store {
 		String sortBy = request.getParameter("sortSelect");
 		
 		List<StoreVO> list = storeJsoup.crawlingStoreMain(sortBy);
-		list = storeJson.getTitleReleased(list);
 		
 		mv.addObject("LIST", list);
 		mv.addObject("sortBy", sortBy);
 		return mv;
 	}
 	
+	
+	// 스토어 카테고리 페이지
 	@RequestMapping("/categories.nbs")
 	public ModelAndView CategoryForm(ModelAndView mv) {
 		mv.setViewName("/store/categories");
 		return mv;
 	}
-	
+
+
+	// 스토어 게임 디테일 페이지
 	@RequestMapping("/app")
 	public ModelAndView AppDetailForm(ModelAndView mv, HttpServletRequest request,  HttpSession session) {
 		mv.setViewName("/store/appDetail");
@@ -66,6 +69,7 @@ public class Store {
 		String appId = request.getParameter("game");
 		String appNo = appId.substring(appId.indexOf("_") + 1);
 		StoreVO sVO = storeJson.getDetailJson(appNo);
+		
 		
 		String sessionId = (String) session.getAttribute("SID");
 		if(sessionId != null) {
