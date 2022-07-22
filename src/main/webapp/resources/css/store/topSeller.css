@@ -44,6 +44,8 @@
 .store-games--games .games img {
 	border: 1px solid #525f7f;
 	margin-right: 10px;
+	height: 50px;
+	width: 128px;
 }
 .store-games--games .games .card > div {
 	padding-top: 5px;

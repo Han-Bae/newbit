@@ -20,7 +20,7 @@ import com.newbit.www.vo.StoreVO;
  */
 public class StoreJsoup {
 	
-	public List<StoreVO> crawlingStoreMain(String sort, List<StoreVO> list) {
+	public List<StoreVO> crawlingStoreMain(String sort) {
 		String url = "https://store.steampowered.com/search/?filter=topsellers";
 		if(sort != null) {
 			switch(sort) {
@@ -45,38 +45,51 @@ public class StoreJsoup {
 		}
 		Connection conn = Jsoup.connect(url);
 		
+		ArrayList<StoreVO> list = new ArrayList<StoreVO>();
+		
 		try {
 			Document document = conn.get();
 			Element urlElement = document.getElementById("search_resultsRows");
 			Elements aElements = urlElement.select("a");
-			int i = 0;
 			for (Element element : aElements) {
-				list.get(i).setAppId(element.attr("abs:data-ds-itemkey").substring(element.attr("abs:data-ds-itemkey").lastIndexOf("/") + 1));
-				list.get(i).setImg(element.select("img").attr("abs:src"));
+				StoreVO sVO = new StoreVO();
+				
+				sVO.setAppId(element.attr("abs:data-ds-itemkey").substring(element.attr("abs:data-ds-itemkey").lastIndexOf("/") + 1));
+				sVO.setImg(element.select("img").attr("abs:src"));
+				
+				String appType = sVO.getAppId().substring(0, sVO.getAppId().indexOf("_"));
+				sVO.setTitle(element.select("span[class=\"title\"]").text());
+					
+				if(!appType.equals("Bundle")) {
+					sVO.setReleased(element.select("div[class=\"col search_released responsive_secondrow\"]").text());
+				}
+				
 				
 				Element reviewScore = element.selectFirst("div[class=\"col search_reviewscore responsive_secondrow\"]");
 				if(reviewScore.select("span").hasClass("positive")) {
-					list.get(i).setReviewSummary("positive");
+					sVO.setReviewSummary("positive");
 				} else if(reviewScore.select("span").hasClass("mixed")) {
-					list.get(i).setReviewSummary("mixed");
+					sVO.setReviewSummary("mixed");
 				} else if(reviewScore.select("span").hasClass("negative")) {
-					list.get(i).setReviewSummary("negative");
+					sVO.setReviewSummary("negative");
 				}
 				
-				list.get(i).setDiscount(element.select("div[class=\"col search_discount responsive_secondrow\"]").text());
+				sVO.setDiscount(element.select("div[class=\"col search_discount responsive_secondrow\"]").text());
 				
 				Element price = element.selectFirst("div[class=\"col search_price  responsive_secondrow\"]");
 				if(price == null) {
 					price = element.selectFirst("div[class=\"col search_price discounted responsive_secondrow\"]");
-					list.get(i).setPrice(price.select("strike").text());
+					sVO.setPrice(price.select("strike").text());
 					
 					String priceText = price.text();
 					String disPrice = priceText.substring(priceText.lastIndexOf("₩"));
-					list.get(i).setDiscountPrice(disPrice);
+					sVO.setDiscountPrice(disPrice);
 				} else {
-					list.get(i).setPrice(price.text());
+					sVO.setPrice(price.text());
 				}
-				i++;
+				
+				list.add(sVO);
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -85,6 +98,7 @@ public class StoreJsoup {
 		return list;
 	}
 	
+	
 	public List<StoreVO> crawlingStoreCategory() {
 		ArrayList<StoreVO> list = new ArrayList<StoreVO>();
 		
@@ -92,24 +106,5 @@ public class StoreJsoup {
 		return list;
 	}
 	
-	/*
-	 public static void main(String[] args) {
-	        final String inflearnUrl = "https://store.steampowered.com/search/?filter=topsellers";
-	        Connection conn = Jsoup.connect(inflearnUrl);
-
-	        try {
-	            Document document = conn.get();
-	            Element el = document.getElementById("search_resultsRows");
-	            Elements els = el.select("a");
-	            for(Element e : els) {
-	            	System.out.println(e.selectFirst("div[class=\"col search_price  responsive_secondrow\"]"));
-	            }
-
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-	    }
-	   */
-	  
 	
 }

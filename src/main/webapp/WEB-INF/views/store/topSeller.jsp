@@ -160,7 +160,7 @@
 					
 <c:forEach var="data" items="${LIST}">
 						<div class="card game" id="${data.appId}">
-							<img class="card-img-left" src="${data.img}" height="50px">
+							<img class="card-img-left" src="${data.img}">
 							<div>
 								<h4>${data.title}</h4>
 								<div class="game-title-info">
@@ -226,8 +226,5 @@
 		</div>
 	</main>
 	
-	<form method="POST" action="" id="goAppDetail">
-		<input type="hidden" id="score" name="score">
-	</form>
 </body>
 </html>

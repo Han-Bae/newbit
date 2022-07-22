@@ -230,31 +230,6 @@
 		    <version>1.11.3</version>
 		</dependency>
 		
-		<!-- selenium-java -->
-		<dependency>
-		    <groupId>org.seleniumhq.selenium</groupId>
-		    <artifactId>selenium-java</artifactId>
-		    <version>3.141.59</version>
-		</dependency>
-		<!-- selenium-chrome-driver -->
-		<dependency>
-		    <groupId>org.seleniumhq.selenium</groupId>
-		    <artifactId>selenium-chrome-driver</artifactId>
-		    <version>3.141.59</version>
-		</dependency>
-		<!-- selenium-server -->
-		<dependency>
-		    <groupId>org.seleniumhq.selenium</groupId>
-		    <artifactId>selenium-server</artifactId>
-		    <version>3.141.59</version>
-		</dependency>
-		<!-- selenium-remote-driver -->
-		<dependency>
-		    <groupId>org.seleniumhq.selenium</groupId>
-		    <artifactId>selenium-remote-driver</artifactId>
-		    <version>3.141.59</version>
-		</dependency>
-		
 		<!-- json-simple -->
 		<dependency>
 		    <groupId>com.googlecode.json-simple</groupId>

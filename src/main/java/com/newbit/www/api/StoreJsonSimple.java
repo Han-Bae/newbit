@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -24,6 +25,59 @@ import com.newbit.www.vo.StoreVO;
 
 public class StoreJsonSimple {
 	
+	/*
+	   topSeller Page 관련
+	 */
+	public List<StoreVO> getTitleReleased(List<StoreVO> list) {
+	
+		try {
+			for(int i = 0 ; i < list.size() ; i++) {
+				String appId = list.get(i).getAppId();
+				String appType = appId.substring(0, appId.indexOf("_"));
+				appId = appId.substring(appId.indexOf("_") + 1);
+				
+				if(appType.equals("App")) {
+					URL url = new URL("https://store.steampowered.com/api/appdetails?appids=" + appId + "&l=korean");
+					InputStreamReader isr = new InputStreamReader(url.openStream(), "UTF-8");
+					BufferedReader bf = new BufferedReader(isr);
+					String result = bf.readLine();
+					
+					JSONParser jsonParser = new JSONParser();
+					
+					// 신규 게임인 경우 json이 없음
+					try {
+						JSONObject jsonObject = (JSONObject) jsonParser.parse(result);
+						
+						JSONObject appJson = (JSONObject) jsonObject.get(appId);
+						
+						if((Boolean) appJson.get("success")) {
+							JSONObject appData = (JSONObject) appJson.get("data");
+							
+							// released랑 title
+							list.get(i).setTitle((String) appData.get("name"));
+							list.get(i).setReleased((String) ((JSONObject) appData.get("release_date")).get("date"));
+							
+							bf.close();
+							isr.close();
+						}
+					
+					} catch(NullPointerException e) {
+						continue;
+					}
+				}
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	
+	/*
+		appDetail Page 관련
+	 */
 	public StoreVO getDetailJson(String appId) {
 		StoreVO sVO = new StoreVO();
 		

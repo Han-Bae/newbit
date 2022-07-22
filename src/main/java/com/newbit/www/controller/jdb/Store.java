@@ -24,15 +24,12 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.newbit.www.api.StoreJsonSimple;
 import com.newbit.www.api.StoreJsoup;
-import com.newbit.www.api.StoreSelenium;
 import com.newbit.www.dao.StoreDao;
 import com.newbit.www.vo.StoreVO;
 
 @Controller
 @RequestMapping("/store")
 public class Store {
-	@Autowired
-	StoreSelenium storeSelenium;
 	@Autowired
 	StoreJsoup storeJsoup;
 	@Autowired
@@ -48,8 +45,8 @@ public class Store {
 		
 		String sortBy = request.getParameter("sortSelect");
 		
-		List<StoreVO> seleniumList = storeSelenium.mainPageselenium(sortBy);
-		List<StoreVO> list = storeJsoup.crawlingStoreMain(sortBy, seleniumList);
+		List<StoreVO> list = storeJsoup.crawlingStoreMain(sortBy);
+		list = storeJson.getTitleReleased(list);
 		
 		mv.addObject("LIST", list);
 		mv.addObject("sortBy", sortBy);

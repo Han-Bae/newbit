@@ -21,7 +21,6 @@
 	<!-- API -->
 	<!-- Crawling -->
 	<bean id="storeJsoup" class="com.newbit.www.api.StoreJsoup" />
-	<bean id="storeSelenium" class="com.newbit.www.api.StoreSelenium" />
 	<!-- Json Handler -->
 	<bean id="storeJson" class="com.newbit.www.api.StoreJsonSimple" />
 	<bean id="profileJson" class="com.newbit.www.api.ProfileJsonSimple" />

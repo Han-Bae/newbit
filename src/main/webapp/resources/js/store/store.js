@@ -4,37 +4,25 @@ $(document).ready(function() {
 		$(location).attr('href', '/www/store/categories.nbs');
 	});
 	$('#allGameBtn').click(function(){
-		$(location).attr('href', '/www/store/games.nbs');
+		$(location).attr('href', '/www/store/');
 	});
 	
 	$('#TopSellersBtn').click(function(){
-		$(location).attr('href', '/www/store/games.nbs');
+		$(location).attr('href', '/www/store/topSeller.nbs');
 	});
 	
 	
 	/* 인기 페이지 이벤트 */
 	$('#gameSort').change(function(){
-		$(location).attr('href', '/www/store/games.nbs/?sortSelect=' + this.value);
+		$(location).attr('href', '/www/store/topSeller.nbs/?sortSelect=' + this.value);
 	});
 	
 	$('.game').click(function(){
 		const appId = this.id;
 		const appType = appId.substring(0, appId.indexOf("_"));
+		
 		if(appType == "App"){
-			$('#goAppDetail').attr('action', '/www/store/app/?game=' + appId);
-			
-			const reviewIcon = document.querySelector('#' + appId + ' i');
-			if(reviewIcon != null) {
-				const reviewClass = $(reviewIcon).attr('class');
-				if(reviewClass.indexOf('positive')){
-					$('#score').val('positive');
-				} else if(reviewClass.indexOf('mixed')){
-					$('#score').val('mixed');
-				} else if(reviewClass.indexOf('negative')){
-					$('#score').val('negative');
-				}
-			}
-			$('#goAppDetail').submit();
+			$(location).attr('href', '/www/store/app/?game=' + appId);
 		}
 	});
 	
