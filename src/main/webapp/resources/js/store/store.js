@@ -158,7 +158,7 @@ $(document).ready(function() {
 	});
 	
 	$('.media').click(function(){
-			$('video.mainMedia').get(0).pause();
+		$('video.mainMedia').get(0).pause();
 		$('.game-media-scroll .now-show').css('visibility', 'hidden');
 		$('img.mainMedia').attr('src', '');
 		$('video.mainMedia').find('source').attr('src', '');
@@ -171,6 +171,9 @@ $(document).ready(function() {
 			$('video.mainMedia').find('source').attr('src', $(this).find('img').attr('class'));
 			$('video.mainMedia').get(0).load();
 			$('video.mainMedia').get(0).play();
+		} else if($(this).hasClass('screenshot')){
+			$('img.mainMedia').css('display', 'block');
+			$('img.mainMedia').attr('src', $(this).find('img').attr('class'));
 		}
 	});
 	
