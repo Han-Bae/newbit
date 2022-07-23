@@ -13,7 +13,7 @@ public class DelDataEach extends QuartzJobBean{
 		delDa.delDa();
 	}
 	
-	public void setUpSal(DelData delDa) {
+	public void setDelDa(DelData delDa) {
 		this.delDa = delDa;
 	}
 }
