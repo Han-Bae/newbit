@@ -27,7 +27,9 @@
 .app-detail-body img {
 	border-radius: 0;
 }
-
+.app-detail-body .game-media {
+	width: 590px;
+}
 .mainMedia {
 	width: 590px;
 	height: 320px;
@@ -37,17 +39,52 @@ img.mainMedia {
 	display: none;
 }
 .game-media-scroll {
-	display: flex;
 	overflow-x: scroll;
-	overflow-y: hidden;
-	width: 590px;
-	height: 75px;
+	height: 85px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+    flex-wrap: wrap;
+}
+.game-media-scroll .media {
+	margin-left: 5px;
+	cursor: pointer;
+	position: relative;
 }
 .game-media-scroll img {
-	margin-left: 5px;
+	height: 65px;
 	width: 112px;
-	height: 60px;
-	object-fit: cover;
+}
+.game-media-scroll .movie-play-btn {
+	font-size: 20px;
+	color: white;
+	font-weight: 600;
+	position: absolute;
+	top: 23px;
+	left: 45px;
+	background: #27293d;
+	width: 27px;
+	height: 27px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.game-media-scroll .now-show {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 65px;
+	width: 112px;
+	box-shadow: 0 0 0 2px white inset, 0 0 0 2px white;
+	color: white;
+}
+.game-media-scroll .now-show i {
+	font-weight: 600;
+	font-size: 25px;
+	position: absolute;
+	left: 45px;
+	top: -5px;
 }
 .game-media-scroll::-webkit-scrollbar {
 	height: 10px;

@@ -137,7 +137,7 @@
 						<div class="card-header">₩ 10,000 이하</div>
 						<div class="new-low-price-game">
 <c:forEach var="mini10000" items="${mini10000}">
-							<div class="card game">
+							<div class="card game" id="${mini10000.appId}">
 								<img src="${mini10000.img}">
 								<div>
 	<c:if test="${not empty mini10000.discount}">
@@ -161,21 +161,19 @@
 						<div class="new-low-price-game">
 						
 <c:forEach var="mini5000" items="${mini5000}">
-							<div class="card game">
+							<div class="card game" id="${mini5000.appId}">
 								<img src="${mini5000.img}">
 								<div>
 	<c:if test="${not empty mini5000.discount}">
 									<span class="howSale">${mini5000.discount}</span>
 	</c:if>
-									<div class="gamePrice">
 		<c:if test="${empty mini5000.discountPrice}">
-										<span class="salePrice">${mini5000.price}</span>
+									<span class="nowPrice">${mini5000.price}</span>
 	</c:if>
 		<c:if test="${not empty mini5000.discountPrice}">
-										<span class="originalPrice"><del>${mini5000.price}</del></span>
-										<span class="salePrice">${mini5000.discountPrice}</span>
+									<span class="originalPrice"><del>${mini5000.price}</del></span>
+									<span class="nowPrice">${mini5000.discountPrice}</span>
 	</c:if>
-									</div>
 								</div>
 							</div>
 </c:forEach>

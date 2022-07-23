@@ -88,17 +88,30 @@
 		<div class="app-detail-body">
 			<div class="game-media">
 				<div>
-					<video class="mainMedia" controls>
+					<video class="mainMedia" onloadstart="this.volume=0.5" controls>
 						<source src="" type="video/mp4">
 					</video>
 					<img class="mainMedia" src="">
 				</div>
 				<div class="game-media-scroll">
 	<c:forEach var="mv" items="${sVO.movie}">
-					<img src="${mv.key}" class="${mv.value} movie">
+					<div class="media movie">
+						<img src="${mv.key}" class="${mv.value}">
+						<span class="movie-play-btn">
+							<i class="tim-icons icon-triangle-right-17"></i>
+						</span>
+						<span class="now-show" style="visibility:hidden;">
+							<i class="tim-icons icon-minimal-up"></i>
+						</span>
+					</div>
 	</c:forEach>
 	<c:forEach var="sc" items="${sVO.screenshot}">
-					<img src="${sc.key}" class="${sc.value}">
+					<div class="media screenshot">
+						<img src="${sc.key}" class="${sc.value} ">
+						<span class="now-show" style="visibility:hidden;">
+							<i class="tim-icons icon-minimal-up"></i>
+						</span>
+					</div>
 	</c:forEach>
 	
 				</div>

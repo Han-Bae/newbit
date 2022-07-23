@@ -156,4 +156,22 @@ $(document).ready(function() {
 			}
 		});		
 	});
+	
+	$('.media').click(function(){
+			$('video.mainMedia').get(0).pause();
+		$('.game-media-scroll .now-show').css('visibility', 'hidden');
+		$('img.mainMedia').attr('src', '');
+		$('video.mainMedia').find('source').attr('src', '');
+		$('.mainMedia').css('display', 'none');
+		
+		$(this).find('.now-show').css('visibility', 'visible');
+		
+		if($(this).hasClass('movie')){
+			$('video.mainMedia').css('display', 'block');
+			$('video.mainMedia').find('source').attr('src', $(this).find('img').attr('class'));
+			$('video.mainMedia').get(0).load();
+			$('video.mainMedia').get(0).play();
+		}
+	});
+	
 });

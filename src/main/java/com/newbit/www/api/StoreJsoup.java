@@ -69,10 +69,18 @@ public class StoreJsoup {
 			Document document = conn.get();
 			Element urlElement = document.getElementById("search_resultsRows");
 			Elements aElements = urlElement.select("a");
+			
+			String priorAppId = "";
 			for (Element element : aElements) {
 				StoreVO sVO = new StoreVO();
 				
-				sVO.setAppId(element.attr("abs:data-ds-itemkey").substring(element.attr("abs:data-ds-itemkey").lastIndexOf("/") + 1));
+				String nowAppId = element.attr("abs:data-ds-itemkey").substring(element.attr("abs:data-ds-itemkey").lastIndexOf("/") + 1);
+				if(nowAppId.equals(priorAppId)) {
+					continue;
+				}
+				priorAppId = nowAppId;
+				
+				sVO.setAppId(nowAppId);
 				sVO.setImg(element.select("img").attr("abs:src"));
 				
 				String appType = sVO.getAppId().substring(0, sVO.getAppId().indexOf("_"));
@@ -81,7 +89,6 @@ public class StoreJsoup {
 				if(!appType.equals("Bundle")) {
 					sVO.setReleased(element.select("div[class=\"col search_released responsive_secondrow\"]").text());
 				}
-				
 				
 				Element reviewScore = element.selectFirst("div[class=\"col search_reviewscore responsive_secondrow\"]");
 				if(reviewScore.select("span").hasClass("positive")) {
@@ -131,9 +138,19 @@ public class StoreJsoup {
 			if(cardType.equals("medium")) {
 				Element element = document.getElementById("tab_newreleases_content");
 				Elements anchor = element.select("a[class=\"tab_item  \"]");
+				// 중복값 확인용
+				String priorAppId = "";
 				for(int i = 0 ; i < anchor.size() ; i++) {
 					StoreVO sVO = new StoreVO();
-					sVO.setAppId(anchor.get(i).attr("abs:data-ds-itemkey").substring(anchor.get(i).attr("abs:data-ds-itemkey").lastIndexOf("/") + 1));
+					
+					// 중복값 확인하고 맞으면 다음 index 다르면 블록 밖의 변수에 값 저장
+					String nowAppId = anchor.get(i).attr("abs:data-ds-itemkey").substring(anchor.get(i).attr("abs:data-ds-itemkey").lastIndexOf("/") + 1);
+					if(nowAppId.equals(priorAppId)) {
+						continue;
+					}
+					priorAppId = nowAppId;
+					
+					sVO.setAppId(nowAppId);
 					sVO.setImg(anchor.get(i).select("img").attr("abs:src"));
 					sVO.setTitle(anchor.get(i).select("div[class=\"tab_item_name\"]").text());
 					sVO.setType(anchor.get(i).select("div[class=\"tab_item_top_tags\"]").text());
@@ -152,8 +169,10 @@ public class StoreJsoup {
 			} else if(cardType.equals("mini10000")) {
 				Element mini10000Div = document.selectFirst("div[class=\"home_specials_ctn underten sidebar_wide\"]");
 				Elements anchor = mini10000Div.getElementsByTag("a");
+				
 				for(int i = 0 ; i < anchor.size() ; i++) {
 					StoreVO sVO = new StoreVO();
+					sVO.setAppId(anchor.get(i).attr("abs:data-ds-itemkey").substring(anchor.get(i).attr("abs:data-ds-itemkey").lastIndexOf("/") + 1));
 					sVO.setImg(anchor.get(i).select("img").attr("abs:src"));
 					
 					Element priceDiv = anchor.get(i).selectFirst("div[class=\"discount_block discount_block_inline discount_block_collapsable\"]");
@@ -169,18 +188,20 @@ public class StoreJsoup {
 				}
 			} else if(cardType.equals("mini5000")) {
 				Element mini5000Div = document.selectFirst("div[class=\"home_specials_ctn underten underfive\"]");
-				Elements anchor = mini5000Div.getElementsByTag("a");
-				for(int i = 0 ; i < anchor.size() ; i++) {
+				Elements special = mini5000Div.select("div[class=\"special\"]");
+
+				for(int i = 0 ; i < special.size() ; i++) {
 					StoreVO sVO = new StoreVO();
-					sVO.setImg(anchor.get(i).select("img").attr("abs:src"));
+					sVO.setAppId(special.get(i).selectFirst("a.special_img_ctn").attr("abs:data-ds-itemkey").substring(special.get(i).selectFirst("a.special_img_ctn").attr("abs:data-ds-itemkey").lastIndexOf("/") + 1));
+					sVO.setImg(special.get(i).select("img").attr("abs:src"));
 					
-					Element priceDiv = anchor.get(i).selectFirst("div[class=\"discount_block discount_block_inline discount_block_collapsable\"]");
+					Element priceDiv = special.get(i).selectFirst("div[class=\"discount_block discount_block_inline discount_block_collapsable\"]");
 					if(priceDiv == null) {
-						sVO.setPrice(anchor.get(i).select("div[class=\"discount_final_price\"]").text());
+						sVO.setPrice(special.get(i).select("div[class=\"discount_final_price\"]").text());
 					} else {
-						sVO.setDiscount(anchor.get(i).select("div[class=\"discount_pct\"]").text());
-						sVO.setPrice(anchor.get(i).select("div[class=\"discount_original_price\"]").text());
-						sVO.setDiscountPrice(anchor.get(i).select("div[class=\"discount_final_price\"]").text());
+						sVO.setDiscount(special.get(i).select("div[class=\"discount_pct\"]").text());
+						sVO.setPrice(special.get(i).select("div[class=\"discount_original_price\"]").text());
+						sVO.setDiscountPrice(special.get(i).select("div[class=\"discount_final_price\"]").text());
 					}
 					
 					list.add(sVO);
@@ -208,16 +229,19 @@ public class StoreJsoup {
 		String url = "https://store.steampowered.com/app/" + appId;
 		
 		Connection conn = Jsoup.connect(url);
+		conn.cookie("birthtime", "691513201");
+		conn.cookie("lastagecheckage", "1-0-1992");
 		
 		try {
 			Document document = conn.get();
-			Element element = document.selectFirst("div[class=\"summary column\"]").selectFirst("span[itemprop=\"description\"]");
-			if(element != null) {
-				if(element.hasClass("positive")) {
+			Element element = document.getElementById("userReviews");
+			Element span = element.selectFirst("span[itemprop=\"description\"]");
+			if(span != null) {
+				if(span.hasClass("positive")) {
 					sVO.setReviewSummary("positive");
-				} else if(element.hasClass("mixed")) {
+				} else if(span.hasClass("mixed")) {
 					sVO.setReviewSummary("mixed");
-				} else if(element.hasClass("negative")) {
+				} else if(span.hasClass("negative")) {
 					sVO.setReviewSummary("negative");
 				} 
 			}
