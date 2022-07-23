@@ -28,16 +28,22 @@
 			<param name="ConversionPattern" value="%-5p - %d{yyyy/MM/dd} : %m%n" />
 		</layout>
 	</appender>
-	<!-- 
-	 설문조사 로그 어팬더 
-	<appender name="surveyLog" class="org.apache.log4j.FileAppender">
-		<param name="File" value="${catalina.base}/src/main/resources/log/survey.log" />
+	 
+	 	
+	<!-- 데이터삭제 어펜더 -->
+	<appender name="delAppender" class="org.apache.log4j.FileAppender">
+		<param name="File" value="${catalina.base}/src/main/resources/log/del.log" />
 		<param name="Append" value="true" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%-5p - %d{yyyy/MM/dd} : %m%n" />
+			<param name="ConversionPattern" value="%-5p - %d{yyyy/MM/dd HH:mm:ss} : %m%n" />
 		</layout>
 	</appender>
-	 -->
+	
+	<logger name="delLogger">
+		<level value="info" />
+		<appender-ref ref="delAppender" />
+	</logger>
+	
 	<!-- Application Loggers -->
 	<logger name="com.newbit.www">
 		<level value="info" />

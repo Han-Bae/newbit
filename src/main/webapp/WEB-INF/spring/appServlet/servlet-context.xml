@@ -48,6 +48,10 @@
 	<beans:import resource="bean-context.xml" />
 	<beans:import resource="interceptor-context.xml" />
 	
+	
+	<!-- quartz 설정파일 -->
+	<beans:import resource="scheduler-context.xml" />
+	
 	<context:component-scan base-package="com.newbit.www" />
 	
 </beans:beans>
