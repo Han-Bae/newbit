@@ -40,7 +40,7 @@ public class Payment {
 	@RequestMapping("/pick.nbs")
 	public ModelAndView pick(ModelAndView mv, HttpSession session) {
 		String id = (String)session.getAttribute("SID");
-		List<PaymentVO> pickList = pDao.getBasketList(id);
+		List<PaymentVO> pickList = pDao.getPickList(id);
 		List<String> gameIdList = new ArrayList<String>();
 		for(PaymentVO pavo : pickList) {
 			gameIdList.add(pavo.getGame_id());
