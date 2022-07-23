@@ -28,4 +28,45 @@
 		    AND game_id = #{appId}
 		    AND li.isshow = 'Y'
 	</select>
+	
+	<select id="getPayHistoryList" resultType="string" parameterType="string">
+		SELECT
+		    game_id
+		FROM
+		    payhistory, account ac
+		WHERE
+		    account_no = ac.no
+		    AND id = #{id}
+		    AND isrefund = 'N'
+	</select>
+	
+	<insert id="addLibraryGame" parameterType="storeVO">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			SELECT
+				NVL(MAX(no) + 1, 1)
+			FROM
+				library
+		</selectKey>
+		INSERT INTO 
+    		library(no, account_no, game_id, playtime, isnewbit, 
+    		<if test="type eq 'dlc'">
+    			fullgame_id
+    		</if>
+    		)
+		VALUES(
+    		#{no}, 
+    		(			
+	    		SELECT
+			        no
+			    FROM
+			        account
+			    WHERE
+			       id = #{sessionId}
+			 )
+    		, #{appId}, '0시간', 'N'
+		<if test="type eq 'dlc'">
+    		, #{fullgameId}
+    	</if>
+	</insert>
+	
 </mapper>

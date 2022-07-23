@@ -50,10 +50,10 @@ public class StoreJsonSimple {
 			sVO.setTitle((String) appData.get("name"));
 			sVO.setDetailedDescription((String) appData.get("about_the_game"));
 			
-			if(((String) appData.get("type")).equals("dlc")) {
+			if(sVO.getType().equals("dlc")) {
 				sVO.setFullgameId((String) ((JSONObject) appData.get("fullgame")).get("appid"));
 				sVO.setFullgameTitle((String) ((JSONObject) appData.get("fullgame")).get("name"));
-			} else if(((String) appData.get("type")).equals("game")) {
+			} else if(sVO.getType().equals("game")) {
 				sVO.setShortDescription((String) appData.get("short_description"));
 			}
 			

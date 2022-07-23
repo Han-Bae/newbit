@@ -15,8 +15,16 @@ public class ProfileDao {
 	public List<StoreVO> getLibrary(String id) {
 		return sqlSession.selectList("profileSQL.getLibrary", id);
 	}
+	
 	public int countLibraryGame(StoreVO storeVO) {
 		return sqlSession.selectOne("profileSQL.countLibraryGame", storeVO);
 	}
 	
+	public List<String> getPayHistoryList(String id) {
+		return sqlSession.selectList("profileSQL.getPayHistoryList", id);
+	}
+	
+	public int addLibraryGame(StoreVO storeVO) {
+		return sqlSession.insert("profileSQL.addLibraryGame", storeVO);
+	}
 }

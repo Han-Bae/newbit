@@ -49,4 +49,36 @@ public class ProfileJsonSimple {
 		
 		return list;
 	}
+	
+	public StoreVO getType(String appId) {
+		StoreVO sVO = new StoreVO();
+		
+		try {
+			URL url = new URL("https://store.steampowered.com/api/appdetails?appids=" + appId + "&l=korean");
+			InputStreamReader isr = new InputStreamReader(url.openStream(), "UTF-8");
+			BufferedReader bf = new BufferedReader(isr);
+			String result = bf.readLine();
+			
+			JSONParser jsonParser = new JSONParser();
+			JSONObject jsonObject = (JSONObject) jsonParser.parse(result);
+			JSONObject appJson = (JSONObject) jsonObject.get(appId);
+			JSONObject appData = (JSONObject) appJson.get("data");
+			
+			sVO.setType((String) appData.get("type"));
+			
+			if(sVO.getType().equals("dlc")) {
+				sVO.setFullgameId((String) ((JSONObject) appData.get("fullgame")).get("appid"));
+			}
+			
+			bf.close();
+			isr.close();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return sVO;
+	}
+	
+
 }
