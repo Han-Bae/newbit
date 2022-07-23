@@ -41,20 +41,20 @@
 	</select>
 	
 	<insert id="addLibraryGame" parameterType="storeVO">
-		<selectKey keyProperty="no" resultType="int" order="BEFORE">
-			SELECT
-				NVL(MAX(no) + 1, 1)
-			FROM
-				library
-		</selectKey>
+
 		INSERT INTO 
-    		library(no, account_no, game_id, playtime, isnewbit, 
+    		library(no, account_no, game_id, playtime, isnewbit 
     		<if test="type eq 'dlc'">
-    			fullgame_id
+    			, fullgame_id
     		</if>
     		)
 		VALUES(
-    		#{no}, 
+    		(
+	    		SELECT
+					NVL(MAX(no) + 1, 1)
+				FROM
+					library
+    		), 
     		(			
 	    		SELECT
 			        no
@@ -67,6 +67,7 @@
 		<if test="type eq 'dlc'">
     		, #{fullgameId}
     	</if>
+    	)
 	</insert>
 	
 </mapper>

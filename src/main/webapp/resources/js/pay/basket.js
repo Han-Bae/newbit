@@ -201,12 +201,12 @@ function payment(){
 			success: function(result){
 				swal(result.title, result.msg, result.icon)
 				.then(function(){
-					location.replace('/www/store/');
+					location.replace('/www/profile/addLibraryGame.nbs');
 				})
 			},
 			error: function(){
 				alert("결제 에러, 다시 진행해주세요");
-				location.replace('/www/store/');
+				location.replace('/www/payment/basket.nbs');
 			}
 	    });
     }
