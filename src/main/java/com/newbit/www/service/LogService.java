@@ -76,7 +76,8 @@ public class LogService {
 		MethodSignature methodSignature = (MethodSignature) join.getSignature();
         Method method = methodSignature.getMethod();
         String funcName = method.getName();
-        if(funcName.equals("selfPayCheck")) {
+        System.out.println(funcName);
+        if(funcName.equals("selfCheckPay")) {
     		PaymentVO pVO = (PaymentVO) join.getArgs()[1];
     		String result = pVO.getResult();
     		String id = pVO.getId();

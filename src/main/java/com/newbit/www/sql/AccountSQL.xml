@@ -135,10 +135,10 @@
 			SELECT NVL(MAX(no) + 1, 1000) FROM account
 		</selectKey>
 		INSERT INTO
-			account(no, id, pw, nickname, email, istype)
+			account(no, id, pw, nickname, email, istype, tag_no)
 		VALUES(
 			#{no}, #{id}, #{pw},
-			#{nickname}, #{email}, #{istype}
+			#{nickname}, #{email}, #{istype}, #{tag}
 		)
 	</insert>
 	

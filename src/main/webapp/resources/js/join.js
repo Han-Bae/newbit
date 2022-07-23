@@ -183,7 +183,33 @@ $(document).ready(function(){
 			return;
 		}
 	});
-
+	// 선호태그 선택
+	$('li').click(function(){
+		var tag = $(this).find('span[class="title"]').text();
+		switch(tag){
+		case "액션":
+			$('input[name="tag"]').val(1000);
+			break;
+		case "롤플레잉":
+			$('input[name="tag"]').val(2000);
+			break;
+		case "전략":
+			$('input[name="tag"]').val(3000);
+			break;
+		case "어드벤쳐":
+			$('input[name="tag"]').val(4000);
+			break;
+		case "시뮬레이션":
+			$('input[name="tag"]').val(5000);
+			break;
+		case "스포츠":
+			$('input[name="tag"]').val(6000);
+			break;
+		}
+		$('input[name="tagName"]').val(tag);
+		$('input[name="tagName"]').parent().parent().removeClass("invalid");
+		$('input[name="tagName"]').parent().parent().addClass("valid");
+	})
 	// 회원가입 버튼 클릭
 	$('#jbtn').click(function(){
 		// 유효성 통과 못한 부분으로 이동

@@ -272,8 +272,8 @@ public class Account {
 	}
 	
 	// 인증 메일 전송
-	@RequestMapping(path="/certifiMail.nbs", method=RequestMethod.POST, params="email")
 	@ResponseBody
+	@RequestMapping(path="/certifiMail.nbs", method=RequestMethod.POST, params="email")
 	public Map<String, String> SendEmail(ModelAndView mv, AccountVO aVO, HttpSession session) {
 		int cnt = aDao.getEmailCnt(aVO.getEmail());
 		// 중복 재확인
@@ -335,11 +335,12 @@ public class Account {
 	@RequestMapping(path="/checkOkMail.nbs", method=RequestMethod.POST, params="email")
 	@ResponseBody
 	public Map<String, String> checkOkMail(ModelAndView mv, AccountVO aVO) {
-		int cnt = aDao.getEmailCnt(aVO.getEmail());
+		int cnt = aDao.getEmailCnt(aVO.getEmail());	
 		// 중복 재확인
 		aVO.setCnt(cnt);
 		HashMap<String, String> map = new HashMap<String, String>();
 		String result = "NO";
+		System.out.println(cnt);
 		// 있어야 OK
 			// 이미 가입된 경우 유효성/중복검사로 되돌아가므로 중복 검사할 필요 없음
 		if(cnt == 1) {

@@ -190,6 +190,52 @@ h4{
 				</div>
 			</div>			
 			
+			<!-- 선호타입 선택 -->
+			<div class="tag" style="margin-top:40px;">
+				<h3 style="color:#fff">Favorite Tag</h3>
+				<h4 style="color:#fff">(select 1)</h4>
+				<div class="form-Style">
+				<div class="form-Css invalid">
+					<div class="form-floating">
+					    <input type="text" name="tagName" class="form-control"  id="tag"
+					      	placeholder=" " required readonly style="background: linear-gradient(#1e2024, #18181c);">
+					    <span class="indicator"></span>
+					    <label for="tag">Tag</label>
+					    <input type="hidden" name="tag" required>
+					</div>     
+				</div>
+				</div>
+				<div class="wantTag">
+					<ul>
+						<li style="--i:#a955ff;--j:#ea51ff;">
+							<span class="icon"><ion-icon name="eyedrop-outline"></ion-icon></span>
+							<span class="title">액션</span>
+						</li>
+						<li style="--i:#56ccf2;--j:#2f80ed;">
+							<span class="icon"><ion-icon name="color-wand-outline"></ion-icon></span>
+							<span class="title">롤플레잉</span>
+						</li>
+						<li style="--i:#ff9966;--j:#ff5e62;">
+							<span class="icon"><ion-icon name="bulb-outline"></ion-icon></span>
+							<span class="title">전략</span>
+						</li>
+					</ul>
+					<ul>
+						<li style="--i:#80ff72;--j:#7ee8fa;">
+							<span class="icon"><ion-icon name="rocket-outline"></ion-icon></span>
+							<span class="title">어드벤쳐</span>
+						</li>
+						<li style="--i:#ffa9c6;--j:#f434e2;">
+							<span class="icon"><ion-icon name="build-outline"></ion-icon></span>
+							<span class="title">시뮬레이션</span>
+						</li>
+						<li style="--i:#a955ff;--j:#ffa9c6;">
+							<span class="icon"><ion-icon name="football-outline"></ion-icon></span>
+							<span class="title">스포츠</span>
+						</li>
+					</ul>
+				</div>
+			</div>
 				<!-- 버튼 이벤트 -->
 				<div class="ckdiv content">
 					<a>
@@ -199,5 +245,7 @@ h4{
 			</form>			
 	<!-- 가운데정렬 태그 끝 -->
 	</main>
+	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>

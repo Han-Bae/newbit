@@ -5,7 +5,7 @@ import java.util.*;
 // 회원 계정(+즐겨찾기) + 장바구니 + 찜목록 + 아바타 정보 + 친구 수록한 VO
 
 public class AccountVO {
-	private int no, tag_number, friend_number, cnt, ck_mail;
+	private int no, tag_number, friend_number, cnt, ck_mail, tag;
 	private String game_id, id, pw, nickname, email, istype, isshow, isnewbit, tel,
 		sdate, savename, isokay, result,
 		icon, title, msg, stat, url;	// SwalAlert용
@@ -16,6 +16,12 @@ public class AccountVO {
 	private List<NoticeVO> nVOList;
 	
 	
+	public int getTag() {
+		return tag;
+	}
+	public void setTag(int tag) {
+		this.tag = tag;
+	}
 	public List<NoticeVO> getnVOList() {
 		return nVOList;
 	}
@@ -195,12 +201,12 @@ public class AccountVO {
 	@Override
 	public String toString() {
 		return "AccountVO [no=" + no + ", tag_number=" + tag_number + ", friend_number=" + friend_number + ", cnt="
-				+ cnt + ", ck_mail=" + ck_mail + ", game_id=" + game_id + ", id=" + id + ", pw=" + pw + ", nickname="
-				+ nickname + ", email=" + email + ", istype=" + istype + ", isshow=" + isshow + ", isnewbit=" + isnewbit
-				+ ", tel=" + tel + ", sdate=" + sdate + ", savename=" + savename + ", isokay=" + isokay + ", result="
-				+ result + ", icon=" + icon + ", title=" + title + ", msg=" + msg + ", stat=" + stat + ", url=" + url
-				+ ", convert_id=" + Arrays.toString(convert_id) + ", joindate=" + joindate + ", pVO=" + pVO
-				+ ", numList=" + numList + ", nVOList=" + nVOList + "]";
+				+ cnt + ", ck_mail=" + ck_mail + ", tag=" + tag + ", game_id=" + game_id + ", id=" + id + ", pw=" + pw
+				+ ", nickname=" + nickname + ", email=" + email + ", istype=" + istype + ", isshow=" + isshow
+				+ ", isnewbit=" + isnewbit + ", tel=" + tel + ", sdate=" + sdate + ", savename=" + savename
+				+ ", isokay=" + isokay + ", result=" + result + ", icon=" + icon + ", title=" + title + ", msg=" + msg
+				+ ", stat=" + stat + ", url=" + url + ", convert_id=" + Arrays.toString(convert_id) + ", joindate="
+				+ joindate + ", pVO=" + pVO + ", numList=" + numList + ", nVOList=" + nVOList + "]";
 	}
 	
 }
