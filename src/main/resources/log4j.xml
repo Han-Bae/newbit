@@ -39,10 +39,6 @@
 		</layout>
 	</appender>
 	
-	<logger name="delLogger">
-		<level value="info" />
-		<appender-ref ref="delAppender" />
-	</logger>
 	
 	<!-- Application Loggers -->
 	<logger name="com.newbit.www">
@@ -62,6 +58,10 @@
 	<logger name="paymentLog">
 		<level value="info" />
 		<appender-ref ref="paymentAppender" /> <!-- 3. -->
+	</logger>
+	<logger name="delLog">
+		<level value="info" />
+		<appender-ref ref="delAppender" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
