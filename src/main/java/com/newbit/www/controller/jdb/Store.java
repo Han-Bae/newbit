@@ -24,6 +24,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.newbit.www.api.StoreJsonSimple;
 import com.newbit.www.api.StoreJsoup;
+import com.newbit.www.dao.ProfileDao;
 import com.newbit.www.dao.StoreDao;
 import com.newbit.www.vo.StoreVO;
 
@@ -36,6 +37,8 @@ public class Store {
 	StoreJsonSimple storeJson;
 	@Autowired
 	StoreDao storeDao;
+	@Autowired
+	ProfileDao profileDao;
 	
 	
 	// 스토어 메인겸 최고 인기 페이지
@@ -101,13 +104,15 @@ public class Store {
 		String appNo = appId.substring(appId.indexOf("_") + 1);
 		StoreVO sVO = storeJson.getDetailJson(appNo);
 		sVO = storeJsoup.crawlingStoreDetail(appNo, sVO);
-		
+
+		int haveGame = 0;
 		String sessionId = (String) session.getAttribute("SID");
 		if(sessionId != null) {
 			sVO.setAppId(appId);
 			sVO.setSessionId(sessionId);
 			int pickCount = storeDao.getPickCount(sVO);
 			int basketCount = storeDao.getBasketCount(sVO);
+			haveGame = profileDao.countLibraryGame(sVO);
 			sVO.setPickCount(pickCount);
 			sVO.setBasketCount(basketCount);
 		}
@@ -120,6 +125,7 @@ public class Store {
 		}
 		
 		mv.addObject("sVO", sVO);
+		mv.addObject("haveGame", haveGame);
 		return mv;
 	}
 	

@@ -236,18 +236,9 @@ img.mainMedia {
 .app-detail-main .game .card .oriPrice {
 	color: #6c757d;
 }
-.app-detail-main .game .card .basket {
-	background: linear-gradient(to bottom left, #e14eca, #ba54f5, #e14eca);
-	cursor: pointer;
-	border-radius: 5px;
-	display: flex;
-	height: 100%;
-	align-items: center;
+.app-detail-main .game .btn.basket {
+	padding: 5px 20px;
 }
-.app-detail-main .game .card .basket:hover {
-	background: none;
-	color: #ba54f5;
-}
-.app-detail-main .game .btn {
+.app-detail-main .game .btn.btn-round {
 	font-size: 20px;
 }

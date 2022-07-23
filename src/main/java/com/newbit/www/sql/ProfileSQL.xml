@@ -16,4 +16,16 @@
 		ORDER BY
 		    li.no DESC
 	</select>
+	
+	<select id="countLibraryGame" resultType="int" parameterType="storeVO">
+		SELECT
+		    COUNT(*)
+		FROM
+		    library li, account ac
+		WHERE
+		    account_no = ac.no
+		    AND id = #{sessionId}
+		    AND game_id = #{appId}
+		    AND li.isshow = 'Y'
+	</select>
 </mapper>

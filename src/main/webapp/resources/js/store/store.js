@@ -105,9 +105,27 @@ $(document).ready(function() {
 	
 	
 	/* 앱 디테일 페이지 이벤트 */
+	const detailLoadAfter = function(){
+		if($('.game-media-scroll > div').first().hasClass('movie')){
+			$('video.mainMedia').css('display', 'block');
+			const movieSrc = $('.game-media-scroll > div').first().find('img').attr('class');
+			$('video.mainMedia').find('source').attr('src', movieSrc);
+			$('video.mainMedia').get(0).load();
+			$('video.mainMedia').get(0).play();
+		} else if($('.game-media-scroll > div').first().hasClass('screenshot')){
+			$('video.mainMedai').css('display', 'none');
+					
+			const screenshotSrc = $('.game-media-scroll > div').first().find('img').attr('class');
+			$('img.mainMedia').css('display', 'block');
+			$('img.mainMedia').attr('src', screenshotSrc);
+		}
+	}
+	detailLoadAfter();
+	
 	$('#addToBasketBtn').click(function(){
 		const data = {
-			game_id : $('#gameId').val()
+			game_id : $('#gameId').val(),
+			game_type : $('#gameType').val()
 		}
 		$.ajax({
 			url: '/www/payment/addBasket.nbs',
@@ -116,15 +134,17 @@ $(document).ready(function() {
 			data: data,
 			success: function(data){
 				if(data.result == 'OK') {
-					$(location).attr('href', '/www/payment/basket.nbs');
+					$('#together').val(data.together);
+					$('#fullgameAndDlcForm').submit();
+
 				}else if(data.result == 'RETRY'){
 					swal('추가 불가', '이미 장바구니에 등록된 상품입니다.', 'error');
 				}
 			},
 			error: function(){
 				$('input[name="vw"]').val($(location).attr('href'));
-				$('form').attr('action', '/www/account/login.nbs');
-				$('form').submit();
+				$('#basketErrorForm').attr('action', '/www/account/login.nbs');
+				$('#basketErrorForm').submit();
 			}
 		});
 	});
@@ -151,8 +171,8 @@ $(document).ready(function() {
 			},
 			error: function(){
 				$('input[name="vw"]').val($(location).attr('href'));
-				$('form').attr('action', '/www/account/login.nbs');
-				$('form').submit();
+				$('#basketErrorForm').attr('action', '/www/account/login.nbs');
+				$('#basketErrorForm').submit();
 			}
 		});		
 	});

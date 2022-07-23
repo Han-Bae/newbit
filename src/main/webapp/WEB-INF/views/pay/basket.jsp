@@ -23,10 +23,20 @@
 	<script type="text/javascript" src="/www/js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="/www/js/bootstrap.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
+	<script type="text/javascript" src="/www/js//theme/black-dashboard.js"></script>
 	<script type="text/javascript" src="/www/js/components/header.js"></script>
 	<script type="text/javascript" src="/www/js/pay/basket.js"></script>
 </head>
 <body>
+
+<c:if test="${param.together eq 'yes'}">
+	<div class="alert alert-primary show" role="alert">
+		<span><strong>본편 없이 DLC만 구매할 수는 없습니다!</strong> 본편도 같이 담아드렸어요 :D</span>
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<i class="tim-icons icon-simple-remove"></i>
+		</button>
+	</div>
+</c:if>
 	
 	<!-- 여기부터 -->
 	<!-- 

@@ -28,6 +28,8 @@ public class Payment {
 	@Autowired
 	PaymentDao pDao;
 	@Autowired
+	ProfileDao profileDao;
+	@Autowired
 	AccountService aSrc;
 	@Autowired
 	PayService pSrc;
@@ -111,8 +113,8 @@ public class Payment {
 	}
 	// 장바구니 추가
 	@ResponseBody
-	@RequestMapping(path="/addBasket.nbs", method=RequestMethod.POST, params="game_id")
-	public Map<String, String> addBasket(ModelAndView mv, HttpSession session, String game_id) {
+	@RequestMapping(path="/addBasket.nbs", method=RequestMethod.POST, params={"game_id","game_type"})
+	public Map<String, String> addBasket(ModelAndView mv, HttpSession session, String game_id, String game_type) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		String result = "NO";
 		String overlap = "NO";
@@ -128,6 +130,82 @@ public class Payment {
 				result = "RETRY";
 			}
 		}
+		
+		String fullgameId = "";
+		// 담으려고 하는 게임이 장바구니에 존재하지 않고 game_type이 dlc이면
+		if(!overlap.equals("YES") && game_type.equals("dlc")) {
+			// fullgameId를 가져와서 
+			fullgameId = "App_" + sJson.getFullgameId(game_id.substring(game_id.indexOf("_") + 1));
+			//라이브러리에 존재하는지
+			StoreVO sVO = new StoreVO();
+			sVO.setAppId(fullgameId);
+			sVO.setSessionId((String) session.getAttribute("SID"));
+			int haveLibrary = profileDao.countLibraryGame(sVO);
+			// 장바구니에 존재하는지
+			int haveBasket = pDao.countBasketGame(sVO);
+			
+			// 장바구니에 없거나 라이브러리에 없으면
+			if(haveLibrary == 0 && haveBasket == 0) {
+				// 장바구니에 isshow가 'N'로 저장되어 있는지
+				int cnt = pDao.isshowBasket(game_id);
+				int fullgameCnt = pDao.isshowBasket(fullgameId);
+				// 둘 다 isshow가 'N'인 경우
+				if(cnt == 1 && fullgameCnt == 1) {
+					
+					cnt = pDao.showBasket(game_id);
+					fullgameCnt = pDao.showBasket(fullgameId);
+					
+				// dlc가 N이고 fullgame은 장바구니에 아예 없는 경우
+				} else if(cnt == 1 && fullgameCnt == 0) {
+					
+					cnt = pDao.showBasket(game_id);
+					
+					PaymentVO pVO = new PaymentVO();
+					pVO.setGame_id(fullgameId);
+					pVO.setId((String)session.getAttribute("SID"));
+					fullgameCnt = 0;
+					fullgameCnt = pDao.addBasket(pVO);
+				
+				// fullgame이 N이고 dlc는 장바구니에 아예 없는 경우
+				} else if(cnt == 0 && fullgameCnt == 1) {
+					
+					fullgameCnt = pDao.showBasket(fullgameId);
+					
+					PaymentVO pVO = new PaymentVO();
+					pVO.setGame_id(game_id);
+					pVO.setId((String)session.getAttribute("SID"));
+					cnt = 0;
+					cnt = pDao.addBasket(pVO);
+				
+				// 둘 다 장바구니에 아예 없어서 새로 추가해야 하는 경우 
+				} else {
+					// 본편
+					PaymentVO fullgamePayVO = new PaymentVO();
+					fullgamePayVO.setGame_id(fullgameId);
+					fullgamePayVO.setId((String)session.getAttribute("SID"));
+					fullgameCnt = 0;
+					fullgameCnt = pDao.addBasket(fullgamePayVO);
+					// dlc
+					PaymentVO dlcPayVO = new PaymentVO();
+					dlcPayVO.setGame_id(game_id);
+					dlcPayVO.setId((String)session.getAttribute("SID"));
+					cnt = 0;
+					cnt = pDao.addBasket(dlcPayVO);
+					
+				}
+				
+				String together = "no";
+				if(cnt == 1 && fullgameCnt == 1) {
+					together = "yes";
+					result = "OK";
+				}
+				
+				map.put("together", together);
+				map.put("result", result);
+				return map;
+			}
+		}
+		
 		// 중복이 아닐때만 장바구니에 저장
 		if(overlap.equals("YES") == false) {
 			int cnt = pDao.isshowBasket(game_id);

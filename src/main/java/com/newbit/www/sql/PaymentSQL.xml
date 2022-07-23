@@ -38,6 +38,18 @@
 		WHERE game_id = #{game_id}
 			AND isshow = 'N'
 	</select>
+	<select id="countBasketGame" resultType="int" parameterType="storeVO">
+		SELECT
+		    COUNT(*)
+		FROM
+		    basket ba, account ac
+		WHERE
+		    account_no = ac.no
+		    AND id = #{sessionId}
+		    AND game_id = #{appId}
+		    AND ba.isshow = 'Y'
+	</select>
+	
 	
 	
 	<!-- 찜목록 추가 -->

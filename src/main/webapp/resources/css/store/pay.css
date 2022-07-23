@@ -1,4 +1,13 @@
 @import "store.css";
+
+.alert.alert-primary.show {
+	display: flex;
+	position: absolute;
+	top: 5px;
+	left: 300px;
+	width: 970px;
+}
+
 /* 보라색 #ba54f5 */
 /* 결제관련 css 구현 */
 /* 

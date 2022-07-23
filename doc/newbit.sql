@@ -81,7 +81,8 @@ CREATE TABLE basket(
    account_no NUMBER(4)
         CONSTRAINT BASKET_ACCOUNTNUM_FK REFERENCES account(no)
         CONSTRAINT BASKET_ACCOUNTNUM_NN NOT NULL,
-   game_id VARCHAR2(15 CHAR),	-- API 확인
+   game_id VARCHAR2(15 CHAR)-- API 확인
+        CONSTRAINT BASKET_GAMEID_NN NOT NULL,
    isnewbit CHAR(1)
         CONSTRAINT BASKET_NEWBIT_CK CHECK(isnewbit IN('Y','N'))
         CONSTRAINT BASKET_NEWBIT_NN NOT NULL,
@@ -384,6 +385,8 @@ CREATE TABLE screenshot_reply(
 
 -- 결제 내역 저장 테이블
 CREATE TABLE payhistory(
+    no NUMBER(5)
+        CONSTRAINT PAY_NO_PK PRIMARY KEY,
 	imp_uid VARCHAR2(50 CHAR)
 		CONSTRAINT PAY_IMP_NN NOT NULL,
 	merchant_uid VARCHAR2(50 CHAR)
@@ -456,7 +459,8 @@ CREATE TABLE notice(
 
 -- library 테이블에 fullgame_id 추가
 ALTER TABLE library
-ADD fullgame_id VARCHAR2(15 CHAR)
+ADD 
+    fullgame_id VARCHAR2(15 CHAR)
 ;
 
 -- ACCOUNT 테이블에 선호태그 추가
@@ -464,3 +468,12 @@ ALTER TABLE account
 ADD tag_no NUMBER(4);
 ALTER TABLE account
 ADD CONSTRAINT ACCOUNT_TAG_NO FOREIGN KEY(tag_no) REFERENCES tag(no);
+
+-- basket 테이블 game_id NOT NULL 제약 추가
+
+ALTER TABLE basket
+MODIFY game_id
+    CONSTRAINT BASKET_GAMEID_NN NOT NULL
+;
+
+COMMIT;

@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.newbit.www.vo.PaymentVO;
+import com.newbit.www.vo.StoreVO;
 
 public class PaymentDao {
 
@@ -24,6 +25,9 @@ public class PaymentDao {
 	}
 	public int isshowBasket(String id) {
 		return sqlSession.selectOne("pSQL.isshowBasket", id);
+	}
+	public int countBasketGame(StoreVO storeVO) {
+		return sqlSession.selectOne("pSQL.countBasketGame", storeVO);
 	}
 // 장바구니 저장
 	public int addBasket(PaymentVO pVO) {

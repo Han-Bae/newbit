@@ -211,14 +211,19 @@
 		</c:if>
 	
 		<c:if test="${empty SID}">
-					<span id="addToBasketBtn" class="basket">장바구니에 추가</span>
+					<button type="button" id="addToBasketBtn" class="btn btn-primary animation-on-hover basket">장바구니에 추가</button>
 		</c:if>
 		<c:if test="${not empty SID}">
-			<c:if test="${sVO.basketCount eq 0}">
-					<span id="addToBasketBtn" class="basket">장바구니에 추가</span>
+			<c:if test="${haveGame eq 0}">
+				<c:if test="${sVO.basketCount eq 0}">
+					<button type="button" id="addToBasketBtn" class="btn btn-primary animation-on-hover basket">장바구니에 추가</button>
+				</c:if>
+				<c:if test="${sVO.basketCount eq 1}">
+					<button type="button" id="goToBasketBtn" class="btn btn-primary animation-on-hover basket">장바구니로 가기</button>
+				</c:if>
 			</c:if>
-			<c:if test="${sVO.basketCount eq 1}">
-					<span id="goToBasketBtn" class="basket">장바구니로 가기</span>
+			<c:if test="${haveGame eq 1}">
+					<button type="button" class="btn btn-primary animation-on-hover basket" disabled>장바구니에 추가</button>
 			</c:if>
 		</c:if>
 				</div>
@@ -228,10 +233,15 @@
 			<button type="button" id="addToPickBtn" class="btn btn-primary btn-round btn-icon animation-on-hover"><i class="tim-icons icon-shape-star"></i></button>
 	</c:if>
 	<c:if test="${not empty SID}">
-		<c:if test="${sVO.pickCount eq 0}">
+		<c:if test="${haveGame eq 0}">
+			<c:if test="${sVO.pickCount eq 0}">
 			<button type="button" id="addToPickBtn" class="btn btn-primary btn-round btn-icon animation-on-hover"><i class="tim-icons icon-shape-star"></i></button>
+			</c:if>
+			<c:if test="${sVO.pickCount eq 1}">
+			<button type="button" class="btn btn-primary btn-round btn-icon animation-on-hover" disabled><i class="tim-icons icon-shape-star"></i></button>
+			</c:if>
 		</c:if>
-		<c:if test="${sVO.pickCount eq 1}">
+		<c:if test="${haveGame eq 1}">
 			<button type="button" class="btn btn-primary btn-round btn-icon animation-on-hover" disabled><i class="tim-icons icon-shape-star"></i></button>
 		</c:if>
 	</c:if>
@@ -239,14 +249,18 @@
 </c:if>
 	</main>
 	
-	<input type="hidden" id="gameId" name="game_id" value="${param.game}">
+	<input type="hidden" id="gameId" name="game_id" value="${sVO.appId}">
+	<input type="hidden" id="gameType" name="game_type" value="${sVO.type}">
 <!-- 
 <c:if test="${sVO.type eq 'dlc'}">
 		<input type="hidden" id="type" name="type" value="${sVO.type}">
 		<input type="hidden" id="fullgameId" name="fullgameId" value="${sVO.fullgameId}">
 </c:if>		
  -->
-	<form method="post">
+	<form id="fullgameAndDlcForm" action="/www/payment/basket.nbs" method="post">
+		<input type="hidden" id="together" name="together" >
+	</form>	
+	<form id="basketErrorForm" method="post">
 		<input type="hidden" name="vw" >
 	</form>	
 </body>
