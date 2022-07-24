@@ -3,9 +3,11 @@ package com.newbit.www.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.newbit.www.service.AccountService;
 import com.newbit.www.vo.AccountVO;
 
 /**
@@ -22,11 +24,13 @@ import com.newbit.www.vo.AccountVO;
  * 									관리자 페이지용 인터셉터 추가
  */
 public class LoginRedirectInterceptor implements HandlerInterceptor {
-
+	@Autowired
+	AccountService aSrc;
+	
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler)
 			throws Exception {
-		if(req.getSession().getAttribute("SID") == null) {		
+		if(req.getSession().getAttribute("SID") == null) {	
 			req.getSession().setAttribute("vw", (String)req.getRequestURI());
 			resp.sendRedirect("/www/account/login.nbs");
 			return false;

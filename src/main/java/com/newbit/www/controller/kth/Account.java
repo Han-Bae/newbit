@@ -96,6 +96,8 @@ public class Account {
 				}else {					
 					mv.addObject("title", "로그인 성공!");
 					if(session.getAttribute("vw") != null) {
+						aSrc.setMyIP();
+						System.out.println(aSrc.getMyIP()+((String)session.getAttribute("vw")).substring(10));
 						mv.addObject("url", (String)session.getAttribute("vw"));					
 					} else {					
 						mv.addObject("url", "/www/store/");
@@ -125,7 +127,7 @@ public class Account {
 		mv.addObject("icon", "success");
 		mv.addObject("title", "로그 아웃");
 		mv.addObject("msg", "");
-		mv.addObject("url", "/www/account/login.nbs");
+		mv.addObject("url", "/www/store/");
 		aVO.setResult("OK");
 		mv.setViewName("account/redirect");
 		return mv;
