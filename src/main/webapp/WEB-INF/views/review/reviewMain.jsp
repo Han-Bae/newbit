@@ -86,11 +86,9 @@
 			<h3>최근 플레이(구매)한 게임의 포럼</h3>
 		</div>
 		<c:forEach var="data" items="${GLIST}">
-		<input type="button" class="btn btn-primary btn-lg animation-on-hover" id="game1" name="game" value="${data.game_id}">
-		<input type="button" class="btn btn-primary btn-lg animation-on-hover" id="game2" name="game" value="2222222">
+		<input type="button" class="btn btn-primary btn-lg animation-on-hover" id="${data.appId}" name="game" value="${data.title}">
 		</c:forEach>
 	</section>
-	
 		
 		<div>
 			<ul class="nav justify-content-center">
@@ -125,7 +123,7 @@
 			<!-- 평가리뷰 게시글 -->
 			
 			<div class="reviewBoxWrap">
-				<c:forEach var="data" items="${LIST}">
+				<c:forEach var="data" items="${RLIST}">
 				
 							<div class="card" style="width: auto;" id="reviewBoxDetail" name="reviewBoxDetail" data-value1="${data.account_no}" data-value2="${data.no}">
 							  <div class="reviewBox1">
@@ -160,7 +158,7 @@
 					
 					
 					<input type="hidden" name="no" id="no" value="${data.no}"/>
-					<input type="text" name="game_NO" id="game_NO" value="${data.game_no}"/>
+					<input type="hidden" name="game_NO" id="game_NO" value="${data.game_no}"/>
 					<input type="hidden" name="account_no" id="account_no" value="${data.account_no}"/>
 				</c:forEach>
 			</div>

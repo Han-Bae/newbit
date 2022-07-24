@@ -15,26 +15,43 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.newbit.www.dao.ReviewDao;
-import com.newbit.www.dao.UploadDao;
-import com.newbit.www.vo.ReviewVO;
-import com.newbit.www.vo.UploadVO;
+import com.newbit.www.api.ProfileJsonSimple;
+import com.newbit.www.dao.*;
+import com.newbit.www.vo.*;
 
 @Controller
 @RequestMapping("/review")
 public class Review {
+	@Autowired
+	ProfileJsonSimple profileJson;
 
 	// 리뷰메인페이지를 reviewMain.nbs로 요청이 왔을때 띄워주는 기능
 
 	@RequestMapping("/reviewMain.nbs")
-	public ModelAndView reviewMain(ModelAndView mv, HttpSession session, ReviewVO rVO) {
+	public ModelAndView reviewMain(ModelAndView mv, HttpSession session, ReviewVO rVO, RedirectView rv) {
 
 		String sid = (String) session.getAttribute("SID");
+		
+			// 아이디를 세션에서 가져와서 정보가 없으면 보여주면 안된다.
+			// 포워딩방식 ==== 세션정보 등 따로 저장된 값이 그대로 페이지 전환 시 넘어간다.
+	        if(sid==null){
+	        	mv.setViewName("/account/login");
+	            return mv; //같은 도메인 내에서의 절대 URL  WEB-INF/view/login/login.jsp
+	        }
+	        
+	        // 리다이렉트 방식 = 세션정보 등 따로 저장되있는 값들을 없애고 새로 페이지를 열어준다.
+//	        if(sid==null){
+//	        	rv.setUrl("/account/login.nbs");
+//	        	mv.setView(rv);
+//	        	return mv;
+//	        }
+		
+	
 		int no = rDao.getFindNo(sid);
 		rVO.setAccount_no(no);
 		
 		List<ReviewVO> list = rDao.getReview();
-		List<ReviewVO> gList = rDao.getGameId(rVO);
+		List<StoreVO> gList = rDao.getGameId(rVO);
 		
 		/* List<UploadVO> gList = uDao.getScreenShot(); */
 
@@ -42,10 +59,13 @@ public class Review {
 		
 		  for (int i = 0; i < gList.size(); i++) {
 		  
-		  System.out.println("게임아이디#########" + gList.get(i).getGame_id());
+		  //System.out.println("게임아이디#########" + gList.get(i).getGame_id());
 		  
 		  }
-		 
+		
+		// 스팀라이브러리 요청
+		gList = profileJson.getLibraryJson(gList);
+		
 		// 뷰에 데이터 심고 // EL형식으로 바꾸어야 JSP에서 바로 사용할 수 있다.
 		mv.addObject("LIST", list);
 		mv.addObject("GLIST", gList);
@@ -93,15 +113,16 @@ public class Review {
 
 	// 리뷰메인페이지를 reviewMain.nbs로 요청이 왔을때 띄워주는 기능
 	@RequestMapping("/gameReviewList.nbs")
-	public ModelAndView gameReviewList(ModelAndView mv, ReviewVO rVO) {
+	public ModelAndView gameReviewList(ModelAndView mv, ReviewVO rVO, HttpSession session) {
 		System.out.println("게임타이틀 들어오는가?============" + rVO.getGame_no());
 
 		int gameNo = rVO.getGame_no();
 
-		List<ReviewVO> list = rDao.getGameReview(gameNo);
-
+		List<ReviewVO> rlist = rDao.getGameReview(gameNo);
+		System.out.println("그래그래" + rlist);
+		
 		// 작성자, 작성일, 평가, 평가리뷰글
-		for (int i = 0; i < list.size(); i++) {
+		for (int i = 0; i < rlist.size(); i++) {
 			/*
 			 * System.out.println("작성자#########" + list.get(i).getAccount_no());
 			 * System.out.println("작성일#########" + list.get(i).getRdate());
@@ -111,8 +132,30 @@ public class Review {
 			 */
 		}
 		// 뷰에 데이터 심고 // EL형식으로 바꾸어야 JSP에서 바로 사용할 수 있다.
-		mv.addObject("LIST", list);
+		mv.addObject("RLIST", rlist);
 
+		
+		
+		
+		
+		
+		String sid = (String) session.getAttribute("SID");
+		int no = rDao.getFindNo(sid);
+		rVO.setAccount_no(no);
+		
+		List<ReviewVO> list = rDao.getReview();
+		List<StoreVO> gList = rDao.getGameId(rVO);
+		
+		gList = profileJson.getLibraryJson(gList);
+		// 뷰에 데이터 심고 // EL형식으로 바꾸어야 JSP에서 바로 사용할 수 있다.
+		mv.addObject("LIST", list);
+		mv.addObject("GLIST", gList);
+		
+		
+		
+		
+		
+		
 		mv.setViewName("review/reviewMain");
 		return mv;
 	}
@@ -168,11 +211,13 @@ public class Review {
 		}
 
 		for (int i = 0; i < listYN.size(); i++) {
+			
 			/*
 			 * System.out.println("리뷰글번호===" + listYN.get(i).getReviewno());
 			 * System.out.println("유용해요===" + listYN.get(i).getGood());
 			 * System.out.println("유용하지않아요===" + listYN.get(i).getBad());
 			 */
+			
 			// map이라는 제이슨 형태(키:값)로 변수 만들어서 담는다.
 			map.put("REVIEW_NO", listYN.get(i).getReviewno()); // 평가글 번호
 			map.put("GOODYN", listYN.get(i).getGood()); // 유용yes
@@ -196,9 +241,21 @@ public class Review {
 	}
 	
 	@RequestMapping("reviewDetailPage.nbs")
-	public ModelAndView reviewDetailPage(ModelAndView mv, String ano, String rno) {
+	public ModelAndView reviewDetailPage(ModelAndView mv, String ano, String rno, HttpSession session, ReviewVO rVO) {
+		
+		
+		
 		mv.addObject("ANO", ano);
 		mv.addObject("RNO", rno);
+		
+		String sid = (String) session.getAttribute("SID");
+		int no = rDao.getFindNo(sid);
+		rVO.setAccount_no(no);
+		
+		List<StoreVO> gList = rDao.getGameId(rVO);
+		
+		mv.addObject("GLIST", gList);
+		
 		mv.setViewName("/review/reviewDetail");
 		return mv;
 	}

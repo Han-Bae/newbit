@@ -87,10 +87,10 @@
 		<div style="margin-top: 20px;">
 			<h3>최근 플레이(구매)한 게임의 포럼</h3>
 		</div>
-		<input type="button" class="btn btn-primary btn-lg animation-on-hover" id="game1" name="game" value="1111111">
-		<input type="button" class="btn btn-primary btn-lg animation-on-hover" id="game2" name="game" value="2222222">
+		<c:forEach var="data" items="${GLIST}">
+		<input type="button" class="btn btn-primary btn-lg animation-on-hover" id="${data.appId}" name="game" value="${data.title}">
+		</c:forEach>
 	</section>
-	
 		
 		<div>
 			<ul class="nav justify-content-center">

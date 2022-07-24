@@ -12,11 +12,17 @@ public class ReviewVO {
 	private int account_no, good, bad, reviewno;
 	private Integer game_no, dreviewNo, game_NO, no;
 	private String body, isnewbit, isgood, isshow, rdate, reviewYN, sid, game_id;
-	private Date resitdate;
+	private Date resitdate, buydate;
 	private List<ReviewVO> list;
 	
 	
 	
+	public Date getBuydate() {
+		return buydate;
+	}
+	public void setBuydate(Date buydate) {
+		this.buydate = buydate;
+	}
 	public String getGame_id() {
 		return game_id;
 	}

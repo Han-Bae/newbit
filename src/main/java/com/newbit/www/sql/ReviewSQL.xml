@@ -112,13 +112,17 @@
 			AND REVIEW_NO = #{dreviewNo}
 	</select>
 	
-		<select id="getGameId" resultType="rVO" parameterType="rVO">
+	<select id="getGameId" resultType="storeVO" parameterType="rVO">
 		SELECT
-		    GAME_ID
+		    game_id appId, buydate dateFormatBuydate
 		FROM
-		    LIBRARY
+		    library li, account ac
 		WHERE
-		    account_no = #{account_no}
+		    account_no = ac.no
+		    AND li.isshow = 'Y'
+		    AND account_no = #{account_no}
+		ORDER BY
+		    li.no DESC
 	</select>
 	
 </mapper>

@@ -6,7 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import javax.servlet.http.HttpSession;
 
-import com.newbit.www.vo.ReviewVO;
+import com.newbit.www.vo.*;
 
 public class ReviewDao {
 	
@@ -82,7 +82,7 @@ public class ReviewDao {
 		return sqlSession.selectOne("rSQL.getSelRewiewCnt", rVO);
 	}
 	
-	public List<ReviewVO> getGameId(ReviewVO rVO) {
+	public List<StoreVO> getGameId(ReviewVO rVO) {
 		System.out.println("dao accNo------" + rVO.getAccount_no());
 		return sqlSession.selectList("rSQL.getGameId", rVO);
 	}
