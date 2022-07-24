@@ -179,7 +179,7 @@ public class AccountService {
 					+ "		<b style=\"color: purple;\">'결제된 게임'</b><br />\r\n";
 			// 결제한 게임 수만큼 반복
 			for(int i = 0; i < aVO.getpVO().getGameIdList().size(); i++) {
-				content += "<div style=\"display:flex; margin-bottom:10px; width: 100%; justify-content:space-around;"
+				content += "<div style=\"display:flex; margin-bottom:10px; width: 100%; padding-left: 60px;"
 						+ " font-size: 15pt;\"> <img class=\"card-img-left\" src=\""+aVO.getpVO().getsVOList().get(i).getImg()+"\" width=\"200px\" height=\"100%\">"
 						+ "<div style=\"flex-driection: row; margin-left: 20px;\"><div>게임명 : " +aVO.getpVO().getsVOList().get(i).getTitle() +"<br /></div>\r\n"
 						+"<div>&nbsp;게임 가격 : " +aVO.getpVO().getGamePriceList().get(i)+"원<br />\r\n</div></div></div>";
