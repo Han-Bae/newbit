@@ -60,16 +60,18 @@
 		</ul>
 		
 		<div class="user-nav">
-<c:if test="${empty SID}">
-			<a href="/www/account/login.nbs">Log In</a>
-</c:if>
-<c:if test="${not empty SID}">
-			<a href="/www/account/logout.nbs">Log Out</a>
-			<a href="/www/info/ProfileUpdate.nbs"><i class="tim-icons icon-single-02"></i></a>
-</c:if>
-			<a href="/www/payment/basket.nbs"><i class="tim-icons icon-basket-simple"></i></a>
-			<a href="#"><i class="tim-icons icon-shape-star"></i></a>
+			<c:if test="${empty SID}">
+						<a href="/www/account/login.nbs">Log In</a>
+			</c:if>
+			<c:if test="${not empty SID}">
+						<a href="/www/account/logout.nbs">Log Out</a>
+						<a href="/www/info/ProfileUpdate.nbs"><i class="tim-icons icon-single-02"></i></a>
+			</c:if>
+						<a href="/www/payment/basket.nbs"><i class="tim-icons icon-basket-simple"></i></a>
+						<a href="#"><i class="tim-icons icon-shape-star"></i></a>
 		</div>
+		
+		<a href="/www/account/notice.nbs" id="noticeBtn"><i class="tim-icons icon-alert-circle-exc"></i></a>
 	</header>
 	
 <form method="POST" id="frm" name="frm" enctype="multipart/form-data">
@@ -89,31 +91,48 @@
 		<input type="button" class="btn btn-primary btn-lg animation-on-hover" id="${data.appId}" name="game" value="${data.title}">
 		</c:forEach>
 	</section>
+	
+		<div class="">
+			<button type="button" href="#review" id="reviewBtn" class="btn btn-warning animation-on-hover">평가</button>
+			<button type="button" href="#screenShot" id="ssBtn" class="btn btn-primary animation-on-hover">스크린샷</button>
+			<button type="button" href="#live" id="liveBtn" class="btn btn-info animation-on-hover">방송</button>
+		</div>
 		
-		<div>
+<!-- 		<div>
 			<ul class="nav justify-content-center">
 				<li class="nav-item"><a class="nav-link active" href="#review" id="reviewBtn">평가</a></li>
 				<li class="nav-item"><a class="nav-link" href="#screenShot" id="ssBtn">스크린샷</a></li>
 				<li class="nav-item"><a class="nav-link" href="#live" id="liveBtn">방송</a></li>
 			</ul>
-		</div>
+		</div> -->
 		
-		
+		<hr>
 		
 		<!-- 1. 리뷰 탭 -->
 		<div id="review">
-			<div class="sort">
-				<ul>
-					<li>표시중</li>
-					<li><a href="#">가장인기있는항목</a></li>
-					<li><a href="#">최신항목</a></li>
-				</ul>
+			<div class="store-games__tab">
+				<button type="button" class="btn" id="">유용한 순으로</button>
+				<button type="button" class="btn" id="">좋아요만 보기</button>
 			</div>
 			
 			<div class="reviewWriteWrap">
 				<c:if test="${not empty SID}">
 					<div class="form-group">
-			        	<label for="exampleFormControlTextarea1">평가리뷰입력자리입니다</label>
+							  <div class="card-body">
+							    <div class="form-check form-check-radio">
+							    	<h4>평가리뷰입력</h4>
+							        <label class="form-check-label">
+							        	<img src="/www/img/good.png">
+							            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+							            좋아요<span class="form-check-sign"></span>
+							        </label>
+							        <label class="form-check-label">
+							        	<img src="/www/img/bad.png">
+							            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" >
+							            싫어요<span class="form-check-sign"></span>
+							        </label>
+							    </div>
+							  </div>
 			        	<textarea class="form-control" id="body" name="body" rows="1"></textarea>
 			        	<button class="btn btn-default animation-on-hover" id="rbtn">평가리뷰저장</button>
 			      	</div>

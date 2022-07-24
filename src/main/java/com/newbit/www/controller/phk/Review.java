@@ -26,7 +26,6 @@ public class Review {
 	ProfileJsonSimple profileJson;
 
 	// 리뷰메인페이지를 reviewMain.nbs로 요청이 왔을때 띄워주는 기능
-
 	@RequestMapping("/reviewMain.nbs")
 	public ModelAndView reviewMain(ModelAndView mv, HttpSession session, ReviewVO rVO, RedirectView rv) {
 
@@ -34,18 +33,19 @@ public class Review {
 		
 			// 아이디를 세션에서 가져와서 정보가 없으면 보여주면 안된다.
 			// 포워딩방식 ==== 세션정보 등 따로 저장된 값이 그대로 페이지 전환 시 넘어간다.
-	        if(sid==null){
-	        	mv.setViewName("/account/login");
-	            return mv; //같은 도메인 내에서의 절대 URL  WEB-INF/view/login/login.jsp
-	        }
+//	        if(sid==null){
+//	        	mv.setViewName("/account/login");
+//	            return mv;
+//	        }
 	        
 	        // 리다이렉트 방식 = 세션정보 등 따로 저장되있는 값들을 없애고 새로 페이지를 열어준다.
-//	        if(sid==null){
-//	        	rv.setUrl("/account/login.nbs");
-//	        	mv.setView(rv);
-//	        	return mv;
-//	        }
+	        if(sid==null){
+	        	rv.setUrl("/www/account/login.nbs");
+	        	mv.setView(rv);
+	        	return mv;
+	        }
 		
+	        
 	
 		int no = rDao.getFindNo(sid);
 		rVO.setAccount_no(no);
@@ -135,10 +135,6 @@ public class Review {
 		mv.addObject("RLIST", rlist);
 
 		
-		
-		
-		
-		
 		String sid = (String) session.getAttribute("SID");
 		int no = rDao.getFindNo(sid);
 		rVO.setAccount_no(no);
@@ -150,10 +146,6 @@ public class Review {
 		// 뷰에 데이터 심고 // EL형식으로 바꾸어야 JSP에서 바로 사용할 수 있다.
 		mv.addObject("LIST", list);
 		mv.addObject("GLIST", gList);
-		
-		
-		
-		
 		
 		
 		mv.setViewName("review/reviewMain");
@@ -174,6 +166,7 @@ public class Review {
 		System.out.println("accountNo===================" + accountNo);
 		System.out.println("dreviewNo===================" + dreviewNo);
 
+		
 		// 세션ID를 가지고 ACCOUNT테이블에서 로그인 한 고객의 NO조회
 		int no = rDao.getFindNo(sid);
 		rVO.setNo(no);
