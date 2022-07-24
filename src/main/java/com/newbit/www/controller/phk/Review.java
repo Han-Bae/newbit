@@ -84,11 +84,12 @@ public class Review {
 
 	// 평가리뷰 등록하는 기능
 	@RequestMapping(path = "/reviewWrite.nbs", method = RequestMethod.POST)
-	public ModelAndView joinProc(ReviewVO rVO, ModelAndView mv, RedirectView rv, HttpSession session) {
+	public ModelAndView reviewWrite(ReviewVO rVO, ModelAndView mv, RedirectView rv, HttpSession session) {
 
 		System.out.println("#########" + rVO.getBody());
 		System.out.println("넘버뭐야?" + rVO.getAccount_no());
 		System.out.println("게임넘?" + rVO.getGame_NO());
+		System.out.println("이즈굿??" + rVO.getIsgood());
 		
 		String sid = (String) session.getAttribute("SID");
 		int no = rDao.getFindNo(sid);
