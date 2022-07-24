@@ -7,6 +7,7 @@ $(document).ready(function(){
 	
 	$('.refundBtn').click(function(){
 		const appId = $(this).parent('div').parent('div.card').attr('id');
+		var me = $(this).parent('div').parent('div.card');
 		$.ajax({
 			url: '/www/payment/refund.nbs',
 			type: 'post',
@@ -17,8 +18,7 @@ $(document).ready(function(){
 			success: function(data){
 				if(data.icon == 'success'){
 					swal(data.title, data.msg, data.icon);
-					alert($(this).parent('div').parent('div.card'));
-					$(this).parent('div').parent('div.card').remove();
+					$(me).remove();
 				}else{
 					swal(data.title, data.msg, data.icon);					
 				}
