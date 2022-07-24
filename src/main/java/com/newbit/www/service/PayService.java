@@ -21,6 +21,8 @@ public class PayService {
 	public void addPayData(PaymentVO pVO, HttpSession session) {
 		// 선물할 친구 명단이 있다면 선물 결제이다.
 			// 선물결제
+		String id = (String)session.getAttribute("SID");
+		List<PaymentVO> pickList = pDao.getPickList(id);
 		if(session.getAttribute("NAMELIST") != null) {
 			List<String> nameList = pVO.getNameList();
 				// 선물받는 친구 명단
@@ -36,9 +38,18 @@ public class PayService {
 					pVO.setBuy_no(pDao.getNo((String)session.getAttribute("SID")));
 						// 받는 사람 no 입력
 					pVO.setAccount_no(noList.get(friendCnt));
+					// Payhistory에 저장
 					pDao.savePay(pVO);
+					// 장바구니에서 삭제
+					pDao.delBasket(pVO.getGame_id());
+					// 찜목록에 있다면 삭제
+					for(PaymentVO pick : pickList) {
+						if(pick.getGame_id().equals(pVO.getGame_id())){
+							pDao.delPick(pick.getGame_id());							
+						}
 					}
 				}
+			}
 				// 직접결제
 		} else {				
 			for(int gameCnt = 0; gameCnt < pVO.getGameIdList().size(); gameCnt++) {
@@ -50,7 +61,16 @@ public class PayService {
 				pVO.setBuy_no(pDao.getNo((String)session.getAttribute("SID")));
 					// 받는 사람 no 입력
 				pVO.setAccount_no(pDao.getNo((String)session.getAttribute("SID")));
+				// Payhistory에 저장
 				pDao.savePay(pVO);
+				// 장바구니에서 삭제
+				pDao.delBasket(pVO.getGame_id());
+				// 찜목록에 있다면 삭제
+				for(PaymentVO pick : pickList) {
+					if(pick.getGame_id().equals(pVO.getGame_id())){
+						pDao.delPick(pick.getGame_id());							
+					}
+				}
 				}
 			}
 	}

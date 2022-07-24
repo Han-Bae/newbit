@@ -163,12 +163,12 @@
 		        WHERE id = #{id}
 		    )
 		    AND game_id = #{game_id}
-		    AND paydate = (
+	</select>
+<!-- 		    AND paydate = (
 		        SELECT  DISTINCT paydate
 		        FROM    payhistory
 		        WHERE   paydate+14 >= sysdate
-		    )
-	</select>
+		    ) -->
 	
 		<!-- 환불완료 -->
 	<update id="refundSuccess" parameterType="pVO">

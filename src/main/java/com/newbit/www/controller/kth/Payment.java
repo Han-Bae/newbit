@@ -528,9 +528,11 @@ public class Payment {
 	public AccountVO refund(PaymentVO pVO, HttpSession session) {
 		AccountVO returnVO = new AccountVO();
 		// 게임아이디, 유저아이디 받아서 2주 이내면 환불하고 삭제
+		pVO.setId((String)session.getAttribute("SID"));
 		// pVO.setId((String)session.getAttribute("SID"));
 		// 결제ID, 낱개 게임 가격, 구매 내역 번호
 		pVO = pDao.refundGame(pVO);
+		System.out.println(pVO);
 			// 결과가 나오지 않았다면 환불 자격이 없음
 		if("".equals(pVO.getImp_uid())) {
 			returnVO.setTitle("환불 불가능");
@@ -545,7 +547,7 @@ public class Payment {
 					pImp.payMentCancle(token, pVO.getImp_uid(), pVO.getGame_price(), "환불요청");
 					
 					int cnt = pDao.refundSuccess(pVO);
-					if(cnt == 1) {
+					if(cnt > 0) {
 						returnVO.setTitle("환불 성공");
 						returnVO.setMsg("정상적으로 구매자에게 환불되었습니다.");
 						returnVO.setIcon("success");	        	

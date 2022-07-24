@@ -299,6 +299,7 @@ public class Account {
 	public ModelAndView checkMail(ModelAndView mv, AccountVO aVO, @RequestParam int ck) {
 		aVO.setCk_mail(ck);
 		String mail = aDao.getEmail(aVO);
+		System.out.println(aVO);
 		mv.setViewName("account/redirect");
 		if(mail == null) {
 			mv.addObject("icon", "error");

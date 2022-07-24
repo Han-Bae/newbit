@@ -11,6 +11,8 @@
 	<link rel="stylesheet" type="text/css" href="/www/css/profile/library.css">
 	<script src="https://kit.fontawesome.com/e0f46f82c6.js"></script>
 	<script type="text/javascript" src="/www/js/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript" src="/www/js/bootstrap.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script type="text/javascript" src="/www/js/components/header.js"></script>
 	<script type="text/javascript" src="/www/js/profile/profile.js"></script>
 </head>
