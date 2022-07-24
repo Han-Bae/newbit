@@ -83,7 +83,6 @@ public class Account {
 				// 아이디와 비밀번호가 일치하는
 				// 회원이 있는 경우 -> 로그인 처리
 				String userId = SessionConfig.getSessionidCheck("SID", aVO.getId());
-				System.out.println(aVO.getId()+" : "+userId);
 				session.setAttribute("SID", aVO.getId());
 				
 				// 아이디가 관리자일 경우
@@ -97,8 +96,8 @@ public class Account {
 					mv.addObject("title", "로그인 성공!");
 					if(session.getAttribute("vw") != null) {
 						aSrc.setMyIP();
-						System.out.println(aSrc.getMyIP()+((String)session.getAttribute("vw")).substring(10));
-						mv.addObject("url", (String)session.getAttribute("vw"));					
+						mv.addObject("url", (String)session.getAttribute("vw"));
+						session.removeAttribute("vw");
 					} else {					
 						mv.addObject("url", "/www/store/");
 					}

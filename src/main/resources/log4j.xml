@@ -43,21 +43,15 @@
 	<!-- Application Loggers -->
 	<logger name="com.newbit.www">
 		<level value="info" />
-		<appender-ref ref="file" /> <!-- 3. -->
+		<appender-ref ref="file" />
 	</logger>
-	<!-- 
-	<logger name="surveyLog">
-		<level value="info" />
-		<appender-ref ref="surveyLog" /> 3.
-	</logger>
-	 -->
 	<logger name="accountLog">
 		<level value="info" />
-		<appender-ref ref="accountAppender" /> <!-- 3. -->
+		<appender-ref ref="accountAppender" />
 	</logger>
 	<logger name="paymentLog">
 		<level value="info" />
-		<appender-ref ref="paymentAppender" /> <!-- 3. -->
+		<appender-ref ref="paymentAppender" />
 	</logger>
 	<logger name="delLog">
 		<level value="info" />

@@ -121,8 +121,8 @@
 				<img class="thumbnail" src="${sVO.img}">
 	<c:if test="${sVO.type eq 'dlc'}">
 				<div class="fullgame">
-					<p>플레이하려면 Steam 버전인 <a class="title-anchor" href="http://localhost/www/store/app/?game=App_${sVO.fullgameId}">${sVO.fullgameTitle}</a> 기본 게임이 필요합니다.</p>
-					<a class="img-anchor" href="http://localhost/www/store/app/?game=App_${sVO.fullgameId}"><img src="${fullgameImg}"></a>
+					<p>플레이하려면 Steam 버전인 <a class="title-anchor" href="/www/store/app/?game=App_${sVO.fullgameId}">${sVO.fullgameTitle}</a> 기본 게임이 필요합니다.</p>
+					<a class="img-anchor" href="/www/store/app/?game=App_${sVO.fullgameId}"><img src="${fullgameImg}"></a>
 				</div>
 	</c:if>
 	<c:if test="${sVO.type eq 'game'}">

@@ -369,7 +369,6 @@ public class Payment {
 				PaymentVO pVO, String amount) throws IOException {
 		// 반환VO
 		AccountVO returnVO = new AccountVO();
-		System.out.println(pVO);
 				// 게임이름       구매자
 		String token = pImp.getToken();
 			// 결제 완료된 금액

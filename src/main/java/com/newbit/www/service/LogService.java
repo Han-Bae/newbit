@@ -1,18 +1,15 @@
 package com.newbit.www.service;
 
-
-
 import java.lang.reflect.Method;
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 import org.aspectj.lang.*;
 import org.aspectj.lang.annotation.*;
-import org.aspectj.lang.annotation.Pointcut;
-import org.aspectj.lang.reflect.*;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.*;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.*;
+
 
 import com.newbit.www.vo.*;
 
@@ -27,8 +24,8 @@ import com.newbit.www.vo.*;
  *
  */
 
-@Service
 @Aspect
+@Service
 public class LogService {
 	private static Logger accountLog = LoggerFactory.getLogger("accountLog");
 	private static Logger paymentLog = LoggerFactory.getLogger("paymentLog");
