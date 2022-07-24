@@ -76,7 +76,13 @@
 	
 <form method="POST" id="frm" name="frm" enctype="multipart/form-data">
 <input type="hidden" name="dreviewNo" id="dreviewNo"/>
-<input type="hidden" name="game_no" id="game_no"/>
+<c:if test="${not empty RLIST}">
+	<input type="hidden" name="game_no" id="game_no" value="${RLIST[0].game_no}"/>
+</c:if>
+<c:if test="${empty RLIST}">
+	<input type="hidden" name="game_no" id="game_no"/>
+</c:if>
+
 
 
 <!-- 리뷰페이지 reviewMain -->
@@ -123,12 +129,12 @@
 							    	<h4>평가리뷰입력</h4>
 							        <label class="form-check-label">
 							        	<img src="/www/img/good.png">
-							            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+							            <input class="form-check-input" type="radio" name="isgood" id="exampleRadios1" value="G" checked>
 							            좋아요<span class="form-check-sign"></span>
 							        </label>
 							        <label class="form-check-label">
 							        	<img src="/www/img/bad.png">
-							            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" >
+							            <input class="form-check-input" type="radio" name="isgood" id="exampleRadios2" value="B" >
 							            싫어요<span class="form-check-sign"></span>
 							        </label>
 							    </div>

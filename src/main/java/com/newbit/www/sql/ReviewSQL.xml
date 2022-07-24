@@ -9,9 +9,9 @@
 			SELECT NVL(MAX(no) + 1, 1000) FROM review
 		</selectKey>
 		INSERT INTO
-		    REVIEW(NO, ACCOUNT_NO, GAME_NO, BODY, ISNEWBIT, ISGOOD, ISSHOW, REGISTDATE)
+		    REVIEW(NO, ACCOUNT_NO, GAME_NO, BODY, ISNEWBIT, ISGOOD)
 		VALUES(
-		    #{no}, #{account_no}, #{game_NO}, #{body}, 'Y', 'B', 'Y', SYSDATE
+		    #{no}, #{account_no}, #{game_NO}, #{body}, 'Y', #{isgood}
 		)
 	</insert>
 	
