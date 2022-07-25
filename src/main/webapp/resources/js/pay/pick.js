@@ -8,19 +8,30 @@ $(document).ready(function(){
 	// 장바구니 추가
 	$('.basket_game').click(function(){
 		var sgame_id = $(this).parent().parent().find('div[class="card"]').attr('id');
+		var sgame_type = $('#' + sgame_id + 'Type').val();
 		var me = $(this);
 		$.ajax({
 			url: '/www/payment/addBasket.nbs',
 			type: 'post',
 			dataType: 'json',
 			data: {
-				game_id : sgame_id
+				game_id : sgame_id,
+				game_type : sgame_type
 			},
 			success: function(data){
 				if(data.result == 'OK'){
 					// 찜목록 삭제처리 완료 시
-					$(me).remove();			
-					swal('추가 완료', '장바구니에서 확인해주세요', 'success');
+					$(me).remove();
+					
+					if(data.together != 'yes'){
+						swal('추가 완료', '장바구니에서 확인해주세요', 'success').then(function(){
+							$(location).attr('href', '/www/payment/basket.nbs');
+						});
+					} else if(data.together == 'yes'){
+						swal('추가 완료', '장바구니에서 본편과 같이 확인해주세요', 'success').then(function(){
+							$(location).attr('href', '/www/payment/basket.nbs');
+						});
+					}
 				}else{
 					swal('추가 실패', '다시 시도해주세요', 'error');
 				}

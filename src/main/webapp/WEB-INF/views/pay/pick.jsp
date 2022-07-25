@@ -138,6 +138,7 @@
 					</c:if>
 										<button type="button" class="btn btn-warning animation-on-hover del_game">삭제</button>
 									</div>
+									<input type="hidden" id="${pick.appId}Type" value="${pick.type}">
 								</div>
 								<!-- 개별게임 끝 -->
 				</c:forEach>													
