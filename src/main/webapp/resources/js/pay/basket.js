@@ -78,7 +78,7 @@ function selfPay() {
 		$('#frm').attr('action', '/www/payment/myselfPayInfo.nbs');
 		$('#frm').submit();
 	}else{
-		swal('진행할 수 없습니다','선물을 보낼 친구를 1명 이상 지정해주세요!', 'error');
+		swal('진행할 수 없습니다','결제할 게임을 1개 이상 지정해주세요!', 'error');
 		return;
 	}
 }
