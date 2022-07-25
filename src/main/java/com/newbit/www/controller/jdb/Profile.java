@@ -37,25 +37,7 @@ public class Profile {
 
 	
 	@RequestMapping("/addLibraryGame.nbs")
-	public ModelAndView addLibraryGame(ModelAndView mv, HttpSession session, RedirectView rv) {
-		String sessionId = (String) session.getAttribute("SID");
-		List<String> appIds = profileDao.getPayHistoryList(sessionId);
-		
-		for(int i = 0 ; i < appIds.size() ; i++) {
-			String appId = appIds.get(i);
-			StoreVO sVO = profileJson.getType(appId.substring(appId.indexOf("_") + 1));
-			sVO.setAppId(appId);
-			sVO.setSessionId(sessionId);
-			
-			int count = profileDao.addLibraryGame(sVO);
-			
-			if(count == 1) {
-				System.out.println("페이히스토리에서 라이브러리로 이동 성공");
-			} else {
-				System.out.println("실패실패");
-			}
-		}
-		
+	public ModelAndView addLibraryGame(ModelAndView mv, RedirectView rv) {		
 		rv.setUrl("/www/profile/library.nbs");
 		mv.setView(rv);
 		return mv;

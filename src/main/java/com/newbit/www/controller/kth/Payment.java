@@ -36,6 +36,8 @@ public class Payment {
 	@Autowired
 	PaymentImp pImp;
 	@Autowired
+	ProfileDao proDao;
+	@Autowired
 	StoreJsonSimple sJson;
 	
 	// 찜 페이지 이동
@@ -390,11 +392,16 @@ public class Payment {
             
     		List<String> gameIdList = (ArrayList<String>)session.getAttribute("GAMELIST");
     		List<StoreVO> gameSVO = new ArrayList<StoreVO>();
+    		// 결제한 게임만큼 반복
     		for(int i = 0; i < gameIdList.size(); i++) {
     			String gameId = gameIdList.get(i).substring(4,gameIdList.get(i).length()); 
     			StoreVO sVO = sJson.getDetailJson(gameId);
     			sVO.setAppId(gameIdList.get(i));
+    			// 결제메일용 VO 저장
     			gameSVO.add(sVO);
+    			// 라이브러리 저장용 기능
+    			sVO.setSessionId(pVO.getId());
+    			proDao.addLibraryGame(sVO);
     		}
     		// 게임 정보 저장
             pVO.setsVOList(gameSVO);
