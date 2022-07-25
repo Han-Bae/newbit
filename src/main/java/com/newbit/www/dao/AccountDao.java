@@ -12,6 +12,10 @@ public class AccountDao {
 	
 	@Autowired
 	SqlSessionTemplate sqlSession;
+// 닉네임 받기
+	public AccountVO noGetNick(int no) {
+		return sqlSession.selectOne("aSQL.noGetNick", no);
+	}
 // 로그인
 	// 로그인 처리
 	public int getLogin(AccountVO aVO) {

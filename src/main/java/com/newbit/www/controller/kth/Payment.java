@@ -475,7 +475,13 @@ public class Payment {
 	    			String gameId = gameIdList.get(i).substring(4,gameIdList.get(i).length()); 
 	    			StoreVO sVO = sJson.getDetailJson(gameId);
 	    			sVO.setAppId(gameIdList.get(i));
+	    			// 결제메일용 VO 저장
 	    			gameSVO.add(sVO);
+	    			// 라이브러리 저장용 기능
+	    			for(String nick : pVO.getNameList()) {
+	    				sVO.setSessionId(aDao.getNickInfo(nick).getId());
+	    																																																																																																																																																																																																																																																																																																																																																				proDao.addLibraryGame(sVO);
+	    			}
 	    		}
 	    		// 게임 정보 저장
 	            pVO.setsVOList(gameSVO);
@@ -508,7 +514,7 @@ public class Payment {
 	            	friendVO = aDao.getNickInfo(pVO.getNameList().get(i));
 	            	NoticeVO presentVO = new NoticeVO();
 	            	presentVO.setNo(friendVO.getNo());
-	            	presentVO.setTitle(aVO.getNickname()+"님께서 선물을 보내셨습니다.");
+	            	presentVO.setTitle(aVO.getNickname()+"님께서 보낸 선물!");
 	            	presentVO.setBody(aVO.getNickname()+"님께서 "+friendVO.getNickname()+"님께 "+gameName.substring(0, gameName.length()-2)+"를 선물하셨습니다.\r\n"
 	            			+"아래는 "+aVO.getNickname()+"님께서 보내신 메세지입니다.\r\n"
 	            			+pVO.getPresentTitle()+"\r\n"
@@ -529,15 +535,18 @@ public class Payment {
 	}
 	
 	// 환불(구매 후 2주가 지나지 않은 경우만)
-	@RequestMapping("/refund.nbs")
+	@RequestMapping(path="/refund.nbs", method=RequestMethod.POST, params= {"game_id","name"})
 	@ResponseBody
-	public AccountVO refund(PaymentVO pVO, HttpSession session) {
+	public AccountVO refund(PaymentVO pVO, HttpSession session, String game_id, String name) {
 		AccountVO returnVO = new AccountVO();
+		AccountVO aVO = new AccountVO();
 		// 게임아이디, 유저아이디 받아서 2주 이내면 환불하고 삭제
 		pVO.setId((String)session.getAttribute("SID"));
-		// pVO.setId((String)session.getAttribute("SID"));
+		aVO.setId(pVO.getId());
 		// 결제ID, 낱개 게임 가격, 구매 내역 번호
 		pVO = pDao.refundGame(pVO);
+		pVO.setGame_id(game_id);
+		pVO.setName(name);
 		System.out.println(pVO);
 			// 결과가 나오지 않았다면 환불 자격이 없음
 		if("".equals(pVO.getImp_uid())) {
@@ -554,9 +563,33 @@ public class Payment {
 					
 					int cnt = pDao.refundSuccess(pVO);
 					if(cnt > 0) {
+						// 알림 보내기
+							// 본인이 결제한 경우
+						NoticeVO nVO = new NoticeVO();
+						if(pVO.getBuy_no() == pVO.getAccount_no()) {
+				            nVO.setNo(pVO.getBuy_no());
+				            nVO.setId((String)session.getAttribute("SID"));
+				            nVO.setTitle("게임 환불이 완료되었습니다.");
+				            nVO.setBody(nVO.getId()+"회원님이 환불하신 게임은 "+pVO.getName()+"입니다.");
+				            aDao.insertNotice(nVO);			            
+				            // 선물받은 게임인 경우			            	
+			            } else {
+			            	nVO.setNo(pVO.getBuy_no());
+			            	nVO.setId((String)session.getAttribute("SID"));
+			            	nVO.setTitle(aDao.noGetNick(pVO.getAccount_no()).getNickname()+"님이 환불하셨습니다.");
+			            	nVO.setBody(nVO.getId()+"회원님이 환불하신 게임은 "+pVO.getName()+"입니다.");
+			            	aDao.insertNotice(nVO);			            
+			            	
+			            	nVO.setNo(pVO.getAccount_no());
+			            	nVO.setId((aDao.noGetNick(pVO.getAccount_no()).getId()));
+			            	nVO.setTitle("선물받은 게임을 환불하셨습니다.");
+			            	nVO.setBody(aDao.noGetNick(pVO.getBuy_no()).getNickname()+"회원님이 선물해주신 "+pVO.getName()+"게임의 환불이 완료되었습니다.");
+			            	aDao.insertNotice(nVO);			            
+			            }
+			            
 						returnVO.setTitle("환불 성공");
 						returnVO.setMsg("정상적으로 구매자에게 환불되었습니다.");
-						returnVO.setIcon("success");	        	
+						returnVO.setIcon("success");  
 					} else {throw new Exception();}	        							
 				} else {throw new Exception();}
 					// else의 경우 강제 exception처리로 catch이동

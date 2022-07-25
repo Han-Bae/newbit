@@ -7,13 +7,15 @@ $(document).ready(function(){
 	
 	$('.refundBtn').click(function(){
 		const appId = $(this).parent('div').parent('div.card').attr('id');
+		const gameName = $(this).parent('div').parent('div.card').find('h4').text();
 		var me = $(this).parent('div').parent('div.card');
 		$.ajax({
 			url: '/www/payment/refund.nbs',
 			type: 'post',
 			dataType: 'json',
 			data: {
-				game_id: appId
+				game_id: appId,
+				name: gameName
 			},
 			success: function(data){
 				if(data.icon == 'success'){

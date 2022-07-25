@@ -155,7 +155,7 @@
 	
 		<!-- 환불 체크용 데이터뽑기(개별 가격과 결제ID) -->
 	<select id="refundGame" resultType="pVO" parameterType="pVO">
-		SELECT IMP_UID, game_price, no, isrefund
+		SELECT IMP_UID, game_price, no, isrefund, buy_no, account_no
 		FROM payhistory
 		WHERE account_no = (
 		        SELECT no

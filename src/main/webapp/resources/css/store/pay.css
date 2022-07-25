@@ -22,7 +22,6 @@ table{
 	align:center;
 }
 th, td{
-	text-align: left;
 	padding: 15px;
 	text-align:center;
 }
@@ -48,7 +47,9 @@ tr:nth-child(even):hover{
 tr:nth-child(odd):hover{
 	background-color: #461b61;
 }
-
+.findFriend {
+	padding: 0px;
+}
 div{
 	color: #fff;
 }

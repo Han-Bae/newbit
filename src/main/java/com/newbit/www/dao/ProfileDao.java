@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.newbit.www.vo.PaymentVO;
 import com.newbit.www.vo.StoreVO;
 
 public class ProfileDao {
@@ -26,5 +27,9 @@ public class ProfileDao {
 	
 	public int addLibraryGame(StoreVO storeVO) {
 		return sqlSession.insert("profileSQL.addLibraryGame", storeVO);
+	}
+	
+	public int delLibrary(PaymentVO pVO) {
+		return sqlSession.update("profileSQL.delLibrary", pVO);
 	}
 }

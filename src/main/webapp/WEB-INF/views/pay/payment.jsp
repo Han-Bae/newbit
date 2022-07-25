@@ -110,7 +110,7 @@
 										<option value="bbsTitle">게임명</option>
 										<option value="userID">개발사</option>
 								</select></td> -->
-								<td><input type="text" class="form-control" id="find"
+								<td class="findFriend"><input type="text" class="form-control" id="find"
 									placeholder="검색어 입력" name="searchText" maxlength="100"></td>
 								<!-- 검색 버튼 <td><button type="submit" class="btn btn-success animation-on-hover">검색</button></td> -->
 							</tr>

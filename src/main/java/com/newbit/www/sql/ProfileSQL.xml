@@ -69,5 +69,10 @@
     	</if>
     	)
 	</insert>
-	
+	<update id='delLibrary' parameterType="string">
+		UPDATE library
+		SET isshow='Y'
+		WHERE game_id = #{game_id}
+		AND account_no = #{account_no}
+	</update>
 </mapper>

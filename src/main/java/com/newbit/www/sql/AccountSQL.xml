@@ -8,7 +8,12 @@
 		SELECT COUNT(*)
 		FROM account
 	</sql>
-	
+	<!-- 회원 번호로 아이디, 닉네임 받기 -->
+	<select id="noGetNick" resultType="aVO" parameterType="int">
+		SELECT id, nickname
+		FROM account
+		WHERE no = #{no}
+	</select>
 	<!-- 로그인 확인 -->
 	<select id="login" resultType="int" parameterType="aVO">
 		<include refid="selCnt" />
@@ -149,7 +154,7 @@
 		WHERE id = #{id}
 	</select>
 	<select id="getNickInfo" resultType="aVO" parameterType="string">
-		SELECT no, nickname
+		SELECT no, nickname, id
 		FROM account
 		WHERE nickname = #{nickname}
 	</select>
