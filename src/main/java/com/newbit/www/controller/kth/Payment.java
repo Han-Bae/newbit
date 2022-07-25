@@ -236,7 +236,9 @@ public class Payment {
 		String result = "NO";
 		int cnt = 0;
 		// 찜목록에서 삭제 시
-		if(url == "http://localhost/www/payment/pick.nbs") {
+		System.out.println(url.substring(url.length()-8));
+		if(url.substring(url.length()-8).equals("pick.nbs")) {
+			System.out.println("들어감");
 			cnt = pDao.delPick(game_id);
 			// 장바구니에서 삭제 시
 		} else {
