@@ -35,8 +35,7 @@ public class SessionConfig implements HttpSessionListener {
 		return result;
 	}
 	
-	private static void removeSessionForDoubleLogin(String SID){    	
-		System.out.println("remove userId : " + SID);
+	private static void removeSessionForDoubleLogin(String SID){    
 		if(SID != null && SID.length() > 0){
 			sessions.get(SID).invalidate();
 			sessions.remove(SID);

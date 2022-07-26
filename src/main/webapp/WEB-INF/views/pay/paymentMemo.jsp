@@ -83,6 +83,7 @@
 </c:if>
 			<a href="/www/payment/basket.nbs"><i class="tim-icons icon-basket-simple"></i></a>
 			<a href="/www/payment/pick.nbs"><i class="tim-icons icon-shape-star"></i></a>
+			<a href="/www/account/notice.nbs" id="noticeBtn"><i class="tim-icons icon-alert-circle-exc"></i></a>
 		</div>
 	</header>
 	<!-- 여기까지 -->
