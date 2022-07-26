@@ -29,6 +29,7 @@
 		<interceptor>
 			<mapping path="/payment/*.nbs" />
 			<mapping path="/profile/*.nbs" />
+			<mapping path="/account/notice**.nbs" />
 			<beans:ref bean="loginRedirect" />
 		</interceptor>
 		
