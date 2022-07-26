@@ -81,8 +81,36 @@
 			<button type="button" class="btn btn-warning animation-on-hover">Favorites</button>
 			<button type="button" id="allGameBtn" class="btn btn-primary animation-on-hover">All Games</button>
 			<button type="button" id="storeCategoryBtn" class="btn btn-info animation-on-hover">Category</button>
-			<form method="GET" action="#" class="store-search">
-				<input type="text" class="form-control store-input" placeholder="Search">
+						
+			<div class="selectCategoryTab">
+				<a href="/www/store/categories.nbs?tag=action">
+					<ion-icon name="eyedrop-outline"></ion-icon>
+					<span>Action</span>
+				</a>
+				<a href="/www/store/categories.nbs?tag=rpg">
+					<ion-icon name="color-wand-outline"></ion-icon>
+					<span>RPG</span>
+				</a>
+				<a href="/www/store/categories.nbs?tag=strategy">
+					<ion-icon name="bulb-outline"></ion-icon>
+					<span>Strategy</span>
+				</a>
+				<a href="/www/store/categories.nbs?tag=adventure">
+					<ion-icon name="rocket-outline"></ion-icon>
+					<span>Adventure</span>
+				</a>
+				<a href="/www/store/categories.nbs?tag=simulation">
+					<ion-icon name="build-outline"></ion-icon>
+					<span>Simulation</span>
+				</a>
+				<a href="/www/store/categories.nbs?tag=sports">
+					<ion-icon name="football-outline"></ion-icon>
+					<span>Sports</span>
+				</a>
+			</div>
+			
+			<form method="GET" action="" class="store-search">
+				<input type="text" id="storeSearch" class="form-control" placeholder="Search">
 				<button class="btn btn-primary animation-on-hover"><i class="tim-icons icon-zoom-split"></i></button>
 			</form>
 		</div>
@@ -93,7 +121,7 @@
 			<div class="store-games__tab">
 				<button type="button" class="btn" id="TopSellersBtn">최고 인기</button>
 				<button type="button" class="btn" id="newTopSellerBtn">신규 인기</button>
-				<button type="button" class="btn">현재 할인</button>
+				<button type="button" class="btn" id="specialsSaleBtn">현재 할인</button>
 			</div>
 			
 			
@@ -280,5 +308,8 @@
 	</main>
 	
 	<input type="hidden" id="sort" name="sort" value="${sortSelect}">
+	
+	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>

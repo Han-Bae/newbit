@@ -81,7 +81,7 @@
 			<button type="button" class="btn btn-warning animation-on-hover">Favorites</button>
 			<button type="button" id="allGameBtn" class="btn btn-primary animation-on-hover">All Games</button>
 			<button type="button" id="storeCategoryBtn" class="btn btn-info animation-on-hover">Category</button>
-						
+			
 			<div class="selectCategoryTab">
 				<a href="/www/store/categories.nbs?tag=action">
 					<ion-icon name="eyedrop-outline"></ion-icon>
@@ -125,7 +125,7 @@
 			</div>
 			
 			
-			<div class="store-new">
+		<div class="store-new">
 				
 				<div class="store-new--games">
 				
@@ -142,16 +142,11 @@
 								<div class="gameDiscount">
 	<c:if test="${not empty medium.discount}">
 									<span class="howSale">${medium.discount}</span>
-	</c:if>
 									<div class="gamePrice">
-	<c:if test="${empty medium.discountPrice}">
-										<span class="nowPrice">${medium.price}</span>
-	</c:if>
-	<c:if test="${not empty medium.discountPrice}">
 										<span class="originalPrice"><del>${medium.price}</del></span>
 										<span class="nowPrice">${medium.discountPrice}</span>
-	</c:if>
 									</div>
+	</c:if>
 								</div>
 							</div>
 						</div>
@@ -159,57 +154,28 @@
 					</div>
 				</div>
 					
-				<div class="new-low-price-games">
-				
-					<div class="card card-nav-tabs text-center">
-						<div class="card-header">₩ 10,000 이하</div>
-						<div class="new-low-price-game">
-<c:forEach var="mini10000" items="${mini10000}">
-							<div class="card game" id="${mini10000.appId}">
-								<img src="${mini10000.img}">
+				<div class="today-sale">
+<c:forEach var="dailydeal" items="${dailydeal}">
+					<div id="${dailydeal.appId}" class="game card card-nav-tabs text-center">
+						<img class="card-img-top" src="${dailydeal.img}">
+						<div class="card-body">
+							<div class="prices">
+								<span class="discount">${dailydeal.discount}</span>
 								<div>
-	<c:if test="${not empty mini10000.discount}">
-									<span class="howSale">${mini10000.discount}</span>
-	</c:if>
-	<c:if test="${empty mini10000.discountPrice}">
-									<span class="nowPrice">${mini10000.price}</span>
-	</c:if>
-	<c:if test="${not empty mini10000.discountPrice}">
-									<span class="originalPrice"><del>${mini10000.price}</del></span>
-									<span class="nowPrice">${mini10000.discountPrice}</span>
-	</c:if>
+									<span class="original-price"><del>${dailydeal.price}</del></span>
+									<span class="now-price">${dailydeal.discountPrice}</span>
 								</div>
 							</div>
-</c:forEach>
-						</div>
-					</div>
-					
-					<div class="card card-nav-tabs text-center">
-						<div class="card-header">₩ 5,000 이하</div>
-						<div class="new-low-price-game">
-						
-<c:forEach var="mini5000" items="${mini5000}">
-							<div class="card game" id="${mini5000.appId}">
-								<img src="${mini5000.img}">
-								<div>
-	<c:if test="${not empty mini5000.discount}">
-									<span class="howSale">${mini5000.discount}</span>
-	</c:if>
-		<c:if test="${empty mini5000.discountPrice}">
-									<span class="nowPrice">${mini5000.price}</span>
-	</c:if>
-		<c:if test="${not empty mini5000.discountPrice}">
-									<span class="originalPrice"><del>${mini5000.price}</del></span>
-									<span class="nowPrice">${mini5000.discountPrice}</span>
-	</c:if>
-								</div>
+							
+							<div class="whenSale">
+								<span class="text">오늘의 할인!</span>
 							</div>
-</c:forEach>
 						</div>
 					</div>
+</c:forEach>
 					
 				</div>
-				
+								
 			</div>
 		</div>
 	</main>

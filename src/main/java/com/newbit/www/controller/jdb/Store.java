@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -73,9 +74,9 @@ public class Store {
 		return mv;
 	}
 	
-	// 스토어 신규
+	// 스토어 신규 인기 페이지
 	@RequestMapping("/newTopSeller.nbs")
-	public ModelAndView newTopSeller(ModelAndView mv) {
+	public ModelAndView newTopSellerForm(ModelAndView mv) {
 		mv.setViewName("/store/newTopSeller");
 		
 		List<StoreVO> medium = storeJsoup.crawlingStoreNewTop("medium");
@@ -88,13 +89,45 @@ public class Store {
 		return mv;
 	}
 	
-	// 스토어 카테고리 페이지
-	@RequestMapping("/categories.nbs")
-	public ModelAndView categoryForm(ModelAndView mv) {
-		mv.setViewName("/store/categories");
+	// 스토어 특별 할인 페이지
+	@RequestMapping("/specialsSale.nbs")
+	public ModelAndView specialsSaleForm(ModelAndView mv) {
+		mv.setViewName("/store/specialsSale");
+		
+		List<StoreVO> medium = storeJsoup.crawlingStoreSpecials("medium");
+		List<StoreVO> dailydeal = storeJsoup.crawlingStoreSpecials("dailydeal");
+		
+		mv.addObject("medium", medium);
+		mv.addObject("dailydeal", dailydeal);
 		return mv;
 	}
-
+	
+	// 스토어 페이보릿 페이지
+	@RequestMapping(path="/favorites.nbs", method=RequestMethod.GET, params={"tag", "tab"})
+	public ModelAndView favoritesForm(ModelAndView mv, String tag, String tab) {
+		mv.setViewName("/store/favorites");
+		
+		List<StoreVO> list = storeJsoup.crawlingStoreCategory(tag, tab);
+		
+		mv.addObject("LIST", list);
+		return mv;
+	}
+	
+	// 스토어 카테고리 페이지
+	@RequestMapping("/categories.nbs")
+	public ModelAndView categoryForm(ModelAndView mv, HttpSession session) {
+		mv.setViewName("/store/categories");
+		
+		String sessionId = (String) session.getAttribute("SID");
+		String tagName = storeDao.getAccountTag(sessionId);
+		List<StoreVO> list = storeJsoup.crawlingStoreFavorites(tagName);
+		
+		mv.addObject("TAG", tagName);
+		mv.addObject("LIST", list);
+		return mv;
+	}
+	
+	
 	// 스토어 게임 디테일 페이지
 	@RequestMapping("/app")
 	public ModelAndView appDetailForm(ModelAndView mv, HttpServletRequest request,  HttpSession session) {
@@ -129,5 +162,4 @@ public class Store {
 		return mv;
 	}
 	
-
 }

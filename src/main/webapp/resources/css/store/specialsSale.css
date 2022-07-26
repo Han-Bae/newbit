@@ -1,0 +1,52 @@
+.today-sale {
+	width: 320px;
+}
+.today-sale .card {
+	cursor: pointer;
+}
+.today-sale .card:hover {
+	background: none;
+}
+.today-sale img {
+	width: 320px;
+	height: auto;
+}
+.today-sale .card-body {
+	display: flex;
+	justify-content: space-between;
+	padding: 8px;
+	height: 50px;
+}
+
+.today-sale .prices {
+	display: flex;
+	align-items: center;
+	height: 34px;
+}
+.today-sale .prices .discount {
+	font-size: 23px;
+	background: #28a745;
+	color: white;
+	margin-right: 5px;
+}
+.today-sale .prices div {
+	display: flex;
+	flex-direction: column;
+	align-items: end;
+}
+.today-sale .prices .original-price {
+	font-size: 11px;
+}
+.today-sale .prices .now-price {
+	color: white;
+	font-size: 13px;
+}
+
+.today-sale .whenSale {
+	display:flex;
+	flex-direction: column;
+	align-items: end;
+}
+.today-sale .whenSale .text {
+	font-size: 13px;
+}

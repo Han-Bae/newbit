@@ -87,7 +87,6 @@ public class StoreVO {
 	}
 	
 	
-	
 	public String getShortDescription() {
 		return shortDescription;
 	}

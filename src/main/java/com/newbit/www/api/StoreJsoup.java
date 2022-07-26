@@ -57,8 +57,6 @@ public class StoreJsoup {
 		return topSellAppListCrawling(url);
 	}
 	
-	
-	// url
 	public List<StoreVO> topSellAppListCrawling(String url) {
 		ArrayList<StoreVO> list = new ArrayList<StoreVO>();
 		
@@ -216,9 +214,168 @@ public class StoreJsoup {
 	}
 	
 	
-	public List<StoreVO> crawlingStoreCategory() {
+	public List<StoreVO> crawlingStoreSpecials(String cardType) {
 		ArrayList<StoreVO> list = new ArrayList<StoreVO>();
 		
+		String url = "https://store.steampowered.com/specials/#p=0&tab=TopSellers";
+		
+		Connection conn = Jsoup.connect(url);
+		conn.cookie("Steam_Language", "koreana");
+		
+		try {
+			Document document = conn.get();
+			
+			if(cardType.equals("medium")) {
+				Element element = document.getElementById("TopSellersRows");
+				Elements anchor = element.select("a[class=\"tab_item  \"]");
+				// 중복값 확인용
+				String priorAppId = "";
+				for(int i = 0 ; i < anchor.size() ; i++) {
+					StoreVO sVO = new StoreVO();
+					
+					// 중복값 확인하고 맞으면 다음 index로, 다르면 블록 밖의 변수에 값 저장
+					String nowAppId = anchor.get(i).attr("abs:data-ds-itemkey").substring(anchor.get(i).attr("abs:data-ds-itemkey").lastIndexOf("/") + 1);
+					if(nowAppId.equals(priorAppId)) {
+						continue;
+					}
+					priorAppId = nowAppId;
+					
+					sVO.setAppId(nowAppId);
+					sVO.setImg(anchor.get(i).select("img").attr("abs:src"));
+					sVO.setTitle(anchor.get(i).select("div[class=\"tab_item_name\"]").text());
+					sVO.setType(anchor.get(i).select("div[class=\"tab_item_top_tags\"]").text());
+					
+					Element priceDiv = anchor.get(i).selectFirst("div[class=\"discount_block tab_item_discount\"]");
+					if(priceDiv == null) {
+						sVO.setPrice(anchor.get(i).select("div[class=\"discount_final_price\"]").text());
+					} else {
+						sVO.setDiscount(anchor.get(i).select("div[class=\"discount_pct\"]").text());
+						sVO.setPrice(anchor.get(i).select("div[class=\"discount_original_price\"]").text());
+						sVO.setDiscountPrice(anchor.get(i).select("div[class=\"discount_final_price\"]").text());
+					}
+					
+					list.add(sVO);
+				}
+			} else if(cardType.equals("dailydeal")) {
+				Elements special = document.select("div.dailydeal_ctn");
+				
+				for(int i = 0 ; i < special.size() ; i++) {
+					StoreVO sVO = new StoreVO();
+					sVO.setAppId(special.get(i).select("div.dailydeal_cap").attr("abs:data-ds-itemkey").substring(special.get(i).select("div.dailydeal_cap").attr("abs:data-ds-itemkey").lastIndexOf("/") + 1));
+					sVO.setImg(special.get(i).select("img").attr("abs:src"));
+					
+					Element priceDiv = special.get(i).selectFirst("div.discount_block");
+					sVO.setDiscount(priceDiv.select("div.discount_pct").text());
+					sVO.setPrice(priceDiv.select("div.discount_original_price").text());
+					sVO.setDiscountPrice(priceDiv.select("div.discount_final_price").text());
+					
+					list.add(sVO);
+				}
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	
+	public List<StoreVO> crawlingStoreFavorites(String tag) {
+		ArrayList<StoreVO> list = new ArrayList<StoreVO>();
+		
+		String url = "https://store.steampowered.com/category/" + tag;
+		
+		Connection conn = Jsoup.connect(url);
+		conn.cookie("Steam_Language", "koreana");
+		
+		try {
+			Document document = conn.get();
+			
+			Element element = document.getElementById("TopSellersRows");
+			Elements anchor = element.select("a[class=\"tab_item  \"]");
+			// 중복값 확인용
+			String priorAppId = "";
+			for(int i = 0 ; i < anchor.size() ; i++) {
+				StoreVO sVO = new StoreVO();
+				
+				// 중복값 확인하고 맞으면 다음 index로, 다르면 블록 밖의 변수에 값 저장
+				String nowAppId = anchor.get(i).attr("abs:data-ds-itemkey").substring(anchor.get(i).attr("abs:data-ds-itemkey").lastIndexOf("/") + 1);
+				if(nowAppId.equals(priorAppId)) {
+					continue;
+				}
+				priorAppId = nowAppId;
+				
+				sVO.setAppId(nowAppId);
+				sVO.setImg(anchor.get(i).select("img").attr("abs:src"));
+				sVO.setTitle(anchor.get(i).select("div[class=\"tab_item_name\"]").text());
+				sVO.setType(anchor.get(i).select("div[class=\"tab_item_top_tags\"]").text());
+				
+				Element priceDiv = anchor.get(i).selectFirst("div[class=\"discount_block tab_item_discount\"]");
+				if(priceDiv == null) {
+					sVO.setPrice(anchor.get(i).select("div[class=\"discount_final_price\"]").text());
+				} else {
+					sVO.setDiscount(anchor.get(i).select("div[class=\"discount_pct\"]").text());
+					sVO.setPrice(anchor.get(i).select("div[class=\"discount_original_price\"]").text());
+					sVO.setDiscountPrice(anchor.get(i).select("div[class=\"discount_final_price\"]").text());
+				}
+				
+				list.add(sVO);
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	
+	public List<StoreVO> crawlingStoreCategory(String tag, String tab) {
+		ArrayList<StoreVO> list = new ArrayList<StoreVO>();
+		
+		String url = "https://store.steampowered.com/category/" + tag;
+		
+		Connection conn = Jsoup.connect(url);
+		conn.cookie("Steam_Language", "koreana");
+		
+		try {
+			Document document = conn.get();
+			
+			Element element = document.getElementById(tab + "Rows");
+			Elements anchor = element.select("a[class=\"tab_item  \"]");
+			// 중복값 확인용
+			String priorAppId = "";
+			for(int i = 0 ; i < anchor.size() ; i++) {
+				StoreVO sVO = new StoreVO();
+				
+				// 중복값 확인하고 맞으면 다음 index로, 다르면 블록 밖의 변수에 값 저장
+				String nowAppId = anchor.get(i).attr("abs:data-ds-itemkey").substring(anchor.get(i).attr("abs:data-ds-itemkey").lastIndexOf("/") + 1);
+				if(nowAppId.equals(priorAppId)) {
+					continue;
+				}
+				priorAppId = nowAppId;
+				
+				sVO.setAppId(nowAppId);
+				sVO.setImg(anchor.get(i).select("img").attr("abs:src"));
+				sVO.setTitle(anchor.get(i).select("div[class=\"tab_item_name\"]").text());
+				sVO.setType(anchor.get(i).select("div[class=\"tab_item_top_tags\"]").text());
+				
+				Element priceDiv = anchor.get(i).selectFirst("div[class=\"discount_block tab_item_discount\"]");
+				if(priceDiv == null) {
+					sVO.setPrice(anchor.get(i).select("div[class=\"discount_final_price\"]").text());
+				} else {
+					sVO.setDiscount(anchor.get(i).select("div[class=\"discount_pct\"]").text());
+					sVO.setPrice(anchor.get(i).select("div[class=\"discount_original_price\"]").text());
+					sVO.setDiscountPrice(anchor.get(i).select("div[class=\"discount_final_price\"]").text());
+				}
+				
+				list.add(sVO);
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 		
 		return list;
 	}

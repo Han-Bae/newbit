@@ -1,10 +1,13 @@
 $(document).ready(function() {
 	/* store 공통 */
-	$('#storeCategoryBtn').click(function(){
-		$(location).attr('href', '/www/store/categories.nbs');
-	});
 	$('#allGameBtn').click(function(){
 		$(location).attr('href', '/www/store/');
+	});
+	$('#storeCategoryBtn').mouseenter(function(){
+		$('.selectCategoryTab').css('display', 'flex');
+	});
+	$('.selectCategoryTab').mouseleave(function(){
+		$('.selectCategoryTab').css('display', 'none');
 	});
 	
 	$('#TopSellersBtn').click(function(){
@@ -12,6 +15,9 @@ $(document).ready(function() {
 	});
 	$('#newTopSellerBtn').click(function(){
 		$(location).attr('href', '/www/store/newTopSeller.nbs');
+	});
+	$('#specialsSaleBtn').click(function(){
+		$(location).attr('href', '/www/store/specialsSale.nbs');
 	});
 	
 	$('.game').click(function(){
@@ -101,6 +107,13 @@ $(document).ready(function() {
 			}
 		}
 		
+	});
+	
+	
+	/* 카테고리 페이지 이벤트 */
+	$('.tabs').click(function(){
+		const tab = $(this).attr('id');
+		$(location).attr('href', '/www/store/categories.nbs?tag=' + $('#categoryTag').val() + '&tab=' + tab);
 	});
 	
 	

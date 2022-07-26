@@ -19,4 +19,8 @@ public class StoreDao {
 	public int getBasketCount(StoreVO storeVO) {
 		return sqlSession.selectOne("storeSQL.getBasketCount", storeVO);
 	}
+	
+	public String getAccountTag(String id) {
+		return sqlSession.selectOne("storeSQL.getAccountTag", id);
+	}
 }

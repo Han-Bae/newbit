@@ -5,7 +5,7 @@
 <mapper namespace="storeSQL">
 	<select id="getPickCount" resultType="int" parameterType="storeVO">
 		SELECT
-		    COUNT(*) pickCount
+		    COUNT(*)
 		FROM
 		    pick p, account
 		WHERE
@@ -17,7 +17,7 @@
 	
 	<select id="getBasketCount" resultType="int" parameterType="storeVO">
 		SELECT
-		    COUNT(*) basketCount
+		    COUNT(*)
 		FROM
 		    basket b, account
 		WHERE
@@ -25,5 +25,15 @@
 		    AND id = #{sessionId}
 		    AND game_id = #{appId}
 		    AND b.isshow = 'Y'
+	</select>
+	
+	<select id="getAccountTag" resultType="string" parameterType="string">
+		SELECT
+		    name
+		FROM
+		    tag t, account
+		WHERE
+		    t.no = tag_no
+		    AND id = #{id}
 	</select>
 </mapper>

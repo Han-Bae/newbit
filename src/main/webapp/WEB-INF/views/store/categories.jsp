@@ -70,18 +70,46 @@
 </c:if>
 			<a href="/www/payment/basket.nbs"><i class="tim-icons icon-basket-simple"></i></a>
 			<a href="/www/payment/pick.nbs"><i class="tim-icons icon-shape-star"></i></a>
+			<a href="/www/account/notice.nbs" id="noticeBtn"><i class="tim-icons icon-alert-circle-exc"></i></a>
 		</div>
 		
-		<a href="/www/account/notice.nbs" id="noticeBtn"><i class="tim-icons icon-alert-circle-exc"></i></a>
 	</header>
 	
 	<!-- steam 웹사이트 참고 -->
 	<main>
 		<div class="store-top">
-			<button type="button" class="btn btn-warning animation-on-hover">Favorites</button>
+			<button type="button" id="favoritesBtn" class="btn btn-warning animation-on-hover">Favorites</button>
 			<button type="button" id="allGameBtn" class="btn btn-primary animation-on-hover">All Games</button>
 			<button type="button" id="storeCategoryBtn" class="btn btn-info animation-on-hover">Category</button>
-			<form method="GET" action="#" class="store-search">
+						
+			<div class="selectCategoryTab">
+				<a href="/www/store/categories.nbs?tag=action">
+					<ion-icon name="eyedrop-outline"></ion-icon>
+					<span>Action</span>
+				</a>
+				<a href="/www/store/categories.nbs?tag=rpg">
+					<ion-icon name="color-wand-outline"></ion-icon>
+					<span>RPG</span>
+				</a>
+				<a href="/www/store/categories.nbs?tag=strategy">
+					<ion-icon name="bulb-outline"></ion-icon>
+					<span>Strategy</span>
+				</a>
+				<a href="/www/store/categories.nbs?tag=adventure">
+					<ion-icon name="rocket-outline"></ion-icon>
+					<span>Adventure</span>
+				</a>
+				<a href="/www/store/categories.nbs?tag=simulation">
+					<ion-icon name="build-outline"></ion-icon>
+					<span>Simulation</span>
+				</a>
+				<a href="/www/store/categories.nbs?tag=sports">
+					<ion-icon name="football-outline"></ion-icon>
+					<span>Sports</span>
+				</a>
+			</div>
+			
+			<form method="GET" action="" class="store-search">
 				<input type="text" class="form-control store-input" placeholder="Search">
 				<button class="btn btn-primary animation-on-hover"><i class="tim-icons icon-zoom-split"></i></button>
 			</form>
@@ -90,11 +118,15 @@
 		<hr>
 		
 		<div class="store-categories">
-			<div class="store-categories__tab">
-				<span>최고 인기</span>
-				<span>신규 인기</span>
-				<span>현재 할인</span>
-			</div>
+			<nav aria-label="breadcrumb" role="navigation" class="store-categories__tab">
+				<ol class="breadcrumb">
+					<li id="NewReleases" class="tabs breadcrumb-item active" aria-current="page">신규 및 인기 신제품</li>
+					<li id="TopSellers" class="tabs breadcrumb-item active" aria-current="page">최고 인기 제품</li>
+					<li id="ConcurrentUsers" class="tabs breadcrumb-item active" aria-current="page">최다 플레이</li>
+					<li id="TopRated" class="tabs breadcrumb-item active" aria-current="page">최고 평가</li>
+					<li id="ComingSoon" class="tabs breadcrumb-item active" aria-current="page">출시 예정</li>
+				</ol>
+			</nav>
 			
 			
 			<div class="store-categories-main">
@@ -102,54 +134,31 @@
 				<div class="store-categories--games">
 				
 					<div class="games">
-					
-						<div class="card">
-							<img class="card-img-left" src="/www/img/logo.png" width="120px" height="50px">
+<c:forEach var="data" items="${LIST}">
+						<div id="${data.appId}" class="game card">
+							<img class="card-img-left" src="${data.img}">
 							<div>
-								<h4>Game Title</h4>
 								<div class="game-title-info">
-									<span class="whenGame">2022.07.04</span>
-									<i class="tim-icons icon-minimal-up"></i>
-									<span class="howSale">-49%</span>
+									<h4>${data.title}</h4>
+									<span>${data.type}</span>
 								</div>
 								<div class="gamePrice">
-									<span class="originalPrice"><del>₩ 999,990</del></span>
-									<span class="nowPrice">₩ 1,990</span>
+	<c:if test="${not empty data.discount}">
+									<span class="howSale">${data.discount}</span>
+									<div>
+										<span class="originalPrice"><del>${data.discountPrice}</del></span>
+										<span class="nowPrice">${data.price}</span>
+									</div>
+	</c:if>
+	<c:if test="${empty data.discount}">
+									<div>
+										<span class="nowPrice">${data.price}</span>
+									</div>
+	</c:if>
 								</div>
 							</div>
 						</div>
-						
-						<div class="card">
-							<img class="card-img-left" src="/www/img/logo.png" width="120px" height="50px">
-							<div>
-								<h4>Game Title</h4>
-								<div class="game-title-info">
-									<span class="whenGame">2022.07.04</span>
-									<i class="tim-icons icon-minimal-up"></i>
-									<span class="howSale">-49%</span>
-								</div>
-								<div class="gamePrice">
-									<span class="originalPrice"><del>₩ 999,990</del></span>
-									<span class="nowPrice">₩ 1,990</span>
-								</div>
-							</div>
-						</div>
-						
-						<div class="card">
-							<img class="card-img-left" src="/www/img/logo.png" width="120px" height="50px">
-							<div>
-								<h4>Game Title</h4>
-								<div class="game-title-info">
-									<span class="whenGame">2022.07.04</span>
-									<i class="tim-icons icon-minimal-up"></i>
-									<span class="howSale">-49%</span>
-								</div>
-								<div class="gamePrice">
-									<span class="originalPrice"><del>₩ 999,990</del></span>
-									<span class="nowPrice">₩ 1,990</span>
-								</div>
-							</div>
-						</div>
+</c:forEach>						
 						
 					</div>
 										
@@ -158,5 +167,10 @@
 		</div>
 	</main>
 	
+	<input type="hidden" id="categoryTag" value="${param.tag}">
+	<input type="hidden" id="categoryTab" value="${param.tab}">
+	
+	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>

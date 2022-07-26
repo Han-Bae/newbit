@@ -17,6 +17,7 @@ header {
 	display: flex;
 	margin-left: 100px;
 	margin-right: 300px;
+	cursor: pointer;
 }
 
 /* main nav */

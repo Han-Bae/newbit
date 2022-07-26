@@ -66,6 +66,7 @@
 	justify-content: end;
 	align-items: end;
 	position: relative;
+	width: 65px;
 }
 .store-new--games .originalPrice {
 	position: absolute;
@@ -84,7 +85,9 @@
 }
 .new-low-price-games .card .card-header {
 	position: absolute;
-	top: -35px;
+	top: -40px;
+	font-weight: 600;
+	font-size: 15px;
 }
 
 .new-low-price-game {

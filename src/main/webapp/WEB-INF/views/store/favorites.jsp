@@ -14,7 +14,7 @@
 	<script type="text/javascript" src="/www/js/components/header.js"></script>
 	<script type="text/javascript" src="/www/js/store/store.js"></script>
 </head>
-<body class="store-main-body">
+<body>
 	
 	<!-- 
 		제작자 : 전다빈
@@ -32,7 +32,7 @@
 		<ul class="main-nav">
 			<li>
 				<a class="nav-link active" href="/www/store/">
-					<i class="tim-icons icon-cart"></i>
+					<i class="tim-icons icon-cart main-nav-icon"></i>
 					<span class="main-nav-text">Store</span>
 					<div class="indicator"></div>
 				</a>
@@ -110,109 +110,58 @@
 			</div>
 			
 			<form method="GET" action="" class="store-search">
-				<input type="text" id="storeSearch" class="form-control" placeholder="Search">
+				<input type="text" class="form-control store-input" placeholder="Search">
 				<button class="btn btn-primary animation-on-hover"><i class="tim-icons icon-zoom-split"></i></button>
 			</form>
 		</div>
 		
 		<hr>
 		
-		<div class="store-games">
-			<div class="store-games__tab">
-				<button type="button" class="btn" id="TopSellersBtn">최고 인기</button>
-				<button type="button" class="btn" id="newTopSellerBtn">신규 인기</button>
-				<button type="button" class="btn" id="specialsSaleBtn">현재 할인</button>
-			</div>
+		<div class="store-categories">
+			<div class="favorites-info">
+				${SID} 님의 선호 태그는 ${TAG} 입니다 :D
+			</div>			
 			
-			
-			<div class="store-new">
+			<div class="store-categories-main">
 				
-				<div class="store-new--games">
+				<div class="store-categories--games">
 				
 					<div class="games">
-<c:forEach var="medium" items="${medium}">					
-						<div class="card game" id="${medium.appId}">
-							<img class="card-img-left" src="${medium.img}">
+<c:forEach var="data" items="${LIST}">
+						<div id="${data.appId}" class="game card">
+							<img class="card-img-left" src="${data.img}">
 							<div>
-								<div class="new-title-info">
-									<h4 class="new-game-h4">${medium.title}</h4>
-									<span class="new-game-tag">${medium.type}</span>
+								<div class="game-title-info">
+									<h4>${data.title}</h4>
+									<span>${data.type}</span>
 								</div>
-								
-								<div class="gameDiscount">
-	<c:if test="${not empty medium.discount}">
-									<span class="howSale">${medium.discount}</span>
-	</c:if>
-									<div class="gamePrice">
-	<c:if test="${empty medium.discountPrice}">
-										<span class="nowPrice">${medium.price}</span>
-	</c:if>
-	<c:if test="${not empty medium.discountPrice}">
-										<span class="originalPrice"><del>${medium.price}</del></span>
-										<span class="nowPrice">${medium.discountPrice}</span>
-	</c:if>
+								<div class="gamePrice">
+	<c:if test="${not empty data.discount}">
+									<span class="howSale">${data.discount}</span>
+									<div>
+										<span class="originalPrice"><del>${data.discountPrice}</del></span>
+										<span class="nowPrice">${data.price}</span>
 									</div>
-								</div>
-							</div>
-						</div>
-</c:forEach>
-					</div>
-				</div>
-					
-				<div class="new-low-price-games">
-				
-					<div class="card card-nav-tabs text-center">
-						<div class="card-header">₩ 10,000 이하</div>
-						<div class="new-low-price-game">
-<c:forEach var="mini10000" items="${mini10000}">
-							<div class="card game" id="${mini10000.appId}">
-								<img src="${mini10000.img}">
-								<div>
-	<c:if test="${not empty mini10000.discount}">
-									<span class="howSale">${mini10000.discount}</span>
 	</c:if>
-	<c:if test="${empty mini10000.discountPrice}">
-									<span class="nowPrice">${mini10000.price}</span>
-	</c:if>
-	<c:if test="${not empty mini10000.discountPrice}">
-									<span class="originalPrice"><del>${mini10000.price}</del></span>
-									<span class="nowPrice">${mini10000.discountPrice}</span>
+	<c:if test="${empty data.discount}">
+									<div>
+										<span class="nowPrice">${data.price}</span>
+									</div>
 	</c:if>
 								</div>
 							</div>
-</c:forEach>
 						</div>
-					</div>
-					
-					<div class="card card-nav-tabs text-center">
-						<div class="card-header">₩ 5,000 이하</div>
-						<div class="new-low-price-game">
+</c:forEach>						
 						
-<c:forEach var="mini5000" items="${mini5000}">
-							<div class="card game" id="${mini5000.appId}">
-								<img src="${mini5000.img}">
-								<div>
-	<c:if test="${not empty mini5000.discount}">
-									<span class="howSale">${mini5000.discount}</span>
-	</c:if>
-		<c:if test="${empty mini5000.discountPrice}">
-									<span class="nowPrice">${mini5000.price}</span>
-	</c:if>
-		<c:if test="${not empty mini5000.discountPrice}">
-									<span class="originalPrice"><del>${mini5000.price}</del></span>
-									<span class="nowPrice">${mini5000.discountPrice}</span>
-	</c:if>
-								</div>
-							</div>
-</c:forEach>
-						</div>
 					</div>
-					
+										
 				</div>
-				
 			</div>
 		</div>
 	</main>
+	
+	<input type="hidden" id="categoryTag" value="${param.tag}">
+	<input type="hidden" id="categoryTab" value="${param.tab}">
 	
 	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 	<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
