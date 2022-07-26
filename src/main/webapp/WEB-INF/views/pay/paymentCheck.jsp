@@ -190,6 +190,10 @@
 							<h2 style="margin-left: 20px; margin-bottom: 10px;">합계:</h2>
 							<h2 id="total" style="margin-right: 20px; margin-bottom: 10px;"></h2>
 					  	</div>
+					  	<label style="margin-left: 20px; margin-bottom: 40px">
+							<input type="radio" id="service">
+							<a href="https://store.steampowered.com/eula/453480_eula_1?eulaLang=koreana" onclick="window.open(this.href, '_blank', 'width=800, height=600'); return false;">스팀 이용 약관</a>에 동의합니다.
+						</label>
 			</div>
 		</div>
 				<div class="conti">

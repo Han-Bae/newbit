@@ -140,12 +140,16 @@ function next3(){
 }
 
 function next4(){
-	var gameList = new Array();
-	$('.card').each(function(index, item){
-		gameList.push($(this).find('h4').html());
-	});
-	$('#gameList').val(gameList);
-	payment();
+	if($('input[id="service"]').is(':checked')){		
+		var gameList = new Array();
+		$('.card').each(function(index, item){
+			gameList.push($(this).find('h4').html());
+		});
+		$('#gameList').val(gameList);
+		payment();
+	}else{
+		swal('결제 불가','이용 약관에 동의해주세요','error');
+	}
 }
 // 총합 구하기
 function getTotal(){

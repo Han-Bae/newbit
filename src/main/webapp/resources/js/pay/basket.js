@@ -103,12 +103,16 @@ function gaList(){
 }
 
 function self_next(){
+	if($('input[id="service"]').is(':checked')){
 	var gameList = new Array();
 	$('.card').each(function(index, item){
 		gameList.push($(this).find('h4').html());
 	});
 	$('#gameList').val(gameList)
 	payment();
+	} else{
+		swal('결제 불가','이용 약관에 동의해주세요','error');
+	}
 }
 function payment(){
 	// 결제할 게임들 id 저장

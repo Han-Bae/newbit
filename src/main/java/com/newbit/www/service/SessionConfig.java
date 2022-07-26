@@ -25,12 +25,10 @@ public class SessionConfig implements HttpSessionListener {
 	//중복로그인 지우기
 	public synchronized static String getSessionidCheck(String type, String compareId){
 		String result = "";
-		System.out.println(sessions.keySet());
 		for( String key : sessions.keySet() ){
 			HttpSession hs = sessions.get(key);
 			if(hs != null &&  hs.getAttribute(type) != null && hs.getAttribute(type).toString().equals(compareId) ){
 				result =  key.toString();
-				System.out.println(key+":"+result);
 			}
 		}
 		removeSessionForDoubleLogin(result);
@@ -48,7 +46,6 @@ public class SessionConfig implements HttpSessionListener {
 	@Override
 	public void sessionCreated(HttpSessionEvent se) {
 		// 세션 생성 시
-		System.out.println(se);
 	    sessions.put(se.getSession().getId(), se.getSession());
 	}
 
