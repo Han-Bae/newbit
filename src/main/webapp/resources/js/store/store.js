@@ -127,12 +127,15 @@ $(document).ready(function() {
 	const detailLoadAfter = function(){
 		if($('.game-media-scroll > div').first().hasClass('movie')){
 			$('video.mainMedia').css('display', 'block');
+			$('.game-media-scroll > div').first().find('.now-show').css('visibility', 'visible');
+			
 			const movieSrc = $('.game-media-scroll > div').first().find('img').attr('class');
 			$('video.mainMedia').find('source').attr('src', movieSrc);
 			$('video.mainMedia').get(0).load();
 			$('video.mainMedia').get(0).play();
 		} else if($('.game-media-scroll > div').first().hasClass('screenshot')){
-			$('video.mainMedai').css('display', 'none');
+			$('video.mainMedia').css('display', 'none');
+			$('.game-media-scroll > div').first().find('.now-show').css('visibility', 'visible');
 					
 			const screenshotSrc = $('.game-media-scroll > div').first().find('img').attr('class');
 			$('img.mainMedia').css('display', 'block');

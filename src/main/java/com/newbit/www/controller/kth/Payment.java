@@ -399,6 +399,10 @@ public class Payment {
     			String gameId = gameIdList.get(i).substring(4,gameIdList.get(i).length()); 
     			StoreVO sVO = sJson.getDetailJson(gameId);
     			sVO.setAppId(gameIdList.get(i));
+    			
+    			String fullgameId = "App_" + sVO.getFullgameId();
+    			sVO.setFullgameId(fullgameId);
+    			
     			// 결제메일용 VO 저장
     			gameSVO.add(sVO);
     			// 라이브러리 저장용 기능

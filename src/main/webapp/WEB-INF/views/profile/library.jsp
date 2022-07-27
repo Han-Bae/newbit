@@ -72,9 +72,9 @@
 </c:if>
 			<a href="/www/payment/basket.nbs"><i class="tim-icons icon-basket-simple"></i></a>
 			<a href="/www/payment/pick.nbs"><i class="tim-icons icon-shape-star"></i></a>
+			<a href="/www/account/notice.nbs" id="noticeBtn"><i class="tim-icons icon-alert-circle-exc"></i></a>
 		</div>
 		
-		<a href="/www/account/notice.nbs" id="noticeBtn"><i class="tim-icons icon-alert-circle-exc"></i></a>
 	</header>
 	
 	<main>
@@ -83,7 +83,7 @@
 			<div class="library--games">
 <c:if test="${not empty LIST}">
 	<c:forEach var="data" items="${LIST}">
-				<div class="card" id="${data.appId}" >
+				<div class="card" id="${data.appId}" style="padding-left: ${5 + data.lev * 20}px;">
 					<img class="card-img-left" src="${data.img}">
 					<div>
 						<div class="game-title-info">

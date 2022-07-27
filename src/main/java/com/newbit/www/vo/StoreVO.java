@@ -23,7 +23,7 @@ public class StoreVO {
 	private String shortDescription, detailedDescription, fullgameId, fullgameTitle, type, packageTitle, isFree;
 	private List<String> developers, publishers, tags;
 	private Map<String, String> screenshot, movie;
-	private int pickCount, basketCount;
+	private int pickCount, basketCount, lev;
 	
 	/* library 페이지에 추가로 필요한 변수 */
 	private Date dateFormatBuydate;
@@ -174,7 +174,12 @@ public class StoreVO {
 	public void setBasketCount(int basketCount) {
 		this.basketCount = basketCount;
 	}
-	
+	public int getLev() {
+		return lev;
+	}
+	public void setLev(int level) {
+		this.lev = level;
+	}
 	
 	
 	public void setDateFormatBuydate(Date FormatBuydate) {
