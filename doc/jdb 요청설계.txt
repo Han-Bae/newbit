@@ -1,0 +1,88 @@
+### NEWBIT Project 요청 설계 ###
+
+
+### 스토어 페이지 요청설계
+
+# topSellerPage Form 요청
+요청내용	:	/www/ , /www/store/ , /www/store/topSeller.nps
+파라미터	:	sortSelet, maxPrice, specials
+컨트롤러	:	com.githrd.www.controller.jdb.Store
+처리함수	:	topSellerForm()
+뷰			:	/WEB-INF/views/store/topSeller.jsp
+
+--------------------------------------------------------------------------------
+
+# newTopSeller Form 요청
+요청내용	:	/www/store/newTopSeller.nps
+파라미터	:	없음
+컨트롤러	:	com.githrd.www.controller.jdb.Store
+처리함수	:	newTopSellerForm()
+뷰			:	/WEB-INF/views/store/newTopSeller.jsp
+
+--------------------------------------------------------------------------------
+
+# specialsSale Form 요청
+요청내용	:	/www/store/specialsSale.nps
+파라미터	:	없음
+컨트롤러	:	com.githrd.www.controller.jdb.Store
+처리함수	:	specialsSaleForm()
+뷰			:	/WEB-INF/views/store/specialsSale.jsp
+
+--------------------------------------------------------------------------------
+
+# favorites Form 요청
+요청내용	:	/www/store/favorites.nps
+파라미터	:	없음
+컨트롤러	:	com.githrd.www.controller.jdb.Store
+처리함수	:	favoritesForm()
+뷰			:	/WEB-INF/views/store/favorites.jsp
+
+--------------------------------------------------------------------------------
+
+# categories Form 요청
+요청내용	:	/www/store/categories.nps
+파라미터	:	tag, tab
+컨트롤러	:	com.githrd.www.controller.jdb.Store
+처리함수	:	categoryForm()
+뷰			:	/WEB-INF/views/store/categories.jsp
+
+--------------------------------------------------------------------------------
+
+# appDetail Form 요청
+요청내용	:	/www/store/app/
+파라미터	:	game
+컨트롤러	:	com.githrd.www.controller.jdb.Store
+처리함수	:	appDetailForm()
+뷰			:	/WEB-INF/views/store/appDetail.jsp
+
+--------------------------------------------------------------------------------
+
+# storeSearch Form 요청
+요청내용	:	/www/store/search/
+파라미터	:	term
+컨트롤러	:	com.githrd.www.controller.jdb.Store
+처리함수	:	sotreSearchForm()
+뷰			:	/WEB-INF/views/store/search.jsp
+
+--------------------------------------------------------------------------------
+
+
+### 프로필 페이지 요청설계
+
+# library Form 요청
+요청내용	:	/www/store/library.nbs
+파라미터	:	없음
+컨트롤러	:	com.githrd.www.controller.jdb.Store
+처리함수	:	libraryForm()
+뷰			:	/WEB-INF/views/store/library.jsp
+
+--------------------------------------------------------------------------------
+
+# library Form 요청
+요청내용	:	/www/store/addLibraryGame.nbs
+파라미터	:	없음
+컨트롤러	:	com.githrd.www.controller.jdb.Store
+처리함수	:	addLibraryGame()
+뷰			:	redirect ]	/www/profile/library.nbs
+
+--------------------------------------------------------------------------------
