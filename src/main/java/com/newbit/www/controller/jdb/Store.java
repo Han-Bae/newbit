@@ -103,26 +103,48 @@ public class Store {
 	}
 	
 	// 스토어 페이보릿 페이지
-	@RequestMapping(path="/favorites.nbs", method=RequestMethod.GET, params={"tag", "tab"})
-	public ModelAndView favoritesForm(ModelAndView mv, String tag, String tab) {
+	@RequestMapping("/favorites.nbs")
+	public ModelAndView storeFavoritesForm(ModelAndView mv, HttpSession session) {
 		mv.setViewName("/store/favorites");
 		
-		List<StoreVO> list = storeJsoup.crawlingStoreCategory(tag, tab);
+		String sessionId = (String) session.getAttribute("SID");
+		String tagName = storeDao.getAccountTag(sessionId);
+		String tagEng = "";
+		switch(tagName) {
+		case "액션":
+			tagEng = "action";
+			break;
+		case "롤플레잉":
+			tagEng = "rpg";
+			break;
+		case "전략":
+			tagEng = "strategy";
+			break;
+		case "어드벤처":
+			tagEng = "adventure";
+			break;
+		case "시뮬레이션":
+			tagEng = "simulation";
+			break;
+		case "모든 스포츠":
+			tagEng = "sports";
+			break;
+		}
+		List<StoreVO> list = storeJsoup.crawlingStoreFavorites(tagEng);
 		
+		mv.addObject("TAG", tagName);
 		mv.addObject("LIST", list);
 		return mv;
 	}
 	
 	// 스토어 카테고리 페이지
-	@RequestMapping("/categories.nbs")
-	public ModelAndView categoryForm(ModelAndView mv, HttpSession session) {
+	@RequestMapping(path="/categories.nbs", method=RequestMethod.GET, params="tag")
+	public ModelAndView categoryForm(ModelAndView mv, HttpServletRequest request, String tag) {
 		mv.setViewName("/store/categories");
 		
-		String sessionId = (String) session.getAttribute("SID");
-		String tagName = storeDao.getAccountTag(sessionId);
-		List<StoreVO> list = storeJsoup.crawlingStoreFavorites(tagName);
+		String tab = request.getParameter("tab");
+		List<StoreVO> list = storeJsoup.crawlingStoreCategory(tag, tab);
 		
-		mv.addObject("TAG", tagName);
 		mv.addObject("LIST", list);
 		return mv;
 	}
@@ -162,4 +184,14 @@ public class Store {
 		return mv;
 	}
 	
+	@RequestMapping("/search")
+	public ModelAndView storeSearchForm(ModelAndView mv, HttpServletRequest request) {
+		mv.setViewName("/store/search");
+		
+		String term = request.getParameter("term");
+		List<StoreVO> list = storeJsoup.crawlingStoreSearch(term);
+		
+		mv.addObject("LIST", list);
+		return mv;
+	}
 }

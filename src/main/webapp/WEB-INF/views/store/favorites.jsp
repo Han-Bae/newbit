@@ -78,7 +78,7 @@
 	<!-- steam 웹사이트 참고 -->
 	<main>
 		<div class="store-top">
-			<button type="button" class="btn btn-warning animation-on-hover">Favorites</button>
+			<button type="button" id="favoritesBtn" class="btn btn-warning animation-on-hover">Favorites</button>
 			<button type="button" id="allGameBtn" class="btn btn-primary animation-on-hover">All Games</button>
 			<button type="button" id="storeCategoryBtn" class="btn btn-info animation-on-hover">Category</button>
 						
@@ -109,9 +109,9 @@
 				</a>
 			</div>
 			
-			<form method="GET" action="" class="store-search">
-				<input type="text" class="form-control store-input" placeholder="Search">
-				<button class="btn btn-primary animation-on-hover"><i class="tim-icons icon-zoom-split"></i></button>
+			<form id="searchForm" method="GET" action="/www/store/search/" class="store-search">
+				<input type="text" id="storeInput" class="form-control" name="term" placeholder="Search">
+				<button type="button" id="searchBtn" class="btn btn-primary animation-on-hover"><i class="tim-icons icon-zoom-split"></i></button>
 			</form>
 		</div>
 		
@@ -119,7 +119,7 @@
 		
 		<div class="store-categories">
 			<div class="favorites-info">
-				${SID} 님의 선호 태그는 ${TAG} 입니다 :D
+				선호 태그 : ${TAG}
 			</div>			
 			
 			<div class="store-categories-main">

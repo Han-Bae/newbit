@@ -110,65 +110,61 @@
 			</div>
 			
 			<form id="searchForm" method="GET" action="/www/store/search/" class="store-search">
-				<input type="text" id="storeInput" class="form-control" name="term" placeholder="Search">
+				<input type="text" id="storeInput" class="form-control" value="${param.term}" name="term" placeholder="Search">
 				<button type="button" id="searchBtn" class="btn btn-primary animation-on-hover"><i class="tim-icons icon-zoom-split"></i></button>
 			</form>
 		</div>
 		
 		<hr>
 		
-		<div class="store-categories">
-			<nav aria-label="breadcrumb" role="navigation" class="store-categories__tab">
-				<ol class="breadcrumb">
-					<li id="NewReleases" class="tabs breadcrumb-item active" aria-current="page">신규 및 인기 신제품</li>
-					<li id="TopSellers" class="tabs breadcrumb-item active" aria-current="page">최고 인기 제품</li>
-					<li id="ConcurrentUsers" class="tabs breadcrumb-item active" aria-current="page">최다 플레이</li>
-					<li id="TopRated" class="tabs breadcrumb-item active" aria-current="page">최고 평가</li>
-					<li id="ComingSoon" class="tabs breadcrumb-item active" aria-current="page">출시 예정</li>
-				</ol>
-			</nav>
+
+		<div class="store-search-main">
 			
+			<div class="store-search--games">
 			
-			<div class="store-categories-main">
-				
-				<div class="store-categories--games">
-				
-					<div class="games">
+				<div class="games">
 <c:forEach var="data" items="${LIST}">
-						<div id="${data.appId}" class="game card">
-							<img class="card-img-left" src="${data.img}">
-							<div>
-								<div class="game-title-info">
-									<h4>${data.title}</h4>
-									<span>${data.type}</span>
-								</div>
-								<div class="gamePrice">
-	<c:if test="${not empty data.discount}">
-									<span class="howSale">${data.discount}</span>
-									<div>
-										<span class="originalPrice"><del>${data.discountPrice}</del></span>
-										<span class="nowPrice">${data.price}</span>
-									</div>
+					<div id="${data.appId}" class="game card">
+						<img class="card-img-left" src="${data.img}">
+						<div>
+							<div class="game-title-info">
+								<h4>${data.title}</h4>
+								<div class="released-reviewsummary">
+									<span class="whenGame">${data.released}</span>
+	<c:if test="${data.reviewSummary eq 'positive'}">
+									<i class="tim-icons icon-minimal-up positive"></i>
 	</c:if>
-	<c:if test="${empty data.discount}">
-									<div>
-										<span class="nowPrice">${data.price}</span>
-									</div>
+	<c:if test="${data.reviewSummary eq 'mixed'}">
+									<i class="tim-icons icon-simple-delete mixed"></i>
+	</c:if>
+	<c:if test="${data.reviewSummary eq 'negative'}">
+									<i class="tim-icons icon-minimal-down negative"></i>
 	</c:if>
 								</div>
 							</div>
+							<div class="gamePrice">
+	<c:if test="${not empty data.discount}">
+								<span class="howSale">${data.discount}</span>
+								<div>
+									<span class="originalPrice"><del>${data.discountPrice}</del></span>
+									<span class="nowPrice">${data.price}</span>
+								</div>
+	</c:if>
+	<c:if test="${empty data.discount}">
+								<div>
+									<span class="nowPrice">${data.price}</span>
+								</div>
+	</c:if>
+							</div>
 						</div>
+					</div>
 </c:forEach>						
 						
-					</div>
-										
 				</div>
+									
 			</div>
 		</div>
 	</main>
-	
-	<input type="hidden" id="categoryTag" value="${param.tag}">
-	<input type="hidden" id="categoryTab" value="${param.tab}">
 	
 	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 	<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

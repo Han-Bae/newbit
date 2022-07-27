@@ -1,5 +1,8 @@
 $(document).ready(function() {
 	/* store 공통 */
+	$('#favoritesBtn').click(function(){
+		$(location).attr('href', '/www/store/favorites.nbs');
+	});
 	$('#allGameBtn').click(function(){
 		$(location).attr('href', '/www/store/');
 	});
@@ -8,6 +11,9 @@ $(document).ready(function() {
 	});
 	$('.selectCategoryTab').mouseleave(function(){
 		$('.selectCategoryTab').css('display', 'none');
+	});
+	$('#searchBtn').click(function(){
+		$('#searchForm').submit();
 	});
 	
 	$('#TopSellersBtn').click(function(){

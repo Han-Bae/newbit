@@ -341,8 +341,10 @@ public class StoreJsoup {
 		
 		try {
 			Document document = conn.get();
-			
-			Element element = document.getElementById(tab + "Rows");
+			Element element = document.getElementById("NewReleasesRows");
+			if(tab != null) {
+				element = document.getElementById(tab + "Rows");
+			}
 			Elements anchor = element.select("a[class=\"tab_item  \"]");
 			// 중복값 확인용
 			String priorAppId = "";
@@ -410,4 +412,64 @@ public class StoreJsoup {
 		return sVO;
 	}
 	
+	
+	public List<StoreVO> crawlingStoreSearch(String term) {
+		ArrayList<StoreVO> list = new ArrayList<StoreVO>();
+		
+		String url = "https://store.steampowered.com/search/?term=" + term;
+		
+		Connection conn = Jsoup.connect(url);
+		conn.cookie("Steam_Language", "koreana");
+		
+		try {
+			Document document = conn.get();
+			Element element = document.getElementById("search_resultsRows");
+			Elements anchor = element.select("a");
+			// 중복값 확인용
+			String priorAppId = "";
+			for(int i = 0 ; i < anchor.size() ; i++) {
+				StoreVO sVO = new StoreVO();
+				
+				// 중복값 확인하고 맞으면 다음 index로, 다르면 블록 밖의 변수에 값 저장
+				String nowAppId = anchor.get(i).attr("abs:data-ds-itemkey").substring(anchor.get(i).attr("abs:data-ds-itemkey").lastIndexOf("/") + 1);
+				if(nowAppId.equals(priorAppId)) {
+					continue;
+				}
+				priorAppId = nowAppId;
+				
+				sVO.setAppId(nowAppId);
+				sVO.setImg(anchor.get(i).select("img").attr("abs:src"));
+				sVO.setTitle(anchor.get(i).select("span.title").text());
+				
+				sVO.setReleased(anchor.get(i).select("div.search_released").text());
+				
+				Element reviewScore = anchor.get(i).selectFirst("span.search_review_summary");
+				if(reviewScore != null) {
+					if(reviewScore.hasClass("positive")) {
+						sVO.setReviewSummary("positive");
+					} else if(reviewScore.hasClass("mixed")) {
+						sVO.setReviewSummary("mixed");
+					} else if(reviewScore.hasClass("negative")) {
+						sVO.setReviewSummary("negative");
+					}
+				}
+				
+				Element priceDiv = anchor.get(i).selectFirst("div.search_discount");
+				if(!priceDiv.hasText()) {
+					sVO.setPrice(anchor.get(i).select("div.search_price").text());
+				} else {
+					sVO.setDiscount(anchor.get(i).select("div.search_discount").text());
+					sVO.setPrice(anchor.get(i).select("div.search_price").select("strike").text());
+					sVO.setDiscountPrice(anchor.get(i).select("div.search_price").text().substring(anchor.get(i).select("div.search_price").text().lastIndexOf("₩")));
+				}
+				
+				list.add(sVO);
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
 }

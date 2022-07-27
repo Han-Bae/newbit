@@ -3,6 +3,8 @@
 @import "specialsSale.css";
 @import "app.css";
 @import "categories.css";
+@import "favorites.css";
+@import "search.css";
 
 body {
 	overflow-x: hidden;
@@ -52,6 +54,8 @@ body::-webkit-scrollbar-track {
 .selectCategoryTab a {
 	cursor: pointer;
 	color: white;
+	width: 133.333333333;
+	text-align: center;
 }
 .selectCategoryTab a:hover {
 	text-shadow: 2px 2px 2px white;
