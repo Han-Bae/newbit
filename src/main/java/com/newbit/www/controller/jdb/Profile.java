@@ -15,6 +15,15 @@ import com.newbit.www.api.StoreJsonSimple;
 import com.newbit.www.dao.ProfileDao;
 import com.newbit.www.vo.StoreVO;
 
+/**
+ * 
+ * 	@author 전다빈
+ * 	@version v.1.0
+ * 
+ * 			담당자 : 전다빈
+ * 			
+ */
+
 @Controller
 @RequestMapping("/profile")
 public class Profile {
