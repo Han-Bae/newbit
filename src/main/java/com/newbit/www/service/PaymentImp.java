@@ -109,7 +109,7 @@ public class PaymentImp implements PaymentService {
 	    return response.getResponse().getAmount();
 	}
 
-
+	// 결제 취소
 	@Override
 	public void payMentCancle(String access_token, String imp_uid, int amount, String reason) throws IOException{
 		HttpsURLConnection conn = null;

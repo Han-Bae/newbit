@@ -206,18 +206,14 @@ function payment(){
 				buyer_name : data.buyer_name,
 				buyer_tel : data.buyer_tel,
 				buyer_postcode : data.buyer_postcode
-		}, function (rsp) { // callback
-			console.log(rsp);
-			if (rsp.success) {
-				alert("완료 -> imp_uid : "+rsp.imp_uid+" / merchant_uid(orderKey) : " +rsp.merchant_uid);
-				swal("결제 완료!","결제가 완료되어 메인페이지로 이동됩니다.","success")
-				.then(function(){
-					$(location).attr('href', '/www/store/');
-					/* 	$('form').attr('action', '/www/store/');
-					$('form').submit(); */
-					});
+		},  function(rsp) {
+				if(rsp.success){
+					// 결제 성공
+					data.imp_uid = rsp.imp_uid;
+					data.merchant_uid = rsp.merchant_uid;
+					paymentCheck(data);
 				} else {
-					alert("실패 : 코드("+rsp.error_code+") / 메세지(" + rsp.error_msg + ")");
+					alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
 				}
 		});
 		break

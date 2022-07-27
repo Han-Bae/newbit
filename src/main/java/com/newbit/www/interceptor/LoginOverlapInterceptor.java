@@ -25,8 +25,8 @@ public class LoginOverlapInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		final HttpSession session = request.getSession();
 		String path = request.getRequestURI();
-		System.out.println("path = "+path);
-		if(path.contains("/store/") || path.contains("/account/login.nbs")|| path.contains("/account/logout.nbs")) { //접근 경로가 상점인 경우에인 interceptor 체크 예외
+		if(path.contains("/store/") || path.contains("/account/login.nbs")|| path.contains("/account/logout.nbs"))
+		{ //접근 경로가 상점인 경우에인 interceptor 체크 예외
 			return true;
 		}else if (session.getAttribute("SID") == null) {  //세션 로그인이 없으면 리다이렉트 처리
 			response.sendRedirect("/store/");
