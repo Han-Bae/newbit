@@ -331,7 +331,9 @@ public class Payment {
 	
 	// 선물하기 결제 3단계 이동
 	@RequestMapping("/payFormInfo.nbs")
-	public ModelAndView payFormInfo(ModelAndView mv, PaymentVO pVO) {
+	public ModelAndView payFormInfo(ModelAndView mv, PaymentVO pVO, HttpSession session) {
+		session.setAttribute("presentTitle", pVO.getPresentTitle());
+		session.setAttribute("presentMsg", pVO.getPresentMsg());
 		mv.addObject("stat", "third");
 		mv.addObject("pVO", pVO);
 		mv.setViewName("pay/paymentInfo");
@@ -523,8 +525,8 @@ public class Payment {
 	            	presentVO.setTitle(aVO.getNickname()+"님께서 보낸 선물!");
 	            	presentVO.setBody(aVO.getNickname()+"님께서 "+friendVO.getNickname()+"님께 "+gameName.substring(0, gameName.length()-2)+"를 선물하셨습니다.\r\n"
 	            			+"아래는 "+aVO.getNickname()+"님께서 보내신 메세지입니다.\r\n"
-	            			+pVO.getPresentTitle()+"\r\n"
-	            			+pVO.getPresentTitle());
+	            			+session.getAttribute("presentTitle")+"\r\n"
+	            			+session.getAttribute("presentMsg"));
 	            	aDao.insertNotice(presentVO);
 	            }
 	            
