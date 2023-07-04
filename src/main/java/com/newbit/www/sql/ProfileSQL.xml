@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+
+ * 
+ * 	@author 전다빈
+ * 	@version v.1.0
+ * 
+ * 			담당자 : 전다빈
+ * 			
+
+
+ -->
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="profileSQL">
+	<!-- 절대로 DB 식별자, 예약어로 하지말자 -->
+	<select id="getLibrary" resultType="storeVO" parameterType="string">
+		SELECT
+		    LEVEL - 1 lev, game_id appId, buydate dateFormatBuydate
+		FROM
+		    library li, account ac
+		WHERE
+		    account_no = ac.no
+		    AND id = #{id}
+		    AND li.isshow = 'Y'
+	    START WITH 
+	        fullgame_id IS NULL 
+	    CONNECT BY PRIOR 
+	        game_id = fullgame_id
+	</select>
+	
+	<select id="countLibraryGame" resultType="int" parameterType="storeVO">
+		SELECT
+		    COUNT(*)
+		FROM
+		    library li, account ac
+		WHERE
+		    account_no = ac.no
+		    AND id = #{sessionId}
+		    AND game_id = #{appId}
+		    AND li.isshow = 'Y'
+	</select>
+	
+	<select id="getPayHistoryList" resultType="string" parameterType="string">
+		SELECT
+		    game_id
+		FROM
+		    payhistory, account ac
+		WHERE
+		    account_no = ac.no
+		    AND id = #{id}
+		    AND isrefund = 'N'
+	</select>
+	
+	<insert id="addLibraryGame" parameterType="storeVO">
+
+		INSERT INTO 
+    		library(no, account_no, game_id, playtime, isnewbit 
+    		<if test="type eq 'dlc'">
+    			, fullgame_id
+    		</if>
+    		)
+		VALUES(
+    		(
+	    		SELECT
+					NVL(MAX(no) + 1, 1)
+				FROM
+					library
+    		), 
+    		(			
+	    		SELECT
+			        no
+			    FROM
+			        account
+			    WHERE
+			       id = #{sessionId}
+			 )
+    		, #{appId}, '0시간', 'N'
+		<if test="type eq 'dlc'">
+    		, #{fullgameId}
+    	</if>
+    	)
+	</insert>
+	<update id='delLibrary' parameterType="string">
+		UPDATE library
+		SET isshow='Y'
+		WHERE game_id = #{game_id}
+		AND account_no = #{account_no}
+	</update>
+</mapper>

@@ -1,0 +1,81 @@
+
+/**
+ * 
+ * 	@author 전다빈
+ * 	@version v.1.0
+ * 
+ * 			담당자 : 전다빈
+ * 			
+ */
+
+.store-categories {
+	margin: 0px 300px 50px;
+	padding: 15px 7px;
+	border: 1px solid #ba54f5;
+}
+
+/* 카테고리 탭 */
+.store-categories__tab {
+	height: 50px;
+	display: flex;
+}
+.store-categories__tab li {
+	cursor: pointer;
+}
+.store-categories__tab li:hover {
+	color: #ba54f5;
+}
+
+/* 카테고리 메인 */
+.store-categories--games .games .card {
+	margin: 0;
+	display: flex;
+	height: 100px;
+	flex-direction: row;
+	padding: 5px;
+	margin-bottom: 5px;
+	position: relative;
+	align-items: center;
+	width: 900px;
+	cursor: pointer;
+}
+.store-categories--games .games .card:hover {
+	background: none;
+}
+.store-categories--games .games .card img {
+	height: 90px;
+	width: auto;
+	margin-right: 10px;
+}
+.store-categories--games .games .card > div {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+.store-categories--games .games .card .gamePrice {
+	padding: 5px;
+	display: flex;
+	align-items: center;
+}
+.store-categories--games .games .card .gamePrice .howSale {
+	font-size: 20px;
+	color: white;
+	background: #28a745;
+}
+.store-categories--games .games .card .gamePrice div {
+	display: flex;
+	flex-direction: column;
+	align-items: end;
+	width: 80px;
+	margin-left: 15px;
+	position: relative;
+}
+.store-categories--games .games .card .gamePrice .originalPrice {
+	font-size: 12px;
+	position: absolute;
+	top: -15px;
+}
+.store-categories--games .games .card .gamePrice .nowPrice {
+	font-size: 17px;
+	color: white;
+}

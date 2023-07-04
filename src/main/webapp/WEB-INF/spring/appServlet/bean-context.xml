@@ -11,13 +11,26 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<context:annotation-config />
 	
-	<bean id="mDao" class="com.newbit.www.dao.MemberDao" />
-	<bean id="bDao" class="com.newbit.www.dao.BoardDao" />
-	<bean id="gDao" class="com.newbit.www.dao.GBoardDao" />
-	<bean id="rDao" class="com.newbit.www.dao.ReBoardDao" />
-	<bean id="sDao" class="com.newbit.www.dao.SurveyDao" />
+	<bean id="aDao" class="com.newbit.www.dao.AccountDao" />
+	<bean id="pDao" class="com.newbit.www.dao.PaymentDao" />
+	<bean id="rDao" class="com.newbit.www.dao.ReviewDao" />
+	<bean id="uDao" class="com.newbit.www.dao.UploadDao" />
+	<bean id="dDao" class="com.newbit.www.dao.DelDao" />
+	<bean id="inDao" class="com.newbit.www.dao.InfoDao" />
+	<bean id="storeDao" class="com.newbit.www.dao.StoreDao" />
+	<bean id="profileDao" class="com.newbit.www.dao.ProfileDao" />
+	
+	<!-- API -->
+	<!-- Crawling -->
+	<bean id="storeJsoup" class="com.newbit.www.api.StoreJsoup" />
+	<!-- Json Handler -->
+	<bean id="storeJson" class="com.newbit.www.api.StoreJsonSimple" />
+	<bean id="profileJson" class="com.newbit.www.api.ProfileJsonSimple" />
 	
 	<!-- 서비스 클래스 빈처리 -->
-	<bean id="sSrvc" class="com.newbit.www.service.SurveyService" />
+	<bean id="lSrc" class="com.newbit.www.service.LogService" />
+	<bean id="pSrc" class="com.newbit.www.service.PayService" />
+	<bean id="aSrc" class="com.newbit.www.service.AccountService" />
+	<bean id="uSrvc" class="com.newbit.www.service.UploadService" />
 	
 </beans>

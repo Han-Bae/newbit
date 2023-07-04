@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						https://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/batch 
+						https://www.springframework.org/schema/batch/spring-batch.xsd
+						http://www.springframework.org/schema/context 
+						https://www.springframework.org/schema/context/spring-context.xsd">
+	
+	<bean id="delTask" class="com.newbit.www.scheduler.DelData" />
+	<bean name="delData" class="org.springframework.scheduling.quartz.JobDetailFactoryBean"
+		p:jobClass="com.newbit.www.scheduler.DelDataEach"
+		p:durability="true">
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="delDa" value-ref="delTask" />
+			</map>
+		</property>
+	</bean>
+	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"
+		p:jobDetail-ref="delData"
+		p:startDelay="1000"
+ 		p:cronExpression="0 30 3-4 ? * MON"><!-- 매주 월요일 3시에서 4시사이에 30분마다... -->
+<!--  		p:cronExpression="10 0/1 * * * ?">  --><!-- 10초 뒤 1분마다... -->
+	</bean>
+	<bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="cronTrigger" />
+			</list>
+		</property>
+	</bean>
+</beans>

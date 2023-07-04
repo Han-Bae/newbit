@@ -1,0 +1,86 @@
+
+/**
+ * 
+ * 	@author 전다빈
+ * 	@version v.1.0
+ * 
+ * 			담당자 : 전다빈
+ * 			
+ */
+
+@import "topSeller.css";
+@import "newTopSeller.css";
+@import "specialsSale.css";
+@import "app.css";
+@import "categories.css";
+@import "favorites.css";
+@import "search.css";
+
+body {
+	overflow-x: hidden;
+}
+body::-webkit-scrollbar {
+	height: 10px;
+}
+body::-webkit-scrollbar-thumb {
+    background: #ba54f5;
+    border-radius: 2px;
+}
+body::-webkit-scrollbar-track {
+    background: #27293d;
+}
+
+/* 상점 페이지 변경 관련 */
+.store-top {
+	display: flex;
+	margin: 20px 300px;
+	align-items: center;
+	position: relative;
+}
+.store-top button {
+	height: calc(2.25rem + 2px);
+}
+.store-top > .btn {
+	margin-right: 30px;
+	padding: 11px 30px;
+	width: 140px;
+	text-align: center;
+}
+.selectCategoryTab {
+	position: absolute;
+	background: #ba54f5;
+	font-weight: 600;
+	font-size: 16px;
+	bottom: -39px;
+	left: 100px;
+    display: none;
+    align-items: center;
+    justify-content: space-evenly;
+	height: 40px;
+    width: 800px;
+    z-index: 1;
+    border-radius: 5px;
+}
+.selectCategoryTab a {
+	cursor: pointer;
+	color: white;
+	width: 133.333333333;
+	text-align: center;
+}
+.selectCategoryTab a:hover {
+	text-shadow: 2px 2px 2px white;
+}
+
+.store-search {
+	display: flex;
+	margin-left: 100px;
+	margin-bottom: 0;
+	align-items: center;
+}
+.store-search button {
+	width: 50px;
+	padding: 11px 15px;
+}
+.store-search .form-control.store-input {
+	width: 250px;
+}

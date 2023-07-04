@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pSQL">
+	
+<!-- 찜목록 -->
+	<!-- 찜목록 불러오기 -->
+	<select id="getPickList" resultType="pVO" parameterType="string">
+		SELECT game_id
+		FROM pick
+		WHERE account_no = (
+				SELECT no
+				FROM account
+				WHERE id = #{id}
+			) AND isshow = 'Y'
+	</select>
+	<select id="isshowPick" resultType="int" parameterType="string">
+		SELECT count(*)
+		FROM pick
+		WHERE game_id = #{game_id}
+			AND isshow = 'N'
+	</select>
+	
+	<!-- 장바구니 불러오기 -->
+	<select id="getBasketList" resultType="pVO" parameterType="string">
+		SELECT game_id
+		FROM basket
+		WHERE account_no = (
+				SELECT no
+				FROM account
+				WHERE id = #{id}
+			) AND isshow = 'Y'
+	</select>
+	<select id="isshowBasket" resultType="int" parameterType="string">
+		SELECT count(*)
+		FROM basket
+		WHERE game_id = #{game_id}
+			AND isshow = 'N'
+	</select>
+	<select id="countBasketGame" resultType="int" parameterType="storeVO">
+		SELECT
+		    COUNT(*)
+		FROM
+		    basket ba, account ac
+		WHERE
+		    account_no = ac.no
+		    AND id = #{sessionId}
+		    AND game_id = #{appId}
+		    AND ba.isshow = 'Y'
+	</select>
+	
+	
+	
+	<!-- 찜목록 추가 -->
+	<insert id="addPick" parameterType="pVO">
+		<selectKey keyProperty="account_no" resultType="int" order="BEFORE">
+			SELECT no FROM account WHERE id = #{id}
+		</selectKey>
+		INSERT INTO
+			pick(account_no, game_id, isnewbit, isshow)
+		VALUES(
+			#{account_no}, #{game_id}, 'N', 'Y'
+		)	
+	</insert>
+	<!-- 장바구니 추가 -->
+	<insert id="addBasket" parameterType="pVO">
+		<selectKey keyProperty="account_no" resultType="int" order="BEFORE">
+			SELECT no FROM account WHERE id = #{id}
+		</selectKey>
+		INSERT INTO
+			basket(account_no, game_id, isnewbit, isshow)
+		VALUES(
+			#{account_no}, #{game_id}, 'N', 'Y'
+		)	
+	</insert>
+	
+	<!-- 찜목록 다시 보이기 -->
+	<update id="showPick" parameterType="string">
+		UPDATE pick
+		SET isshow = 'Y'
+		WHERE game_id = #{game_id}
+	</update>
+	<!-- 찜목록 삭제 -->
+	<update id="delPick" parameterType="string">
+		UPDATE pick
+		SET isshow = 'N'
+		WHERE game_id = #{game_id}
+	</update>
+	<!-- 장바구니 다시 보이기 -->
+	<update id="showBasket" parameterType="string">
+		UPDATE basket
+		SET isshow = 'Y'
+		WHERE game_id = #{game_id}
+	</update>
+	<!-- 장바구니 삭제 -->
+	<update id="delBasket" parameterType="string">
+		UPDATE basket
+		SET isshow = 'N'
+		WHERE game_id = #{game_id}
+	</update>
+	
+	<!-- 친구 찾기 질의문 -->
+	<select id="selFollow" resultType="int" parameterType="string">
+		SELECT friend
+		FROM follower
+		WHERE me = (
+				SELECT no
+				FROM account
+				WHERE id = #{id}
+			)
+	</select>
+	
+		<!-- 번호를 기반으로 유저 정보 찾기 -->
+	<select id="selInfo" resultType="string" parameterType="list">
+		SELECT nickname
+		FROM account
+		WHERE no IN (
+			   <foreach collection="list" item="item" separator=",">
+			   	#{item}
+			   </foreach>
+			   )
+	</select>
+	
+<!-- 결제-선물 -->
+	<select id="getNo" resultType="int" parameterType="string">
+		SELECT no
+		FROM account
+		WHERE id = #{id}
+	</select>
+	
+	
+		<!-- 닉네임을 기반으로 유저 no 찾기 -->
+	<select id="getNoList" resultType="int" parameterType="list">
+		SELECT no
+		FROM account
+		WHERE nickname IN(
+				<foreach collection="list" item="item" separator=",">
+				#{item}
+				</foreach>
+			)
+	</select>
+	
+		<!-- 결제내역 저장 나중에 중복게임 제거 필요 -->
+	<insert id="savePay" parameterType="pVO">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(no) +1, 1001) FROM payhistory
+		</selectKey>
+		INSERT INTO
+			payhistory(no, imp_uid, merchant_uid, game_id, account_no, buy_no, game_price)
+		VALUES(
+			#{no},#{imp_uid}, #{merchant_uid}, #{game_id}, #{account_no}, #{buy_no}, #{game_price}
+		)	
+	</insert>
+	
+		<!-- 환불 체크용 데이터뽑기(개별 가격과 결제ID) -->
+	<select id="refundGame" resultType="pVO" parameterType="pVO">
+		SELECT IMP_UID, game_price, no, isrefund, buy_no, account_no
+		FROM payhistory
+		WHERE account_no = (
+		        SELECT no
+		        FROM account
+		        WHERE id = #{id}
+		    )
+		    AND game_id = #{game_id}
+	</select>
+<!-- 		    AND paydate = (
+		        SELECT  DISTINCT paydate
+		        FROM    payhistory
+		        WHERE   paydate+14 >= sysdate
+		    ) -->
+	
+		<!-- 환불완료 -->
+	<update id="refundSuccess" parameterType="pVO">
+		UPDATE payhistory
+		SET isrefund = 'Y'
+		WHERE no = #{no}
+	</update>
+	
+</mapper>

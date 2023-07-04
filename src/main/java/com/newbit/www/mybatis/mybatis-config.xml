@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+			"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="false" />
+		<setting name="useGeneratedKeys" value="true" />
+		<setting name="defaultExecutorType" value="REUSE" />
+	</settings>
+	
+	<typeAliases>
+		<typeAlias alias="aVO" 		type="com.newbit.www.vo.AccountVO" />
+		<typeAlias alias="nVO" 		type="com.newbit.www.vo.NoticeVO" />
+		<typeAlias alias="storeVO" 	type="com.newbit.www.vo.StoreVO" />
+		<typeAlias alias="pVO" 		type="com.newbit.www.vo.PaymentVO" />
+		<typeAlias alias="page" 	type="com.newbit.www.util.PageUtil" />
+		<typeAlias alias="rVO" 		type="com.newbit.www.vo.ReviewVO" />
+		<typeAlias alias="uVO" 		type="com.newbit.www.vo.UploadVO" />
+		<typeAlias alias="inVO" 	type="com.newbit.www.vo.InfoVO" />
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="com/newbit/www/sql/AccountSQL.xml" />
+		<mapper resource="com/newbit/www/sql/PaymentSQL.xml" />
+		<mapper resource="com/newbit/www/sql/DelSQL.xml" />
+		<mapper resource="com/newbit/www/sql/ReviewSQL.xml" />
+		<mapper resource="com/newbit/www/sql/Upload.xml" />
+		<mapper resource="com/newbit/www/sql/StoreSQL.xml" />
+		<mapper resource="com/newbit/www/sql/ProfileSQL.xml" />
+		<mapper resource="com/newbit/www/sql/InfoSQL.xml" />
+	</mappers>
+</configuration>

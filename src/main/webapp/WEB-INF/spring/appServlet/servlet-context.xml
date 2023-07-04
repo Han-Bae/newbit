@@ -28,6 +28,7 @@
 	<resources mapping="/css/**" location="/resources/css/" />
 	<resources mapping="/js/**" location="/resources/js/" />
 	<resources mapping="/img/**" location="/resources/img/" />
+	<resources mapping="/fonts/**" location="/resources/fonts/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -35,8 +36,21 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- 파일 업로드를 위한 뷰 서블릿 설정 -->
+	<beans:bean id="multipartResolver"
+				class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="50000000" />
+		<beans:property name="maxInMemorySize" value="50000000" />
+		<beans:property name="defaultEncoding" value="UTF-8" />
+	</beans:bean>
+	
 	<!-- bean 설정파일 읽어오기 -->
 	<beans:import resource="bean-context.xml" />
+	<beans:import resource="interceptor-context.xml" />
+	
+	
+	<!-- quartz 설정파일 -->
+	<beans:import resource="scheduler-context.xml" />
 	
 	<context:component-scan base-package="com.newbit.www" />
 	

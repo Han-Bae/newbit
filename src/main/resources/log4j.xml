@@ -10,47 +10,52 @@
 		</layout>
 	</appender>
 	
-	<!-- 2. file appender -->
-	<appender name="file" class="org.apache.log4j.FileAppender">
-		<param name="File" value="${catalina.base}/src/main/resources/log/log.log" />
-		<param name="Append" value="true" />
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%-5p [ %d ]: %c - %m%n" />
-		</layout>
-	</appender>
 	
-	<!-- Member Appender -->
-	<appender name="memberAppender" class="org.apache.log4j.FileAppender">
-		<param name="File" value="${catalina.base}/src/main/resources/log/member.log" />
+	<!-- account Appender -->
+		<!-- 계정 기능 로그 -->
+	<appender name="accountAppender" class="org.apache.log4j.FileAppender">
+		<param name="File" value="${catalina.base}/src/main/resources/log/account.log" />
 		<param name="Append" value="true" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%-5p - %d{yyyy/MM/dd} : %m%n" />
 		</layout>
 	</appender>
-	
-	<!-- 설문조사 로그 어팬더 -->
-	<appender name="surveyLog" class="org.apache.log4j.FileAppender">
-		<param name="File" value="${catalina.base}/src/main/resources/log/survey.log" />
+		<!-- 결제 기능 로그 -->
+	<appender name="paymentAppender" class="org.apache.log4j.FileAppender">
+		<param name="File" value="${catalina.base}/src/main/resources/log/payment.log" />
 		<param name="Append" value="true" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%-5p - %d{yyyy/MM/dd} : %m%n" />
 		</layout>
 	</appender>
+	 
+	 	
+	<!-- 데이터삭제 어펜더 -->
+	<appender name="delAppender" class="org.apache.log4j.FileAppender">
+		<param name="File" value="${catalina.base}/src/main/resources/log/del.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p - %d{yyyy/MM/dd HH:mm:ss} : %m%n" />
+		</layout>
+	</appender>
+	
 	
 	<!-- Application Loggers -->
-	<logger name="com.githrd.www">
+	<logger name="com.newbit.www">
 		<level value="info" />
-		<appender-ref ref="file" /> <!-- 3. -->
+		<appender-ref ref="file" />
 	</logger>
-	
-	<logger name="surveyLog">
+	<logger name="accountLog">
 		<level value="info" />
-		<appender-ref ref="surveyLog" /> <!-- 3. -->
+		<appender-ref ref="accountAppender" />
 	</logger>
-	
-	<logger name="memberLog">
+	<logger name="paymentLog">
 		<level value="info" />
-		<appender-ref ref="memberAppender" /> <!-- 3. -->
+		<appender-ref ref="paymentAppender" />
+	</logger>
+	<logger name="delLog">
+		<level value="info" />
+		<appender-ref ref="delAppender" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->

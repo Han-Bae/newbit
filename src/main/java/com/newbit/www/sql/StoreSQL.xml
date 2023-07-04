@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+
+ * 
+ * 	@author 전다빈
+ * 	@version v.1.0
+ * 
+ * 			담당자 : 전다빈
+ * 			
+
+
+ -->
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="storeSQL">
+	<select id="getPickCount" resultType="int" parameterType="storeVO">
+		SELECT
+		    COUNT(*)
+		FROM
+		    pick p, account
+		WHERE
+		    account_no = no
+		    AND id = #{sessionId}
+		    AND game_id = #{appId}
+		    AND p.isshow = 'Y'
+	</select>
+	
+	<select id="getBasketCount" resultType="int" parameterType="storeVO">
+		SELECT
+		    COUNT(*)
+		FROM
+		    basket b, account
+		WHERE
+		    account_no = no
+		    AND id = #{sessionId}
+		    AND game_id = #{appId}
+		    AND b.isshow = 'Y'
+	</select>
+	
+	<select id="getAccountTag" resultType="string" parameterType="string">
+		SELECT
+		    name
+		FROM
+		    tag t, account
+		WHERE
+		    t.no = tag_no
+		    AND id = #{id}
+	</select>
+</mapper>

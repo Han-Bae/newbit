@@ -1,0 +1,102 @@
+
+/**
+ * 
+ * 	@author 전다빈
+ * 	@version v.1.0
+ * 
+ * 			담당자 : 전다빈
+ * 			
+ */
+
+.store-search-main {
+	padding: 0px 300px 50px;
+}
+.store-search--games {
+	border: 1px solid #ba54f5;
+	padding: 10px;
+}
+.store-search--games .games {
+	display: flex;
+	flex-direction: column;
+}
+.store-search--games .card.game {
+	height: 70px;
+	padding: 5px;
+	display: flex;
+	margin: 0 0 10px 0;
+	flex-direction: row;
+	align-items: center;
+	cursor: pointer;
+}
+.store-search--games .card.game:hover {
+	background: none;
+}
+.store-search--games .card img {
+	height: 60px;
+	width: 140px;
+	margin-right: 10px;
+}
+.store-search--games .card.game > div {
+	display: flex;
+	flex-direction: row;
+}
+.store-search--games .game-title-info {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 560px;
+}
+.store-search--games .game-title-info h4 {
+	width: 400px;
+	margin: 0;
+}
+.store-search--games .game-title-info .released-reviewsummary {
+	width: 160px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-right: 10px;
+}
+.store-search--games .game-title-info .released-reviewsummary i {
+	color: white;
+	height: 20px;
+	width: 20px;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2px;
+}
+.store-search--games .game-title-info .positive {
+	background: #17a2b8;
+}
+.store-search--games .game-title-info .mixed {
+	background: #ffc107;
+}
+.store-search--games .game-title-info .negative {
+	background: #fd5d93;
+}
+.store-search--games .gamePrice {
+	display: flex;
+	justify-content: end;
+	align-items: center;
+    width: 170px;
+}
+.store-search--games .gamePrice .howSale {
+	font-size: 20px;
+	color: white;
+	background: #28a745;
+	border-radius: 2px;
+}
+.store-search--games .gamePrice > div {
+	display: flex;
+	flex-direction: column;
+	align-items: end;
+	width: 105px;
+}
+.store-search--games .gamePrice .originalPrice {
+	font-size: 12px;
+}
+.store-search--games .gamePrice .nowPrice {
+	font-size: 17px;
+	color: white;
+}
