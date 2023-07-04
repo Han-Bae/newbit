@@ -26,6 +26,7 @@ CREATE TABLE email(
 
 drop table account;
 	-- 사용자 테이블
+  
 CREATE TABLE account(
     no NUMBER(4)
         CONSTRAINT ACCOUNT_NO_PK PRIMARY KEY,
@@ -109,12 +110,13 @@ CREATE TABLE follower(
 
 -- 태그(장르) 관련 테이블 생성
 CREATE TABLE tag(
-    no NUMBER(4)
-	CONSTRAINT TAG_NO_PK PRIMARY KEY,
-    name VARCHAR2(10 CHAR)
-	CONSTRAINT TAG_NAME_UK UNIQUE
-	CONSTRAINT TAG_NAME_NN NOT NULL
+   no NUMBER(4)
+	     CONSTRAINT TAG_NO_PK PRIMARY KEY,
+   name VARCHAR2(10 CHAR)
+	     CONSTRAINT TAG_NAME_UK UNIQUE
+       CONSTRAINT TAG_NAME_NN NOT NULL
 );
+
 	-- 이용자 선호장르 테이블
 CREATE TABLE account_tag(
    account_no NUMBER(4)
@@ -124,11 +126,12 @@ CREATE TABLE account_tag(
         CONSTRAINT UTAG_TAGNUM_FK REFERENCES tag(no)
         CONSTRAINT UTAG_TAGNUM_NN NOT NULL 
 );
+
 	-- 독점게임 장르 테이블
 CREATE TABLE newbit_tag(
    newbit_no VARCHAR2(15 CHAR)
-	CONSTRAINT NBTAG_NBNUM_FK REFERENCES newbit_game(id)
-	CONSTRAINT NBTAG_NBNUM_NN NOT NULL,
+	      CONSTRAINT NBTAG_NBNUM_FK REFERENCES newbit_game(id)
+	      CONSTRAINT NBTAG_NBNUM_NN NOT NULL,
    tag_no NUMBER(4)
         CONSTRAINT NBTAG_TAGNUM_FK REFERENCES tag(no)
         CONSTRAINT NBTAG_TAGNUM_NN NOT NULL
@@ -210,6 +213,7 @@ CREATE TABLE account_challenge(
         CONSTRAINT ACCOUNTC_CLEAR_CK CHECK(isclear IN('Y','N'))
         CONSTRAINT ACCOUNTC_CLEAR_NN NOT NULL
 );
+
 	-- 할인 테마 테이블
 CREATE TABLE theme(
    no NUMBER(4)
@@ -277,6 +281,7 @@ CREATE TABLE report(
 	CONSTRAINT REPORT_CHECK_CK CHECK(ischeck IN('Y','N'))
 	CONSTRAINT REPORT_CHECK_NN NOT NULL
 );
+
 	-- 사유가 기타일때 사용되는 테이블
 CREATE TABLE etc(
    report_no NUMBER(4)
@@ -298,7 +303,7 @@ CREATE TABLE review(
    account_no NUMBER(4)
     	CONSTRAINT REVIEW_ACCOUNTNUM_FK REFERENCES account(no)
         CONSTRAINT REVIEW_ACCOUNTNUM_NN NOT NULL,
-    game_id VARCHAR2(15 CHAR), --API확인
+    game_id VARCHAR2(15 CHAR), --API
     body VARCHAR2(4000)
         CONSTRAINT REVIEW_BODY_NN NOT NULL,
     registdate DATE DEFAULT sysdate
@@ -345,6 +350,7 @@ CREATE TABLE screenshot(
         CONSTRAINT SCREEN_SHOW_CK CHECK(isshow IN('Y','N'))
         CONSTRAINT SCREEN_SHOW_NN NOT NULL
 );
+
 	-- 스크린샷 테이블 좋아요 싫어요 수
 CREATE TABLE screenshot_gb(
    ss_no NUMBER(4)
@@ -355,6 +361,7 @@ CREATE TABLE screenshot_gb(
    bad NUMBER(4) DEFAULT 0
 	CONSTRAINT SSGB_BAD_NN NOT NULL
 );
+
 	-- 스크린샷 테이블 스크린샷 정보
 CREATE TABLE screenshot_img(
    ss_no NUMBER(4)
@@ -364,6 +371,7 @@ CREATE TABLE screenshot_img(
 	CONSTRAINT SSIMG_SAVENAME_UK UNIQUE
 	CONSTRAINT SSIMG_SAVENAME_NN NOT NULL
 );
+
 	-- 스크린샷 테이블 댓글 정보
 CREATE TABLE screenshot_reply(
    no NUMBER(4)
@@ -383,7 +391,7 @@ CREATE TABLE screenshot_reply(
 	CONSTRAINT SSRE_SHOW_NN NOT NULL
 );
 
--- 결제 내역 저장 테이블
+-- 寃곗 댁 � 대
 CREATE TABLE payhistory(
     no NUMBER(5)
         CONSTRAINT PAY_NO_PK PRIMARY KEY,
@@ -395,10 +403,10 @@ CREATE TABLE payhistory(
 		CONSTRAINT PAY_GAMEID_NN NOT NULL,
     game_price NUMBER(10)
         CONSTRAINT PAY_PRICE_NN NOT NULL,
-   account_no NUMBER(4) -- 게임 가진 사람
+   account_no NUMBER(4) -- 寃 媛吏 щ
         CONSTRAINT PAY_ACCOUNTNUM_FK REFERENCES account(no)
         CONSTRAINT PAY_ACCOUNTNUM_NN NOT NULL,
-    buy_no NUMBER(4)    -- 구매자
+    buy_no NUMBER(4)    -- 援щℓ
         CONSTRAINT PAY_BUYER_FK REFERENCES account(no),
     paydate DATE DEFAULT sysdate
         CONSTRAINT PAY_DATE_NN NOT NULL,
@@ -408,40 +416,40 @@ CREATE TABLE payhistory(
 );
 commit;
 
--- tag 데이터 추가
+-- tag 곗댄 異媛
 INSERT INTO tag
 VALUES(
     (SELECT NVL(MAX(no) + 1000, 1000) FROM tag),
-    '액션'
+    '≪'
 );
 INSERT INTO tag
 VALUES(
     (SELECT NVL(MAX(no) + 1000, 1000) FROM tag),
-    '롤플레잉'
+    '濡ㅽ�'
 );
 INSERT INTO tag
 VALUES(
     (SELECT NVL(MAX(no) + 1000, 1000) FROM tag),
-    '전략'
+    '�'
 );
 INSERT INTO tag
 VALUES(
     (SELECT NVL(MAX(no) + 1000, 1000) FROM tag),
-    '어드벤처'
+    '대踰ㅼ'
 );
 INSERT INTO tag
 VALUES(
     (SELECT NVL(MAX(no) + 1000, 1000) FROM tag),
-    '시뮬레이션'
+    '裕щ댁'
 );
 INSERT INTO tag
 VALUES(
     (SELECT NVL(MAX(no) + 1000, 1000) FROM tag),
-    '모든 스포츠'
+    '紐⑤ ㅽъ�'
 );
 COMMIT;
 
--- 알림 저장 테이블
+-- 由 � 대
 CREATE TABLE notice(
     no NUMBER(4)
         CONSTRAINT NOTICE_PK PRIMARY KEY,
@@ -457,19 +465,19 @@ CREATE TABLE notice(
         CONSTRAINT NOTICE_SHOW_NN NOT NULL
 );
 
--- library 테이블에 fullgame_id 추가
+-- library 대 fullgame_id 異媛
 ALTER TABLE library
 ADD 
     fullgame_id VARCHAR2(15 CHAR)
 ;
 
--- ACCOUNT 테이블에 선호태그 추가
+-- ACCOUNT 대 명洹 異媛
 ALTER TABLE account
 ADD tag_no NUMBER(4);
 ALTER TABLE account
 ADD CONSTRAINT ACCOUNT_TAG_NO FOREIGN KEY(tag_no) REFERENCES tag(no);
 
--- basket 테이블 game_id NOT NULL 제약 추가
+-- basket 대 game_id NOT NULL � 異媛
 
 ALTER TABLE basket
 MODIFY game_id
